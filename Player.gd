@@ -61,7 +61,7 @@ func roll(dir):
 	start = pivot.basis
 	goal = pivot.basis.rotated(axis, PI/2)
 	if is_on_edge:
-		goal = pivot.basis.rotated(-axis, PI)
+		goal = pivot.basis.rotated(-axis, PI * 1.04)
 
 func reset():
 	t = 0.0

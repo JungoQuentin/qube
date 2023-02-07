@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://blp24pcbxgnmd"]
+[gd_scene load_steps=10 format=3 uid="uid://blp24pcbxgnmd"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_88uxj"]
 [ext_resource type="PackedScene" uid="uid://nwmm1eijfbgu" path="res://cube_level_1.tscn" id="2_8t0c8"]
@@ -17,9 +17,8 @@ ambient_light_source = 1
 albedo_color = Color(0.0823529, 0.752941, 0.960784, 1)
 metallic_specular = 0.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_e1oic"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_spot8"]
+size = Vector3(0.95, 0.95, 0.95)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_88uxj")
@@ -29,9 +28,9 @@ environment = SubResource("Environment_s62o5")
 camera_attributes = SubResource("CameraAttributesPractical_lv82s")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 0)
 current = true
-fov = 50.0
+fov = 35.0
 size = 5.0
 
 [node name="Camera3D_debug" type="Camera3D" parent="."]
@@ -76,7 +75,7 @@ light_energy = 2.0
 script = ExtResource("2_65odl")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("3_iahda")
 
 [node name="RayCast3D" type="RayCast3D" parent="Player"]
@@ -85,33 +84,18 @@ debug_shape_thickness = 5
 
 [node name="Pivot" type="Node3D" parent="Player"]
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="Player/Pivot"]
-transform = Transform3D(1, 2.98023e-08, 2.98023e-08, -2.98023e-08, 1, 1.77635e-15, -2.98023e-08, -2.66453e-15, 1, 0, 0.5, 0)
-visible = false
-light_color = Color(0.239216, 0.647059, 0.823529, 1)
-light_energy = 0.5
-light_volumetric_fog_energy = 1.103
-light_size = 0.455
-light_specular = 0.624
-omni_attenuation = 0.574349
-omni_shadow_mode = 0
-
 [node name="Mesh" type="CSGBox3D" parent="Player/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 size = Vector3(0.95, 0.95, 0.95)
 material = SubResource("StandardMaterial3D_jq7pm")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Pivot"]
-visible = false
-mesh = SubResource("BoxMesh_e1oic")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-visible = false
 shape = SubResource("BoxShape3D_spot8")
 
 [node name="faceN" type="Node3D" parent="Player"]
 transform = Transform3D(0.321, 0, 0, 0, 0.321, 0, 0, 0, 0.321, 0, 0.5, 0)
+visible = false
 
 [node name="1" type="Label3D" parent="Player/faceN"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.54431)

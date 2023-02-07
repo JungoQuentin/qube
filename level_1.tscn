@@ -1,0 +1,114 @@
+[gd_scene load_steps=11 format=3 uid="uid://blp24pcbxgnmd"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_88uxj"]
+[ext_resource type="PackedScene" uid="uid://nwmm1eijfbgu" path="res://cube_level_1.tscn" id="2_8t0c8"]
+[ext_resource type="Script" path="res://OmniLight3D3.gd" id="2_65odl"]
+[ext_resource type="Script" path="res://Player.gd" id="3_iahda"]
+[ext_resource type="Script" path="res://Cube.gd" id="3_sq1r6"]
+
+[sub_resource type="Environment" id="Environment_s62o5"]
+background_mode = 1
+background_color = Color(0.847059, 0.847059, 0.847059, 1)
+ambient_light_source = 1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lv82s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jq7pm"]
+albedo_color = Color(0.0823529, 0.752941, 0.960784, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_e1oic"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spot8"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_88uxj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s62o5")
+camera_attributes = SubResource("CameraAttributesPractical_lv82s")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+current = true
+fov = 50.0
+size = 5.0
+
+[node name="Camera3D_debug" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.365397, 0.930852, 0, -0.930852, 0.365397, 0, 8.22587, 4.13391)
+current = true
+size = 5.0
+
+[node name="lights" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lights"]
+transform = Transform3D(0.965926, -1.13133e-08, 0.258819, -0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, 2.71989, 9.82557, -0.828895)
+light_color = Color(0.831373, 0.537255, 0.823529, 1)
+light_energy = 0.15
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.509
+directional_shadow_max_distance = 10.0
+directional_shadow_pancake_size = 11.7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.52623, 4.66584, 1.11731)
+light_color = Color(0.517647, 0.803922, 1, 1)
+light_energy = 1.3
+omni_range = 6.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71989, 3.88308, 2.00784)
+light_color = Color(0.780392, 0.717647, 1, 1)
+light_energy = 1.3
+omni_range = 5.70428
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, 0, 4.65535, 0)
+light_color = Color(0.901961, 0.847059, 0, 1)
+spot_angle = 28.84
+spot_angle_attenuation = 1.41421
+
+[node name="InnerLight" type="OmniLight3D" parent="lights"]
+light_color = Color(0.780392, 0.717647, 1, 1)
+light_energy = 2.0
+script = ExtResource("2_65odl")
+
+[node name="Cube" parent="." instance=ExtResource("2_8t0c8")]
+script = ExtResource("3_sq1r6")
+
+[node name="Player" type="CharacterBody3D" parent="Cube"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+script = ExtResource("3_iahda")
+
+[node name="RayCast3D" type="RayCast3D" parent="Cube/Player"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+debug_shape_thickness = 5
+
+[node name="Pivot" type="Node3D" parent="Cube/Player"]
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Cube/Player/Pivot"]
+transform = Transform3D(1, 2.98023e-08, 2.98023e-08, -2.98023e-08, 1, 1.77635e-15, -2.98023e-08, -2.66453e-15, 1, 0, 0.5, 0)
+visible = false
+light_color = Color(0.239216, 0.647059, 0.823529, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 1.103
+light_size = 0.455
+light_specular = 0.624
+omni_attenuation = 0.574349
+omni_shadow_mode = 0
+
+[node name="Mesh" type="CSGBox3D" parent="Cube/Player/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_jq7pm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube/Player/Pivot"]
+visible = false
+mesh = SubResource("BoxMesh_e1oic")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+shape = SubResource("BoxShape3D_spot8")

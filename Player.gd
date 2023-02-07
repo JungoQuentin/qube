@@ -1,15 +1,14 @@
 extends CharacterBody3D
 
+@export var speed = 5.
 @onready var pivot = $Pivot
-@onready var raycast: RayCast3D = $RayCast3D
 @onready var mesh = $Pivot/Mesh
+@onready var raycast: RayCast3D = $RayCast3D
 var rolling = false
 var start
 var goal
 var t = 0.0
-var speed = 5.
 var is_on_edge = false
-var axis
 
 func _ready():
 	Global.player = self
@@ -27,13 +26,11 @@ func _input(_event):
 
 func _physics_process(delta):
 	if rolling:
-		t += delta * (speed / 2.0 if is_on_edge else speed)
+		t += delta * (speed / 2 if is_on_edge else speed)
 		pivot.basis = start.slerp(goal, t) 
-		if t > 1:
-			rolling = false
-			if not is_on_edge:
-				reset()
-				self.transform.origin += Global.direction
+	if t > 1:
+		rolling = false
+		if not is_on_edge: reset(Global.direction)
 
 
 func roll(dir):
@@ -57,13 +54,14 @@ func roll(dir):
 	mesh.transform.origin -= dir /2
 
 	# Step 2: Animate the rotation.
-	axis = dir.cross(Vector3.DOWN)
+	var axis = dir.cross(Vector3.DOWN)
 	start = pivot.basis
 	goal = pivot.basis.rotated(axis, PI/2)
 	if is_on_edge:
 		goal = pivot.basis.rotated(-axis, PI * 1.04)
 
-func reset():
+func reset(direction):
 	t = 0.0
 	mesh.transform.origin = Vector3(0, 0.5, 0)
 	pivot.transform = Transform3D.IDENTITY
+	self.transform.origin += direction

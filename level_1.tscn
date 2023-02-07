@@ -35,8 +35,8 @@ fov = 50.0
 size = 5.0
 
 [node name="Camera3D_debug" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.365397, 0.930852, 0, -0.930852, 0.365397, 0, 8.22587, 4.13391)
-current = true
+transform = Transform3D(0.843717, -0.456289, 0.282739, 0.0264778, 0.561459, 0.827081, -0.536134, -0.690336, 0.485795, 2.649, 7.569, 4.202)
+fov = 38.3
 size = 5.0
 
 [node name="lights" type="Node3D" parent="."]
@@ -75,20 +75,17 @@ light_color = Color(0.780392, 0.717647, 1, 1)
 light_energy = 2.0
 script = ExtResource("2_65odl")
 
-[node name="Cube" parent="." instance=ExtResource("2_8t0c8")]
-script = ExtResource("3_sq1r6")
-
-[node name="Player" type="CharacterBody3D" parent="Cube"]
+[node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
 script = ExtResource("3_iahda")
 
-[node name="RayCast3D" type="RayCast3D" parent="Cube/Player"]
+[node name="RayCast3D" type="RayCast3D" parent="Player"]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 debug_shape_thickness = 5
 
-[node name="Pivot" type="Node3D" parent="Cube/Player"]
+[node name="Pivot" type="Node3D" parent="Player"]
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="Cube/Player/Pivot"]
+[node name="OmniLight3D3" type="OmniLight3D" parent="Player/Pivot"]
 transform = Transform3D(1, 2.98023e-08, 2.98023e-08, -2.98023e-08, 1, 1.77635e-15, -2.98023e-08, -2.66453e-15, 1, 0, 0.5, 0)
 visible = false
 light_color = Color(0.239216, 0.647059, 0.823529, 1)
@@ -99,16 +96,49 @@ light_specular = 0.624
 omni_attenuation = 0.574349
 omni_shadow_mode = 0
 
-[node name="Mesh" type="CSGBox3D" parent="Cube/Player/Pivot"]
+[node name="Mesh" type="CSGBox3D" parent="Player/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 size = Vector3(0.95, 0.95, 0.95)
 material = SubResource("StandardMaterial3D_jq7pm")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube/Player/Pivot"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Pivot"]
 visible = false
 mesh = SubResource("BoxMesh_e1oic")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/Player"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 visible = false
 shape = SubResource("BoxShape3D_spot8")
+
+[node name="faceN" type="Node3D" parent="Player"]
+transform = Transform3D(0.321, 0, 0, 0, 0.321, 0, 0, 0, 0.321, 0, 0.5, 0)
+
+[node name="1" type="Label3D" parent="Player/faceN"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.54431)
+text = "1"
+
+[node name="2" type="Label3D" parent="Player/faceN"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.71484, -0.0924835)
+text = "2
+"
+
+[node name="3" type="Label3D" parent="Player/faceN"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1.5766)
+text = "3
+"
+
+[node name="4" type="Label3D" parent="Player/faceN"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1.53265, -0.115356)
+text = "4
+"
+
+[node name="5" type="Label3D" parent="Player/faceN"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5105, 0, 0.0549622)
+text = "5"
+
+[node name="6" type="Label3D" parent="Player/faceN"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.55055, 0, 0.0327072)
+text = "6"
+
+[node name="Cube" parent="." instance=ExtResource("2_8t0c8")]
+script = ExtResource("3_sq1r6")

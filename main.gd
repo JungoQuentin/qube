@@ -1,6 +1,7 @@
 extends Node3D
 
 func _ready():
+	Global.main = self
 	_start_animation()
 
 func _start_animation():

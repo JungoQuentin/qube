@@ -165,29 +165,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 1)
 size = Vector3(0.95, 0.95, 0.95)
 material = SubResource("StandardMaterial3D_xx6bl")
 
-[node name="1" type="Label3D" parent="."]
+[node name="faceN" type="Node3D" parent="."]
+
+[node name="1" type="Label3D" parent="faceN"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.54431)
 text = "1"
 
-[node name="2" type="Label3D" parent="."]
+[node name="2" type="Label3D" parent="faceN"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.71484, -0.0924835)
 text = "2
 "
 
-[node name="3" type="Label3D" parent="."]
+[node name="3" type="Label3D" parent="faceN"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1.5766)
 text = "3
 "
 
-[node name="4" type="Label3D" parent="."]
+[node name="4" type="Label3D" parent="faceN"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1.53265, -0.115356)
 text = "4
 "
 
-[node name="5" type="Label3D" parent="."]
+[node name="5" type="Label3D" parent="faceN"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5105, 0, 0.0549622)
 text = "5"
 
-[node name="6" type="Label3D" parent="."]
+[node name="6" type="Label3D" parent="faceN"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.55055, 0, 0.0327072)
 text = "6"

@@ -12,7 +12,7 @@ var rotator_goal
 var grid_map: GridMap
 
 func _ready():
-	Global.cube = self
+	Global.map_cube = self
 	grid_map = $GridMap
 
 # TODO remplacer cela par un Tween ! (pour l'instant ca ne marche pas avec Basis)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddgd6isqiqvje"]
+
+[ext_resource type="Script" path="res://src/MapCube/cubeTypes/startCube.gd" id="1_0mijc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rgxo"]
+albedo_color = Color(0.917647, 0.819608, 0.831373, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_psbol"]
+material = SubResource("StandardMaterial3D_8rgxo")
+size = Vector3(0.95, 0.95, 0.95)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_612fi"]
+
+[node name="BlockingCube" type="StaticBody3D"]
+script = ExtResource("1_0mijc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_psbol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_612fi")

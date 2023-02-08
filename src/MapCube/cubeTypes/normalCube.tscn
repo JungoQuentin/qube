@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cjkqskobx7sq8"]
 
-[ext_resource type="Script" path="res://src/LCube/LCube.gd" id="1_7pqw8"]
+[ext_resource type="Script" path="res://src/MapCube/cubeTypes/normalCube.gd" id="1_bd8ka"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o8uah"]
 
@@ -10,8 +10,8 @@ size = Vector3(0.95, 0.95, 0.95)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4rv0l"]
 
-[node name="LCube" type="StaticBody3D"]
-script = ExtResource("1_7pqw8")
+[node name="NormalCube" type="StaticBody3D"]
+script = ExtResource("1_bd8ka")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_rsr05")

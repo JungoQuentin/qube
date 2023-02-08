@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cekehk0ccqcop"]
+
+[ext_resource type="Script" path="res://src/MapCube/cubeTypes/blockingCube.gd" id="1_kuial"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dvtc8"]
+albedo_color = Color(1, 0.360784, 0.34902, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7pygv"]
+material = SubResource("StandardMaterial3D_dvtc8")
+size = Vector3(0.95, 0.95, 0.95)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xupsb"]
+
+[node name="BlockingCube" type="StaticBody3D"]
+script = ExtResource("1_kuial")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_7pygv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xupsb")

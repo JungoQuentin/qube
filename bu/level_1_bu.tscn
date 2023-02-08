@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://b45vm8fyq7cda"]
+[gd_scene load_steps=14 format=3]
 
-[ext_resource type="Script" path="res://main.gd" id="1_o7q15"]
-[ext_resource type="Script" path="res://Player.gd" id="3_t1gia"]
-[ext_resource type="Script" path="res://Cube.gd" id="5_m1e8c"]
+[ext_resource type="Script" path="res://src/main.gd" id="1_o7q15"]
+[ext_resource type="Script" path="res://src/player/Player.gd" id="3_t1gia"]
+[ext_resource type="Script" path="res://src/MapCube/MapCube.gd" id="5_m1e8c"]
 
 [sub_resource type="Environment" id="Environment_s62o5"]
 background_mode = 1

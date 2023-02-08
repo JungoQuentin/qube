@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvlergt0x8q3"]
-
-[ext_resource type="Script" path="res://GM_to_Blocks.gd" id="1_ifr7t"]
-
-[node name="GridMap" type="GridMap"]
-script = ExtResource("1_ifr7t")

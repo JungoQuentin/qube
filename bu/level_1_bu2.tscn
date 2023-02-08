@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://blp24pcbxgnmd"]
+[gd_scene load_steps=18 format=3]
 
-[ext_resource type="Script" path="res://main.gd" id="1_88uxj"]
-[ext_resource type="Script" path="res://InnerLight.gd" id="2_01ku7"]
-[ext_resource type="Script" path="res://Player.gd" id="3_iahda"]
-[ext_resource type="Script" path="res://Cube.gd" id="3_sq1r6"]
-[ext_resource type="PackedScene" uid="uid://dlqmm1rbrr8q4" path="res://LCube.tscn" id="6_7wpj8"]
+[ext_resource type="Script" path="res://src/main.gd" id="1_5pq3o"]
+[ext_resource type="Script" path="res://src/InnerLight.gd" id="2_ox131"]
+[ext_resource type="Script" path="res://src/player/Player.gd" id="3_fh2x5"]
+[ext_resource type="Script" path="res://src/MapCube/MapCube.gd" id="4_reh8d"]
+[ext_resource type="MeshLibrary" uid="uid://bqjrqbm2idc5b" path="res://src/LvlDesigner/new_mesh_library.tres" id="5_oxdth"]
 
 [sub_resource type="Environment" id="Environment_s62o5"]
 background_mode = 1
@@ -24,8 +24,17 @@ size = Vector3(0.95, 0.95, 0.95)
 [sub_resource type="BoxShape3D" id="BoxShape3D_spot8"]
 size = Vector3(0.95, 0.95, 0.95)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u4ax0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_01q20"]
+size = Vector3(3, 3, 3)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_pi7bp"]
-size = Vector3(3, 2.873, 3)
+size = Vector3(4, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tgxlb"]
+albedo_color = Color(0.117647, 0, 0.423529, 1)
+metallic_specular = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sht0"]
 albedo_color = Color(1, 0.392157, 0.92549, 1)
@@ -39,7 +48,7 @@ metallic_specular = 0.0
 metallic_specular = 0.0
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_88uxj")
+script = ExtResource("1_5pq3o")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s62o5")
@@ -90,11 +99,11 @@ spot_angle_attenuation = 1.41421
 [node name="InnerLight" type="OmniLight3D" parent="lights"]
 light_color = Color(0.619608, 0.776471, 1, 1)
 light_energy = 2.0
-script = ExtResource("2_01ku7")
+script = ExtResource("2_ox131")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-script = ExtResource("3_iahda")
+script = ExtResource("3_fh2x5")
 
 [node name="RayCast3D" type="RayCast3D" parent="Player"]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -110,17 +119,41 @@ mesh = SubResource("BoxMesh_h7g1t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_spot8")
 
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+visible = false
+script = ExtResource("4_reh8d")
+
+[node name="GridMap" type="GridMap" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
+mesh_library = ExtResource("5_oxdth")
+physics_material = SubResource("PhysicsMaterial_u4ax0")
+cell_size = Vector3(1, 1, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+cell_scale = 0.912
+data = {
+"cells": PackedInt32Array(65535, 65535, 0, 0, 65535, 0, 0, 0, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 0, -65536, 65535, 0, -1, 65534, 0, -65536, 65534, 0, -2, 0, 0, -2, 65535, 0, -2, 65534, 0, 65534, 0, 0, 65534, 65535, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65534, 0, -131072, 65534, 0, -65537, 65534, 0, -65538, 65534, 0, -131072, 65535, 0, -65537, 65535, 0, -65538, 65535, 0, -131072, 0, 0, -65537, 0, 0, -65538, 0, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_01q20")
+
 [node name="Cube" type="CharacterBody3D" parent="."]
-script = ExtResource("3_sq1r6")
+script = ExtResource("4_reh8d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48718, 0, 0)
 shape = SubResource("BoxShape3D_pi7bp")
-disabled = true
+
+[node name="Filler" type="CSGBox3D" parent="Cube"]
+transform = Transform3D(0.862, 0, 0, 0, 0.862, 0, 0, 0, 0.862, 0, 0, 0)
+visible = false
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_tgxlb")
 
 [node name="little_cubes" type="Node3D" parent="Cube"]
-
-[node name="StaticBody3D" parent="Cube/little_cubes" instance=ExtResource("6_7wpj8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
 
 [node name="Start" type="CSGBox3D" parent="Cube/little_cubes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -191,6 +224,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
 size = Vector3(0.95, 0.95, 0.95)
 material = SubResource("StandardMaterial3D_gmc6l")
 
+[node name="CSGBox3D14" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
 [node name="CSGBox3D15" type="CSGBox3D" parent="Cube/little_cubes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
 size = Vector3(0.95, 0.95, 0.95)
@@ -248,6 +286,51 @@ material = SubResource("StandardMaterial3D_gmc6l")
 
 [node name="CSGBox3D27" type="CSGBox3D" parent="Cube/little_cubes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="Goal2" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_7cdn1")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 0)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D33" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D34" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 1)
+size = Vector3(0.95, 0.95, 0.95)
+material = SubResource("StandardMaterial3D_gmc6l")
+
+[node name="CSGBox3D35" type="CSGBox3D" parent="Cube/little_cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 1)
 size = Vector3(0.95, 0.95, 0.95)
 material = SubResource("StandardMaterial3D_gmc6l")
 

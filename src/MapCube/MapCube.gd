@@ -1,6 +1,7 @@
-extends CharacterBody3D
+extends Node3D
 
 @export var speed = 1.5
+@onready var main = get_tree().get_current_scene()
 var is_rotating = false
 var start
 var goal
@@ -26,13 +27,10 @@ func _physics_process(delta):
 
 func start_cube_rotation(dir):
 	is_rotating = true
-
-	# Step 1: Take player in the rotator node
 	rotator = Node3D.new()
-	Global.main.add_child(rotator)
-	Global.main.remove_child(Global.player)
+	main.add_child(rotator)
+	main.remove_child(Global.player)
 	rotator.add_child(Global.player)
-
 	# Step 2: Animate the rotation.
 	var axis = dir.cross(Vector3.DOWN)
 	start = basis
@@ -43,7 +41,7 @@ func start_cube_rotation(dir):
 func stop_rotation():
 	is_rotating = false
 	t = 0.0
-	Global.player.reset(-2 * Global.direction)
 	rotator.remove_child(Global.player)
-	Global.main.add_child(Global.player)
+	main.add_child(Global.player)
 	rotator.queue_free()
+	Global.player.reset(-2 * Global.direction, true)

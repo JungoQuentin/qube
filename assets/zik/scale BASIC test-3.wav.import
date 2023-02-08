@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bqwl6egkagx3r"
+path="res://.godot/imported/scale BASIC test-3.wav-e08ff233e5083ee0f5a1b2b5777d8dc9.sample"
+
+[deps]
+
+source_file="res://assets/zik/scale BASIC test-3.wav"
+dest_files=["res://.godot/imported/scale BASIC test-3.wav-e08ff233e5083ee0f5a1b2b5777d8dc9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

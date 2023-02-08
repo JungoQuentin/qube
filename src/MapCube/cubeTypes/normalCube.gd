@@ -11,6 +11,10 @@ func _ready():
 	
 func touched():
 	Global.surface_touched_animation_start(mesh_instance, tween, Color.WHITE, TOUCHED_COLOR, _animation_end)
+	# TODO improve ! (lauch the good node instead of all...)
+	var n = randi_range(0, 7)
+	print(n)
+	$Music.get_child(n).play()
 
 func _animation_end():
 	mesh_instance.mesh = mesh

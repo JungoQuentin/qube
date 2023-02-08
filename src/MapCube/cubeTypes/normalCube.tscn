@@ -1,20 +1,54 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjkqskobx7sq8"]
+[gd_scene load_steps=13 format=3 uid="uid://cjkqskobx7sq8"]
 
 [ext_resource type="Script" path="res://src/MapCube/cubeTypes/normalCube.gd" id="1_bd8ka"]
+[ext_resource type="AudioStream" uid="uid://c3cyl0mk5aqi4" path="res://assets/zik/scale BASIC test-1.wav" id="2_2hb55"]
+[ext_resource type="AudioStream" uid="uid://lay7il6cqsje" path="res://assets/zik/scale BASIC test-2.wav" id="3_oyg5t"]
+[ext_resource type="AudioStream" uid="uid://bqwl6egkagx3r" path="res://assets/zik/scale BASIC test-3.wav" id="4_it4hj"]
+[ext_resource type="AudioStream" uid="uid://blvxs0skywv82" path="res://assets/zik/scale BASIC test-4.wav" id="5_gjqp4"]
+[ext_resource type="AudioStream" uid="uid://btoxnlk0xfein" path="res://assets/zik/scale BASIC test-5.wav" id="6_cd08h"]
+[ext_resource type="AudioStream" uid="uid://ccj4wcaywqq7m" path="res://assets/zik/scale BASIC test-6.wav" id="7_rri3v"]
+[ext_resource type="AudioStream" uid="uid://bocpsv53h742f" path="res://assets/zik/scale BASIC test-7.wav" id="8_wal7b"]
+[ext_resource type="AudioStream" uid="uid://dhfqhktbcsmvi" path="res://assets/zik/scale BASIC test.wav" id="9_ja8ko"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o8uah"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ou8d7"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_rsr05"]
-material = SubResource("StandardMaterial3D_o8uah")
+[sub_resource type="BoxMesh" id="BoxMesh_j64v7"]
+material = SubResource("StandardMaterial3D_ou8d7")
 size = Vector3(0.95, 0.95, 0.95)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4rv0l"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0ayf"]
 
 [node name="NormalCube" type="StaticBody3D"]
 script = ExtResource("1_bd8ka")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_rsr05")
+mesh = SubResource("BoxMesh_j64v7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_4rv0l")
+shape = SubResource("BoxShape3D_v0ayf")
+
+[node name="Music" type="Node" parent="."]
+
+[node name="note" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("2_2hb55")
+
+[node name="note2" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("3_oyg5t")
+
+[node name="note3" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("4_it4hj")
+
+[node name="note4" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("5_gjqp4")
+
+[node name="note5" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("6_cd08h")
+
+[node name="note6" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("7_rri3v")
+
+[node name="note7" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("8_wal7b")
+
+[node name="note8" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("9_ja8ko")

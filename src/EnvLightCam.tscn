@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://o1s4dq437o7o"]
+[gd_scene load_steps=5 format=3 uid="uid://o1s4dq437o7o"]
 
+[ext_resource type="Script" path="res://src/EnvLightCam.gd" id="1_i23r4"]
 [ext_resource type="Script" path="res://src/InnerLight.gd" id="1_o42uo"]
 
 [sub_resource type="Environment" id="Environment_s62o5"]
@@ -10,13 +11,14 @@ ambient_light_source = 1
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lv82s"]
 
 [node name="EnvLightCam" type="Node3D"]
+script = ExtResource("1_i23r4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s62o5")
 camera_attributes = SubResource("CameraAttributesPractical_lv82s")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.904, 0)
 current = true
 fov = 30.0
 size = 5.0
@@ -56,3 +58,28 @@ spot_angle_attenuation = 1.41421
 light_color = Color(0.619608, 0.776471, 1, 1)
 light_energy = 2.0
 script = ExtResource("1_o42uo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3896, 0, 0)
+light_energy = 5.307
+omni_range = 100.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.5802, 0, 0)
+light_energy = 5.307
+omni_range = 100.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 51.9964)
+light_energy = 5.307
+omni_range = 100.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44.6209)
+light_energy = 5.307
+omni_range = 100.0
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -47.3915, 6.8674)
+light_energy = 5.307
+omni_range = 100.0

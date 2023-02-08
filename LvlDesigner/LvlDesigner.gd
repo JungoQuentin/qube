@@ -37,7 +37,7 @@ func _lauch():
 
 func _add_cubes_by_type(parent, type):
 	var cells = $GridMap.get_used_cells_by_item(type)
-	if (type is cubeType.START or type is cubeType.END) and cells.length > 1:
+	if (type == cubeType.START or type == cubeType.END) and cells.size()> 1:
 		print("TROP DE ", cubeType.keys()[type])
 		parent.queue_free() # TODO BUG editor tool ?
 		return

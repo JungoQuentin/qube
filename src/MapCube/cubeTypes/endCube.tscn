@@ -1,18 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr0s7265gpx65"]
+[gd_scene load_steps=7 format=3 uid="uid://dr0s7265gpx65"]
 
 [ext_resource type="Script" path="res://src/MapCube/cubeTypes/endCube.gd" id="1_p5p5t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j13su"]
 albedo_color = Color(0, 0.513726, 0.152941, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_luw7v"]
+[sub_resource type="BoxMesh" id="BoxMesh_bch8p"]
 material = SubResource("StandardMaterial3D_j13su")
+size = Vector3(0.9, 0.1, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjdfs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_luw7v"]
+material = SubResource("StandardMaterial3D_tjdfs")
 size = Vector3(0.95, 0.95, 0.95)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6fyji"]
 
 [node name="BlockingCube" type="StaticBody3D"]
 script = ExtResource("1_p5p5t")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.441491, 0)
+mesh = SubResource("BoxMesh_bch8p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_luw7v")

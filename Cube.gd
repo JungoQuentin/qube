@@ -5,13 +5,14 @@ var is_rotating = false
 var start
 var goal
 var t = 0.0
-
 var rotator: Node3D
 var rotator_start
 var rotator_goal
+var grid_map: GridMap
 
 func _ready():
 	Global.cube = self
+	grid_map = $GridMap
 
 # TODO remplacer cela par un Tween ! (pour l'instant ca ne marche pas avec Basis)
 # Ca permettra de definir une vitesse fixe de transition en temps, pour avoir la meme qu'avec le player !

@@ -20,6 +20,8 @@ var goal
 var t = 0.0
 var is_on_edge = false
 
+var we_are_on_this_cube_now = null
+
 
 func _ready():
 	Global.player = self
@@ -33,6 +35,7 @@ func _set_start_pos():
 		passed += 0.01
 		await get_tree().create_timer(0.01).timeout
 	position = Global.startCube.global_position + Vector3.UP / 2
+	we_are_on_this_cube_now = Global.startCube
 
 
 func _physics_process(delta):
@@ -69,12 +72,14 @@ func reset(direction, _from_cube=false):
 
 	raycast.force_raycast_update()
 	var block = raycast.get_collider()
+	we_are_on_this_cube_now = block
 	if block:
 		block.touched()
 
 func roll(dir):
 	if is_rolling or Global.map_cube.is_rotating:
 		return
+	we_are_on_this_cube_now.on_leave()
 	is_rolling = true
 	Global.direction = dir
 	_check_edge(dir)

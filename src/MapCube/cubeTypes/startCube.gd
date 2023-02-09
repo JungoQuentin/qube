@@ -22,3 +22,5 @@ func touched():
 func _animation_end():
 	mesh_instance.mesh = mesh
 	tween = null
+
+func on_leave(): pass

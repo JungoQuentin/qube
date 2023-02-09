@@ -33,10 +33,10 @@ func _lauch():
 	_add_cubes_by_type(parent, cubeType.BLOCKING)
 	_add_cubes_by_type(parent, cubeType.START)
 	_add_cubes_by_type(parent, cubeType.END)
-	$GridMap.visible = false
+	get_child(0).visible = false
 
 func _add_cubes_by_type(parent, type):
-	var cells = $GridMap.get_used_cells_by_item(type)
+	var cells = get_child(0).get_used_cells_by_item(type)
 	if (type == cubeType.START or type == cubeType.END) and cells.size()> 1:
 		print("TROP DE ", cubeType.keys()[type])
 		parent.queue_free() # TODO BUG editor tool ?

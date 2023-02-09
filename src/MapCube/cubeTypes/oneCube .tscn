@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7ewuofl7wpbj"]
+
+[ext_resource type="Script" path="res://src/MapCube/cubeTypes/oneCube.gd" id="1_8oapu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jx7hc"]
+albedo_color = Color(0.8, 0.521569, 0.541176, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t14or"]
+material = SubResource("StandardMaterial3D_jx7hc")
+size = Vector3(0.95, 0.95, 0.95)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wnr1e"]
+
+[node name="oneCube" type="StaticBody3D"]
+script = ExtResource("1_8oapu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_t14or")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_wnr1e")

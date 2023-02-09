@@ -1,7 +1,10 @@
 extends Node3D
 
 @export var speed = 1.5
+@export var dimension = 3
+
 @onready var main = get_tree().get_current_scene()
+
 var is_rotating = false
 var start
 var goal
@@ -44,4 +47,5 @@ func stop_rotation():
 	rotator.remove_child(Global.player)
 	main.add_child(Global.player)
 	rotator.queue_free()
-	Global.player.reset(-2 * Global.direction, true)
+	var shift = dimension - 1
+	Global.player.reset(-shift * Global.direction, true)

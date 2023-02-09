@@ -5,8 +5,13 @@ extends Node3D
 @export var camera_y_distance = 10.:
 	set(n):
 		if camera: camera.position.y = n
+		camera_y_distance = n
 
-@export var camera_fov = 30.:
-	set(n):
-		if camera: camera.fov = n
+var camera_fov = 30.
+#	set(n):
+#		if camera: camera.fov = n
+#		camera_fov = n
 
+func _ready():
+	camera.fov = camera_fov
+	camera.position.y = camera_y_distance

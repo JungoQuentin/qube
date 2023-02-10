@@ -25,7 +25,6 @@ var we_are_on_this_cube_now = null
 
 func _ready():
 	Global.player = self
-	#mesh.mesh.surface_get_material(0).albedo_color = color
 	mesh.mesh.surface_get_material(0).albedo_color = Color.AQUA
 	_start_transparence_animation()
 	await _set_start_pos()
@@ -91,7 +90,6 @@ func _check_edge(dir):
 	raycast.position += dir
 	raycast.force_raycast_update()
 	is_on_edge = not raycast.is_colliding()
-	print("is col: ", raycast.is_colliding())
 	if is_on_edge:
 		Global.map_cube.start_cube_rotation(dir)
 	raycast.position = original_raycast_pos

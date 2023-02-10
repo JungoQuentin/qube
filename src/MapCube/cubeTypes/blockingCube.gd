@@ -2,7 +2,8 @@ extends Cube
 
 func _ready():
 	super._ready()
-	touched_color = Color.BLACK
+	BLOCKING_TOUCHED_COLOR = initial_color
+	BLOCKING_INIT_COLOR = touched_color
 
 func on_touch():
 	super.on_touch()

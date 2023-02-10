@@ -10,10 +10,11 @@
 [ext_resource type="AudioStream" uid="uid://bocpsv53h742f" path="res://assets/zik/scale BASIC test-7.wav" id="8_wal7b"]
 [ext_resource type="AudioStream" uid="uid://dhfqhktbcsmvi" path="res://assets/zik/scale BASIC test.wav" id="9_ja8ko"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ou8d7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hfg2p"]
+transparency = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_j64v7"]
-material = SubResource("StandardMaterial3D_ou8d7")
+material = SubResource("StandardMaterial3D_hfg2p")
 size = Vector3(0.95, 0.95, 0.95)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v0ayf"]

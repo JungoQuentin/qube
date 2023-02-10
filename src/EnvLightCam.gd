@@ -21,3 +21,10 @@ func _ready():
 		passed += 0.01
 		await get_tree().create_timer(0.01).timeout
 	camera.position.y = camera_y_dist_by_cube_dimension[Global.map_cube.dimension]
+
+func _start_inner_light_animation():
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property($light/caca, "light_energy", 0.5, 2)
+	tween.tween_property($light/caca, "light_energy", 2.0, 2)
+	tween.tween_callback(_start_inner_light_animation)
+	tween.play()

@@ -10,6 +10,7 @@ var tween: Tween
 
 
 func _ready():
+	mesh.size = Vector3.ONE * Global.cube_scale
 	pass
 
 func on_touch():

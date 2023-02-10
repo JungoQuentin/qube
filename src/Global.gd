@@ -1,6 +1,11 @@
 extends Node
 
+@export_range(0, 1) var cube_scale = 0.95
+
 @export_category("Colors")
+@export_subgroup("NormalCube")
+@export var normal_init_color = Color.REBECCA_PURPLE
+@export var normal_touched_color = Color.WHITE
 @export_subgroup("BlockingCube")
 @export var blocking_init_color = Color.DARK_GRAY
 @export var blocking_touched_color = Color.BLACK

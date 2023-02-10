@@ -26,8 +26,5 @@ func wait_player_end_rolling(incr=0.01, _timeout=10):
 		i += incr
 		await get_tree().create_timer(incr).timeout
 
-func wait_not_null(node):
-	var passed = 0.0
-	while node == null and passed < 3:
-		passed += 0.01
-		await get_tree().create_timer(0.01).timeout
+#:w
+#func wait_not_null(node):

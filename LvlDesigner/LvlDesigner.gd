@@ -3,6 +3,7 @@
 var _lvl_path = ""
 var _new_lvl = null
 var _highest_cube: int = -10
+var _grid_map: GridMap
 
 @export var dimension = 0
 @export var lvl_name = "":
@@ -38,32 +39,45 @@ func _on_selection_changed():
 	match selected[0].name:
 		"CREATE":
 			_lauch()
+			_selection.remove_node(selected[0])
+			_selection.add_node(self)
 		"RELOAD":
 			print("reload")
 			_editor_interface.reload_scene_from_path("res://LvlDesigner/LevelDesigner.tscn")
 			return
-		_:
-			return
-	_selection.remove_node(selected[0])
-	_selection.add_node(self)
+		"3x3", "5x5", "7x7":
+			_add_template(selected[0].name)
 
 func _ready():
 	print("tool ready")
 	_selection.selection_changed.connect(_on_selection_changed)
 
+func _add_template(_name):
+	print("newmap ", _name)
+	var path = "res://LvlDesigner/templates/{}.tscn".format([_name], "{}")
+	if not FileAccess.file_exists(path):
+		OS.alert("dont exist...")
+		return
+	var template = load(path).instantiate()
+	Tools.add_and_set_own(template, self, get_tree().edited_scene_root)
+	
+
+
 ################# LAUCH #########################
 
 func _lauch():
+	if _set_gridmap():
+		return
 	if not _ok():
 		return
+
 	_new_lvl = Tools.create_new_lvl(self, lvl_name)
 	var map_cube: MapCube = _new_lvl.find_child("MapCube", true, false)
 	map_cube.dimension = dimension
 	var cubes = Tools.add_node3d(map_cube, _new_lvl, "cubes")
-	var current_gridmap: GridMap = get_child(0)
 	for type in cubeType.values():
-		_add_cubes_by_type(current_gridmap, cubes, type)
-	if current_gridmap.get_used_cells_by_item(cubeType.START)[0].y < _highest_cube:
+		_add_cubes_by_type(_grid_map, cubes, type)
+	if _grid_map.get_used_cells_by_item(cubeType.START)[0].y < _highest_cube:
 		OS.alert("Le cube start n'est pas en haut !!")
 		_reset()
 		return
@@ -80,12 +94,9 @@ func _ok() -> bool:
 		return false
 	if not _args_valid():
 		return false 
-	if not get_child(0) is GridMap:
-		OS.alert("Le premier object de la liste en haut a gauche doit etre la gridmap !!")
+	if _check_one_type(_grid_map, cubeType.START):
 		return false
-	if _check_one_type(get_child(0), cubeType.START):
-		return false
-	if _check_one_type(get_child(0), cubeType.END):
+	if _check_one_type(_grid_map, cubeType.END):
 		return false
 	return true 
 
@@ -103,8 +114,18 @@ func _check_one_type(gridmap, type) -> bool:
 	var cells = gridmap.get_used_cells_by_item(type)
 	if cells.size() != 1:
 		OS.alert("Tu ne peut mettre qu'un seul start !".format([cubeType.keys()[type]], '{}'))
-		return true
-	return false
+		return ERR_BUG
+	return OK 
+
+################## SET GRIDMAP ########################
+
+func _set_gridmap() -> bool:
+	for child in get_children():
+		if child is GridMap:
+			_grid_map = child
+			return OK
+	OS.alert("Le premier object de la liste en haut a gauche doit etre la gridmap !!")
+	return ERR_BUG
 
 ##################### ADD CUBE #######################
 
@@ -113,7 +134,7 @@ func _add_cubes_by_type(gridmap, parent, type):
 	for cell in cells:
 		if cell.y > _highest_cube:
 			_highest_cube = cell.y
-		_add_cube(cell, parent, cube_preload[type], cubeType.keys()[type])
+		_add_cube(_grid_map.to_global(cell) + Vector3(0.5, 0.5, 0.5), parent, cube_preload[type], cubeType.keys()[type])
 
 func _add_cube(new_position, parent, object, new_name):
 	var node = object.instantiate()

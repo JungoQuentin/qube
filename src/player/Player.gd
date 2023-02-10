@@ -27,10 +27,13 @@ func _ready():
 	Global.player = self
 	mesh.mesh.surface_get_material(0).albedo_color = color
 	_start_transparence_animation()
-	_set_start_pos()
+	await _set_start_pos()
 
 func _set_start_pos():
-	Global.wait_not_null(Global.startCube)
+	var passed = 0.0
+	while Global.startCube == null and passed < 3:
+		passed += 0.01
+		await get_tree().create_timer(0.01).timeout
 	position = Global.startCube.global_position + Vector3.UP / 2
 	we_are_on_this_cube_now = Global.startCube
 

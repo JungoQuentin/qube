@@ -3,6 +3,7 @@
 var is_running = false
 var _lvl_path = ""
 var _new_lvl = null
+var _highest_cube: int = -10
 
 @export var dimension = 0
 @export var lvl_name = "":
@@ -23,6 +24,7 @@ var _new_lvl = null
 	cubeType.START : preload("res://src/MapCube/cubeTypes/startCube.tscn"),
 	cubeType.END : preload("res://src/MapCube/cubeTypes/endCube.tscn"),
 }
+@onready var editor_interface = EditorPlugin.new().get_editor_interface()
 
 enum cubeType {
 	NORMAL = 0,
@@ -41,16 +43,19 @@ func _lauch():
 	var current_gridmap: GridMap = get_child(0)
 	for type in cubeType.values():
 		_add_cubes_by_type(current_gridmap, cubes, type)
+	if current_gridmap.get_used_cells_by_item(cubeType.START)[0].y < _highest_cube:
+		OS.alert("Le cube start n'est pas en haut !!")
+		_reset()
+		return
 	Tools.save_scene(_new_lvl, _lvl_path)
 	var lvl_path = _lvl_path
 	_reset()
-	#get_tree().change_scene_to_file(lvl_path)
+	get_tree().change_scene_to_file(lvl_path)
 
 ################## CHECK ########################
 
 func _ok() -> bool:
-	# TODO check que start est a la surface du cube !!!
-	if load(_lvl_path) != null:
+	if FileAccess.file_exists(_lvl_path):
 		OS.alert("Attention ! ce nom de niveau est deja prix !")
 		return false
 	if not _args_valid():
@@ -84,8 +89,10 @@ func _check_one_type(gridmap, type) -> bool:
 ##################### ADD CUBE #######################
 
 func _add_cubes_by_type(gridmap, parent, type):
-	var cells = gridmap.get_used_cells_by_item(type)
+	var cells: Array[Vector3i] = gridmap.get_used_cells_by_item(type)
 	for cell in cells:
+		if cell.y > _highest_cube:
+			_highest_cube = cell.y
 		_add_cube(cell, parent, cube_preload[type], cubeType.keys()[type])
 
 func _add_cube(new_position, parent, object, new_name):
@@ -103,3 +110,4 @@ func _reset():
 	dimension = 0
 	lvl_name = ''
 	is_running = false
+	_highest_cube = -10

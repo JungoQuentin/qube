@@ -1,6 +1,4 @@
-@tool
-extends Node
-
+@tool extends Node
 @onready var player_preload = preload("res://src/player/player.tscn")
 @onready var map_preload = preload("res://src/MapCube/MapCube.tscn")
 @onready var env_preload = preload("res://src/EnvLightCam.tscn")

@@ -1,5 +1,13 @@
 extends Node
 
+@export_category("Colors")
+@export_subgroup("BlockingCube")
+@export var blocking_init_color = Color.DARK_GRAY
+@export var blocking_touched_color = Color.BLACK
+@export_subgroup("SingleCube")
+@export var single_cube_init_color = Color.DARK_GRAY
+@export var single_cube_touched_color = Color.BLACK
+
 var player: Node3D = null
 var map_cube: MapCube = null # TODO remane map_cube
 var direction: Vector3

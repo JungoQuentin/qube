@@ -3,22 +3,14 @@ class_name Cube
 
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-#@onready var mesh: Mesh = mesh_instance.mesh
-#@onready var initial_color: Color = mesh.surface_get_material(0).albedo_color
-#@onready var touched_color: Color = mesh.surface_get_material(0).albedo_color
-var mesh: Mesh
+@onready var mesh: Mesh = mesh_instance.mesh
 var initial_color: Color
 var touched_color: Color
-
 var tween: Tween
 
-var BLOCKING_TOUCHED_COLOR = Color.BLACK
-var BLOCKING_INIT_COLOR = Color.DARK_GRAY
 
 func _ready():
-	mesh = mesh_instance.mesh
-	initial_color = mesh.surface_get_material(0).albedo_color
-	touched_color = mesh.surface_get_material(0).albedo_color
+	pass
 
 func on_touch():
 	_touched_animation_start()

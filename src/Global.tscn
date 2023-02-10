@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1mdn1xvryqyy"]
+
+[ext_resource type="Script" path="res://src/Global.gd" id="1_8nlp0"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_8nlp0")
+blocking_init_color = Color(0.423529, 0.423529, 0.423529, 1)
+single_cube_init_color = Color(0.545098, 0.670588, 0.847059, 1)
+single_cube_touched_color = Color(0.270588, 0.270588, 0.270588, 1)

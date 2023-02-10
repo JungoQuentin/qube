@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="BCube"
-run/main_scene="res://src/levels/intro.tscn"
+run/main_scene="res://src/levels/level_5_tuto_singleUse.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://src/Global.gd"
 Log="*res://src/Log.gd"
 Tools="*res://src/Tools.gd"
+Global="*res://src/Global.tscn"
 
 [editor]
 

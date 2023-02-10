@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtrta70fxsqi8"]
+[gd_scene load_steps=3 format=3 uid="uid://dtrta70fxsqi8"]
 
 [ext_resource type="Script" path="res://LvlDesigner/LvlDesigner.gd" id="1_b1v2k"]
+[ext_resource type="PackedScene" uid="uid://5in58d3ctlw4" path="res://LvlDesigner/templates/3x3.tscn" id="4_h8gpl"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_b1v2k")
-dimension = 3
 
 [node name="BUTTONS" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11177, 11, -5)
@@ -53,3 +53,8 @@ modulate = Color(0.517647, 0.776471, 0.988235, 1)
 text = "7x7"
 font_size = 280
 outline_size = 74
+
+[node name="GridMap" parent="." instance=ExtResource("4_h8gpl")]
+data = {
+"cells": PackedInt32Array(196607, 0, 1, 131072, 0, 1, 131073, 0, 1, 131073, 65535, 3, 131073, 65534, 1, 131072, 65534, 1, 196607, 65534, 1, 196607, 65535, 4, 131072, 65535, 2, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 1, 65535, 1, 0, 65534, 1, 65535, 65534, 1, 65535, 65535, 1, 0, 65535, 1, 1, 65534, 1, 131071, 65534, 1, 131071, 65535, 1, 131071, 0, 1, 65536, 65534, 1, 65536, 0, 1, 65537, 65534, 1, 65537, 65535, 1, 65537, 0, 1)
+}

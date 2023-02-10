@@ -8,10 +8,10 @@ extends Node3D
 @export var max_transparency: float = 1
 @export var min_transparency: float = 0.3
 @export var speed: float = 5.
-@export var color: Color = Color.from_hsv(200, 1, 1, 1):
-	set(n):
-		if mesh: mesh.mesh.surface_get_material(0).albedo_color = n 
-		color = n
+#@export var color: Color = Color.from_hsv(200, 1, 1, 1):
+#	set(n):
+#		if mesh: mesh.mesh.surface_get_material(0).albedo_color = n 
+#		color = n
 
 var loaded = false
 var is_rolling = false 
@@ -25,7 +25,8 @@ var we_are_on_this_cube_now = null
 
 func _ready():
 	Global.player = self
-	mesh.mesh.surface_get_material(0).albedo_color = color
+	#mesh.mesh.surface_get_material(0).albedo_color = color
+	mesh.mesh.surface_get_material(0).albedo_color = Color.AQUA
 	_start_transparence_animation()
 	await _set_start_pos()
 

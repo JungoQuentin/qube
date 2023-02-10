@@ -17,6 +17,7 @@ var _grid_map: GridMap
 	cubeType.BLOCKING : preload("res://src/MapCube/cubeTypes/blockingCube.tscn"),
 	cubeType.START : preload("res://src/MapCube/cubeTypes/startCube.tscn"),
 	cubeType.END : preload("res://src/MapCube/cubeTypes/endCube.tscn"),
+	cubeType.ONE : preload("res://src/MapCube/cubeTypes/oneCube.tscn"),
 }
 
 enum cubeType {
@@ -24,6 +25,7 @@ enum cubeType {
 	BLOCKING,
 	START,
 	END,
+	ONE,
 }
 
 ################### EDITOR #####################

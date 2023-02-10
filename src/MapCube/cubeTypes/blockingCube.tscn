@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" path="res://src/MapCube/cubeTypes/blockingCube.gd" id="1_kuial"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dvtc8"]
-albedo_color = Color(1, 0.360784, 0.34902, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7v4gv"]
+albedo_color = Color(0.45098, 0.501961, 0.54902, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_7pygv"]
-material = SubResource("StandardMaterial3D_dvtc8")
+[sub_resource type="BoxMesh" id="BoxMesh_tsome"]
+material = SubResource("StandardMaterial3D_7v4gv")
 size = Vector3(0.95, 0.95, 0.95)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xupsb"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_7a04x"]
 
 [node name="BlockingCube" type="StaticBody3D"]
 script = ExtResource("1_kuial")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_7pygv")
+mesh = SubResource("BoxMesh_tsome")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_xupsb")
+shape = SubResource("BoxShape3D_7a04x")

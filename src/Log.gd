@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 ############
@@ -15,6 +16,7 @@ enum {
 var level = INFO
 
 func _time(ms:bool = false):
+	# TODO les h-m-s (pas jour...)
 	var time_return: String = Time.get_date_string_from_system()
 	var milliseconds: int = Time.get_ticks_msec()
 	var microseconds: int = Time.get_ticks_usec() - milliseconds * 1000

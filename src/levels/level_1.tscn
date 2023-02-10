@@ -20,7 +20,6 @@ camera_y_distance = 13.0
 
 [node name="Player" parent="." instance=ExtResource("3_pofj4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-color = Color(0, 0.588235, 0.984314, 1)
 
 [node name="MapCube" parent="." instance=ExtResource("4_xg317")]
 dimension = 5

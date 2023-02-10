@@ -62,7 +62,7 @@ func _input(_event):
 		roll(-forward.cross(Vector3.UP))
 	# DEBUG helper
 	if Input.is_action_just_pressed("ui_accept"):
-		raycast.get_collider().touched()
+		raycast.get_collider().on_touch()
 
 func reset(direction, _from_cube=false):
 	t = 0.0
@@ -72,9 +72,11 @@ func reset(direction, _from_cube=false):
 
 	raycast.force_raycast_update()
 	var block = raycast.get_collider()
+	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
+		we_are_on_this_cube_now.on_leave()
 	we_are_on_this_cube_now = block
 	if block:
-		block.touched()
+		block.on_touch()
 
 func roll(dir):
 	if is_rolling or Global.map_cube.is_rotating:
@@ -84,13 +86,12 @@ func roll(dir):
 	_check_edge(dir)
 	_offset(dir)
 	_set_animation(dir)
-	if we_are_on_this_cube_now != null:
-		we_are_on_this_cube_now.on_leave()
 
 func _check_edge(dir):
 	raycast.position += dir
 	raycast.force_raycast_update()
 	is_on_edge = not raycast.is_colliding()
+	print("is col: ", raycast.is_colliding())
 	if is_on_edge:
 		Global.map_cube.start_cube_rotation(dir)
 	raycast.position = original_raycast_pos

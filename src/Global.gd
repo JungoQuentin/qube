@@ -3,7 +3,7 @@ extends Node
 var player: Node3D = null
 var map_cube: MapCube = null # TODO remane map_cube
 var direction: Vector3
-var startCube: StaticBody3D = null
+var startCube: Cube = null
 
 
 func surface_touched_animation_start(_mesh_instance, tween, initial_color, touched_color, end_callback):

@@ -1,10 +1,11 @@
 extends StaticBody3D
 
+@onready var blockingCubePreload = preload("res://src/MapCube/cubeTypes/blockingCube.tscn")
+
 var initial_color: Color
 var mesh_instance: MeshInstance3D
 var mesh: Mesh
 var tween
-@onready var blockingCube = preload("res://src/MapCube/cubeTypes/blockingCube.tscn")
 
 func _ready():
 	mesh_instance = $MeshInstance3D
@@ -16,7 +17,7 @@ func touched():
 	pass
 
 func on_leave():
-	blockingCube.instantiate()
+	var blockingCube = blockingCubePreload.instantiate()
 	get_parent().add_child(blockingCube)
 	blockingCube.position = position
 	self.queue_free()

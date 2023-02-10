@@ -79,12 +79,13 @@ func reset(direction, _from_cube=false):
 func roll(dir):
 	if is_rolling or Global.map_cube.is_rotating:
 		return
-	we_are_on_this_cube_now.on_leave()
 	is_rolling = true
 	Global.direction = dir
 	_check_edge(dir)
 	_offset(dir)
 	_set_animation(dir)
+	if we_are_on_this_cube_now != null:
+		we_are_on_this_cube_now.on_leave()
 
 func _check_edge(dir):
 	raycast.position += dir

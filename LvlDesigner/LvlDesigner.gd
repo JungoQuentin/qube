@@ -30,7 +30,7 @@ func _lauch():
 	var current_gridmap: GridMap = get_child(0)
 	if _check_n_start_end(current_gridmap):
 		return
-	var cubes = _add_node3d()
+	var cubes = Tools.add_node3d(self, "cubes")
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.START)
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.END)
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.NORMAL)
@@ -43,11 +43,7 @@ func _lauch():
 	#_reset()
 
 func _add_lvl():
-	var new_lvl = lvl_preload.instantiate(PackedScene.GEN_EDIT_STATE_MAIN_INHERITED)
-	add_child(new_lvl)
-	new_lvl.name = lvl_name
-	new_lvl.set_owner(get_tree().edited_scene_root)
-	return new_lvl
+	var new_lvl = Tools.create_new_lvl(self, lvl_name)
 
 
 func _args_valid() -> bool:
@@ -72,12 +68,6 @@ func _add_cube(new_position, parent, object, new_name):
 	node.name = new_name
 	node.set_owner(get_tree().edited_scene_root)
 
-func _add_node3d():
-	var node3d = Node3D.new()
-	add_child(node3d)
-	node3d.set_owner(get_tree().edited_scene_root)
-	node3d.name = "map"
-	return node3d
 	
 func _check_n_start_end(gridmap, type=cubeType.START) -> bool:
 	var cells = gridmap.get_used_cells_by_item(type)

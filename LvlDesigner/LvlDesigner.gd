@@ -1,16 +1,9 @@
-@tool
-extends Node3D
+@tool extends Node3D
 
 @export var lauch: bool = false:
 	set(_on): _lauch()
 
-@onready var NORMAL = preload("res://src/MapCube/cubeTypes/normalCube.tscn")
-@onready var BLOCKING = preload("res://src/MapCube/cubeTypes/blockingCube.tscn")
-@onready var START = preload("res://src/MapCube/cubeTypes/startCube.tscn")
-@onready var END = preload("res://src/MapCube/cubeTypes/endCube.tscn")
-
 var cube_preload: Dictionary
-var n_start_cube = 0
 
 enum cubeType {
 	NORMAL,
@@ -28,19 +21,27 @@ func _ready():
 	}
 
 func _lauch():
+	var current_gridmap: GridMap = get_child(0)
 	var parent = _add_node3d()
-	_add_cubes_by_type(parent, cubeType.NORMAL)
-	_add_cubes_by_type(parent, cubeType.BLOCKING)
-	_add_cubes_by_type(parent, cubeType.START)
-	_add_cubes_by_type(parent, cubeType.END)
-	get_child(0).visible = false
+	_add_cubes_by_type(current_gridmap, parent, cubeType.NORMAL)
+	_add_cubes_by_type(current_gridmap, parent, cubeType.BLOCKING)
+	_add_cubes_by_type(current_gridmap, parent, cubeType.START)
+	_add_cubes_by_type(current_gridmap, parent, cubeType.END)
+	current_gridmap.visible = false
 
-func _add_cubes_by_type(parent, type):
-	var cells = get_child(0).get_used_cells_by_item(type)
-	if (type == cubeType.START or type == cubeType.END) and cells.size()> 1:
+func _check_n_start_end(cells, type) -> bool:
+	if (type == cubeType.START or type == cubeType.END) and cells.size() > 1:
 		print("TROP DE ", cubeType.keys()[type])
+		return true
+	if (type == cubeType.START or type == cubeType.END) and cells.size() == 0:
+		print("PAS ASSEZ DE ", cubeType.keys()[type])
+		return true
+	return false
+
+func _add_cubes_by_type(gridmap, parent, type):
+	var cells = gridmap.get_used_cells_by_item(type)
+	if _check_n_start_end(cells, type):
 		parent.queue_free() # TODO BUG editor tool ?
-		return
 	for cell in cells:
 		_add_cube(cell, parent, cube_preload[type], cubeType.keys()[type])
 

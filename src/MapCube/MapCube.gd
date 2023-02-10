@@ -1,10 +1,11 @@
 extends Node3D
+class_name MapCube
 
-@export var speed = 1.5
-@export var dimension = 3
 
 @onready var main = get_tree().get_current_scene()
 
+var speed = 1.5
+@export var dimension: int = 0
 var is_rotating = false
 var start
 var goal
@@ -14,6 +15,8 @@ var rotator_start
 var rotator_goal
 
 func _ready():
+	if dimension == 0:
+		Log.crash("dimension not set !!")
 	Global.map_cube = self
 
 # TODO remplacer cela par un Tween ! (pour l'instant ca ne marche pas avec Basis)

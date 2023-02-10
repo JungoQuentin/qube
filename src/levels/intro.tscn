@@ -16,13 +16,14 @@ fov = 38.3
 size = 5.0
 
 [node name="EnvLightCam" parent="." instance=ExtResource("2_0wstq")]
-camera_y_distance = 7.612
+camera_y_distance = 8.0
 
 [node name="Player" parent="." instance=ExtResource("3_n6ypv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 color = Color(0.658824, 0.745098, 1, 1)
 
 [node name="MapCube" parent="." instance=ExtResource("4_aqd8c")]
+dimension = 3
 
 [node name="map" type="Node3D" parent="MapCube"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

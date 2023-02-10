@@ -1,6 +1,5 @@
 @tool extends Node3D
 
-var is_running = false
 var _lvl_path = ""
 var _new_lvl = null
 var _highest_cube: int = -10
@@ -9,13 +8,7 @@ var _highest_cube: int = -10
 @export var lvl_name = "":
 	set(n_lvl_name):
 		lvl_name = n_lvl_name
-		_lvl_path = "res://src/levels/{}.tscn".format([lvl_name], "{}")
-@export var lauch: bool = false:
-	set(_on): 
-		if not is_running:
-			is_running = true
-			_lauch()
-			is_running = false
+		_lvl_path = "res://src/new_levels/{}.tscn".format([lvl_name], "{}")
 
 @onready var lvl_preload: PackedScene = preload("res://templates/level_x.tscn")
 @onready var cube_preload: Dictionary = {
@@ -24,7 +17,6 @@ var _highest_cube: int = -10
 	cubeType.START : preload("res://src/MapCube/cubeTypes/startCube.tscn"),
 	cubeType.END : preload("res://src/MapCube/cubeTypes/endCube.tscn"),
 }
-@onready var editor_interface = EditorPlugin.new().get_editor_interface()
 
 enum cubeType {
 	NORMAL = 0,
@@ -33,13 +25,41 @@ enum cubeType {
 	END,
 }
 
+################### EDITOR #####################
+
+var _editor_plugin: EditorPlugin = EditorPlugin.new()
+var _editor_interface: EditorInterface = _editor_plugin.get_editor_interface()
+var _selection: EditorSelection = _editor_interface.get_selection()
+
+func _on_selection_changed():
+	var selected = _selection.get_selected_nodes()
+	if selected.size() != 1:
+		return
+	match selected[0].name:
+		"CREATE":
+			_lauch()
+		"RELOAD":
+			print("reload")
+			_editor_interface.reload_scene_from_path("res://LvlDesigner/LevelDesigner.tscn")
+			return
+		_:
+			return
+	_selection.remove_node(selected[0])
+	_selection.add_node(self)
+
+func _ready():
+	print("tool ready")
+	_selection.selection_changed.connect(_on_selection_changed)
+
 ################# LAUCH #########################
 
 func _lauch():
 	if not _ok():
 		return
 	_new_lvl = Tools.create_new_lvl(self, lvl_name)
-	var cubes = Tools.add_node3d(_new_lvl.find_child("MapCube", true, false), _new_lvl,"cubes")
+	var map_cube: MapCube = _new_lvl.find_child("MapCube", true, false)
+	map_cube.dimension = dimension
+	var cubes = Tools.add_node3d(map_cube, _new_lvl, "cubes")
 	var current_gridmap: GridMap = get_child(0)
 	for type in cubeType.values():
 		_add_cubes_by_type(current_gridmap, cubes, type)
@@ -48,9 +68,9 @@ func _lauch():
 		_reset()
 		return
 	Tools.save_scene(_new_lvl, _lvl_path)
-	var lvl_path = _lvl_path
+	_editor_interface.open_scene_from_path(_lvl_path)
 	_reset()
-	get_tree().change_scene_to_file(lvl_path)
+	_editor_interface.play_current_scene()
 
 ################## CHECK ########################
 
@@ -109,5 +129,6 @@ func _reset():
 	_new_lvl = null
 	dimension = 0
 	lvl_name = ''
-	is_running = false
 	_highest_cube = -10
+
+

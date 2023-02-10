@@ -1,7 +1,7 @@
 extends Node
 
 var player: Node3D = null
-var map_cube: Node3D = null # TODO remane map_cube
+var map_cube: MapCube = null # TODO remane map_cube
 var direction: Vector3
 var startCube: StaticBody3D = null
 
@@ -25,3 +25,9 @@ func wait_player_end_rolling(incr=0.01, _timeout=10):
 	while Global.player.is_rolling and i < _timeout:
 		i += incr
 		await get_tree().create_timer(incr).timeout
+
+func wait_not_null(node):
+	var passed = 0.0
+	while node == null and passed < 3:
+		passed += 0.01
+		await get_tree().create_timer(0.01).timeout

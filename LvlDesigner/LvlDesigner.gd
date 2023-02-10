@@ -20,31 +20,41 @@ enum cubeType {
 	END,
 }
 
-
-
 func _lauch():
-	var vnew_lvl = _add_lvl()
-	return
+	# Checks
 	if not _args_valid():
 		return
 	var current_gridmap: GridMap = get_child(0)
 	if _check_n_start_end(current_gridmap):
 		return
-	var cubes = Tools.add_node3d(self, "cubes")
+
+	# Create new level
+	var new_lvl = Tools.create_new_lvl(self, lvl_name)
+	var map_cube = new_lvl.find_child("MapCube")
+	
+	# Add cubes
+	var cubes = Tools.add_node3d(map_cube, "cubes")
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.START)
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.END)
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.NORMAL)
 	_add_cubes_by_type(current_gridmap, cubes, cubeType.BLOCKING)
-	var new_lvl = _add_lvl()
-	var map_cube = new_lvl.find_child("MapCube")
-	remove_child(cubes)
-	map_cube.add_child(cubes)
-	cubes.set_owner(map_cube)
-	#_reset()
 
-func _add_lvl():
-	var new_lvl = Tools.create_new_lvl(self, lvl_name)
 
+	_save_scene(new_lvl)
+	#new_lvl.queue_free()
+	_reset()
+
+func _save_scene(new_lvl):
+	var scene = PackedScene.new()
+
+	var result = scene.pack(new_lvl)
+	if result != OK:
+		print(result)
+		return
+	var path = "res://src/levels/{}.tscn".format([lvl_name], "{}")
+	var error = ResourceSaver.save(scene, path)
+	if error != OK:
+		push_error("An error occurred while saving the scene to disk.")
 
 func _args_valid() -> bool:
 	if dimension == 0 or dimension % 2 == 0 or dimension < 3:
@@ -62,14 +72,13 @@ func _add_cubes_by_type(gridmap, parent, type):
 
 func _add_cube(new_position, parent, object, new_name):
 	var node = object.instantiate()
-	parent.add_child(node)
+	Tools.add_and_set_own(node, parent)
 	node.position = new_position
 	node.visible = true
 	node.name = new_name
-	node.set_owner(get_tree().edited_scene_root)
-
 	
 func _check_n_start_end(gridmap, type=cubeType.START) -> bool:
+	# TODO simplify
 	var cells = gridmap.get_used_cells_by_item(type)
 	if (type == cubeType.START or type == cubeType.END) and cells.size() > 1:
 		OS.alert("Apparement tu aurais mis trop de {}. Etais-ce volontaire ?".format([cubeType.keys()[type].to_lower()],'{}') , "TROP DE {}".format([cubeType.keys()[type]], '{}'))

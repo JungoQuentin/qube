@@ -5,8 +5,6 @@
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_b1v2k")
-dimension = 7
-lvl_name = "lvl7"
 
 [node name="7x8" type="GridMap" parent="."]
 mesh_library = ExtResource("2_g5gpp")

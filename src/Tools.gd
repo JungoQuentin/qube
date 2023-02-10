@@ -10,18 +10,17 @@ func _ready():
 
 func create_new_lvl(scene, lvl_name):
 	var new_lvl = add_node3d(scene, lvl_name)
-	_add_and_set_owner(env_preload.instantiate(), new_lvl)
-	_add_and_set_owner(map_preload.instantiate(), new_lvl)
-	_add_and_set_owner(player_preload.instantiate(), new_lvl)
+	add_and_set_own(env_preload.instantiate(), new_lvl)
+	add_and_set_own(map_preload.instantiate(), new_lvl)
+	add_and_set_own(player_preload.instantiate(), new_lvl)
 	return new_lvl
 
-func _add_and_set_owner(node, parent):
+func add_and_set_own(node, parent):
 	parent.add_child(node)
 	node.set_owner(get_tree().edited_scene_root)
 
-func add_node3d(parent, new_name):
+func add_node3d(parent, new_name) -> Node3D:
 	var node3d = Node3D.new()
-	parent.add_child(node3d)
-	node3d.set_owner(get_tree().edited_scene_root)
+	add_and_set_own(node3d, parent)
 	node3d.name = new_name
 	return node3d

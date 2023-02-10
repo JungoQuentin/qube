@@ -12,8 +12,7 @@ enum {
 	ERROR,
 }
 
-#var level = INFO
-var level = INFO
+var level = 0 
 
 func _time(ms:bool = false):
 	# TODO les h-m-s (pas jour...)

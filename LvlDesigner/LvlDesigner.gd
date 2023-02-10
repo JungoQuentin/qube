@@ -31,10 +31,10 @@ func _lauch():
 
 func _check_n_start_end(cells, type) -> bool:
 	if (type == cubeType.START or type == cubeType.END) and cells.size() > 1:
-		print("TROP DE ", cubeType.keys()[type])
+		Log.crash("TROP DE ", cubeType.keys()[type])
 		return true
 	if (type == cubeType.START or type == cubeType.END) and cells.size() == 0:
-		print("PAS ASSEZ DE ", cubeType.keys()[type])
+		Log.crash("PAS ASSEZ DE ", cubeType.keys()[type])
 		return true
 	return false
 

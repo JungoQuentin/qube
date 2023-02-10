@@ -2,6 +2,9 @@ extends StaticBody3D
 
 @onready var blockingCubePreload = preload("res://src/MapCube/cubeTypes/blockingCube.tscn")
 
+@export var basicColor = Color.WHITE
+@export var touchedColor = Color.WHITE
+
 var initial_color: Color
 var mesh_instance: MeshInstance3D
 var mesh: Mesh

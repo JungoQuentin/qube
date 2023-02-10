@@ -32,6 +32,10 @@ var _editor_plugin: EditorPlugin = EditorPlugin.new()
 var _editor_interface: EditorInterface = _editor_plugin.get_editor_interface()
 var _selection: EditorSelection = _editor_interface.get_selection()
 
+func _ready():
+	print("tool ready")
+	_selection.selection_changed.connect(_on_selection_changed)
+
 func _on_selection_changed():
 	var selected = _selection.get_selected_nodes()
 	if selected.size() != 1:
@@ -46,13 +50,10 @@ func _on_selection_changed():
 			_editor_interface.reload_scene_from_path("res://LvlDesigner/LevelDesigner.tscn")
 			return
 		"3x3", "5x5", "7x7":
-			_add_template(selected[0].name)
+			_add_template(selected[0])
 
-func _ready():
-	print("tool ready")
-	_selection.selection_changed.connect(_on_selection_changed)
-
-func _add_template(_name):
+func _add_template(node):
+	var _name: String = node.name
 	print("newmap ", _name)
 	var path = "res://LvlDesigner/templates/{}.tscn".format([_name], "{}")
 	if not FileAccess.file_exists(path):
@@ -60,8 +61,9 @@ func _add_template(_name):
 		return
 	var template = load(path).instantiate()
 	Tools.add_and_set_own(template, self, get_tree().edited_scene_root)
-	
-
+	dimension = int(_name[0])
+	_selection.remove_node(node)
+	_selection.add_node(template)
 
 ################# LAUCH #########################
 

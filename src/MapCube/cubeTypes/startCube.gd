@@ -8,13 +8,7 @@ var mesh: Mesh
 func _ready():
 	mesh_instance = $MeshInstance3D
 	mesh = mesh_instance.mesh
-
-	# TODO check qu'on est a la surface du cube !!!
-	if Global.startCube != null:
-		print("IL Y A TROP DE START !!!")
-		get_tree().quit()
 	Global.startCube = self
-	
 	
 func touched():
 	Global.surface_touched_animation_start(mesh_instance, tween, Color.WHITE, TOUCHED_COLOR, _animation_end)

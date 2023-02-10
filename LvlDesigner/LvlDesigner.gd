@@ -1,9 +1,14 @@
 @tool extends Node3D
 
 var is_running = false
+var _lvl_path = ""
+var _new_lvl = null
 
-@export var dimension = 3
-@export var lvl_name = "test1"
+@export var dimension = 0
+@export var lvl_name = "":
+	set(n_lvl_name):
+		lvl_name = n_lvl_name
+		_lvl_path = "res://src/levels/{}.tscn".format([lvl_name], "{}")
 @export var lauch: bool = false:
 	set(_on): 
 		if not is_running:
@@ -26,36 +31,38 @@ enum cubeType {
 	END,
 }
 
+################# LAUCH #########################
+
 func _lauch():
-	if _check():
+	if not _ok():
 		return
-
-	var new_lvl = Tools.create_new_lvl(self, lvl_name)
-	var map_cube = new_lvl.find_child("MapCube", true, false)
-	if map_cube == null:
-		Log.error("map cube is null!")
-		return
-
-	var cubes = Tools.add_node3d(map_cube, "cubes")
+	_new_lvl = Tools.create_new_lvl(self, lvl_name)
+	var cubes = Tools.add_node3d(_new_lvl.find_child("MapCube", true, false), _new_lvl,"cubes")
 	var current_gridmap: GridMap = get_child(0)
 	for type in cubeType.values():
 		_add_cubes_by_type(current_gridmap, cubes, type)
-	
-
-	_save_scene(new_lvl)
-	new_lvl.queue_free()
+	Tools.save_scene(_new_lvl, _lvl_path)
+	var lvl_path = _lvl_path
 	_reset()
+	#get_tree().change_scene_to_file(lvl_path)
 
-#### CHECK ####
-func _check() -> bool:
-	# TODO check file name 
+################## CHECK ########################
+
+func _ok() -> bool:
+	# TODO check que start est a la surface du cube !!!
+	if load(_lvl_path) != null:
+		OS.alert("Attention ! ce nom de niveau est deja prix !")
+		return false
 	if not _args_valid():
-		return true
-	var current_gridmap: GridMap = get_child(0)
-	# TODO is a gridmap ?
-	if _check_n_start_end(current_gridmap):
-		return true
-	return false
+		return false 
+	if not get_child(0) is GridMap:
+		OS.alert("Le premier object de la liste en haut a gauche doit etre la gridmap !!")
+		return false
+	if _check_one_type(get_child(0), cubeType.START):
+		return false
+	if _check_one_type(get_child(0), cubeType.END):
+		return false
+	return true 
 
 func _args_valid() -> bool:
 	if dimension == 0 or dimension % 2 == 0 or dimension < 3:
@@ -67,21 +74,14 @@ func _args_valid() -> bool:
 		return false
 	return true
 
-func _check_n_start_end(gridmap, type=cubeType.START) -> bool:
-	# TODO simplify
+func _check_one_type(gridmap, type) -> bool:
 	var cells = gridmap.get_used_cells_by_item(type)
-	if (type == cubeType.START or type == cubeType.END) and cells.size() > 1:
-		OS.alert("Apparement tu aurais mis trop de {}. Etais-ce volontaire ?".format([cubeType.keys()[type].to_lower()],'{}') , "TROP DE {}".format([cubeType.keys()[type]], '{}'))
+	if cells.size() != 1:
+		OS.alert("Tu ne peut mettre qu'un seul start !".format([cubeType.keys()[type]], '{}'))
 		return true
-	if (type == cubeType.START or type == cubeType.END) and cells.size() == 0:
-		OS.alert("PAS ASSEZ DE {}".format([cubeType.keys()[type]], '{}'))
-		return true
-	if type == cubeType.START:
-		return _check_n_start_end(gridmap, cubeType.END)
-	else:
-		return false
+	return false
 
-#### ADD CUBE ####
+##################### ADD CUBE #######################
 
 func _add_cubes_by_type(gridmap, parent, type):
 	var cells = gridmap.get_used_cells_by_item(type)
@@ -93,25 +93,13 @@ func _add_cube(new_position, parent, object, new_name):
 	node.position = new_position
 	node.visible = true
 	node.name = new_name
-	Tools.add_and_set_own(node, parent)
+	Tools.add_and_set_own(node, parent, _new_lvl)
 
-#### SAVE ####
-
-func _save_scene(new_lvl: Node3D):
-	var scene = PackedScene.new()
-	Tools.parent_is_owner(new_lvl)
-	var result = scene.pack(new_lvl)
-	if result != OK:
-		print(result)
-		return
-	var path = "res://src/levels/{}.tscn".format([lvl_name], "{}")
-	var error = ResourceSaver.save(scene, path)
-	if error != OK:
-		push_error("An error occurred while saving the scene to disk.")
-	
-#### RESET ####
+####################### RESET #########################
 
 func _reset():
-	#dimension = 0
-	#lvl_name = ""
+	_new_lvl.queue_free()
+	_new_lvl = null
+	dimension = 0
+	lvl_name = ''
 	is_running = false

@@ -5,37 +5,30 @@ extends Node
 @onready var map_preload = preload("res://src/MapCube/MapCube.tscn")
 @onready var env_preload = preload("res://src/EnvLightCam.tscn")
 
-func _ready():
-	print("tool ready")
-
 func create_new_lvl(scene, lvl_name) -> Node3D:
-	var new_lvl = add_node3d(scene, lvl_name)
-	add_and_set_own(env_preload.instantiate(), new_lvl)
-	add_and_set_own(map_preload.instantiate(), new_lvl)
-	add_and_set_own(player_preload.instantiate(), new_lvl)
+	var new_lvl = add_node3d(scene, scene, lvl_name)
+	add_and_set_own(env_preload.instantiate(), new_lvl, new_lvl)
+	add_and_set_own(player_preload.instantiate(), new_lvl, new_lvl)
+	add_and_set_own(map_preload.instantiate(), new_lvl, new_lvl)
 	return new_lvl
 
-func add_and_set_own(node, parent):
-	if parent == null and node == null:
-		print("node and parent are null")
-	if parent == null:
-		Log.info("parent is null, child is: ", node.name)
-	if node == null:
-		Log.info("node is null, parent is: ", parent.name)
-	if parent == null or node == null:
-		return
+func add_and_set_own(node, parent, _owner):
 	parent.add_child(node)
-	#node.set_owner(parent)
-	#node.set_owner(get_tree().edited_scene_root)
+	if _owner != null:
+		node.set_owner(_owner)
 
-func parent_is_owner(node):
-	for child in node.get_children():
-		print(child.name)
-		child.set_owner(node)
-		parent_is_owner(child)
-
-func add_node3d(parent, new_name) -> Node3D:
+func add_node3d(parent, _owner, new_name) -> Node3D:
 	var node3d = Node3D.new()
 	node3d.name = new_name
-	add_and_set_own(node3d, parent)
+	add_and_set_own(node3d, parent, _owner)
 	return node3d
+
+func save_scene(new_lvl: Node3D, path: String):
+	var scene = PackedScene.new()
+	var result = scene.pack(new_lvl)
+	if result != OK:
+		Log.error("error", result, "append...")
+		return
+	var error = ResourceSaver.save(scene, path)
+	if error != OK:
+		Log.error("An error occurred while saving the scene to disk.")

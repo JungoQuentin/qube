@@ -7,12 +7,12 @@ class_name MapCube
 var speed = 1.5
 @export var dimension: int = 0
 var is_rotating = false
-var start
-var goal
-var t = 0.0
+var start: Basis
+var goal: Basis
+var t: float = 0.0
 var rotator: Node3D
-var rotator_start
-var rotator_goal
+var rotator_start: Basis
+var rotator_goal: Basis
 
 func _ready():
 	if dimension == 0:
@@ -49,4 +49,11 @@ func stop_rotation():
 	main.add_child(Global.player)
 	rotator.queue_free()
 	var shift = dimension - 1
-	Global.player.reset(-shift * Global.direction, true)
+	Global.player.reset_pivot(-shift * Global.direction)
+
+#####
+
+func reset():
+	if is_rotating:
+		stop_rotation()
+	transform = Transform3D.IDENTITY

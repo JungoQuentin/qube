@@ -43,7 +43,8 @@ func _physics_process(delta):
 		t += delta * (speed / 2 if is_on_edge else speed)
 		pivot.basis = start.slerp(goal, t) 
 	if is_rolling and t >= 1:
-		if not is_on_edge: reset(Global.direction)
+		if not is_on_edge:
+			reset_pivot(Global.direction)
 		is_rolling = false
 
 		
@@ -63,7 +64,7 @@ func _input(_event):
 	if Input.is_action_just_pressed("ui_accept"):
 		raycast.get_collider().on_touch()
 
-func reset(direction, _from_cube=false):
+func reset_pivot(direction=Vector3.ZERO):
 	t = 0.0
 	mesh.transform.origin = Vector3(0, 0.5, 0)
 	pivot.transform = Transform3D.IDENTITY
@@ -108,9 +109,17 @@ func _set_animation(dir):
 #####
 
 func _start_transparence_animation():
+	#return
 	var material = mesh.mesh.surface_get_material(0)
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(material, "albedo_color:a", min_transparency, 2)
 	tween.tween_property(material, "albedo_color:a", max_transparency, 2)
 	tween.tween_callback(_start_transparence_animation)
 	tween.play()
+
+
+func reset():
+	if not is_on_edge:
+		reset_pivot()
+	is_rolling = false
+	_set_start_pos()

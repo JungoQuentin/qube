@@ -11,10 +11,9 @@ var tween: Tween
 
 func _ready():
 	mesh.size = Vector3.ONE * Global.cube_scale
-	pass
 
 func on_touch():
-	_touched_animation_start()
+	_touched_animation_start(mesh_instance, touched_color, initial_color)
 
 func on_leave():
 	pass
@@ -23,16 +22,16 @@ func _animation_end():
 	mesh_instance.mesh = mesh
 	tween = null
 
-func _touched_animation_start():
-	var _tmp_mesh = mesh_instance.mesh.duplicate(true)
-	mesh_instance.mesh = _tmp_mesh
+func _touched_animation_start(_mesh_instance: MeshInstance3D, _touched_color: Color, _initial_color: Color):
+	var _tmp_mesh = _mesh_instance.mesh.duplicate(true)
+	_mesh_instance.mesh = _tmp_mesh
 	var _material = _tmp_mesh.surface_get_material(0)
 	if tween:
 		tween.pause()
 		tween.kill()
 	tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(_material, "albedo_color", touched_color, 0.05)
-	tween.tween_property(_material, "albedo_color", initial_color, 1)
+	tween.tween_property(_material, "albedo_color", _touched_color, 0.05)
+	tween.tween_property(_material, "albedo_color", _initial_color, 1)
 	tween.tween_callback(_animation_end)
 	tween.play()
 	# TODO add sound 

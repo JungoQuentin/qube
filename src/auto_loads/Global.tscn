@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb8s73qqv5k22"]
+
+[ext_resource type="Script" path="res://src/auto_loads/Global.gd" id="1_aqdbt"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_aqdbt")
+normal_init_color = Color(0.854902, 0.6, 0.427451, 1)
+normal_touched_color = Color(0.290196, 0.290196, 0.290196, 1)
+single_cube_init_color = Color(0.545098, 0.670588, 0.847059, 1)
+single_cube_touched_color = Color(0.270588, 0.270588, 0.270588, 1)
+start_cube_init_color = Color(0.996078, 0.509804, 0, 1)
+start_cube_touched_color = Color(0.4, 0.203922, 0.0470588, 1)
+end_cube_init_color = Color(0.337255, 0.764706, 0.505882, 1)
+end_cube_touched_color = Color(0.207843, 0.458824, 0.27451, 1)

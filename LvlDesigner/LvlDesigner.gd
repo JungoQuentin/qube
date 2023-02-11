@@ -11,7 +11,6 @@ var _grid_map: GridMap
 		lvl_name = n_lvl_name
 		_lvl_path = "res://src/new_levels/{}.tscn".format([lvl_name], "{}")
 
-@onready var lvl_preload: PackedScene = preload("res://templates/level_x.tscn")
 @onready var cube_preload: Dictionary = {
 	cubeType.NORMAL : preload("res://src/MapCube/cubeTypes/normalCube.tscn"),
 	cubeType.BLOCKING : preload("res://src/MapCube/cubeTypes/blockingCube.tscn"),

@@ -42,14 +42,15 @@ func start_cube_rotation(dir):
 	goal = basis.rotated(-axis, PI / 2)
 	rotator_goal = rotator.basis.rotated(-axis, PI / 2)
 
-func stop_rotation():
+func stop_rotation(reset_player_pivot=true):
 	is_rotating = false
 	t = 0.0
 	rotator.remove_child(Global.player)
 	main.add_child(Global.player)
 	rotator.queue_free()
 	var shift = dimension - 1
-	Global.player.reset_pivot(-shift * Global.direction)
+	if reset_player_pivot:
+		Global.player.reset_pivot(-shift * Global.direction)
 
 #####
 

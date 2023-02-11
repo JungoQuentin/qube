@@ -78,7 +78,7 @@ func reset_pivot(direction=Vector3.ZERO):
 	if block:
 		block.on_touch()
 
-func roll(dir):
+func roll(dir, do_add_action=true):
 	if is_rolling or Global.map_cube.is_rotating:
 		return
 	is_rolling = true
@@ -86,6 +86,15 @@ func roll(dir):
 	_check_edge(dir)
 	_offset(dir)
 	_set_animation(dir)
+
+	if do_add_action:
+		_add_action(dir)
+
+func _add_action(dir):
+	if not is_on_edge:
+		Actions.add(ActionNode.Type.SIMPLE_MOVE, dir) # change to position ?
+	else:
+		Actions.add(ActionNode.Type.PLAYER_AND_MAP_MOVE, [dir, Global.map_cube.basis, position])
 
 func _check_edge(dir):
 	raycast.position += dir

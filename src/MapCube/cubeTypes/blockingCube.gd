@@ -9,4 +9,5 @@ func _ready():
 func on_touch():
 	super.on_touch()
 	await Global.wait_player_end_rolling()
-	Global.player.roll(-Global.direction)
+	Actions.actions.pop_back()
+	Global.player.roll(-Global.direction, false)

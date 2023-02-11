@@ -88,13 +88,7 @@ func roll(dir, do_add_action=true):
 	_set_animation(dir)
 
 	if do_add_action:
-		_add_action(dir)
-
-func _add_action(dir):
-	if not is_on_edge:
-		Actions.add(ActionNode.Type.SIMPLE_MOVE, dir) # change to position ?
-	else:
-		Actions.add(ActionNode.Type.PLAYER_AND_MAP_MOVE, [dir, Global.map_cube.basis, position])
+		Actions.add(ActionNode.Type.MOVE, ActionNode.State.new(position, Global.map_cube.basis))
 
 func _check_edge(dir):
 	raycast.position += dir

@@ -1,18 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://b67u0xirtdswa"]
+[gd_scene load_steps=4 format=3 uid="uid://b67u0xirtdswa"]
 
 [ext_resource type="Script" path="res://src/env/EnvLightCam.gd" id="1_j3vlk"]
 
 [sub_resource type="Environment" id="Environment_qevnp"]
 background_mode = 1
-background_color = Color(0.270588, 0.270588, 0.270588, 1)
+background_color = Color(0.498039, 0.490196, 0.478431, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
+glow_intensity = 3.52
+glow_bloom = 0.21
+fog_density = 0.188
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(1, 0.0784314, 0.87451, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+
+[sub_resource type="FogMaterial" id="FogMaterial_cw44f"]
+density = 1.5625
+albedo = Color(1, 0.337255, 0.713726, 1)
+emission = Color(0.701961, 0.701961, 0.701961, 1)
 
 [node name="EnvLightCam" type="Node3D"]
 script = ExtResource("1_j3vlk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qevnp")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+size = Vector3(20, 20, 20)
+material = SubResource("FogMaterial_cw44f")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.904, 0)
@@ -48,5 +64,6 @@ visible = false
 light_energy = 1.3
 omni_range = 5.70428
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="lights"]
+[node name="inner" type="OmniLight3D" parent="lights"]
+light_color = Color(0.968627, 0.752941, 1, 1)
 omni_range = 15.0

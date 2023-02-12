@@ -1,30 +1,5 @@
 extends Node
 
-@export_range(0, 1) var cube_scale = 0.965
-
-@export_category("Colors")
-@export_subgroup("NormalCube")
-@export var normal_init_color = Color.REBECCA_PURPLE
-@export var normal_touched_color = Color.WHITE
-@export_subgroup("BlockingCube")
-@export var blocking_init_color = Color.DARK_GRAY
-@export var blocking_touched_color = Color.BLACK
-@export_subgroup("SingleCube")
-@export var single_cube_init_color = Color.DARK_GRAY
-@export var single_cube_touched_color = Color.BLACK
-@export_subgroup("StartCube")
-@export var start_cube_init_color = Color.DARK_GRAY
-@export var start_cube_touched_color = Color.BLACK
-@export_subgroup("EndCube")
-@export var end_cube_init_color = Color.DARK_GRAY
-@export var end_cube_touched_color = Color.BLACK
-@export_subgroup("SwitchCube")
-@export var switch_cube_on_color = Color.YELLOW
-@export var switch_cube_off_color = Color.BLACK
-@export_subgroup("MovingCube")
-@export var moving_cube_init_color = Color.YELLOW
-@export var moving_cube_touched_color = Color.BLACK
-
 var player: Node3D = null
 var map_cube: MapCube = null
 var direction: Vector3

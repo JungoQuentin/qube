@@ -3,8 +3,8 @@ extends Cube
 func _ready():
 	super._ready()
 	cube_type = BLOCKING
-	initial_color = Global.blocking_init_color
-	touched_color = Global.blocking_touched_color
+	initial_color = Colors.blocking_init_color
+	touched_color = Colors.darker(initial_color) 
 	mesh.surface_get_material(0).albedo_color = initial_color
 
 func on_touch():

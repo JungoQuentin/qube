@@ -12,11 +12,11 @@ var _grid_map: GridMap
 		_lvl_path = "res://LvlDesigner/new_levels/{}.tscn".format([lvl_name], "{}")
 
 @onready var cube_preload: Dictionary = {
-	cubeType.NORMAL : preload("res://src/MapCube/cubeTypes/normalCube.tscn"),
-	cubeType.BLOCKING : preload("res://src/MapCube/cubeTypes/blockingCube.tscn"),
-	cubeType.START : preload("res://src/MapCube/cubeTypes/startCube.tscn"),
-	cubeType.END : preload("res://src/MapCube/cubeTypes/endCube.tscn"),
-	cubeType.ONE : preload("res://src/MapCube/cubeTypes/oneCube.tscn"),
+	cubeType.NORMAL : preload("res://src/cubeTypes/normalCube.tscn"),
+	cubeType.BLOCKING : preload("res://src/cubeTypes/blockingCube.tscn"),
+	cubeType.START : preload("res://src/cubeTypes/startCube.tscn"),
+	cubeType.END : preload("res://src/cubeTypes/endCube.tscn"),
+	cubeType.ONE : preload("res://src/cubeTypes/singleUseCube.tscn"),
 }
 
 enum cubeType {

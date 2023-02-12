@@ -35,7 +35,7 @@ func _easy_undo():
 
 func _undo_moving():
 	if Global.map_cube.is_rotating: # en plus du player qui roll
-		Global.map_cube.stop_rotation(false)
+		Global.map_cube.stop_rotation()
 		Global.map_cube.basis = Global.map_cube.start
 	Global.player.reset_pivot()
 	Global.player.is_rolling = false

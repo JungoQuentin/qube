@@ -6,8 +6,8 @@ var true_material: Material
 func _ready():
 	super._ready()
 	cube_type = SINGLE_USE 
-	initial_color = Global.single_cube_init_color
-	touched_color = Global.single_cube_touched_color
+	initial_color = Colors.single_cube_init_color
+	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
 
 func on_leave():
@@ -22,8 +22,8 @@ func on_touch():
 		mesh = mesh.duplicate(true)
 		mesh_instance.mesh = mesh
 		true_material = mesh_instance.mesh.surface_get_material(0)
-		initial_color = Global.blocking_init_color
-		touched_color = Global.blocking_touched_color
+		initial_color = Colors.blocking_init_color
+		touched_color = Colors.darker(initial_color)
 		_wird_animation_start()
 	else:
 		super.on_touch()

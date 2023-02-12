@@ -12,7 +12,7 @@ var tween: Tween
 var cube_type = NORMAL
 
 func _ready():
-	mesh.size = Vector3.ONE * Global.cube_scale
+	mesh.size = Vector3.ONE * Colors.cube_scale
 	collision_shape.shape.size = mesh.size
 
 func on_touch():

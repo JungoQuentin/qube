@@ -26,7 +26,7 @@ func _time(ms:bool = false):
 
 func debug(a="",b="",c="",d="",e="",f="",g="",h=""):
 	if not level > DEBUG:
-		print(_time(true), " | ", a, b, c, d, e, f, g, h)
+		print(_time(), " | ", a, b, c, d, e, f, g, h)
 
 func info(a="",b="",c="",d="",e="",f="",g="",h=""):
 	if not level > INFO:

@@ -24,7 +24,8 @@ func _redo():
 	undo_stack.pop_back().redo()
 
 func _reset_level():
-	add_action(Global.player.position, Global.map_cube.basis)
+	if not Global.player.is_rolling:
+		add_action(Global.player.position, Global.map_cube.basis)
 	undo_stack.clear()
 	Global.map_cube.reset()
 	Global.player.reset()

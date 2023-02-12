@@ -17,15 +17,25 @@ const camera_y_dist_by_cube_dimension: Dictionary = {
 
 @export var debug = false
 
+
 func _ready():
 	camera.fov = camera_fov
 	await Utils.wait_while(func(): return Global.map_cube == null)
 	camera.position.y = camera_y_dist_by_cube_dimension[Global.map_cube.dimension]
-	camera_db.current = debug
+	$WorldEnvironment.environment.background_color = Colors.background_color
+
+
+	if debug:
+		camera_db.current = true
+	else:
+		camera.current = true
+	if Colors.inner_light_fade:
+		$lights/inner.light_color = Colors.inner_light_color
+		_start_inner_light_animation()
 
 func _start_inner_light_animation():
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property($light/caca, "light_energy", 0.5, 2)
-	tween.tween_property($light/caca, "light_energy", 2.0, 2)
+	tween.tween_property($lights/inner, "light_energy", Colors.fade_from, Colors.fade_speed)
+	tween.tween_property($lights/inner, "light_energy", Colors.fade_to,   Colors.fade_speed)
 	tween.tween_callback(_start_inner_light_animation)
 	tween.play()

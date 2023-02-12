@@ -5,8 +5,8 @@ extends Cube
 func _ready():
 	super._ready()
 	cube_type = MOVING
-	initial_color = Global.moving_cube_init_color
-	touched_color = Global.moving_cube_touched_color
+	initial_color = Colors.moving_cube_init_color
+	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
 
 func on_touch():

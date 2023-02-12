@@ -9,9 +9,8 @@ extends Node3D
 
 var loaded = false
 var is_rolling = false 
-var start
-var goal
-var t = 0.0
+var start: Basis
+var goal: Basis
 var is_on_edge = false
 
 var we_are_on_this_cube_now = null
@@ -20,8 +19,9 @@ var we_are_on_this_cube_now = null
 func _ready():
 	pivot.set_disable_scale(true)
 	Global.player = self
-	mesh_instance.mesh.surface_get_material(0).albedo_color = Color.AQUA
-	#_start_transparence_animation()
+	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
+	if Colors.player_fade:
+		_start_transparence_animation()
 	await _set_start_pos()
 
 func _set_start_pos():
@@ -42,19 +42,6 @@ func _input(_event):
 	if Input.is_action_pressed("left"):
 		roll(-forward.cross(Vector3.UP))
 
-func reset_pivot(direction=Vector3.ZERO):
-	t = 0.0
-	mesh_instance.transform.origin = Vector3(0, 0.5, 0)
-	pivot.transform = Transform3D.IDENTITY
-	self.transform.origin += direction
-
-	var block = Utils.get_raycast_collider(self, Vector3.UP / 2, Vector3.DOWN)
-	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
-		we_are_on_this_cube_now.on_leave()
-	we_are_on_this_cube_now = block
-	if block:
-		block.on_touch()
-
 func roll(dir: Vector3, do_add_action=true):
 	if is_rolling or Global.map_cube.is_rotating:
 		return
@@ -65,7 +52,7 @@ func roll(dir: Vector3, do_add_action=true):
 	Global.direction = dir
 	_check_edge(dir)
 	_offset(dir)
-	_set_animation(dir)
+	_animation(dir)
 
 	if do_add_action:
 		Actions.add_action(position, Global.map_cube.basis)
@@ -90,45 +77,50 @@ func _offset(dir):
 	pivot.translate(dir / 2)
 	mesh_instance.transform.origin -= dir /2
 
-var tween
-
-func _set_animation(dir):
+func _animation(dir):
 	var axis = dir.cross(Vector3.DOWN)
-	goal = pivot.basis.rotated(axis, PI/2)
-	var goal_e = pivot.basis.rotated(axis, PI-0.01)
-	var time = speed
-
-	if tween != null:
-		tween.stop()
-		tween.kill()
-	tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
-	tween.tween_property(pivot, "basis:x", goal.x, time)
-	tween.parallel().tween_property(pivot, "basis:y", goal.y, time)
-	tween.parallel().tween_property(pivot, "basis:z", goal.z, time)
-	if is_on_edge:
-		tween.tween_property(pivot, "basis:x", goal_e.x, time)
-		tween.parallel().tween_property(pivot, "basis:y", goal_e.y, time)
-		tween.parallel().tween_property(pivot, "basis:z", goal_e.z, time)
-		pass
-	tween.tween_callback(_animation_end.bind(dir))
-
-func _animation_end(dir):
-	is_rolling = false
-	tween = null
+	start = pivot.basis
+	goal = pivot.basis.rotated(axis, PI/2) if not is_on_edge else pivot.basis.rotated(-axis, PI)
+	var tween = get_tree().create_tween()
+	tween.tween_method(_tween_basis, 0., 1., speed if not is_on_edge else speed * 2) 
+	await tween.finished
+	if not is_rolling: # modified elsewhere
+		return
 	if not is_on_edge:
 		reset_pivot(dir)
+	if is_on_edge:
+		var shift = Global.map_cube.dimension - 1
+		reset_pivot(-shift * dir)
+
+func _tween_basis(t):
+	if not is_rolling:
+		return
+	pivot.basis = start.slerp(goal, t)
+
+func reset_pivot(direction=Vector3.ZERO):
+	is_rolling = false
+	mesh_instance.transform.origin = Vector3(0, 0.5, 0)
+	pivot.transform = Transform3D.IDENTITY
+	self.transform.origin += direction
+
+	var block = Utils.get_raycast_collider(self, Vector3.UP / 2, Vector3.DOWN)
+	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
+		we_are_on_this_cube_now.on_leave()
+	we_are_on_this_cube_now = block
+	if block:
+		block.on_touch()
+
 #####
 
+# TODO refactor to loop
 func _start_transparence_animation():
 	var material = mesh_instance.mesh.surface_get_material(0)
-	var tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(material, "albedo_color:a", min_transparency, 2)
-	tween.tween_property(material, "albedo_color:a", max_transparency, 2)
-	tween.tween_callback(_start_transparence_animation)
-	tween.play()
+	var _tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	_tween.tween_property(material, "albedo_color:a", min_transparency, 2)
+	_tween.tween_property(material, "albedo_color:a", max_transparency, 2)
+	_tween.tween_callback(_start_transparence_animation)
+	_tween.play()
 
 func reset():
-	if not is_on_edge:
-		reset_pivot()
-	is_rolling = false
+	reset_pivot()
 	_set_start_pos()

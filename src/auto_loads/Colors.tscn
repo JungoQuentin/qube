@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://b27x0dskrrfh8"]
+
+[ext_resource type="Script" path="res://src/auto_loads/Colors.gd" id="1_ac7s7"]
+
+[node name="Colors" type="Node"]
+script = ExtResource("1_ac7s7")
+palette_name = "Power"
+player_color = Color(0.0980392, 0.403922, 0.454902, 1)
+inner_light_color = Color(1, 0.858824, 0.729412, 1)
+background_color = Color(0.211765, 0.203922, 0.196078, 1)
+inner_light_fade = true
+normal_init_color = Color(0.941176, 0.580392, 0.121569, 1)
+blocking_init_color = Color(0.564706, 0.631373, 0.615686, 1)
+single_cube_init_color = Color(0.741176, 0.878431, 0.996078, 1)
+start_cube_init_color = Color(1, 0.45098, 0, 1)
+end_cube_init_color = Color(0.0980392, 0.403922, 0.454902, 1)
+cube_scale = 0.97

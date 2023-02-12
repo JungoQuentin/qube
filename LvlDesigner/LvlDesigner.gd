@@ -9,7 +9,7 @@ var _grid_map: GridMap
 @export var lvl_name = "":
 	set(n_lvl_name):
 		lvl_name = n_lvl_name
-		_lvl_path = "res://src/new_levels/{}.tscn".format([lvl_name], "{}")
+		_lvl_path = "res://LvlDesigner/new_levels/{}.tscn".format([lvl_name], "{}")
 
 @onready var cube_preload: Dictionary = {
 	cubeType.NORMAL : preload("res://src/MapCube/cubeTypes/normalCube.tscn"),

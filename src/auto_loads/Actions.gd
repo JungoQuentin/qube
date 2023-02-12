@@ -3,40 +3,41 @@ extends Node
 var actions: Array[ActionNode] = []
 var undo_stack: Array[ActionNode] = []
 
-func _input(_event):
-	if Input.is_action_just_pressed("undo"):
-		undo()
-	if Input.is_action_just_pressed("redo"):
-		redo()
-	if Input.is_action_just_pressed("reset"):
-		reset_level()
-	if Input.is_action_just_pressed("settings"):
-		settings()
+func _process(_delta):
+	match Global.game_state:
+		Global.INGAME:
+			if Input.is_action_just_pressed("undo"): _undo()
+			if Input.is_action_just_pressed("redo"): _redo()
+			if Input.is_action_just_pressed("reset"): _reset_level()
+			if Input.is_action_just_pressed("settings"): settings()
+		Global.PAUSE:
+			pass
+		Global.MENU:
+			pass
 
-func reset_level():
-	add(ActionNode.Type.RESET, ActionNode.State.new(Global.player.position, Global.map_cube.basis))
+func _undo():
+	if actions.size() == 0: return
+	actions.pop_back().undo()
+
+func _redo():
+	if undo_stack.size() == 0: return
+	undo_stack.pop_back().redo()
+
+func _reset_level():
+	add_action(Global.player.position, Global.map_cube.basis)
+	undo_stack.clear()
 	Global.map_cube.reset()
 	Global.player.reset()
-
-func undo():
-	if actions.size() == 0:
-		return
-	var last_action = actions.pop_back()
-	last_action.undo()
-
-func redo():
-	if undo_stack.size() == 0:
-		return
-	var last_action = undo_stack.pop_back()
-	last_action.redo()
-
-func add(type, state, clear_undo_stack=true):
-	if clear_undo_stack:
-		undo_stack.clear()
-	actions.push_back(ActionNode.new(type, state))
 
 
 func settings():
 	pass
+
+func add_action(_player_position, _map_basis):
+	actions.push_back(ActionNode.new(ActionNode.State.new(_player_position, _map_basis)))
+
+func add_undo(_player_position, _map_basis):
+	undo_stack.push_back(ActionNode.new(ActionNode.State.new(_player_position, _map_basis)))
+
 
 # IDEE: avec les trigger arriere, faire pivot le a 90 degres sur l'axe y pour changer de point de vu ?

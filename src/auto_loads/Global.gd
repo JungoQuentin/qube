@@ -23,6 +23,9 @@ var player: Node3D = null
 var map_cube: MapCube = null # TODO remane map_cube
 var direction: Vector3
 var startCube: Cube = null
+enum { INGAME, PAUSE, MENU }
+var game_state = INGAME
+
 
 func wait_player_end_rolling(incr=0.01, _timeout=10):
 	var i = 0.0

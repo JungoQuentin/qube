@@ -88,7 +88,8 @@ func roll(dir, do_add_action=true):
 	_set_animation(dir)
 
 	if do_add_action:
-		Actions.add(ActionNode.Type.MOVE, ActionNode.State.new(position, Global.map_cube.basis))
+		Actions.add_action(position, Global.map_cube.basis)
+		Actions.undo_stack.clear()
 
 func _check_edge(dir):
 	raycast.position += dir

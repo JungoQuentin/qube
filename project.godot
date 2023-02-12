@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BCube"
-run/main_scene="res://src/levels/002.tscn"
+run/main_scene="res://src/levels/test_switch.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -96,5 +96,5 @@ settings={
 [rendering]
 
 occlusion_culling/bvh_build_quality=0
-renderer/rendering_method="gl_compatibility"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

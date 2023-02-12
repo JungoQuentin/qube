@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b67u0xirtdswa"]
+[gd_scene load_steps=3 format=3 uid="uid://b67u0xirtdswa"]
 
 [ext_resource type="Script" path="res://src/env/EnvLightCam.gd" id="1_j3vlk"]
 
@@ -10,25 +10,14 @@ ambient_light_color = Color(1, 1, 1, 1)
 glow_intensity = 3.52
 glow_bloom = 0.21
 fog_density = 0.188
-volumetric_fog_enabled = true
-volumetric_fog_albedo = Color(1, 0.0784314, 0.87451, 1)
-volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission = Color(0.576471, 0.576471, 0.576471, 1)
 volumetric_fog_temporal_reprojection_enabled = false
-
-[sub_resource type="FogMaterial" id="FogMaterial_cw44f"]
-density = 1.5625
-albedo = Color(1, 0.337255, 0.713726, 1)
-emission = Color(0.701961, 0.701961, 0.701961, 1)
 
 [node name="EnvLightCam" type="Node3D"]
 script = ExtResource("1_j3vlk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qevnp")
-
-[node name="FogVolume" type="FogVolume" parent="."]
-size = Vector3(20, 20, 20)
-material = SubResource("FogMaterial_cw44f")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.904, 0)

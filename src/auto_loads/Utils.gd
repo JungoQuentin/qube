@@ -18,3 +18,13 @@ func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3)
 	var collider = new_raycast.get_collider()
 	new_raycast.queue_free()
 	return collider
+
+
+func push_neighbour(parent, dir: Vector3) -> bool:
+	var neighbour_block = Utils.get_raycast_collider(parent, Vector3.UP / 2, dir)
+	if neighbour_block == null:
+		return false
+	if neighbour_block.cube_type != Cube.MOVING:
+		Log.crash("comment un block voisin peut etre autre chose qu'un moving cube ??")
+	neighbour_block.on_push(dir)
+	return true

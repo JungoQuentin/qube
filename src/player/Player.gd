@@ -42,11 +42,13 @@ func _input(_event):
 	if Input.is_action_pressed("left"):
 		roll(-forward.cross(Vector3.UP))
 
+#### ROLL LOGIC ####
+
 func roll(dir: Vector3, do_add_action=true):
 	if is_rolling or Global.map_cube.is_rotating:
 		return
 	is_rolling = true
-	if _check_neighbour(dir):
+	if Utils.push_neighbour(self, dir):
 		is_rolling = false
 		return
 	Global.direction = dir
@@ -58,14 +60,6 @@ func roll(dir: Vector3, do_add_action=true):
 		Actions.add_action(position, Global.map_cube.basis)
 		Actions.undo_stack.clear()
 
-func _check_neighbour(dir: Vector3) -> bool:
-	var neighbour_block = Utils.get_raycast_collider(self, Vector3.UP / 2, dir)
-	if neighbour_block == null:
-		return false
-	if neighbour_block.cube_type != Cube.MOVING:
-		Log.crash("comment un block voisin peut etre autre chose qu'un moving cube ??")
-	neighbour_block.on_push(dir)
-	return true
 
 func _check_edge(dir):
 	var collider = Utils.get_raycast_collider(self, dir + Vector3.UP / 2, Vector3.DOWN)

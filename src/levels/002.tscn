@@ -14,7 +14,7 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="EnvLightCam" parent="." instance=ExtResource("2_yvsuu")]
-debug = true
+camera_y_distance = 17.131
 
 [node name="MapCube" parent="." instance=ExtResource("4_c53kv")]
 dimension = 5

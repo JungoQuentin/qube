@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr0s7265gpx65"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://src/MapCube/cubeTypes/endCube.gd" id="1_p5p5t"]
+[ext_resource type="Script" path="res://src/cubeTypes/endCube.gd" id="1_p5p5t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjdfs"]
 

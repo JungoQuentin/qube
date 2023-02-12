@@ -1,12 +1,14 @@
 extends StaticBody3D
 class_name Cube
 
+enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START }
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var mesh: Mesh = mesh_instance.mesh
 var initial_color: Color
 var touched_color: Color
 var tween: Tween
+var cube_type = NORMAL
 
 
 func _ready():

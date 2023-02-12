@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7ewuofl7wpbj"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://src/MapCube/cubeTypes/oneCube.gd" id="1_8oapu"]
+[ext_resource type="Script" path="res://src/cubeTypes/singleUseCube.gd" id="1_8oapu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jx7hc"]
 albedo_color = Color(0.8, 0.521569, 0.541176, 1)

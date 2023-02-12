@@ -1,6 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjkqskobx7sq8"]
+[gd_scene load_steps=13 format=3 uid="uid://cd1tn0vqujvqj"]
 
-[ext_resource type="Script" path="res://src/MapCube/cubeTypes/normalCube.gd" id="1_bd8ka"]
+[ext_resource type="Script" path="res://src/cubeTypes/normalCube.gd" id="1_bd8ka"]
 [ext_resource type="AudioStream" uid="uid://c3cyl0mk5aqi4" path="res://assets/zik/scale BASIC test-1.wav" id="2_2hb55"]
 [ext_resource type="AudioStream" uid="uid://lay7il6cqsje" path="res://assets/zik/scale BASIC test-2.wav" id="3_oyg5t"]
 [ext_resource type="AudioStream" uid="uid://bqwl6egkagx3r" path="res://assets/zik/scale BASIC test-3.wav" id="4_it4hj"]

@@ -1,9 +1,7 @@
 extends Cube
 
-@onready var blockingCubePreload = preload("res://src/MapCube/cubeTypes/blockingCube.tscn")
-var is_used = false
-
-var true_material
+var is_used: bool = false
+var true_material: Material
 
 func _ready():
 	super._ready()
@@ -28,7 +26,7 @@ func on_touch():
 		_wird_animation_start()
 	else:
 		super.on_touch()
-		await Global.wait_player_end_rolling()
+		await Global.wait_while(func(): return Global.player.is_rolling)
 		Global.player.roll(-Global.direction)
 
 func _change_color_animation_start():

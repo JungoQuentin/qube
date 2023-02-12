@@ -30,10 +30,7 @@ func _ready():
 	await _set_start_pos()
 
 func _set_start_pos():
-	var passed = 0.0
-	while Global.startCube == null and passed < 3:
-		passed += 0.01
-		await get_tree().create_timer(0.01).timeout
+	await Global.wait_while(func(): return Global.startCube == null)
 	position = Global.startCube.global_position + Vector3.UP / 2
 	we_are_on_this_cube_now = Global.startCube
 
@@ -95,6 +92,7 @@ func _check_edge(dir):
 	raycast.position += dir
 	raycast.force_raycast_update()
 	is_on_edge = not raycast.is_colliding()
+	print("is on edge {}".format([is_on_edge], '{}'))
 	if is_on_edge:
 		Global.map_cube.start_cube_rotation(dir)
 	raycast.position = original_raycast_pos

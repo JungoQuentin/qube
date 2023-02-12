@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cekehk0ccqcop"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://src/MapCube/cubeTypes/blockingCube.gd" id="1_kuial"]
+[ext_resource type="Script" path="res://src/cubeTypes/blockingCube.gd" id="1_kuial"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7v4gv"]
 transparency = 1

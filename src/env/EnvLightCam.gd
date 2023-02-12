@@ -16,10 +16,7 @@ const camera_y_dist_by_cube_dimension: Dictionary = {
 
 func _ready():
 	camera.fov = camera_fov
-	var passed = 0.0
-	while Global.map_cube == null and passed < 3:
-		passed += 0.01
-		await get_tree().create_timer(0.01).timeout
+	await Global.wait_while(func(): return Global.map_cube == null)
 	camera.position.y = camera_y_dist_by_cube_dimension[Global.map_cube.dimension]
 
 func _start_inner_light_animation():

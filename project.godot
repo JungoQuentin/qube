@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BCube"
-run/main_scene="res://src/levels/000.tscn"
+run/main_scene="res://src/levels/test_switch.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,7 @@ Log="*res://src/auto_loads/Log.gd"
 Tools="*res://src/auto_loads/Tools.gd"
 Global="*res://src/auto_loads/Global.tscn"
 Actions="*res://src/auto_loads/Actions.gd"
+Utils="*res://src/auto_loads/Utils.gd"
 
 [editor]
 

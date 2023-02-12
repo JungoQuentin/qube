@@ -1,18 +1,19 @@
 extends StaticBody3D
 class_name Cube
 
-enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START }
+enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START, MOVING }
 
-@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+@onready var mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
 @onready var mesh: Mesh = mesh_instance.mesh
+@onready var collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 var initial_color: Color
 var touched_color: Color
 var tween: Tween
 var cube_type = NORMAL
 
-
 func _ready():
 	mesh.size = Vector3.ONE * Global.cube_scale
+	collision_shape.shape.size = mesh.size
 
 func on_touch():
 	_touched_animation_start(mesh_instance, touched_color, initial_color)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3tukty5ask6k"]
+
+[ext_resource type="Script" path="res://src/cubeTypes/movingCube.gd" id="1_fx52h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0ayf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_au8wj"]
+transparency = 1
+albedo_color = Color(0.168627, 0, 0.643137, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tlole"]
+material = SubResource("StandardMaterial3D_au8wj")
+size = Vector3(0.95, 0.95, 0.95)
+
+[node name="movingCube" type="StaticBody3D"]
+disable_mode = 1
+axis_lock_linear_y = true
+axis_lock_angular_y = true
+script = ExtResource("1_fx52h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_v0ayf")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot"]
+mesh = SubResource("BoxMesh_tlole")
+skeleton = NodePath("../..")

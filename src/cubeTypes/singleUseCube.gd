@@ -5,6 +5,7 @@ var true_material: Material
 
 func _ready():
 	super._ready()
+	cube_type = SINGLE_USE 
 	initial_color = Global.single_cube_init_color
 	touched_color = Global.single_cube_touched_color
 	mesh.surface_get_material(0).albedo_color = initial_color
@@ -26,7 +27,7 @@ func on_touch():
 		_wird_animation_start()
 	else:
 		super.on_touch()
-		await Global.wait_while(func(): return Global.player.is_rolling)
+		await Utils.wait_while(func(): return Global.player.is_rolling)
 		Global.player.roll(-Global.direction)
 
 func _change_color_animation_start():

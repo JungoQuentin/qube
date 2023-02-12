@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var camera = $Camera3D
+@onready var camera_db = $Camera3D_debug
 
 @export var camera_y_distance = 10.:
 	set(n):
@@ -14,10 +15,13 @@ const camera_y_dist_by_cube_dimension: Dictionary = {
 	7: 17.
 }
 
+@export var debug = false
+
 func _ready():
 	camera.fov = camera_fov
-	await Global.wait_while(func(): return Global.map_cube == null)
+	await Utils.wait_while(func(): return Global.map_cube == null)
 	camera.position.y = camera_y_dist_by_cube_dimension[Global.map_cube.dimension]
+	camera_db.current = debug
 
 func _start_inner_light_animation():
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT)

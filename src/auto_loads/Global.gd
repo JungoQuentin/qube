@@ -21,6 +21,9 @@ extends Node
 @export_subgroup("SwitchCube")
 @export var switch_cube_on_color = Color.YELLOW
 @export var switch_cube_off_color = Color.BLACK
+@export_subgroup("MovingCube")
+@export var moving_cube_init_color = Color.YELLOW
+@export var moving_cube_touched_color = Color.BLACK
 
 var player: Node3D = null
 var map_cube: MapCube = null
@@ -38,18 +41,8 @@ func _ready():
 
 	await _init_level()
 
-func wait_while(condition: Callable, timeout=5, frequency=0.01) -> bool:
-	var passed = 0.0
-	while condition.call():
-		if passed > timeout: return false
-		passed += frequency
-		await get_tree().create_timer(frequency).timeout
-	return true
-
 func _init_level():
-	print("init level")
-	await wait_while(func(): print(map_cube);return map_cube == null, 1)
-	print("map cube exist")
+	await Utils.wait_while(func(): return map_cube == null, 1)
 	var map_cube_children = map_cube.get_child(0).get_children()
 	switch_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.SWITCH)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.SINGLE_USE)

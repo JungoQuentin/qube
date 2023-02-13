@@ -23,12 +23,8 @@ func _ready():
 	await Utils.wait_while(func(): return Global.map_cube == null)
 	camera.position.y = camera_y_dist_by_cube_dimension[Global.map_cube.dimension]
 	$WorldEnvironment.environment.background_color = Colors.background_color
-
-
-	if debug:
-		camera_db.current = true
-	else:
-		camera.current = true
+	camera.current = true
+	camera_db.current = debug
 	if Colors.inner_light_fade:
 		$lights/inner.light_color = Colors.inner_light_color
 		_start_inner_light_animation()

@@ -21,10 +21,18 @@ func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3)
 
 
 func push_neighbour(parent, dir: Vector3) -> bool:
-	var neighbour_block = Utils.get_raycast_collider(parent, Vector3.UP / 2, dir)
+	var neighbour_block = Utils.get_raycast_collider(parent, Vector3.ZERO, dir)
 	if neighbour_block == null:
 		return false
 	if neighbour_block.cube_type != Cube.MOVING:
 		Log.crash("comment un block voisin peut etre autre chose qu'un moving cube ??")
 	neighbour_block.on_push(dir)
 	return true
+
+func switch_parent(node, new_parent, keep_global=false):
+	var g = node.global_transform
+	var old_parent = node.get_parent()
+	old_parent.remove_child(node)
+	new_parent.add_child(node)
+	if keep_global:
+		node.global_transform = g

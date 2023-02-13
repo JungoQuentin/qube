@@ -26,7 +26,7 @@ func _ready():
 
 func _set_start_pos():
 	await Utils.wait_while(func(): return Global.startCube == null)
-	position = Global.startCube.global_position + Vector3.UP / 2
+	position = Global.startCube.global_position + Vector3.UP
 	we_are_on_this_cube_now = Global.startCube
 		
 func _input(_event):
@@ -44,13 +44,12 @@ func _input(_event):
 
 #### ROLL LOGIC ####
 
+var is_pushing
 func roll(dir: Vector3, do_add_action=true):
 	if is_rolling or Global.map_cube.is_rotating:
 		return
 	is_rolling = true
-	if Utils.push_neighbour(self, dir):
-		is_rolling = false
-		return
+	is_pushing = Utils.push_neighbour(self, dir)
 	Global.direction = dir
 	_check_edge(dir)
 	_offset(dir)
@@ -62,23 +61,31 @@ func roll(dir: Vector3, do_add_action=true):
 
 
 func _check_edge(dir):
-	var collider = Utils.get_raycast_collider(self, dir + Vector3.UP / 2, Vector3.DOWN)
+	var collider = Utils.get_raycast_collider(self, dir, Vector3.DOWN)
 	is_on_edge = !collider
 	if is_on_edge:
 		Global.map_cube.start_cube_rotation(dir)
 
-func _offset(dir):
-	pivot.translate(dir / 2)
-	mesh_instance.transform.origin -= dir /2
+func _offset(direction):
+	pivot.position += direction / 2 + Vector3.DOWN / 2
+	mesh_instance.position -= direction / 2 + Vector3.DOWN / 2
 
 func _animation(dir):
 	var axis = dir.cross(Vector3.DOWN)
 	start = pivot.basis
 	goal = pivot.basis.rotated(axis, PI/2) if not is_on_edge else pivot.basis.rotated(-axis, PI)
-	var tween = get_tree().create_tween()
-	tween.tween_method(_tween_basis, 0., 1., speed if not is_on_edge else speed * 2) 
+
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT_IN)
+	if is_pushing:
+		tween.tween_method(_tween_basis, 0., 0.1, speed / 2) 
+		tween.tween_method(_tween_basis, 0.1, 0., speed / 2) 
+	else:
+		tween.tween_method(_tween_basis, 0., 1., speed if not is_on_edge else speed * 2) 
 	await tween.finished
 	if not is_rolling: # modified elsewhere
+		return
+	if is_pushing:
+		is_rolling = false
 		return
 	if not is_on_edge:
 		reset_pivot(dir)
@@ -93,11 +100,11 @@ func _tween_basis(t):
 
 func reset_pivot(direction=Vector3.ZERO):
 	is_rolling = false
-	mesh_instance.transform.origin = Vector3(0, 0.5, 0)
+	mesh_instance.position = Vector3.ZERO
 	pivot.transform = Transform3D.IDENTITY
-	self.transform.origin += direction
+	position += direction
 
-	var block = Utils.get_raycast_collider(self, Vector3.UP / 2, Vector3.DOWN)
+	var block = Utils.get_raycast_collider(self, Vector3.ZERO, Vector3.DOWN)
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
 		we_are_on_this_cube_now.on_leave()
 	we_are_on_this_cube_now = block

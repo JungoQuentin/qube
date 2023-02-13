@@ -9,6 +9,7 @@ var game_state = INGAME
 
 var switch_cubes: Array
 var single_use_cubes: Array
+var moving_cubes: Array
 
 func _ready():
 	for child in get_children():
@@ -21,6 +22,8 @@ func _init_level():
 	var map_cube_children = map_cube.get_child(0).get_children()
 	switch_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.SWITCH)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.SINGLE_USE)
+	moving_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.MOVING)
+	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
 func check_all_switch_state():
 	if switch_cubes.all(func(cube): return cube.on):

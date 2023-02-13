@@ -8,7 +8,7 @@ enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START, MOVING }
 @onready var collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 var initial_color: Color
 var touched_color: Color
-var tween: Tween
+var touch_tween: Tween
 var cube_type = NORMAL
 
 func _ready():
@@ -23,19 +23,19 @@ func on_leave():
 
 func _animation_end():
 	mesh_instance.mesh = mesh
-	tween = null
+	touch_tween = null
 
 func _touched_animation_start(_mesh_instance: MeshInstance3D, _touched_color: Color, _initial_color: Color):
 	var _tmp_mesh = _mesh_instance.mesh.duplicate(true)
 	_mesh_instance.mesh = _tmp_mesh
 	var _material = _tmp_mesh.surface_get_material(0)
-	if tween:
-		tween.pause()
-		tween.kill()
-	tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(_material, "albedo_color", _touched_color, 0.05)
-	tween.tween_property(_material, "albedo_color", _initial_color, 1)
-	tween.tween_callback(_animation_end)
-	tween.play()
+	if touch_tween:
+		touch_tween.pause()
+		touch_tween.kill()
+	touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	touch_tween.tween_property(_material, "albedo_color", _touched_color, 0.05)
+	touch_tween.tween_property(_material, "albedo_color", _initial_color, 1)
+	touch_tween.tween_callback(_animation_end)
+	touch_tween.play()
 	# TODO add sound 
 	# idee : une note jouee par un xylophone, chaque bloque a une note differente d'une gamme

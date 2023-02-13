@@ -3,6 +3,7 @@ class_name MapCube
 
 
 @onready var main = get_tree().get_current_scene()
+@onready var cubes = find_child("map")
 
 var speed = 1.5
 @export var dimension: int = 0
@@ -18,15 +19,18 @@ func _ready():
 		Log.crash("dimension not set !!")
 	Global.map_cube = self
 
-func start_cube_rotation(dir):
+func start_cube_rotation(direction: Vector3):
 	is_rotating = true
 	rotator = Node3D.new()
 	main.add_child(rotator)
-	main.remove_child(Global.player)
-	rotator.add_child(Global.player)
+	Utils.switch_parent(Global.player, rotator)
 
-	# Step 2: Animate the rotation.
-	var axis = dir.cross(Vector3.DOWN)
+	# TODO : tout le moving cube rotate sur eu meme dans la meme direction
+	#Global.moving_cubes.map(func(cube): cube.map_rot(direction))
+	Global.moving_cubes.map(func(cube): Utils.switch_parent(cube, rotator, true))
+
+	# Animate the rotation.
+	var axis = direction.cross(Vector3.DOWN)
 	start = basis
 	rotator_start = rotator.basis
 	goal = basis.rotated(-axis, PI / 2)
@@ -48,8 +52,8 @@ func _tween_basis(t):
 
 func stop_rotation():
 	basis = goal
-	rotator.remove_child(Global.player)
-	main.add_child(Global.player)
+	Utils.switch_parent(Global.player, main)
+	Global.moving_cubes.map(func(cube): Utils.switch_parent(cube, main, true); cube.map_rot(Global.direction))
 	rotator.queue_free()
 	is_rotating = false
 

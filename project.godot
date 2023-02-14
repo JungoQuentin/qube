@@ -23,7 +23,6 @@ Global="*res://src/auto_loads/Global.tscn"
 Actions="*res://src/auto_loads/Actions.gd"
 Utils="*res://src/auto_loads/Utils.gd"
 Colors="*res://src/auto_loads/Colors.tscn"
-MoveLogic="*res://src/auto_loads/MoveLogic.gd"
 
 [editor]
 

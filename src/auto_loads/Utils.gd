@@ -21,7 +21,7 @@ func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3)
 
 
 func push_neighbour(parent, dir: Vector3) -> bool:
-	var neighbour_block = Utils.get_raycast_collider(parent, Vector3.ZERO, dir)
+	var neighbour_block = get_raycast_collider(parent, Vector3.ZERO, dir)
 	if neighbour_block == null:
 		return false
 	if neighbour_block.cube_type != Cube.MOVING:

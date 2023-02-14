@@ -1,4 +1,5 @@
 extends Node
+class_name MoveLogic
 
 var _object: Node3D
 var _direction: Vector3
@@ -7,28 +8,32 @@ var _pivot: Node3D
 var _start: Basis
 var _goal: Basis
 
-func roll(object: Node3D, direction: Vector3, do_add_action=true):
-	if object.is_moving or Global.map_cube.is_rotating:
-		return
+
+func _init(object: Node3D):
 	_object = object
+	object.add_child(self)
+
+	_pivot = Node3D.new()
+	_object.add_child(_pivot)
+	Utils.switch_parent(_object.mesh_instance, _pivot)
+
+
+func roll(direction: Vector3):
 	_direction = direction
-	object.is_moving = true
-	object.is_pushing = Utils.push_neighbour(object, direction)
+	_object.is_moving = true
+	_object.is_pushing = Utils.push_neighbour(_object, direction)
 	Global.direction = direction
-	_check_edge()
+	_object.is_on_edge = not Utils.get_raycast_collider(_object, _direction, Vector3.DOWN)
 	_offset()
-	_animation()
-
-	if do_add_action:
-		Actions.add_action(object.position, Global.map_cube.basis)
-		Actions.undo_stack.clear()
-
-
-func _check_edge():
-	var collider = Utils.get_raycast_collider(self, _direction, Vector3.DOWN)
-	_object.is_on_edge = !collider
+	await _animation()
+	if not _object.is_moving : # modified elsewhere
+		return
+	if not _object.is_on_edge:
+		reset_pivot(_direction)
 	if _object.is_on_edge:
-		Global.map_cube.start_cube_rotation(_direction)
+		var shift = Global.map_cube.dimension - 1
+		reset_pivot(-shift * _direction)
+
 
 func _offset():
 	_pivot.position += _direction / 2 + Vector3.DOWN / 2
@@ -39,37 +44,30 @@ func _animation():
 	_start = _pivot.basis
 	_goal = _pivot.basis.rotated(axis, PI/2) if not _object.is_on_edge else _pivot.basis.rotated(-axis, PI)
 
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT_IN)
+	var tween = create_tween().set_ease(Tween.EASE_OUT_IN)
 	if _object.is_pushing:
 		tween.tween_method(_tween_basis, 0., 0.1, _object.speed / 2) 
 		tween.tween_method(_tween_basis, 0.1, 0., _object.speed / 2) 
 	else:
 		tween.tween_method(_tween_basis, 0., 1., _object.speed if not _object.is_on_edge else _object.speed * 2) 
 	await tween.finished
-	if not _object.is_moving : # modified elsewhere
-		return
-	if not _object.is_on_edge:
-		reset_pivot(_direction)
-	if _object.is_on_edge:
-		var shift = Global.map_cube.dimension - 1
-		reset_pivot(-shift * _direction)
 
 func _tween_basis(t):
-	if not _object.is_rolling:
+	if not _object.is_moving:
 		return
 	_pivot.basis = _start.slerp(_goal, t)
 
+signal end_reset
+
 func reset_pivot(reset_direction: Vector3):
-	_object.is_rolling = false
+	_object.is_moving= false
 	_object.mesh_instance.position = Vector3.ZERO
-	_pivot.transform = Transform3D.IDENTITY
+	Utils.switch_parent(_object.mesh_instance, _object)
+	_pivot.queue_free()
 	if not _object.is_pushing:
 		_object.position += reset_direction 
-
-	var block = Utils.get_raycast_collider(self, Vector3.ZERO, Vector3.DOWN)
-	# TODO
-	#if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
-	#	we_are_on_this_cube_now.on_leave()
-	#we_are_on_this_cube_now = block
+	await get_tree().physics_frame
+	var block = Utils.get_raycast_collider(_object, Vector3.ZERO, Vector3.DOWN)
 	if block:
 		block.on_touch()
+	end_reset.emit()

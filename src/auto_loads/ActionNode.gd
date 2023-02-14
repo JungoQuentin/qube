@@ -24,7 +24,7 @@ func _set_to_state():
 ########## UNDO ###########
 
 func undo():
-	if Global.player.is_rolling:
+	if Global.player.is_moving:
 		_undo_moving()
 	else:
 		_easy_undo()
@@ -38,7 +38,7 @@ func _undo_moving():
 		Global.map_cube.stop_rotation()
 		Global.map_cube.basis = Global.map_cube.start
 	Global.player.reset_pivot()
-	Global.player.is_rolling = false
+	Global.player.is_moving = false
 
 ###### REDO ###########
 

@@ -50,12 +50,15 @@ func _tween_basis(t):
 	basis = start.slerp(goal, t)
 	rotator.basis = rotator_start.slerp(rotator_goal, t)
 
+signal end_rotation
 func stop_rotation():
 	basis = goal
 	Utils.switch_parent(Global.player, main)
 	Global.moving_cubes.map(func(cube): Utils.switch_parent(cube, main, true); cube.map_rot(Global.direction))
 	rotator.queue_free()
 	is_rotating = false
+	end_rotation.emit()
+
 
 func reset():
 	if is_rotating:

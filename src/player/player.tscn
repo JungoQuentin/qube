@@ -12,7 +12,6 @@ material = SubResource("StandardMaterial3D_dcsgk")
 [node name="Player" type="Node3D"]
 script = ExtResource("1_cfw77")
 
-[node name="Pivot" type="Node3D" parent="."]
-
-[node name="Mesh" type="MeshInstance3D" parent="Pivot"]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_h7g1t")
+skeleton = NodePath("")

@@ -9,6 +9,7 @@ extends Node3D
 
 var loaded = false
 var is_rolling = false 
+var is_pushing: bool
 var start: Basis
 var goal: Basis
 var is_on_edge = false
@@ -17,7 +18,6 @@ var we_are_on_this_cube_now = null
 
 
 func _ready():
-	pivot.set_disable_scale(true)
 	Global.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	if Colors.player_fade:
@@ -44,8 +44,12 @@ func _input(_event):
 
 #### ROLL LOGIC ####
 
-var is_pushing
 func roll(dir: Vector3, do_add_action=true):
+
+
+
+
+	#TODO is working
 	if is_rolling or Global.map_cube.is_rotating:
 		return
 	is_rolling = true
@@ -84,9 +88,6 @@ func _animation(dir):
 	await tween.finished
 	if not is_rolling: # modified elsewhere
 		return
-	if is_pushing:
-		is_rolling = false
-		return
 	if not is_on_edge:
 		reset_pivot(dir)
 	if is_on_edge:
@@ -98,11 +99,12 @@ func _tween_basis(t):
 		return
 	pivot.basis = start.slerp(goal, t)
 
-func reset_pivot(direction=Vector3.ZERO):
+func reset_pivot(direction: Vector3):
 	is_rolling = false
 	mesh_instance.position = Vector3.ZERO
 	pivot.transform = Transform3D.IDENTITY
-	position += direction
+	if not is_pushing:
+		position += direction
 
 	var block = Utils.get_raycast_collider(self, Vector3.ZERO, Vector3.DOWN)
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
@@ -123,5 +125,5 @@ func _start_transparence_animation():
 	_tween.play()
 
 func reset():
-	reset_pivot()
+	reset_pivot(Vector3.ZERO)
 	_set_start_pos()

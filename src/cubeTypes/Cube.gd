@@ -3,9 +3,9 @@ class_name Cube
 
 enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START, MOVING }
 
+@onready var collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
 @onready var mesh: Mesh = mesh_instance.mesh
-@onready var collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 var initial_color: Color
 var touched_color: Color
 var touch_tween: Tween

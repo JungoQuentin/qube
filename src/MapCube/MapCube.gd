@@ -26,7 +26,7 @@ func start_cube_rotation(direction: Vector3):
 	Utils.switch_parent(Global.player, rotator)
 
 	# TODO : tout le moving cube rotate sur eu meme dans la meme direction
-	#Global.moving_cubes.map(func(cube): cube.map_rot(direction))
+	#Global.moving_cubes.map(func(cube): cube.replace_after_map_rotation(direction))
 	Global.moving_cubes.map(func(cube): Utils.switch_parent(cube, rotator, true))
 
 	# Animate the rotation.
@@ -54,7 +54,7 @@ signal end_rotation
 func stop_rotation():
 	basis = goal
 	Utils.switch_parent(Global.player, main)
-	Global.moving_cubes.map(func(cube): Utils.switch_parent(cube, main, true); cube.map_rot(Global.direction))
+	Global.moving_cubes.map(func(cube): Utils.switch_parent(cube, main, true); cube.replace_after_map_rotation(Global.direction))
 	rotator.queue_free()
 	is_rotating = false
 	end_rotation.emit()

@@ -93,6 +93,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, -1)
 [node name="NORMAL104" parent="MapCube/map" instance=ExtResource("4_e1l2q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -1)
 
+[node name="NORMAL132" parent="MapCube/map" instance=ExtResource("4_e1l2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 0)
+
 [node name="NORMAL105" parent="MapCube/map" instance=ExtResource("4_e1l2q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, -1)
 
@@ -415,7 +418,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -3, -2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="movingCube" parent="MapCube/map" instance=ExtResource("8_ggj6d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 0)
+
+[node name="movingCube2" parent="MapCube/map" instance=ExtResource("8_ggj6d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 1)
 
 [node name="END" parent="MapCube/map" instance=ExtResource("7_25g4g")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3, 0)

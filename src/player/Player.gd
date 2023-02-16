@@ -1,22 +1,13 @@
 extends Node3D 
 
-@onready var mesh_instance: MeshInstance3D = $Mesh
-
+@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @export var max_transparency: float = 1
 @export var min_transparency: float = 0.3
-@export var speed: float = 0.2 #* 10
-
-var loaded = false
-
+@export var speed: float = 0.2
 var is_moving = false 
-
-var is_pushing: bool
-var start: Basis
-var goal: Basis
+var has_neighbour: bool
 var is_on_edge = false
-
 var we_are_on_this_cube_now = null
-
 
 func _ready():
 	Global.player = self
@@ -29,39 +20,48 @@ func _set_start_pos():
 	await Utils.wait_while(func(): return Global.startCube == null)
 	position = Global.startCube.global_position + Vector3.UP
 	we_are_on_this_cube_now = Global.startCube
+
+func _process(_delta):
+	if not is_moving: _get_action_input()
 		
-func _input(_event):
-	if is_moving or Global.map_cube.is_rotating:
+func _get_action_input():
+	if not Utils.is_one_action_pressed(["top", "bottom", "right", "left"]):
 		return
-	var forward = Vector3.FORWARD
-	if Input.is_action_pressed("top"):
-		roll(forward)
+	var direction = Vector3.FORWARD
 	if Input.is_action_pressed("bottom"):
-		roll(-forward)
-	if Input.is_action_pressed("right"):
-		roll(forward.cross(Vector3.UP))
-	if Input.is_action_pressed("left"):
-		roll(-forward.cross(Vector3.UP))
+		direction = -direction
+	elif Input.is_action_pressed("right"):
+		direction = direction.cross(Vector3.UP)
+	elif Input.is_action_pressed("left"):
+		direction = -direction.cross(Vector3.UP)
+	
+	var move_logic = MoveLogic.new_roll(self, direction)
+	if has_neighbour:
+		_push_neighbour(move_logic)
+	else:
+		_roll(direction, move_logic)
 
 #### ROLL LOGIC ####
 
-func roll(direction: Vector3, do_add_action=true):
-	var move_logic = MoveLogic.new(self)
-	move_logic.roll(direction)
+func _push_neighbour(move_logic):
+	move_logic.push_neighbour()
+
+func _roll(direction: Vector3, move_logic):
+	if is_on_edge: Global.map_cube.start_cube_rotation(direction)
+	await move_logic.roll()
+	move_logic.reset_pivot()
+	var reset_direction = direction
 	if is_on_edge:
-		Global.map_cube.start_cube_rotation(direction)
-	
-	await move_logic.end_reset
-	print("after end reset")
+		reset_direction = -(Global.map_cube.dimension - 1) * direction
+	await move_logic.reset_position(reset_direction)
+	is_moving = false
 
 	var block = Utils.get_raycast_collider(self, Vector3.ZERO, Vector3.DOWN)
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != block:
 		we_are_on_this_cube_now.on_leave()
 	we_are_on_this_cube_now = block
-
-	if do_add_action:
-		Actions.add_action(position, Global.map_cube.basis)
-		Actions.undo_stack.clear()
+	Actions.add_action(position, Global.map_cube.basis)
+	Actions.undo_stack.clear()
 
 #####
 
@@ -75,6 +75,7 @@ func _start_transparence_animation():
 	_tween.play()
 
 func reset():
-	var move_logic = MoveLogic.new(self)
-	move_logic.reset_pivot(Vector3.ZERO)
+	# TODO
+	#var move_logic = MoveLogic.new(self)
+	#move_logic.reset_pivot(Vector3.ZERO)
 	_set_start_pos()

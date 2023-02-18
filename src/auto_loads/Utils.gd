@@ -26,9 +26,10 @@ func switch_parent(node, new_parent, keep_global=false):
 	new_parent.add_child(node)
 	if keep_global:
 		node.global_transform = g
+	return old_parent
 
-func is_one_action_pressed(actions: Array[String]) -> bool:
+func is_one_action_pressed(actions: Array[String]) -> String:
 	for action in actions:
 		if Input.is_action_pressed(action):
-			return true
-	return false
+			return action
+	return ""

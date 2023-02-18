@@ -12,7 +12,7 @@ func _ready():
 	mesh.surface_get_material(0).albedo_color = on_color if on else off_color 
 	cube_type = SWITCH
 
-func on_touch():
+func on_touch(_direction: Vector3, _cube):
 	on = not on
 	_switch_animation_start()
 	Global.check_all_switch_state()
@@ -21,10 +21,10 @@ func _switch_animation_start():
 	var _tmp_mesh = mesh_instance.mesh.duplicate(true)
 	mesh_instance.mesh = _tmp_mesh
 	var _material = _tmp_mesh.surface_get_material(0)
-	if tween:
-		tween.pause()
-		tween.kill()
-	tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(_material, "albedo_color", on_color if on else off_color , 0.1)
-	tween.tween_callback(func(): tween = null)
-	tween.play()
+	if touch_tween:
+		touch_tween.pause()
+		touch_tween.kill()
+	touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	touch_tween.tween_property(_material, "albedo_color", on_color if on else off_color , 0.1)
+	touch_tween.tween_callback(func(): touch_tween = null)
+	touch_tween.play()

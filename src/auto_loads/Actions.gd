@@ -24,21 +24,31 @@ func _redo():
 	undo_stack.pop_back().redo()
 
 func _reset_level():
+	if actions[actions.size() - 1].type == ActionNode.Type.RESET:
+		return
 	if not Global.player.is_moving:
-		add_action(Global.player.position, Global.map_cube.basis)
+		add_action(ActionNode.Type.RESET)
 	undo_stack.clear()
 	Global.map_cube.reset()
 	Global.player.reset()
+	Global.moving_cubes.map(func(cube): cube.reset())
 
 
 func settings():
 	pass
 
-func add_action(_player_position, _map_basis):
-	actions.push_back(ActionNode.new(ActionNode.State.new(_player_position, _map_basis)))
-
-func add_undo(_player_position, _map_basis):
-	undo_stack.push_back(ActionNode.new(ActionNode.State.new(_player_position, _map_basis)))
-
-
-# IDEE: avec les trigger arriere, faire pivot le a 90 degres sur l'axe y pour changer de point de vu ?
+func add_action(_type=ActionNode.Type.MOVE,
+		_to_undo=false,
+		_player_position=Global.player.position,
+		_map_basis=Global.map_cube.basis,
+		_move_cubes_position={}):
+	if _move_cubes_position.is_empty():
+		Global.moving_cubes.map(func(cube): _move_cubes_position[cube] = cube.position)
+	var action = ActionNode.new(
+			ActionNode.State.new(
+					_player_position,
+					_map_basis,
+					_move_cubes_position), _type)
+	(undo_stack if _to_undo else actions).push_back(action)
+	
+	

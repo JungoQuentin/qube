@@ -10,9 +10,9 @@ extends Node3D
 
 const camera_fov = 30.
 const camera_y_dist_by_cube_dimension: Dictionary = {
-	3: 7.8,
-	5: 12.,
-	7: 17.
+	3: 9,
+	5: 15.,
+	7: 20.
 }
 
 @export var debug = false

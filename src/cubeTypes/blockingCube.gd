@@ -7,8 +7,6 @@ func _ready():
 	touched_color = Colors.darker(initial_color) 
 	mesh.surface_get_material(0).albedo_color = initial_color
 
-func on_touch():
-	super.on_touch()
-	await Utils.wait_while(func(): return Global.player.is_moving)
-	Actions.actions.pop_back()
-	Global.player.roll(-Global.direction, false)
+func on_touch(direction: Vector3, cube):
+	super.on_touch(direction, cube)
+	await _send_cube_back(direction, cube)

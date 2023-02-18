@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3tukty5ask6k"]
+[gd_scene load_steps=7 format=3 uid="uid://d3tukty5ask6k"]
 
 [ext_resource type="Script" path="res://src/cubeTypes/movingCube.gd" id="1_fx52h"]
 
@@ -12,6 +12,14 @@ albedo_color = Color(0.168627, 0, 0.643137, 1)
 material = SubResource("StandardMaterial3D_au8wj")
 size = Vector3(0.95, 0.95, 0.95)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxj72"]
+transparency = 1
+albedo_color = Color(0.694118, 0.741176, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cnf8d"]
+material = SubResource("StandardMaterial3D_lxj72")
+size = Vector3(0.95, 0.95, 0.95)
+
 [node name="movingCube" type="StaticBody3D"]
 disable_mode = 1
 axis_lock_linear_y = true
@@ -23,3 +31,8 @@ shape = SubResource("BoxShape3D_v0ayf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_tlole")
+
+[node name="debugTop" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.492057, 0)
+visible = false
+mesh = SubResource("BoxMesh_cnf8d")

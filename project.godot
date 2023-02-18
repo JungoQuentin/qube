@@ -28,6 +28,10 @@ Colors="*res://src/auto_loads/Colors.tscn"
 
 movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg")
+
 [input]
 
 ui_up={

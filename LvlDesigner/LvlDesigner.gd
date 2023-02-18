@@ -16,26 +16,29 @@ var _grid_map: GridMap
 	cubeType.BLOCKING : preload("res://src/cubeTypes/blockingCube.tscn"),
 	cubeType.START : preload("res://src/cubeTypes/startCube.tscn"),
 	cubeType.END : preload("res://src/cubeTypes/endCube.tscn"),
-	cubeType.ONE : preload("res://src/cubeTypes/singleUseCube.tscn"),
+	cubeType.SINGLE_USE: preload("res://src/cubeTypes/singleUseCube.tscn"),
 }
+
+const TEST_LVL_PATH = "res://LvlDesigner/new_levels/tmp_test.tscn"
 
 enum cubeType {
 	NORMAL = 0,
 	BLOCKING,
 	START,
 	END,
-	ONE,
+	SINGLE_USE,
 }
 
 ################### EDITOR #####################
 
-var _editor_plugin: EditorPlugin = EditorPlugin.new()
-var _editor_interface: EditorInterface = _editor_plugin.get_editor_interface()
-var _selection: EditorSelection = _editor_interface.get_selection()
+@onready var _editor_plugin: EditorPlugin = EditorPlugin.new()
+@onready var _editor_interface: EditorInterface = _editor_plugin.get_editor_interface()
+@onready var _selection: EditorSelection = _editor_interface.get_selection()
 
 func _ready():
-	print("tool ready")
 	_selection.selection_changed.connect(_on_selection_changed)
+	print("tool ready")
+
 
 func _on_selection_changed():
 	var selected = _selection.get_selected_nodes()
@@ -43,13 +46,16 @@ func _on_selection_changed():
 		return
 	match selected[0].name:
 		"CREATE":
-			_lauch()
 			_selection.remove_node(selected[0])
 			_selection.add_node(self)
+			_lauch()
+		"TEST":
+			_selection.remove_node(selected[0])
+			_selection.add_node(self)
+			_test()
 		"RELOAD":
 			print("reload")
 			_editor_interface.reload_scene_from_path("res://LvlDesigner/LevelDesigner.tscn")
-			return
 		"3x3", "5x5", "7x7":
 			_add_template(selected[0])
 
@@ -66,15 +72,19 @@ func _add_template(node):
 	_selection.remove_node(node)
 	_selection.add_node(template)
 
-################# LAUCH #########################
+################# TEST #########################
 
-func _lauch():
-	if _set_gridmap():
+func _test():
+	if _set_gridmap() or not _ok(true):
 		return
-	if not _ok():
-		return
+	_create_level(true)
+	_new_lvl.queue_free()
+	_editor_interface.open_scene_from_path(TEST_LVL_PATH)
+	_editor_interface.play_current_scene()
+	_editor_interface.reload_scene_from_path("res://LvlDesigner/LevelDesigner.tscn")
 
-	_new_lvl = Tools.create_new_lvl(self, lvl_name)
+func _create_level(test=false):
+	_new_lvl = Tools.create_new_lvl(self, lvl_name, test)
 	var map_cube: MapCube = _new_lvl.find_child("MapCube", true, false)
 	map_cube.dimension = dimension
 	var cubes = Tools.add_node3d(map_cube, _new_lvl, "cubes")
@@ -84,18 +94,23 @@ func _lauch():
 		OS.alert("Le cube start n'est pas en haut !!")
 		_reset()
 		return
-	Tools.save_scene(_new_lvl, _lvl_path)
-	_editor_interface.open_scene_from_path(_lvl_path)
-	_reset()
-	_editor_interface.play_current_scene()
+	Tools.save_scene(_new_lvl, _lvl_path if not test else TEST_LVL_PATH)
+
+################# LAUCH #########################
+
+func _lauch():
+	if _set_gridmap() or not _ok():
+		return
+	_create_level()
+	#_reset()
 
 ################## CHECK ########################
 
-func _ok() -> bool:
-	if FileAccess.file_exists(_lvl_path):
+func _ok(test=false) -> bool:
+	if not test and FileAccess.file_exists(_lvl_path):
 		OS.alert("Attention ! ce nom de niveau est deja prix !")
 		return false
-	if not _args_valid():
+	if not _args_valid(test):
 		return false 
 	if _check_one_type(_grid_map, cubeType.START):
 		return false
@@ -103,12 +118,12 @@ func _ok() -> bool:
 		return false
 	return true 
 
-func _args_valid() -> bool:
+func _args_valid(test: bool) -> bool:
 	if dimension == 0 or dimension % 2 == 0 or dimension < 3:
 		OS.alert("mauvaise dimension (0 ou pair, doit commencer a 3)")
 		print("end alert")
 		return false
-	if lvl_name.length() == 0:
+	if not test and lvl_name.length() == 0:
 		OS.alert("faut donner un nom au niveau...")
 		return false
 	return true

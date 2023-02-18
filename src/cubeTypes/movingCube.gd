@@ -35,16 +35,32 @@ func on_touch(direction: Vector3, cube):
 		_down_roll(direction)
 
 func order_roll(direction: Vector3):
-	on_push(direction)
+	if _down_roll_send_back:
+		# TODO try to debug the blocking cube sending back and bug
+		print("_down_roll_send_back")
+		_down_roll(direction, -direction)
+		_down_roll_send_back = false
+	else:
+		on_push(direction)
+var _down_roll_send_back = false
 
-func _down_roll(direction: Vector3):
+func _down_roll(direction: Vector3, r_direction=null):
+	if r_direction == null:
+		r_direction = direction
 	var rotator = Node3D.new()
+	rotator.name = "ROTATOR"
 	main.add_child(rotator)
 	var axis = direction.cross(Vector3.DOWN)
-	rotator.basis = rotator.basis.rotated(axis, PI / 2)
 	basis = basis.rotated(axis, PI / 2)
+	var r_axis = r_direction.cross(Vector3.DOWN)
+	rotator.basis = rotator.basis.rotated(r_axis, PI / 2)
 	var old_parent = Utils.switch_parent(self, rotator, true)
-	await _roll(direction, MoveLogic.new(self, direction).init_forward_roll())
+	_roll(direction, MoveLogic.new(self, direction).init_forward_roll())
+
+	_down_roll_send_back = await self.end_roll
+	if _down_roll_send_back: 
+		return
+	
 	Utils.switch_parent(self, old_parent, true)
 	rotator.queue_free()
 
@@ -57,7 +73,7 @@ func _roll(direction: Vector3, move_logic: MoveLogic):
 		reset_direction += Vector3.DOWN
 	var block = await move_logic.reset_position(reset_direction)
 	is_moving = false
-	end_roll.emit(block and block.is_blocking() or block.cube_type == Cube.MOVING)
+	end_roll.emit(block and (block.is_blocking() or block.cube_type == Cube.MOVING))
 	move_logic.queue_free()
 
 func replace_after_map_rotation():

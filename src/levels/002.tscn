@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="3_yhurk"]
 [ext_resource type="PackedScene" uid="uid://b01t7kul8dayq" path="res://src/MapCube/MapCube.tscn" id="4_c53kv"]
 [ext_resource type="PackedScene" uid="uid://dw0c6yqphxcjl" path="res://src/cubeTypes/normalCube.tscn" id="5_8ejc5"]
-[ext_resource type="PackedScene" path="res://src/cubeTypes/blockingCube.tscn" id="6_0snry"]
+[ext_resource type="PackedScene" uid="uid://bkvnvq2drr7yi" path="res://src/cubeTypes/blockingCube.tscn" id="6_0snry"]
 [ext_resource type="PackedScene" path="res://src/cubeTypes/startCube.tscn" id="7_duj2m"]
 [ext_resource type="PackedScene" path="res://src/cubeTypes/endCube.tscn" id="8_sg3vw"]
 

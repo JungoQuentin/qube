@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://bkvnvq2drr7yi"]
 
 [ext_resource type="Script" path="res://src/cubeTypes/blockingCube.gd" id="1_kuial"]
 

@@ -17,16 +17,18 @@ var dimension = 0
 	cubeType.START : preload("res://src/cubeTypes/startCube.tscn"),
 	cubeType.END : preload("res://src/cubeTypes/endCube.tscn"),
 	cubeType.SINGLE_USE: preload("res://src/cubeTypes/singleUseCube.tscn"),
+	cubeType.MOVING: preload("res://src/cubeTypes/movingCube.tscn"),
 }
 
 const TEST_LVL_PATH = "res://LvlDesigner/new_levels/tmp_test.tscn"
 
 enum cubeType {
-	NORMAL = 0,
+	NORMAL,
 	BLOCKING,
 	START,
 	END,
 	SINGLE_USE,
+	MOVING,
 }
 
 ################### EDITOR #####################
@@ -121,7 +123,7 @@ func _set_gridmap() -> bool:
 func _add_cubes_by_type(gridmap, parent, type):
 	var cells: Array[Vector3i] = gridmap.get_used_cells_by_item(type)
 	for cell in cells:
-		if cell.y > _highest_cube:
+		if cell.y > _highest_cube and type != cubeType.MOVING:
 			_highest_cube = cell.y
 		_add_cube(_grid_map.to_global(cell) + Vector3(0.5, 0.5, 0.5), parent, cube_preload[type], cubeType.keys()[type])
 

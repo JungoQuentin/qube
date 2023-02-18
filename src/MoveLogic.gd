@@ -16,7 +16,7 @@ var neighbour: Node3D
 
 func _init(object: Node3D, direction: Vector3):
 	_object = object
-	object.add_child(self)
+	_object.add_child(self)
 	_direction = direction
 	_rotator = Node3D.new()
 

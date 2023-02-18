@@ -2,15 +2,17 @@
 @onready var player_preload = preload("res://src/player/player.tscn")
 @onready var map_preload = preload("res://src/MapCube/MapCube.tscn")
 @onready var env_preload = preload("res://src/env/EnvLightCam.tscn")
-#@onready var goback_preload = preload("res://LvlDesigner/GoBack.tscn")
+@onready var goback_preload = preload("res://addons/lvldesigner/GoBack.tscn")
+var yaa = "yaa"
+var plugin: BCubePlugin
 
-func create_new_lvl(scene, lvl_name, test=false) -> Node3D:
-	var new_lvl = add_node3d(scene, scene, lvl_name)
+func create_new_lvl(scene, lvl_name, _test: bool=false) -> Node3D:
+	var new_lvl = add_node3d(scene, scene, lvl_name if not _test else "TEST")
 	add_and_set_own(env_preload.instantiate(), new_lvl, new_lvl)
 	add_and_set_own(player_preload.instantiate(), new_lvl, new_lvl)
 	add_and_set_own(map_preload.instantiate(), new_lvl, new_lvl)
-	#if test:
-	#	add_and_set_own(goback_preload.instantiate(), new_lvl, new_lvl)
+	if _test:
+		add_and_set_own(goback_preload.instantiate(), new_lvl, new_lvl)
 	return new_lvl
 
 func add_and_set_own(node, parent, _owner):

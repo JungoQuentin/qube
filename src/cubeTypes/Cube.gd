@@ -44,6 +44,7 @@ func _touched_animation_start(_mesh_instance: MeshInstance3D, _touched_color: Co
 func _send_cube_back(direction, to_roll):
 	await to_roll.end_roll
 	to_roll.order_roll(-direction)
+	# TODO attention au truc infini avec les singleUseCube
 	Actions.actions.pop_back()
 
 func is_blocking() -> bool:

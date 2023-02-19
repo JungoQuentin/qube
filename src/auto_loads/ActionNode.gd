@@ -4,11 +4,13 @@ class State:
 	var player_position: Vector3
 	var map_basis: Basis
 	var moving_cubes_position
+	var single_cubes_state
 
-	func _init(_player_position, _map_basis, _moving_cubes_position):
+	func _init(_player_position, _map_basis, _moving_cubes_position, _single_cubes_state):
 		player_position = _player_position
 		map_basis = _map_basis
 		moving_cubes_position = _moving_cubes_position
+		single_cubes_state = _single_cubes_state
 
 enum Type {	MOVE, RESET, PUSH }
 
@@ -23,6 +25,7 @@ func _set_to_state():
 	Global.map_cube.basis = state.map_basis
 	Global.player.position = state.player_position 
 	state.moving_cubes_position.keys().map(func(cube): cube.position = state.moving_cubes_position[cube])
+	state.single_cubes_state.keys().map(func(cube): cube.is_used = state.single_cubes_state[cube]; cube.update_color())
 
 ########## UNDO ###########
 

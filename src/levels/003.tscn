@@ -13,7 +13,6 @@
 
 [node name="EnvLightCam" parent="." instance=ExtResource("1_xvfo8")]
 camera_y_distance = 17.0
-debug = true
 
 [node name="Player" parent="." instance=ExtResource("2_rta6h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)

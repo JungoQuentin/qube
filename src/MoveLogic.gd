@@ -43,7 +43,7 @@ func push_neighbour(): # Only for player
 	var neighbour_block = Utils.get_raycast_collider(_object, Vector3.ZERO, _direction)
 	if neighbour_block == null:
 		return
-	if neighbour_block.cube_type != Cube.MOVING:
+	if not neighbour_block is MovingCube:
 		Log.crash("comment un block voisin peut etre autre chose qu'un moving cube ??")
 	neighbour_block.on_push(_direction)
 	offset()

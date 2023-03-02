@@ -1,0 +1,75 @@
+[gd_resource type="MeshLibrary" load_steps=13 format=3 uid="uid://bqjrqbm2idc5b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i0lp"]
+distance_fade_max_distance = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8pg7"]
+material = SubResource("StandardMaterial3D_2i0lp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxesg"]
+albedo_color = Color(0.380392, 0.027451, 0.298039, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0xdkh"]
+material = SubResource("StandardMaterial3D_qxesg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dpdyr"]
+albedo_color = Color(0, 0.819608, 0.843137, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e4are"]
+material = SubResource("StandardMaterial3D_dpdyr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oph5u"]
+albedo_color = Color(0, 0.768627, 0.215686, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3l7fd"]
+material = SubResource("StandardMaterial3D_oph5u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wv21"]
+albedo_color = Color(0.654902, 0.67451, 0.929412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kqj18"]
+material = SubResource("StandardMaterial3D_3wv21")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwq7y"]
+albedo_color = Color(0.439216, 0.541176, 0.870588, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vnv18"]
+material = SubResource("StandardMaterial3D_pwq7y")
+
+[resource]
+item/0/name = "0_normal"
+item/0/mesh = SubResource("BoxMesh_x8pg7")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/shapes = []
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
+item/1/name = "1_blocking"
+item/1/mesh = SubResource("BoxMesh_0xdkh")
+item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/shapes = []
+item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/navigation_layers = 1
+item/2/name = "2_start"
+item/2/mesh = SubResource("BoxMesh_e4are")
+item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/2/shapes = []
+item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/2/navigation_layers = 1
+item/3/name = "3_end"
+item/3/mesh = SubResource("BoxMesh_3l7fd")
+item/3/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/3/shapes = []
+item/3/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/3/navigation_layers = 1
+item/4/name = "4_singleUse"
+item/4/mesh = SubResource("BoxMesh_kqj18")
+item/4/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/4/shapes = []
+item/4/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/4/navigation_layers = 1
+item/5/name = "5_moving"
+item/5/mesh = SubResource("BoxMesh_vnv18")
+item/5/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/5/shapes = []
+item/5/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/5/navigation_layers = 1

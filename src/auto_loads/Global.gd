@@ -21,9 +21,9 @@ func _ready():
 func _init_level():
 	await Utils.wait_while(func(): return map_cube == null, 1)
 	var map_cube_children = map_cube.get_child(0).get_children()
-	switch_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.SWITCH)
-	single_use_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.SINGLE_USE)
-	moving_cubes = map_cube_children.filter(func(cube): return cube.cube_type == Cube.MOVING)
+	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
+	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
+	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 	level_initialized.emit()
 

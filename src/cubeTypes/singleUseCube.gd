@@ -1,11 +1,11 @@
 extends Cube
+class_name SingleUseCube
 
 var is_used: bool = false
 var true_material: Material
 
 func _ready():
 	super._ready()
-	cube_type = SINGLE_USE 
 	initial_color = Colors.single_cube_init_color
 	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
@@ -35,7 +35,7 @@ func _change_color_animation_start():
 var wird_tween
 
 func _wird_animation_start():
-	if is_used:
+	if is_used and wird_tween != null:
 		wird_tween.kill()
 		wird_tween = null
 		return

@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdcg58kgmiaxt"]
-
-[ext_resource type="Script" path="res://addons/lvldesigner/GoBack.gd" id="1_csw2j"]
-
-[node name="Button" type="Button"]
-offset_right = 293.0
-offset_bottom = 134.0
-text = "Retour a l'editeur"
-script = ExtResource("1_csw2j")

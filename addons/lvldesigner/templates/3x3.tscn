@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="MeshLibrary" uid="uid://bqjrqbm2idc5b" path="res://addons/lvldesigner/cubes.tres" id="1_36h4c"]
+
+[node name="GridMap" type="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -1.5, 0.5)
+mesh_library = ExtResource("1_36h4c")
+cell_size = Vector3(1, 1, 1)
+cell_scale = 0.98
+data = {
+"cells": PackedInt32Array(196607, 0, 1, 131072, 0, 1, 131073, 0, 1, 131073, 65535, 3, 131073, 65534, 1, 131072, 65534, 1, 196607, 65534, 1, 196607, 65535, 1, 131072, 65535, 2, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 1, 65535, 1, 0, 65534, 1, 65535, 65534, 1, 65535, 65535, 1, 0, 65535, 1, 1, 65534, 1, 131071, 65534, 1, 131071, 65535, 1, 131071, 0, 1, 65536, 65534, 1, 65536, 0, 1, 65537, 65534, 1, 65537, 65535, 1, 65537, 0, 1)
+}
+metadata/_editor_floor_ = Vector3(0, 2, 0)

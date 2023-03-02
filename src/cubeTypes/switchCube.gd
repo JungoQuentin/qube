@@ -10,7 +10,6 @@ func _ready():
 	on_color =  Colors.switch_cube_on_color
 	off_color = Colors.switch_cube_off_color
 	mesh.surface_get_material(0).albedo_color = on_color if on else off_color 
-	cube_type = SWITCH
 
 func on_touch(_direction: Vector3, _cube):
 	on = not on

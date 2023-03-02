@@ -1,4 +1,5 @@
 extends Cube
+class_name MovingCube
 
 @onready var main = get_tree().get_current_scene()
 @onready var speed: float = Global.player.speed
@@ -11,7 +12,6 @@ func _ready():
 	super._ready()
 
 	# TODO refacto auto => detecter le type de cube et lui appliquer la couleur, ...
-	cube_type = MOVING
 	initial_color = Colors.moving_cube_init_color
 	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
@@ -31,7 +31,8 @@ func on_push(direction: Vector3):
 func on_touch(direction: Vector3, cube):
 	super.on_touch(direction, cube)
 	_send_cube_back(direction, cube)
-	if cube.get("cube_type") == null:
+	if not cube is Cube:
+	#if cube.get("cube_type") == null:
 		_down_roll(direction)
 
 func order_roll(direction: Vector3):
@@ -73,7 +74,7 @@ func _roll(direction: Vector3, move_logic: MoveLogic):
 		reset_direction += Vector3.DOWN
 	var block = await move_logic.reset_position(reset_direction)
 	is_moving = false
-	end_roll.emit(block and (block.is_blocking() or block.cube_type == Cube.MOVING))
+	end_roll.emit(block and (block.is_blocking() or block is MovingCube))
 	move_logic.queue_free()
 
 func replace_after_map_rotation():

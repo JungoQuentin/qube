@@ -9,7 +9,6 @@ enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START, MOVING }
 var initial_color: Color
 var touched_color: Color
 var touch_tween: Tween
-var cube_type = NORMAL
 
 func _ready():
 	mesh.size = Vector3.ONE * Colors.cube_scale
@@ -48,4 +47,4 @@ func _send_cube_back(direction, to_roll):
 	Actions.actions.pop_back()
 
 func is_blocking() -> bool:
-	return cube_type == BLOCKING or (cube_type == SINGLE_USE and self.is_used)
+	return self is BlockingCube or (self is SingleUseCube and self.is_used)

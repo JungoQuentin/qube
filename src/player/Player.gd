@@ -7,9 +7,12 @@ extends Node3D
 var is_moving = false 
 var is_on_edge = false
 var we_are_on_this_cube_now = null
+var joystick: Joystick
 signal end_roll
 
 func _ready():
+	joystick = load("res://src/joystick/joystick.tscn").instantiate()
+	add_child(joystick)
 	Global.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	if Colors.player_fade:
@@ -22,6 +25,8 @@ func _process(_delta):
 		
 func _get_action_input():
 	var input = Utils.is_one_action_pressed(["top", "bottom", "right", "left"])
+	if input.is_empty():
+		input = joystick.get_string_direction()
 	var direction = Vector3.FORWARD
 	match input:
 		"bottom":

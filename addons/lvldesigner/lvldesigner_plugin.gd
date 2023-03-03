@@ -4,16 +4,14 @@ class_name BCubePlugin
 
 var dock: VBoxContainer
 var editor_interface: EditorInterface
-var lvl_editor_scene
-var dimension = 0
-var lvl_name_input
+var lvl_editor_scene: Node3D
+var dimension: int = 0
+var lvl_name_input: LineEdit
 
 func _enter_tree():
 	editor_interface = get_editor_interface()
 	_init_dock()
-	scene_closed.connect(func(s): print(s))
 	Tools.plugin = self
-	OS.alert("mauvaise dimension (0 ou pair, doit commencer a 3)")
 
 func _exit_tree():
 	remove_control_from_docks(dock)
@@ -37,11 +35,11 @@ func _save_level():
 
 func _args_valid(_test: bool, dimension, lvl_name) -> bool:
 	if dimension == 0 or dimension % 2 == 0 or dimension < 3:
-		OS.alert("mauvaise dimension (0 ou pair, doit commencer a 3)")
+		Tools.alert("mauvaise dimension (0 ou pair, doit commencer a 3)")
 		print("end alert")
 		return false
 	if not _test and lvl_name.length() == 0:
-		OS.alert("faut donner un nom au niveau...")
+		Tools.alert("faut donner un nom au niveau...")
 		return false
 	return true
 
@@ -100,7 +98,7 @@ func _add_button(_name, parent, callback):
 	parent.add_child(n_button)
 	return n_button
 
-func _add_intut(_name, number=false):
+func _add_intut(_name, number=false) -> LineEdit:
 	var n_input: LineEdit = LineEdit.new()
 	n_input.name = _name
 	if number:

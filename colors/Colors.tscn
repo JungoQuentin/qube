@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://b27x0dskrrfh8"]
+
+[ext_resource type="Script" path="res://src/auto_loads/Colors.gd" id="1_ac7s7"]
+
+[node name="Colors" type="Node"]
+script = ExtResource("1_ac7s7")
+palette_name = "Lolipop"
+player_color = Color(0.635294, 0.823529, 1, 1)
+inner_light_color = Color(0.803922, 0.705882, 0.858824, 1)
+background_color = Color(0.454902, 0.32549, 0.52549, 1)
+inner_light_fade = true
+fade_from = 1.0
+fade_to = 3.0
+fade_speed = 2.5
+normal_init_color = Color(1, 0.686275, 0.8, 1)
+blocking_init_color = Color(1, 0.784314, 0.866667, 1)
+single_cube_init_color = Color(0.741176, 0.878431, 0.996078, 1)
+start_cube_init_color = Color(1, 0.529412, 0.717647, 1)
+end_cube_init_color = Color(0.635294, 0.823529, 1, 1)
+switch_cube_on_color = Color(0.952941, 0.952941, 1, 1)
+moving_cube_init_color = Color(0.576471, 0.321569, 0.717647, 1)
+cube_scale = 0.97

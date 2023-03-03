@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="MeshLibrary" uid="uid://bqjrqbm2idc5b" path="res://addons/lvldesigner/cubes.tres" id="1_vo3dw"]
+[ext_resource type="MeshLibrary" uid="uid://bqjrqbm2idc5b" path="res://addons/lvldesigner/scene/cubes.tres" id="1_vo3dw"]
 
 [node name="GridMap" type="GridMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 1.5)

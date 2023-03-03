@@ -15,7 +15,8 @@
 				"e95b14e9-68a9-4439-a5df-e4653343c38a",
 				"38368221-6290-4db7-9f1b-0e787cf07186",
 				"34037a98-70f1-4165-8e5e-d00b74a299bb",
-				"8507daec-9746-4c68-aaa4-f6022ceaecc9"
+				"8507daec-9746-4c68-aaa4-f6022ceaecc9",
+				"b92e2c72-31d8-4a00-85f0-01ae4292cd76"
 			]
 		},
 		{
@@ -137,6 +138,12 @@
 		{
 			"uuid": "cb948059-a1ec-4975-aa2f-b702e08cc085",
 			"title": "Mettre des commentaire ## (doc) sur chaque fonction",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "b92e2c72-31d8-4a00-85f0-01ae4292cd76",
+			"title": "Idee de t-h20: un single_use qui gere les faces (alors que c'est le cube maintenant)",
 			"description": "",
 			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
 		}

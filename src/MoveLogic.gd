@@ -11,6 +11,8 @@ var _pivot: Node3D
 var _start: Basis
 var _goal: Basis
 var _is_on_edge = false
+## null if _is_on_edge
+var floor_goal: Cube
 var has_neighbour: bool
 var neighbour: Node3D
 
@@ -34,7 +36,8 @@ func init_forward_roll():
 	self.neighbour = Utils.get_raycast_collider(self._object, Vector3.ZERO, self._direction)
 	self.has_neighbour = true if neighbour != null else false
 	self._object.is_on_edge = not Utils.get_raycast_collider(self._object, self._direction, Vector3.DOWN)
-	self._is_on_edge = not Utils.get_raycast_collider(self._object, self._direction, Vector3.DOWN)
+	self.floor_goal = Utils.get_raycast_collider(self._object, self._direction, Vector3.DOWN)
+	self._is_on_edge = not self.floor_goal
 	return self
 
 ###########
@@ -78,7 +81,6 @@ func map_rotate():
 	tween.tween_method(_tween_basis, 0., 1., Global.player.speed * 2)
 	await tween.finished
 	return self
-
 
 func offset():
 	_pivot.position += _direction / 2 + Vector3.DOWN / 2

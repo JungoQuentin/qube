@@ -30,7 +30,7 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg", "res://addons/godotsize/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
+enabled=PackedStringArray("res://addons/godotsize/plugin.cfg", "res://addons/lvldesigner/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
 
 [github_to_itch]
 

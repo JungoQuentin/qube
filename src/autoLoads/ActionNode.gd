@@ -40,11 +40,10 @@ func _undo():
 	_set_to_state()
 
 func _abort_moving():
-	if Global.map_cube.is_rotating: # en plus du player qui roll
+	if Global.map_cube.is_moving: # en plus du player qui roll
 		Global.map_cube.stop_rotation()
 		Global.map_cube.basis = Global.map_cube.start
-	Global.player.reset_pivot()
-	Global.player.is_moving = false
+	Global.player.abort_moving()
 
 ###### REDO ###########
 

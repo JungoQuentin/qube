@@ -32,7 +32,7 @@ func _reset_level():
 	Global.map_cube.reset()
 	Global.player.reset()
 	Global.moving_cubes.map(func(cube): cube.reset())
-
+	Global.single_use_cubes.map(func(cube): cube.reset())
 
 func settings():
 	pass
@@ -54,5 +54,3 @@ func add_action(_type=ActionNode.Type.MOVE,
 					_move_cubes_position,
 					_single_cubes_state), _type)
 	(undo_stack if _to_undo else actions).push_back(action)
-	
-	

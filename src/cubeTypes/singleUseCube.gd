@@ -59,3 +59,7 @@ func update_color():
 	mesh.surface_get_material(0).albedo_color = initial_color
 	if _true_material: _true_material.albedo_color = initial_color
 	mesh.surface_get_material(0).albedo_color = initial_color
+
+func reset():
+	# TODO
+	print("reset single use cube TODO")

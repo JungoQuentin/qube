@@ -46,8 +46,7 @@ func _animation_end():
 func _send_cube_back(direction: Vector3i, to_roll):
 	await to_roll.end_roll
 	to_roll.order_roll(-direction, self)
-	# TODO attention au truc infini avec les singleUseCube
-	Actions.actions.pop_back()
 
+## Check if the cube will reject anything that enter
 func is_blocking() -> bool:
 	return self is BlockingCube or (self is SingleUseCube and self.is_used)

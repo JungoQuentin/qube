@@ -21,8 +21,9 @@ func _ready():
 	_set_start_pos()
 
 func _process(_delta):
-	if not is_moving: _get_action_input()
-		
+	if not is_moving:
+		_get_action_input()
+
 func _get_action_input():
 	var input = Utils.is_one_action_pressed(["top", "bottom", "right", "left"])
 	if input.is_empty():
@@ -37,32 +38,26 @@ func _get_action_input():
 			direction = -direction.cross(Vector3.UP)
 		"":
 			return
+	Actions.undo_stack.clear()
 	
-	var move_logic = MoveLogic.new(self, direction).init_forward_roll()
+	var move_logic: MoveLogic = MoveLogic.new(self, direction).init_forward_roll()
 	if move_logic.has_neighbour:
 		_push_neighbour(move_logic)
 		Actions.add_action(ActionNode.Type.PUSH)
 	else:
 		_roll(direction, move_logic)
 		Actions.add_action()
-	Actions.undo_stack.clear()
 
+	if not move_logic._is_on_edge and move_logic.floor_goal.is_blocking():
+		Actions.actions.pop_back()
+		print("will be reject")
+		if we_are_on_this_cube_now is SingleUseCube:
+			print("go to infinite recursion")
 
-### TODO detect infinite recursion !!!!!
-var _single_use_cube_send_back_count: int= 0
-var _last_action_count: int = 0
 ## Called another entity to make us roll
-func order_roll(direction, ordering_entity: Node3D = null):
-	if ordering_entity != null and ordering_entity is SingleUseCube:
-		_single_use_cube_send_back_count += 1
-		if _last_action_count == Actions.actions.size() and Utils.is_one_action_pressed(["top", "bottom", "right", "left"]) == "":
-			print("infinite recursion")
-		_single_use_cube_send_back_count = 0
-
+func order_roll(direction, _ordering_entity: Node3D = null):
 	var move_logic = MoveLogic.new(self, direction).init_forward_roll()
 	_roll(direction, move_logic)
-
-	_last_action_count = Actions.actions.size()
 
 #### ROLL LOGIC ####
 
@@ -110,3 +105,6 @@ func reset():
 	#var move_logic = MoveLogic.new(self)
 	#move_logic.reset_pivot(Vector3.ZERO)
 	_set_start_pos()
+
+func abort_moving():
+	pass

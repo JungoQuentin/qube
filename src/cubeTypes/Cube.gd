@@ -14,16 +14,16 @@ func _ready():
 	mesh.size = Vector3.ONE * Colors.cube_scale
 	collision_shape.shape.size = mesh.size
 
-func on_touch(_direction: Vector3, _cube):
+## Called when the player, or a movingCube touch the cube (take the toucher as _cube: Node3D)
+func on_touch(_direction: Vector3, _cube: Node3D):
 	_touched_animation_start(mesh_instance, touched_color, initial_color)
 
+## Called when the player, or a movingCube leave (in the edge of the map, it don't leave if the player move to the same cube)
 func on_leave():
 	pass
 
-func _animation_end():
-	mesh_instance.mesh = mesh
-	touch_tween = null
-
+## Lauch the animation when the cube is touched
+## TODO add sound 
 func _touched_animation_start(_mesh_instance: MeshInstance3D, _touched_color: Color, _initial_color: Color):
 	var _tmp_mesh = _mesh_instance.mesh.duplicate(true)
 	_mesh_instance.mesh = _tmp_mesh
@@ -36,13 +36,16 @@ func _touched_animation_start(_mesh_instance: MeshInstance3D, _touched_color: Co
 	touch_tween.tween_property(_material, "albedo_color", _initial_color, 1)
 	touch_tween.tween_callback(_animation_end)
 	touch_tween.play()
-	# TODO add sound 
-	# idee : une note jouee par un xylophone, chaque bloque a une note differente d'une gamme
 
-### Pour envoyer le player en arriere (blockingCube, movingCube, SingleUseCube)
-func _send_cube_back(direction, to_roll):
+## Set the mesh to the initial mesh and reset the touch_tween
+func _animation_end():
+	mesh_instance.mesh = mesh
+	touch_tween = null
+
+## Pour envoyer le player en arriere (blockingCube, movingCube, SingleUseCube)
+func _send_cube_back(direction: Vector3i, to_roll):
 	await to_roll.end_roll
-	to_roll.order_roll(-direction)
+	to_roll.order_roll(-direction, self)
 	# TODO attention au truc infini avec les singleUseCube
 	Actions.actions.pop_back()
 

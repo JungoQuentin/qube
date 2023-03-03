@@ -14,7 +14,8 @@
 				"c27ef720-076a-4f6b-a6c2-50636d715b44",
 				"e95b14e9-68a9-4439-a5df-e4653343c38a",
 				"38368221-6290-4db7-9f1b-0e787cf07186",
-				"34037a98-70f1-4165-8e5e-d00b74a299bb"
+				"34037a98-70f1-4165-8e5e-d00b74a299bb",
+				"8507daec-9746-4c68-aaa4-f6022ceaecc9"
 			]
 		},
 		{
@@ -37,7 +38,8 @@
 			"tasks": [
 				"b8d26940-d66a-467a-9dda-26aae3dac864",
 				"ebd36717-11a2-40a3-8956-1f47c87cd969",
-				"7bccf351-9c1c-42f9-b78c-6aa0c61d54e9"
+				"7bccf351-9c1c-42f9-b78c-6aa0c61d54e9",
+				"cb948059-a1ec-4975-aa2f-b702e08cc085"
 			]
 		}
 	],
@@ -45,7 +47,7 @@
 		{
 			"uuid": "ff7be171-95b8-4987-89fe-45451f76658f",
 			"title": "Single Use cube - infinite recursion",
-			"description": "sdalut\n",
+			"description": "",
 			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
 		},
 		{
@@ -81,7 +83,7 @@
 		{
 			"uuid": "ebd36717-11a2-40a3-8956-1f47c87cd969",
 			"title": "Unit testing",
-			"description": "",
+			"description": "https://github.com/bitwes/Gut/blob/godot_4/GODOT_4_README.md",
 			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
 		},
 		{
@@ -123,6 +125,18 @@
 		{
 			"uuid": "448378a8-138e-4852-bb96-052ab90c2e1f",
 			"title": "LvlMaker in game",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "8507daec-9746-4c68-aaa4-f6022ceaecc9",
+			"title": "Refactore : apply cube color auto ! (at ready)",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "cb948059-a1ec-4975-aa2f-b702e08cc085",
+			"title": "Mettre des commentaire ## (doc) sur chaque fonction",
 			"description": "",
 			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
 		}

@@ -47,10 +47,22 @@ func _get_action_input():
 		Actions.add_action()
 	Actions.undo_stack.clear()
 
-# roll from other !
-func order_roll(direction):
+
+### TODO detect infinite recursion !!!!!
+var _single_use_cube_send_back_count: int= 0
+var _last_action_count: int = 0
+## Called another entity to make us roll
+func order_roll(direction, ordering_entity: Node3D = null):
+	if ordering_entity != null and ordering_entity is SingleUseCube:
+		_single_use_cube_send_back_count += 1
+		if _last_action_count == Actions.actions.size() and Utils.is_one_action_pressed(["top", "bottom", "right", "left"]) == "":
+			print("infinite recursion")
+		_single_use_cube_send_back_count = 0
+
 	var move_logic = MoveLogic.new(self, direction).init_forward_roll()
 	_roll(direction, move_logic)
+
+	_last_action_count = Actions.actions.size()
 
 #### ROLL LOGIC ####
 

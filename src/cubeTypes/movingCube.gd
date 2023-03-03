@@ -6,12 +6,11 @@ class_name MovingCube
 var is_moving = false
 var is_on_edge = false
 var _start_transform: Transform3D
+var _down_roll_send_back = false
 signal end_roll
 
 func _ready():
 	super._ready()
-
-	# TODO refacto auto => detecter le type de cube et lui appliquer la couleur, ...
 	initial_color = Colors.moving_cube_init_color
 	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
@@ -32,18 +31,15 @@ func on_touch(direction: Vector3, cube):
 	super.on_touch(direction, cube)
 	_send_cube_back(direction, cube)
 	if not cube is Cube:
-	#if cube.get("cube_type") == null:
 		_down_roll(direction)
 
-func order_roll(direction: Vector3):
+## Called another entity to make us roll
+func order_roll(direction: Vector3, _ordering_entity: Node3D=null):
 	if _down_roll_send_back:
-		# TODO try to debug the blocking cube sending back and bug
-		print("_down_roll_send_back")
 		_down_roll(direction, -direction)
 		_down_roll_send_back = false
 	else:
 		on_push(direction)
-var _down_roll_send_back = false
 
 func _down_roll(direction: Vector3, r_direction=null):
 	if r_direction == null:
@@ -57,11 +53,9 @@ func _down_roll(direction: Vector3, r_direction=null):
 	rotator.basis = rotator.basis.rotated(r_axis, PI / 2)
 	var old_parent = Utils.switch_parent(self, rotator, true)
 	_roll(direction, MoveLogic.new(self, direction).init_forward_roll())
-
 	_down_roll_send_back = await self.end_roll
 	if _down_roll_send_back: 
 		return
-	
 	Utils.switch_parent(self, old_parent, true)
 	rotator.queue_free()
 

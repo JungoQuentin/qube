@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=13 format=3 uid="uid://bqjrqbm2idc5b"]
+[gd_resource type="MeshLibrary" load_steps=15 format=3 uid="uid://bqjrqbm2idc5b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i0lp"]
 distance_fade_max_distance = 5.0
@@ -35,6 +35,12 @@ albedo_color = Color(0.439216, 0.541176, 0.870588, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_vnv18"]
 material = SubResource("StandardMaterial3D_pwq7y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc3kp"]
+albedo_color = Color(0.733333, 0.733333, 0.137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xrtgo"]
+material = SubResource("StandardMaterial3D_lc3kp")
 
 [resource]
 item/0/name = "0_normal"
@@ -73,3 +79,9 @@ item/5/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/shapes = []
 item/5/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/navigation_layers = 1
+item/6/name = "6_on_off_switch"
+item/6/mesh = SubResource("BoxMesh_xrtgo")
+item/6/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/6/shapes = []
+item/6/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/6/navigation_layers = 1

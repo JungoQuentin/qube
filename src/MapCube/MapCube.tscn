@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b01t7kul8dayq"]
-
-[ext_resource type="Script" path="res://src/MapCube/MapCube.gd" id="1_sytea"]
-
-[node name="MapCube" type="Node3D"]
-script = ExtResource("1_sytea")

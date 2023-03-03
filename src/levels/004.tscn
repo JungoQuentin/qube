@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtuif0oeeq2n3"]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" uid="uid://b67u0xirtdswa" path="res://src/env/EnvLightCam.tscn" id="1_vgpwy"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_fsq6e"]
-[ext_resource type="PackedScene" uid="uid://b01t7kul8dayq" path="res://src/MapCube/MapCube.tscn" id="3_1v13n"]
+[ext_resource type="PackedScene" uid="uid://b01t7kul8dayq" path="res://src/mapCube/MapCube.tscn" id="3_1v13n"]
 [ext_resource type="PackedScene" uid="uid://dw0c6yqphxcjl" path="res://src/cubeTypes/normalCube.tscn" id="4_l7li2"]
-[ext_resource type="PackedScene" path="res://src/cubeTypes/blockingCube.tscn" id="5_aw6de"]
+[ext_resource type="PackedScene" uid="uid://bkvnvq2drr7yi" path="res://src/cubeTypes/blockingCube.tscn" id="5_aw6de"]
 [ext_resource type="PackedScene" path="res://src/cubeTypes/startCube.tscn" id="6_w5jri"]
 [ext_resource type="PackedScene" path="res://src/cubeTypes/endCube.tscn" id="7_21fwm"]
 

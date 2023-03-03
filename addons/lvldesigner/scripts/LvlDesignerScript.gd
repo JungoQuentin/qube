@@ -19,6 +19,7 @@ var dimension = 0
 	cubeType.END : preload("res://src/cubeTypes/endCube.tscn"),
 	cubeType.SINGLE_USE: preload("res://src/cubeTypes/singleUseCube.tscn"),
 	cubeType.MOVING: preload("res://src/cubeTypes/movingCube.tscn"),
+	cubeType.SWITCH: preload("res://src/cubeTypes/switchCube.tscn"),
 }
 
 enum cubeType {
@@ -28,6 +29,7 @@ enum cubeType {
 	END,
 	SINGLE_USE,
 	MOVING,
+	SWITCH,
 }
 
 ################### EDITOR #####################

@@ -17,11 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Log="*res://src/auto_loads/Log.gd"
 Tools="*res://addons/lvldesigner/scripts/Tools.gd"
-Global="*res://src/auto_loads/Global.tscn"
-Actions="*res://src/auto_loads/Actions.gd"
-Utils="*res://src/auto_loads/Utils.gd"
+Log="*res://src/autoLoads/Log.gd"
+Global="*res://src/autoLoads/Global.tscn"
+Actions="*res://src/autoLoads/Actions.gd"
+Utils="*res://src/autoLoads/Utils.gd"
 Colors="*res://colors/Colors.tscn"
 
 [editor]
@@ -30,7 +30,12 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg")
+enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg", "res://addons/godotsize/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
+
+[github_to_itch]
+
+config/itch_username=""
+config/itch_project_name=""
 
 [input]
 

@@ -1,11 +1,11 @@
 @tool extends Node
 
 @onready var player_preload = preload("res://src/player/player.tscn")
-@onready var map_preload = preload("res://src/MapCube/MapCube.tscn")
+@onready var map_preload = preload("res://src/mapCube/MapCube.tscn")
 @onready var env_preload = preload("res://src/env/EnvLightCam.tscn")
 const TEMPLATES_PATH = "res://addons/lvldesigner/templates"
 const LEVELS_PATH = "res://addons/lvldesigner/levels"
-const LVL_DESIGNER_PATH = "res://addons/lvldesigner/LevelDesignerScene.tscn"
+const LVL_DESIGNER_PATH = "res://addons/lvldesigner/scene/LevelDesignerScene.tscn"
 const TEST_LVL_PATH = "res://addons/lvldesigner/levels/tmp_lvl.tscn"
 
 var plugin: BCubePlugin

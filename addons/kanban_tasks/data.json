@@ -1,0 +1,144 @@
+{
+	"categories": [
+		{
+			"uuid": "ab66d0e3-ef64-4590-ae43-971d1cf5907f",
+			"title": "Task",
+			"color": "70bafa"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "1367efcb-06f1-491a-bd7b-96368d60ef1a",
+			"title": "Todo",
+			"tasks": [
+				"c27ef720-076a-4f6b-a6c2-50636d715b44",
+				"e95b14e9-68a9-4439-a5df-e4653343c38a",
+				"38368221-6290-4db7-9f1b-0e787cf07186",
+				"34037a98-70f1-4165-8e5e-d00b74a299bb"
+			]
+		},
+		{
+			"uuid": "e28732cf-499f-4ce4-9de5-bef221e73f7d",
+			"title": "Doing",
+			"tasks": [
+				"ff7be171-95b8-4987-89fe-45451f76658f"
+			]
+		},
+		{
+			"uuid": "9681ef73-2c4d-4365-9d5e-dc481d55a0ce",
+			"title": "Done",
+			"tasks": [
+
+			]
+		},
+		{
+			"uuid": "6bf5bfc4-c687-478e-a74c-82a85902bcb8",
+			"title": "Todo (later)",
+			"tasks": [
+				"b8d26940-d66a-467a-9dda-26aae3dac864",
+				"ebd36717-11a2-40a3-8956-1f47c87cd969",
+				"7bccf351-9c1c-42f9-b78c-6aa0c61d54e9"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "ff7be171-95b8-4987-89fe-45451f76658f",
+			"title": "Single Use cube - infinite recursion",
+			"description": "sdalut\n",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "c27ef720-076a-4f6b-a6c2-50636d715b44",
+			"title": "Transition entre les niveaux",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "e95b14e9-68a9-4439-a5df-e4653343c38a",
+			"title": "Menu",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "38368221-6290-4db7-9f1b-0e787cf07186",
+			"title": "Selection de niveau",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "34037a98-70f1-4165-8e5e-d00b74a299bb",
+			"title": "Transition entre les niveaux",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "b8d26940-d66a-467a-9dda-26aae3dac864",
+			"title": "Workflow itchio",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "ebd36717-11a2-40a3-8956-1f47c87cd969",
+			"title": "Unit testing",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "7bccf351-9c1c-42f9-b78c-6aa0c61d54e9",
+			"title": "End-to-End input testing",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "4e6458a0-607e-44e2-8965-7e1114741125",
+			"title": "sdf",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "a45e84a2-ae14-4b85-9d46-bafcd52173c6",
+			"title": "New task",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "55ccff5a-0212-4ce1-9a3f-86ca116443af",
+			"title": "New task",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "b116dbe8-bb08-4413-9706-b6d74778a9b1",
+			"title": "New task",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "a173db77-e22e-4b1c-8f96-54159e3bb630",
+			"title": "New task",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "448378a8-138e-4852-bb96-052ab90c2e1f",
+			"title": "LvlMaker in game",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"1367efcb-06f1-491a-bd7b-96368d60ef1a",
+				"6bf5bfc4-c687-478e-a74c-82a85902bcb8"
+			],
+			[
+				"e28732cf-499f-4ce4-9de5-bef221e73f7d"
+			],
+			[
+				"9681ef73-2c4d-4365-9d5e-dc481d55a0ce"
+			]
+		]
+	}
+}

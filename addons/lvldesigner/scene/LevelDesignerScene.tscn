@@ -5,7 +5,7 @@
 
 [node name="LVLDESIGNER" type="Node3D"]
 script = ExtResource("1_gvds2")
-lvl_name = "777"
+lvl_name = "Kakd"
 
 [node name="GridMap" parent="." instance=ExtResource("2_jtlxq")]
 data = {

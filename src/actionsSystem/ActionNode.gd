@@ -27,7 +27,7 @@ func _set_to_state():
 	state.moving_cubes_position.keys().map(func(cube): cube.position = state.moving_cubes_position[cube])
 	state.single_cubes_state.keys().map(func(cube): cube.is_used = state.single_cubes_state[cube]; cube.update_color())
 
-########## UNDO ###########
+########## UNDO ##########
 
 func undo():
 	if Global.player.is_moving:

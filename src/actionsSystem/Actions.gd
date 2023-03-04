@@ -6,10 +6,14 @@ var undo_stack: Array[ActionNode] = []
 func _process(_delta):
 	match Global.game_state:
 		Global.INGAME:
-			if Input.is_action_just_pressed("undo"): _undo()
-			if Input.is_action_just_pressed("redo"): _redo()
-			if Input.is_action_just_pressed("reset"): _reset_level()
-			if Input.is_action_just_pressed("settings"): settings()
+			if Input.is_action_just_pressed("undo"):
+				_undo()
+			if Input.is_action_just_pressed("redo"):
+				_redo()
+			if Input.is_action_just_pressed("reset"):
+				_reset_level()
+			if Input.is_action_just_pressed("settings"):
+				settings()
 		Global.PAUSE:
 			pass
 		Global.MENU:

@@ -38,6 +38,5 @@ func save_scene(new_lvl: Node3D, path: String):
 	if error != OK:
 		Log.error("An error occurred while saving the scene to disk.")
 
-
 func alert(msg: String, title: String="alert"):
 	OS.alert(msg, title)

@@ -1,22 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwnwjdp84h5io"]
+[gd_scene load_steps=2 format=3 uid="uid://by0nncoxt8fri"]
 
-[ext_resource type="Script" path="res://src/autoLoads/Colors.gd" id="1_dl5ei"]
+[ext_resource type="Script" path="res://colors/Colors.gd" id="1_g63hf"]
 
 [node name="Colors" type="Node"]
-script = ExtResource("1_dl5ei")
-palette_name = "Winter"
-player_color = Color(0.980392, 0.968627, 0.941176, 1)
-inner_light_color = Color(0.8, 0.92549, 1, 1)
-background_color = Color(0.905882, 0.870588, 0.803922, 1)
+script = ExtResource("1_g63hf")
+palette_name = "Power"
+player_color = Color(0.0980392, 0.403922, 0.454902, 1)
+inner_light_color = Color(1, 0.858824, 0.729412, 1)
+background_color = Color(0.211765, 0.203922, 0.196078, 1)
 inner_light_fade = true
-fade_from = 1.0
-fade_to = 3.0
-fade_speed = 2.5
-normal_init_color = Color(0.937255, 0.909804, 0.858824, 1)
-blocking_init_color = Color(0.956863, 0.937255, 0.901961, 1)
-single_cube_init_color = Color(0.956863, 0.937255, 0.901961, 1)
-start_cube_init_color = Color(0.980392, 0.968627, 0.941176, 1)
-end_cube_init_color = Color(0.980392, 0.968627, 0.941176, 1)
-switch_cube_on_color = Color(0.984314, 0.980392, 0.972549, 1)
-moving_cube_init_color = Color(0.984314, 0.980392, 0.972549, 1)
+normal_init_color = Color(0.941176, 0.580392, 0.121569, 1)
+blocking_init_color = Color(0.564706, 0.631373, 0.615686, 1)
+single_cube_init_color = Color(0.741176, 0.878431, 0.996078, 1)
+start_cube_init_color = Color(1, 0.45098, 0, 1)
+end_cube_init_color = Color(0.0980392, 0.403922, 0.454902, 1)
 cube_scale = 0.97

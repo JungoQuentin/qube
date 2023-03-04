@@ -18,11 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 Tools="*res://addons/lvldesigner/scripts/Tools.gd"
-Log="*res://src/autoLoads/Log.gd"
-Global="*res://src/autoLoads/Global.tscn"
-Actions="*res://src/autoLoads/Actions.gd"
-Utils="*res://src/autoLoads/Utils.gd"
+Log="*res://src/Log.gd"
+Actions="*res://src/actionsSystem/Actions.gd"
+Utils="*res://src/Utils.gd"
 Colors="*res://colors/Colors.tscn"
+Global="*res://src/Global.gd"
 
 [editor]
 

@@ -86,6 +86,9 @@ func _create_level(_test=false):
 		Tools.alert("Le cube start n'est pas en haut !!")
 		_reset()
 		return
+	var new_grid_map = _grid_map.duplicate(DUPLICATE_USE_INSTANTIATION)
+	new_grid_map.hide()
+	Tools.add_and_set_own(new_grid_map, _new_lvl, _new_lvl)
 	Tools.save_scene(_new_lvl, _lvl_path if not _test else Tools.TEST_LVL_PATH)
 
 ################## CHECK ########################

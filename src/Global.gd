@@ -3,19 +3,15 @@ extends Node
 signal level_initialized
 enum { INGAME, PAUSE, MENU }
 
-var player: Node3D = null
-var map_cube: MapCube = null
-var startCube: Cube = null
 var game_state = INGAME
-
+var player: Node3D
+var map_cube: MapCube
+var startCube: Cube
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
 
 func _ready():
-	for child in get_children():
-		child.queue_free()
-
 	await _init_level()
 
 func _init_level():

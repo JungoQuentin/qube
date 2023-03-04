@@ -1,33 +1,13 @@
-extends Node
-class_name MoveLogic
+extends MoveLogic
+class_name CubeMoveLogic
 
-var _rotator: Node3D
-var _rotator_start: Basis 
-var _rotator_goal: Basis
-
-var _object: Node3D
-var _direction: Vector3
-var _pivot: Node3D
-var _start: Basis
-var _goal: Basis
 var _is_on_edge = false
 ## null if _is_on_edge
 var floor_goal: Cube
 var has_neighbour: bool
 var neighbour: Node3D
 
-func _init(object: Node3D, direction: Vector3):
-	_object = object
-	_object.add_child(self)
-	_direction = direction
-	_rotator = Node3D.new()
-
-func init_map_rotation():
-	_object.get_parent().add_child(_rotator)
-	_pivot = _object
-	_object.is_moving = true
-	return self
-
+## Init the logic for a cube rolling. Only for moving cubes and player
 func init_forward_roll():
 	self._pivot = Node3D.new()
 	self._object.add_child(self._pivot)
@@ -40,16 +20,15 @@ func init_forward_roll():
 	self._is_on_edge = not self.floor_goal
 	return self
 
-###########
-
-func push_neighbour(): # Only for player
+## Lauch the animation of the player pushing (moving a bit) his neighbour). Only for player
+func push_neighbour():
 	var neighbour_block = Utils.get_raycast_collider(_object, Vector3.ZERO, _direction)
 	if neighbour_block == null:
 		return
 	if not neighbour_block is MovingCube:
 		Log.crash("comment un block voisin peut etre autre chose qu'un moving cube ??")
 	neighbour_block.on_push(_direction)
-	offset()
+	_offset()
 	var axis = _direction.cross(Vector3.DOWN)
 	_start = _pivot.basis
 	_goal = _pivot.basis.rotated(axis, PI/2) if not _is_on_edge else _pivot.basis.rotated(-axis, PI)
@@ -59,15 +38,9 @@ func push_neighbour(): # Only for player
 	await tween.finished
 	reset_pivot()
 
-func _set_goals():
-	var axis = _direction.cross(Vector3.DOWN)
-	_start = _pivot.basis
-	_goal = _pivot.basis.rotated(-axis, PI / 2)
-	_rotator_start = _rotator.basis
-	_rotator_goal = _rotator.basis.rotated(-axis, PI / 2)
-	return axis
-
+## Lauch the animation of a cube rolling. Only for moving cubes and player
 func roll():
+	_offset()
 	var axis = _set_goals()
 	_goal = _pivot.basis.rotated(axis, PI/2) if not _is_on_edge else _pivot.basis.rotated(-axis, PI)
 	var tween = create_tween().set_ease(Tween.EASE_OUT_IN)
@@ -75,34 +48,17 @@ func roll():
 	await tween.finished
 	return self
 
-func map_rotate():
-	_set_goals()
-	var tween = create_tween().set_ease(Tween.EASE_OUT_IN)
-	tween.tween_method(_tween_basis, 0., 1., Global.player.speed * 2)
-	await tween.finished
-	return self
-
-func offset():
-	_pivot.position += _direction / 2 + Vector3.DOWN / 2
-	_object.mesh_instance.position -= _direction / 2 + Vector3.DOWN / 2
-	return self
-
-func _tween_basis(t):
-	if not _object.is_moving:
-		return
-	_pivot.basis = _start.slerp(_goal, t)
-	_rotator.basis = _rotator_start.slerp(_rotator_goal, t)
-
+## Reset the pivot and rotator. Only for moving cubes and player
 func reset_pivot():
-	if not _object.is_moving : # modified elsewhere
+	if not _object.is_moving: # modified elsewhere
 		return
 	_object.mesh_instance.position = Vector3.ZERO
 	Utils.switch_parent(_object.mesh_instance, _object)
 	_pivot.queue_free()
-	_rotator.queue_free()
 
+## Reset the cube position. Only for moving cubes and player
 func reset_position(reset_direction: Vector3):
-	if not _object.is_moving : # modified elsewhere
+	if not _object.is_moving: # modified elsewhere
 		return
 	if not has_neighbour:
 		_object.position += reset_direction 
@@ -111,3 +67,7 @@ func reset_position(reset_direction: Vector3):
 	if block:
 		block.on_touch(_direction, _object)
 	return block
+
+func _offset():
+	_pivot.position += _direction / 2 + Vector3.DOWN / 2
+	_object.mesh_instance.position -= _direction / 2 + Vector3.DOWN / 2

@@ -1,5 +1,6 @@
 extends Node
 
+## Wait that the condition function returns false
 func wait_while(condition: Callable, timeout=5, frequency=0.01) -> bool:
 	var passed = 0.0
 	while condition.call():
@@ -8,6 +9,7 @@ func wait_while(condition: Callable, timeout=5, frequency=0.01) -> bool:
 		await get_tree().create_timer(frequency).timeout
 	return true
 
+## Returns the first collider found by a raycast
 func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3) -> Node:
 	var new_raycast = RayCast3D.new()
 	parent.add_child(new_raycast)
@@ -19,6 +21,7 @@ func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3)
 	new_raycast.queue_free()
 	return collider
 
+## Change the parent of a node and keep the global transform if keep_global is true
 func switch_parent(node, new_parent, keep_global=false):
 	var g = node.global_transform
 	var old_parent = node.get_parent()
@@ -28,6 +31,7 @@ func switch_parent(node, new_parent, keep_global=false):
 		node.global_transform = g
 	return old_parent
 
+## Returns the first pressed action in the array. If none is pressed, returns an empty string
 func is_one_action_pressed(actions: Array[String]) -> String:
 	for action in actions:
 		if Input.is_action_pressed(action):

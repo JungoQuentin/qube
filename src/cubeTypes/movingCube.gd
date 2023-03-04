@@ -2,7 +2,7 @@ extends Cube
 class_name MovingCube
 
 @onready var main = get_tree().get_current_scene()
-@onready var speed: float = Global.player.speed
+@onready var speed: float = Level.player.speed
 var is_moving = false
 var is_on_edge = false
 var _start_transform: Transform3D
@@ -17,10 +17,10 @@ func _ready():
 	_start_transform = transform
 
 func on_push(direction: Vector3):
-	var move_logic = MoveLogic.new(self, direction).init_forward_roll()
+	var move_logic = CubeMoveLogic.new(self, direction).init_forward_roll()
 	if move_logic.has_neighbour:
 		is_moving = false
-		await Global.player.end_roll
+		await Level.player.end_roll
 		await get_tree().process_frame
 		end_roll.emit(false)
 		move_logic.queue_free()
@@ -52,7 +52,7 @@ func _down_roll(direction: Vector3, r_direction=null):
 	var r_axis = r_direction.cross(Vector3.DOWN)
 	rotator.basis = rotator.basis.rotated(r_axis, PI / 2)
 	var old_parent = Utils.switch_parent(self, rotator, true)
-	_roll(direction, MoveLogic.new(self, direction).init_forward_roll())
+	_roll(direction, CubeMoveLogic.new(self, direction).init_forward_roll())
 	_down_roll_send_back = await self.end_roll
 	if _down_roll_send_back: 
 		return
@@ -60,7 +60,6 @@ func _down_roll(direction: Vector3, r_direction=null):
 	rotator.queue_free()
 
 func _roll(direction: Vector3, move_logic: MoveLogic):
-	move_logic.offset()
 	await move_logic.roll()
 	move_logic.reset_pivot()
 	var reset_direction = direction
@@ -73,7 +72,7 @@ func _roll(direction: Vector3, move_logic: MoveLogic):
 
 func replace_after_map_rotation():
 	var old_position = global_position
-	basis = Global.player.basis
+	basis = Level.player.basis
 	global_position = old_position
 
 func reset():

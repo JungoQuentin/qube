@@ -44,7 +44,7 @@ func _ready():
 	Tools.plugin.lvl_editor_scene = self
 
 func add_template(_name):
-	var path = "res://LvlDesigner/templates/{}".format([_name], "{}")
+	var path = "{}/{}".format([Tools.TEMPLATES_PATH, _name], "{}")
 	if not FileAccess.file_exists(path):
 		Tools.alert("dont exist...")
 		return
@@ -95,7 +95,7 @@ func _create_level(_test=false):
 
 func _ok(_test=false) -> bool:
 	if not _test and FileAccess.file_exists(_lvl_path):
-		Tools.alert("Attention ! ce nom de niveau est deja prix !")
+		Tools.alert("Attention ! ce nom de niveau est deja prit !")
 		return false
 	if _check_one_type(_grid_map, cubeType.START):
 		return false

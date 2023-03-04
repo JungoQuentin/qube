@@ -14,7 +14,7 @@ func _ready():
 func on_touch(_direction: Vector3, _cube):
 	on = not on
 	_switch_animation_start()
-	Global.check_all_switch_state()
+	Level.check_all_switch_state()
 
 func _switch_animation_start():
 	var _tmp_mesh = mesh_instance.mesh.duplicate(true)

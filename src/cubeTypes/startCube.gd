@@ -2,7 +2,7 @@ extends Cube
 class_name StartCube
 
 func _ready():
-	Global.startCube = self
+	Level.startCube = self
 	super._ready()
 	initial_color = Colors.start_cube_init_color
 	touched_color = Colors.darker(initial_color)

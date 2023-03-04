@@ -12,7 +12,7 @@ func _ready():
 	mesh.surface_get_material(0).albedo_color = initial_color
 
 func on_touch(direction: Vector3, cube):
-	if not cube == Global.player:
+	if not cube == Level.player:
 		return
 	super.on_touch(direction, cube)
 	print("YOU WIN !!!")

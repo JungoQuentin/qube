@@ -19,10 +19,10 @@ config/icon="res://icon.svg"
 
 Tools="*res://addons/lvldesigner/scripts/Tools.gd"
 Log="*res://src/Log.gd"
-Actions="*res://src/actionsSystem/Actions.gd"
+ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
 Colors="*res://colors/Colors.tscn"
-Global="*res://src/Global.gd"
+Level="*res://src/Level.gd"
 
 [editor]
 

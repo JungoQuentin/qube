@@ -3,7 +3,6 @@ class_name SingleUseCube
 
 var is_used: bool = false
 var _true_material: Material
-var _touch_count: int = 0
 var _wird_tween: Tween
 
 func _ready():
@@ -18,8 +17,6 @@ func on_leave():
 	_change_color_animation_start()
 
 func on_touch(direction: Vector3, cube):
-	_touch_count += 1
-	print("touch count: ", _touch_count)
 	if not is_used:
 		mesh = mesh.duplicate(true)
 		mesh_instance.mesh = mesh

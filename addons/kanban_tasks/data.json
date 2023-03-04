@@ -16,14 +16,16 @@
 				"38368221-6290-4db7-9f1b-0e787cf07186",
 				"34037a98-70f1-4165-8e5e-d00b74a299bb",
 				"8507daec-9746-4c68-aaa4-f6022ceaecc9",
-				"b92e2c72-31d8-4a00-85f0-01ae4292cd76"
+				"b92e2c72-31d8-4a00-85f0-01ae4292cd76",
+				"9532e653-9ebd-4f33-ab20-bb90199ed407"
 			]
 		},
 		{
 			"uuid": "e28732cf-499f-4ce4-9de5-bef221e73f7d",
 			"title": "Doing",
 			"tasks": [
-				"ff7be171-95b8-4987-89fe-45451f76658f"
+				"ff7be171-95b8-4987-89fe-45451f76658f",
+				"b7fc793d-1921-4a6a-ba8f-42c7dd432bf1"
 			]
 		},
 		{
@@ -48,7 +50,7 @@
 		{
 			"uuid": "ff7be171-95b8-4987-89fe-45451f76658f",
 			"title": "Single Use cube - infinite recursion",
-			"description": "",
+			"description": "Le probleme vient aussi de la gestion des actions\n",
 			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
 		},
 		{
@@ -144,6 +146,24 @@
 		{
 			"uuid": "b92e2c72-31d8-4a00-85f0-01ae4292cd76",
 			"title": "Idee de t-h20: un single_use qui gere les faces (alors que c'est le cube maintenant)",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "b7fc793d-1921-4a6a-ba8f-42c7dd432bf1",
+			"title": "Bien reset les singles use",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "9532e653-9ebd-4f33-ab20-bb90199ed407",
+			"title": "Soleil qui derange dans l'editeur de niveau",
+			"description": "",
+			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
+		},
+		{
+			"uuid": "1ccb71bf-0f41-4546-a97f-b857792e733f",
+			"title": "New task",
 			"description": "",
 			"category": "ab66d0e3-ef64-4590-ae43-971d1cf5907f"
 		}

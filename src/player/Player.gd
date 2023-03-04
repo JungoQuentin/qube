@@ -13,11 +13,11 @@ signal end_roll
 func _ready():
 	joystick = load("res://src/joystick/joystick.tscn").instantiate()
 	add_child(joystick)
-	Global.player = self
+	Level.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	if Colors.player_fade:
 		_start_transparence_animation()
-	await Global.level_initialized
+	await Level.level_initialized
 	_set_start_pos()
 
 func _process(_delta):
@@ -38,25 +38,25 @@ func _get_action_input():
 			direction = -direction.cross(Vector3.UP)
 		"":
 			return
-	Actions.undo_stack.clear()
 	
-	var move_logic: MoveLogic = MoveLogic.new(self, direction).init_forward_roll()
+	var move_logic: CubeMoveLogic = CubeMoveLogic.new(self, direction).init_forward_roll()
 	if move_logic.has_neighbour:
 		_push_neighbour(move_logic)
-		Actions.add_action(ActionNode.Type.PUSH)
+		ActionSystem.add_action(Action.Type.PUSH)
 	else:
 		_roll(direction, move_logic)
-		Actions.add_action()
+		ActionSystem.add_action()
 
 	if not move_logic._is_on_edge and move_logic.floor_goal.is_blocking():
-		Actions.actions.pop_back()
-		print("will be reject")
+		ActionSystem.actions.pop_back()
 		if we_are_on_this_cube_now is SingleUseCube:
 			print("go to infinite recursion")
+	else:
+		ActionSystem.undo_stack.clear()
 
 ## Called another entity to make us roll
 func order_roll(direction, _ordering_entity: Node3D = null):
-	var move_logic = MoveLogic.new(self, direction).init_forward_roll()
+	var move_logic = CubeMoveLogic.new(self, direction).init_forward_roll()
 	_roll(direction, move_logic)
 
 #### ROLL LOGIC ####
@@ -69,12 +69,12 @@ func _push_neighbour(move_logic):
 	is_moving = false
 
 func _roll(direction: Vector3, move_logic):
-	if is_on_edge: Global.map_cube.start_cube_rotation(direction)
-	await move_logic.offset().roll()
+	if is_on_edge: Level.map_cube.start_cube_rotation(direction)
+	await move_logic.roll()
 	move_logic.reset_pivot()
 	var reset_direction = direction
 	if is_on_edge:
-		reset_direction = -(Global.map_cube.dimension - 1) * direction
+		reset_direction = -(Level.map_cube.dimension - 1) * direction
 	await move_logic.reset_position(reset_direction)
 
 	## end_roll
@@ -97,14 +97,14 @@ func _start_transparence_animation():
 	_tween.play()
 
 func _set_start_pos():
-	position = Global.startCube.global_position + Vector3.UP
-	we_are_on_this_cube_now = Global.startCube
+	position = Level.startCube.global_position + Vector3.UP
+	we_are_on_this_cube_now = Level.startCube
 
 func reset():
-	# TODO
-	#var move_logic = MoveLogic.new(self)
-	#move_logic.reset_pivot(Vector3.ZERO)
+	abort_move()
 	_set_start_pos()
 
-func abort_moving():
-	pass
+func abort_move():
+	if not is_moving:
+		return
+	print("abort moving")

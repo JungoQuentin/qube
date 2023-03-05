@@ -5,27 +5,40 @@ var actions: Array[Action] = []
 var undo_stack: Array[Action] = []
 
 func _input(_event):
-	if Level.game_state == Level.INGAME and not Utils.is_one_action_pressed(["undo", "redo", "reset", "settings"]).is_empty():
-		Level.player.abort_move() # TODO laisser ici, donc aussi pour les settings ?
-		if Input.is_action_just_pressed("undo"):
-			_undo()
-		if Input.is_action_just_pressed("redo"):
-			_redo()
-		if Input.is_action_just_pressed("reset"):
-			_reset_level()
-		if Input.is_action_just_pressed("settings"):
-			settings()
+	if Level.game_state == Level.INGAME:
+		_input_ingame()
 	if Level.game_state == Level.PAUSE:
 		pass
 	if Level.game_state == Level.MENU:
 		pass
 
+func _input_ingame():
+	var action_str: String = Utils.is_one_action_pressed(["undo", "redo", "reset", "settings"])
+	if action_str.is_empty():
+		return
+	if not Utils.is_one_action_pressed(["top", "bottom", "left", "right"]).is_empty():
+		return
+	match action_str:
+		"undo":
+			_undo()
+		"redo":
+			_redo()
+		"reset":
+			_reset_level()
+		"settings":
+			_settings()
+
 func _undo():
+	Level.map_cube.abort_rotation()
+	if await Level.player.abort_move():
+		return
 	if actions.is_empty():
 		return
 	actions.pop_back().undo()
 
 func _redo():
+	# Level.player.abort_move()
+	# Level.map_cube.abort_rotation()
 	if undo_stack.is_empty():
 		return
 	undo_stack.pop_back().redo()
@@ -41,7 +54,7 @@ func _reset_level():
 	Level.moving_cubes.map(func(cube): cube.reset())
 	Level.single_use_cubes.map(func(cube): cube.reset())
 
-func settings():
+func _settings():
 	pass
 
 func add_action(_type=Action.Type.MOVE,

@@ -24,8 +24,8 @@ func on_push(direction: Vector3):
 		await get_tree().process_frame
 		end_roll.emit(false)
 		move_logic.queue_free()
-		return
-	_roll(direction, move_logic)
+	else:
+		_roll(direction, move_logic)
 
 func on_touch(direction: Vector3, cube):
 	super.on_touch(direction, cube)
@@ -66,7 +66,6 @@ func _roll(direction: Vector3, move_logic: MoveLogic):
 	if is_on_edge:
 		reset_direction += Vector3.DOWN
 	var block = await move_logic.reset_position(reset_direction)
-	is_moving = false
 	end_roll.emit(block and (block.is_blocking() or block is MovingCube))
 	move_logic.queue_free()
 

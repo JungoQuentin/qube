@@ -6,6 +6,7 @@ var _direction: Vector3
 var _pivot: Node3D
 var _start: Basis
 var _goal: Basis
+var _tween: Tween
 
 ## Init the shared logic for a cube rolling or a map rotation
 func _init(object: Node3D, direction: Vector3):

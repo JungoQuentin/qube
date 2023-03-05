@@ -12,8 +12,6 @@ func _ready():
 
 func start_cube_rotation(direction: Vector3):
 	_move_logic = MapMoveLogic.new(self, direction).init_map_rotation()
-	Utils.switch_parent(Level.player, _move_logic._rotator)
-	Level.moving_cubes.map(func(cube): Utils.switch_parent(cube, _move_logic._rotator, true))
 	await _move_logic.map_rotate()
 	if is_moving:
 		stop_rotation()
@@ -25,11 +23,11 @@ func stop_rotation():
 	is_moving = false
 
 func abort_rotation():
-	if is_moving:
-		print("abort rotation")
-		stop_rotation()
-		_move_logic._pivot.basis = _move_logic._start
-		#Level.map_cube.basis = Level.map_cube.start
+	if not is_moving:
+		return
+	_move_logic._pivot.basis = _move_logic._start
+	_move_logic._rotator.basis = _move_logic._rotator_start
+	stop_rotation()
 
 func reset():
 	if is_moving:

@@ -37,3 +37,9 @@ func is_one_action_pressed(actions: Array[String]) -> String:
 		if Input.is_action_pressed(action):
 			return action
 	return ""
+
+func are_tests_running() -> bool:
+	return get_tree().get_current_scene().name == "GutRunner"
+
+func sleep(seconds: float):
+	await get_tree().create_timer(seconds).timeout

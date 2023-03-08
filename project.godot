@@ -11,17 +11,17 @@ config_version=5
 [application]
 
 config/name="BCube"
-run/main_scene="res://src/levels/003.tscn"
+run/main_scene="res://colors/Colors.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Tools="*res://addons/lvldesigner/scripts/Tools.gd"
-Log="*res://src/Log.gd"
+Colors="*res://colors/Colors.tscn"
 ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
-Colors="*res://colors/Colors.tscn"
+Log="*res://src/Log.gd"
 Level="*res://src/Level.gd"
 
 [editor]
@@ -30,7 +30,7 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godotsize/plugin.cfg", "res://addons/lvldesigner/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
+enabled=PackedStringArray("res://addons/godotsize/plugin.cfg", "res://addons/lvldesigner/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/gut/plugin.cfg")
 
 [github_to_itch]
 

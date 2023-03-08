@@ -17,6 +17,10 @@ var action_stack_display: VBoxContainer
 var undo_stack_display: VBoxContainer
 
 func _ready():
+	# TODO mettre la logic de level dans la scene level
+	# Comme ca, plus de probleme avec les tests, et on peut instancier des levels pour les tester !!
+	if Utils.are_tests_running():
+		return
 	await _init_level()
 
 ### INIT ###

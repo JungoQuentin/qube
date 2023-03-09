@@ -4,10 +4,12 @@ enum Type {	MOVE, RESET, PUSH }
 
 var type: Action.Type
 var state: LevelState 
+var level: Level
 
-func _init(_state: LevelState, _type: Type):
+func _init(_state: LevelState, _type: Type, _level: Level):
 	type = _type
 	state = _state
+	level = _level
 
 func _to_string():
 	var type_str: String
@@ -30,11 +32,11 @@ func _apply_level_state(level):
 	state.single_cubes_state.keys().map(func(cube): cube.is_used = state.single_cubes_state[cube]; cube.update_color())
 
 ## Set the level to correspond to the state of the action and add the action to the undo stack
-func undo(level):
+func undo():
 	ActionSystem.add_action(type, true)
 	_apply_level_state(level)
 
 ## Set back the level to correspond to the state of the action and add the action to the action stack
-func redo(level):
+func redo():
 	ActionSystem.add_action(type)
 	_apply_level_state(level)

@@ -1,5 +1,5 @@
 ## the level script
-extends Node
+class_name Level extends Node
 
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME

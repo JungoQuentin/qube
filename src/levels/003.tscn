@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bof80hj2jaon0"]
+[gd_scene load_steps=10 format=3 uid="uid://bof80hj2jaon0"]
 
+[ext_resource type="Script" path="res://src/Level.gd" id="1_4by8v"]
 [ext_resource type="PackedScene" uid="uid://b67u0xirtdswa" path="res://src/env/EnvLightCam.tscn" id="1_xvfo8"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_rta6h"]
 [ext_resource type="PackedScene" uid="uid://dr1dabryp1i5t" path="res://src/mapCube/MapCube.tscn" id="3_mi2nf"]
@@ -10,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d3tukty5ask6k" path="res://src/cubeTypes/movingCube.tscn" id="8_vkip3"]
 
 [node name="Level" type="Node3D"]
+script = ExtResource("1_4by8v")
 
 [node name="EnvLightCam" parent="." instance=ExtResource("1_xvfo8")]
 camera_y_distance = 17.0

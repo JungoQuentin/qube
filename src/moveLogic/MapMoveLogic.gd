@@ -14,15 +14,15 @@ func init_map_rotation():
 	_object.get_parent().add_child(_rotator)
 	_pivot = _object
 	_object.is_moving = true
-	Utils.switch_parent(Level.player, _rotator)
-	Level.moving_cubes.map(func(cube): Utils.switch_parent(cube, _rotator, true))
+	Utils.switch_parent(_level.player, _rotator)
+	_level.moving_cubes.map(func(cube): Utils.switch_parent(cube, _rotator, true))
 	return self
 
 ## Lauch the animation of the map rotating. Only for map
 func map_rotate():
 	_set_goals()
 	_tween = create_tween().set_ease(Tween.EASE_OUT_IN)
-	_tween.tween_method(_tween_basis, 0., 1., Level.player.speed * 2)
+	_tween.tween_method(_tween_basis, 0., 1., _level.player.speed * 2)
 	await _tween.finished
 	return self
 

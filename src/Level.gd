@@ -1,68 +1,30 @@
-## AutoLoad that manages the level
-extends Node
+## the level script
+class_name Level extends Node
+
+enum { INGAME, PAUSE, MENU }
+var game_state = INGAME
 
 signal level_initialized
-enum { INGAME, PAUSE, MENU }
 
-var game_state = INGAME
-var player: Node3D
-var map_cube: MapCube
+@onready var player: Node3D = $Player
+@onready var map_cube: MapCube = $MapCube
 var startCube: Cube
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
 
-var current_level: Node3D
-var action_stack_display: VBoxContainer
-var undo_stack_display: VBoxContainer
-
 func _ready():
-	# TODO mettre la logic de level dans la scene level
-	# Comme ca, plus de probleme avec les tests, et on peut instancier des levels pour les tester !!
-	if Utils.are_tests_running():
-		return
-	await _init_level()
-
-### INIT ###
-
-func _init_level():
-	current_level = get_tree().get_current_scene()
 	_init_action_stack_display()
-	await _init_map()
+	_init_map()
 	level_initialized.emit()
 
+## init the map by getting all the special cubes
 func _init_map():
-	await Utils.wait_while(func(): return map_cube == null, 1)
 	var map_cube_children = map_cube.get_child(0).get_children()
 	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
-
-func _init_action_stack_display():
-	action_stack_display = VBoxContainer.new()
-	current_level.add_child(action_stack_display)
-	undo_stack_display = VBoxContainer.new()
-	undo_stack_display.anchor_left = 0.5
-	current_level.add_child(undo_stack_display)
-
-### STACK DISPLAY ###
-
-func update_stack_display():
-	action_stack_display.get_children().map(func(child): child.queue_free())
-	undo_stack_display.get_children().map(func(child): child.queue_free())
-	for action in ActionSystem.actions:
-		_add_action_to_stack_display(action)
-	for action in ActionSystem.undo_stack:
-		_add_action_to_stack_display(action, true)
-
-func _add_action_to_stack_display(action: Action, is_undo=false):
-	var new_label = Label.new()
-	new_label.text = str(action)
-	if not is_undo:
-		action_stack_display.add_child(new_label)
-	else:
-		undo_stack_display.add_child(new_label)
 
 ### LEVEL ###
 
@@ -71,12 +33,34 @@ func check_all_switch_state():
 		print("ALL TRUE !")
 		# TODO
 
-func clear_level():
-	player.queue_free()
-	map_cube.queue_free()
-	startCube.queue_free()
-	switch_cubes.clear()
-	single_use_cubes.clear()
-	moving_cubes.clear()
-	current_level = null
-	action_stack_display.queue_free()
+### DEBUG ###
+### STACK DISPLAY ###
+
+# var action_stack_display: VBoxContainer
+# var undo_stack_display: VBoxContainer
+# ## only for debug purpose
+func _init_action_stack_display():
+	pass
+# 	action_stack_display = VBoxContainer.new()
+# 	add_child(action_stack_display)
+# 	undo_stack_display = VBoxContainer.new()
+# 	undo_stack_display.anchor_left = 0.5
+# 	add_child(undo_stack_display)
+
+func update_stack_display():
+	pass
+# 	action_stack_display.get_children().map(func(child): child.queue_free())
+# 	undo_stack_display.get_children().map(func(child): child.queue_free())
+# 	for action in ActionSystem.actions:
+# 		_add_action_to_stack_display(action)
+# 	for action in ActionSystem.undo_stack:
+# 		_add_action_to_stack_display(action, true)
+
+func _add_action_to_stack_display(action: Action, is_undo=false):
+	pass
+# 	var new_label = Label.new()
+# 	new_label.text = str(action)
+# 	if not is_undo:
+# 		action_stack_display.add_child(new_label)
+# 	else:
+# 		undo_stack_display.add_child(new_label)

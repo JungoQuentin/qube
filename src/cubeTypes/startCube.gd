@@ -2,7 +2,7 @@ extends Cube
 class_name StartCube
 
 func _ready():
-	Level.startCube = self
+	get_tree().current_scene.startCube = self
 	super._ready()
 	initial_color = Colors.start_cube_init_color
 	touched_color = Colors.darker(initial_color)

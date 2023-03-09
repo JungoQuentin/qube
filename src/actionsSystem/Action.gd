@@ -4,10 +4,12 @@ enum Type {	MOVE, RESET, PUSH }
 
 var type: Action.Type
 var state: LevelState 
+var level: Level
 
-func _init(_state: LevelState, _type: Type):
+func _init(_state: LevelState, _type: Type, _level: Level):
 	type = _type
 	state = _state
+	level = _level
 
 func _to_string():
 	var type_str: String
@@ -24,8 +26,8 @@ func _to_string():
 
 ## Set the level to correspond to the state of the action
 func _apply_level_state():
-	Level.map_cube.basis = state.map_basis
-	Level.player.position = state.player_position 
+	level.map_cube.basis = state.map_basis
+	level.player.position = state.player_position 
 	state.moving_cubes_position.keys().map(func(cube): cube.position = state.moving_cubes_position[cube])
 	state.single_cubes_state.keys().map(func(cube): cube.is_used = state.single_cubes_state[cube]; cube.update_color())
 

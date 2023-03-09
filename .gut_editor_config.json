@@ -3,7 +3,8 @@
  "compact_mode": false,
  "config_file": "res://.gutconfig.json",
  "dirs": [
-  "res://tests/"
+  "res://tests/unit_tests",
+  "res://tests/intergration_tests"
  ],
  "disable_colors": false,
  "double_strategy": "partial",
@@ -23,9 +24,9 @@
  "panel_options": {
   "font_name": "CourierPrime",
   "font_size": 30,
-  "hide_output_text": true,
+  "hide_output_text": false,
   "hide_result_tree": false,
-  "hide_settings": true,
+  "hide_settings": false,
   "use_colors": false
  },
  "post_run_script": "",

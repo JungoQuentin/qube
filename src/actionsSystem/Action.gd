@@ -23,18 +23,18 @@ func _to_string():
 	return "Action of type {} - with state {}".format([type_str, str(state)], '{}')
 
 ## Set the level to correspond to the state of the action
-func _apply_level_state():
-	Level.map_cube.basis = state.map_basis
-	Level.player.position = state.player_position 
+func _apply_level_state(level):
+	level.map_cube.basis = state.map_basis
+	level.player.position = state.player_position 
 	state.moving_cubes_position.keys().map(func(cube): cube.position = state.moving_cubes_position[cube])
 	state.single_cubes_state.keys().map(func(cube): cube.is_used = state.single_cubes_state[cube]; cube.update_color())
 
 ## Set the level to correspond to the state of the action and add the action to the undo stack
-func undo():
+func undo(level):
 	ActionSystem.add_action(type, true)
-	_apply_level_state()
+	_apply_level_state(level)
 
 ## Set back the level to correspond to the state of the action and add the action to the action stack
-func redo():
+func redo(level):
 	ActionSystem.add_action(type)
-	_apply_level_state()
+	_apply_level_state(level)

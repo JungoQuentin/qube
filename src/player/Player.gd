@@ -15,11 +15,11 @@ signal end_roll
 func _ready():
 	joystick = load("res://src/joystick/joystick.tscn").instantiate()
 	add_child(joystick)
-	Level.player = self
+	get_parent().player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	# if Colors.player_fade:
 	# 	_start_transparence_animation()
-	await Level.level_initialized
+	await get_parent().level_initialized
 	_set_start_pos()
 
 func _process(_delta):
@@ -70,7 +70,7 @@ func _push_neighbour():
 
 func _roll(direction: Vector3):
 	if is_on_edge:
-		Level.map_cube.start_cube_rotation(direction)
+		get_parent().map_cube.start_cube_rotation(direction)
 	await move_logic.roll()
 	if not is_moving:
 		end_roll.emit()
@@ -78,7 +78,7 @@ func _roll(direction: Vector3):
 	move_logic.reset_pivot()
 	var reset_direction = direction
 	if is_on_edge:
-		reset_direction = -(Level.map_cube.dimension - 1) * direction
+		reset_direction = -(get_parent().map_cube.dimension - 1) * direction
 	await move_logic.reset_position(reset_direction)
 
 	## end_roll
@@ -100,8 +100,8 @@ func _roll(direction: Vector3):
 # 	_tween.play()
 
 func _set_start_pos():
-	position = Level.startCube.global_position + Vector3.UP
-	we_are_on_this_cube_now = Level.startCube
+	position = get_parent().startCube.global_position + Vector3.UP
+	we_are_on_this_cube_now = get_parent().startCube
 
 func reset():
 	abort_move()

@@ -18,10 +18,14 @@ const camera_y_dist_by_cube_dimension: Dictionary = {
 @export var debug = false
 
 
+
+var level
+
 func _ready():
+	level = get_parent()
 	camera.fov = camera_fov
-	await Utils.wait_while(func(): return Level.map_cube == null)
-	camera.position.y = camera_y_dist_by_cube_dimension[Level.map_cube.dimension]
+	await Utils.wait_while(func(): return level.map_cube == null)
+	camera.position.y = camera_y_dist_by_cube_dimension[level.map_cube.dimension]
 	$WorldEnvironment.environment.background_color = Colors.background_color
 	camera.current = true
 	camera_db.current = debug

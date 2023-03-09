@@ -1,16 +1,19 @@
 ## AutoLoad that handles the undo/redo/reset system
 extends Node
 
+var level
 var actions: Array[Action] = []
 var undo_stack: Array[Action] = []
 
 func _input(_event):
-	if Level.game_state == Level.INGAME:
-		_input_ingame()
-	if Level.game_state == Level.PAUSE:
-		pass
-	if Level.game_state == Level.MENU:
-		pass
+	_input_ingame()
+	# if Level.game_state == Level.INGAME: TODO
+	# 	_input_ingame()
+	# if Level.game_state == Level.PAUSE:
+	# 	pass
+	# if Level.game_state == Level.MENU:
+	# 	pass
+	level = get_tree().get_current_scene() # TODO + opti ?
 
 func _input_ingame():
 	var action_str: String = Utils.is_one_action_pressed(["undo", "redo", "reset", "settings"])
@@ -29,16 +32,14 @@ func _input_ingame():
 			_settings()
 
 func _undo():
-	Level.map_cube.abort_rotation()
-	if await Level.player.abort_move():
+	level.map_cube.abort_rotation()
+	if await level.player.abort_move():
 		return
 	if actions.is_empty():
 		return
 	actions.pop_back().undo()
 
 func _redo():
-	# Level.player.abort_move()
-	# Level.map_cube.abort_rotation()
 	if undo_stack.is_empty():
 		return
 	undo_stack.pop_back().redo()
@@ -46,27 +47,27 @@ func _redo():
 func _reset_level():
 	if actions.is_empty() or actions[actions.size() - 1].type == Action.Type.RESET:
 		return
-	if not Level.player.is_moving:
+	if not level.player.is_moving:
 		add_action(Action.Type.RESET)
 	undo_stack.clear()
-	Level.map_cube.reset()
-	Level.player.reset()
-	Level.moving_cubes.map(func(cube): cube.reset())
-	Level.single_use_cubes.map(func(cube): cube.reset())
+	level.map_cube.reset()
+	level.player.reset()
+	level.moving_cubes.map(func(cube): cube.reset())
+	level.single_use_cubes.map(func(cube): cube.reset())
 
 func _settings():
 	pass
 
 func add_action(_type=Action.Type.MOVE,
 		_to_undo=false,
-		_player_position=Level.player.position,
-		_map_basis=Level.map_cube.basis,
+		_player_position=level.player.position,
+		_map_basis=level.map_cube.basis,
 		_move_cubes_position={},
 		_single_cubes_state={}):
 	if _move_cubes_position.is_empty():
-		Level.moving_cubes.map(func(cube): _move_cubes_position[cube] = cube.position)
+		level.moving_cubes.map(func(cube): _move_cubes_position[cube] = cube.position)
 	if _single_cubes_state.is_empty():
-		Level.single_use_cubes.map(func(cube): _single_cubes_state[cube] = cube.is_used)
+		level.single_use_cubes.map(func(cube): _single_cubes_state[cube] = cube.is_used)
 	var action = Action.new(
 			LevelState.new(
 					_player_position,
@@ -81,6 +82,6 @@ var last_actions_size = 0
 var last_undo_stack_size = 0
 func _process(_delta):
 	if last_actions_size != actions.size() or last_undo_stack_size != undo_stack.size():
-		Level.update_stack_display()
+		level.update_stack_display()
 	last_actions_size = actions.size()
 	last_undo_stack_size = undo_stack.size()

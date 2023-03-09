@@ -2,15 +2,18 @@ extends Cube
 class_name MovingCube
 
 @onready var main = get_tree().get_current_scene()
-@onready var speed: float = Level.player.speed
+var speed: float
 var is_moving = false
 var is_on_edge = false
 var _start_transform: Transform3D
 var _down_roll_send_back = false
+var _player: Player
 signal end_roll
 
 func _ready():
 	super._ready()
+	_player = get_tree().current_scene.player
+	speed = _player.speed
 	initial_color = Colors.moving_cube_init_color
 	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
@@ -20,7 +23,7 @@ func on_push(direction: Vector3):
 	var move_logic = CubeMoveLogic.new(self, direction).init_forward_roll()
 	if move_logic.has_neighbour:
 		is_moving = false
-		await Level.player.end_roll
+		await _player.end_roll
 		await get_tree().process_frame
 		end_roll.emit(false)
 		move_logic.queue_free()
@@ -71,7 +74,7 @@ func _roll(direction: Vector3, move_logic: MoveLogic):
 
 func replace_after_map_rotation():
 	var old_position = global_position
-	basis = Level.player.basis
+	basis = _player.basis
 	global_position = old_position
 
 func reset():

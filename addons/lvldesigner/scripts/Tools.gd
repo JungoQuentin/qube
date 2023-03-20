@@ -1,8 +1,9 @@
 @tool extends Node
 
-@onready var player_preload = preload("res://src/player/player.tscn")
-@onready var map_preload = preload("res://src/mapCube/MapCube.tscn")
-@onready var env_preload = preload("res://src/env/EnvLightCam.tscn")
+const player_preload = preload("res://src/player/player.tscn")
+const map_preload = preload("res://src/mapCube/MapCube.tscn")
+const env_preload = preload("res://src/env/EnvLightCam.tscn")
+const level_script = preload("res://src/Level.gd")
 const TEMPLATES_PATH = "res://addons/lvldesigner/templates"
 const LEVELS_PATH = "res://addons/lvldesigner/levels"
 const LVL_DESIGNER_PATH = "res://addons/lvldesigner/scene/LevelDesignerScene.tscn"
@@ -12,6 +13,7 @@ var plugin: BCubePlugin
 
 func create_new_lvl(scene, lvl_name, _test: bool=false) -> Node3D:
 	var new_lvl = add_node3d(scene, scene, lvl_name if not _test else "TEST")
+	new_lvl.set_script(level_script)
 	add_and_set_own(env_preload.instantiate(), new_lvl, new_lvl)
 	add_and_set_own(player_preload.instantiate(), new_lvl, new_lvl)
 	add_and_set_own(map_preload.instantiate(), new_lvl, new_lvl)

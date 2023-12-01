@@ -37,6 +37,7 @@ jobs:
           unzip butler.zip
           chmod +x butler
           ./butler -V
+          echo $BUTLER_API_KEY
           ./butler login
       - name: Setup
         run: |

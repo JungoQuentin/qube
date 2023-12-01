@@ -28,6 +28,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           lfs: true
+      - name: Install Butler
+        run: |
+          apt-get -y install curl unzip
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+          ./butler login
       - name: Setup
         run: |
           mkdir -vp ${TEMPLATE_PATH}
@@ -36,13 +44,6 @@ jobs:
         run: |
           mkdir -vp _site
           godot --headless --export-release "Web" _site/index.html
-      - name: Install Butler
-        run: |
-          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
-          unzip butler.zip
-          chmod +x butler
-          ./butler -V
-          ./butler login
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
   deploy:

@@ -36,6 +36,7 @@ jobs:
         run: |
           mkdir -vp _site
           ls ${TEMPLATE_PATH}/${GODOT_VERSION}.stable
+          ls /github/home/.local/share/godot/export_templates/4.2.stable/
           godot --headless --export-release "Web" _site/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2

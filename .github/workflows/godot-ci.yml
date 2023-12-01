@@ -30,7 +30,7 @@ jobs:
           lfs: true
       - name: Install Butler
         run: |
-          apt-get -y install curl unzip
+          apt-get -y update && apt-get -y install curl unzip
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
           chmod +x butler

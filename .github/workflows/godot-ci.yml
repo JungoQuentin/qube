@@ -4,7 +4,7 @@ on: push
 env:
   GODOT_VERSION: 4.2
   EXPORT_NAME: test-project
-  PROJECT_PATH: test-project
+  PROJECT_PATH: .
 
 jobs:
   export-web:

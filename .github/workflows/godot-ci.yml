@@ -14,7 +14,7 @@ on:
 env:
   GODOT_VERSION: 4.2
   EXPORT_NAME: test-project
-  TEMPLATE_PATH: ~/.local/share/godot/export_templates
+  TEMPLATE_PATH: /github/home/.local/share/godot/export_templates
   PROJECT_PATH: .
 
 jobs:

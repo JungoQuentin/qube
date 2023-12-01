@@ -23,6 +23,7 @@ jobs:
   export-web:
     name: Web Export
     runs-on: ubuntu-latest
+    environment: github-pages
     container:
       image: barichello/godot-ci:4.2
     steps:
@@ -37,7 +38,6 @@ jobs:
           unzip butler.zip
           chmod +x butler
           ./butler -V
-          echo $BUTLER_API_KEY
           ./butler login
       - name: Setup
         run: |

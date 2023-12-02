@@ -2,7 +2,7 @@
 
 const player_preload = preload("res://src/player/player.tscn")
 const map_preload = preload("res://src/mapCube/MapCube.tscn")
-const env_preload = preload("res://src/env/EnvLightCam.tscn")
+const env_preload = preload("res://src/env/EnvLight.tscn")
 const level_script = preload("res://src/Level.gd")
 const TEMPLATES_PATH = "res://addons/lvldesigner/templates"
 const LEVELS_PATH = "res://addons/lvldesigner/levels"

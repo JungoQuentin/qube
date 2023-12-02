@@ -23,7 +23,10 @@ func _ready():
 	_set_start_pos()
 
 func _process(_delta):
-	if not is_moving:
+	if not is_moving and Input.is_action_just_pressed("switch_mode"):
+		get_parent().is_in_camera_mode = !get_parent().is_in_camera_mode
+		return
+	if not is_moving and not get_parent().is_in_camera_mode:
 		_get_action_input()
 
 func _get_action_input():

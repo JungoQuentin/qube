@@ -8,13 +8,16 @@ signal level_initialized
 @onready var player: Node3D = $Player
 @onready var map_cube: MapCube = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
+@onready var camera: Camera3D = preload("res://src/env/Camera.tscn").instantiate()
 var startCube: Cube
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
+var is_in_camera_mode:= false
 
 func _ready():
 	add_child(in_game_menu)
+	add_child(camera)
 	_init_action_stack_display()
 	_init_map()
 	level_initialized.emit()

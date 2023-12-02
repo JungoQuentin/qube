@@ -1,6 +1,5 @@
 name: "godot-ci export"
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -16,8 +15,6 @@ env:
   EXPORT_NAME: test-project
   TEMPLATE_PATH: /github/home/.local/share/godot/export_templates
   PROJECT_PATH: .
-  #          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-  BUTLER_API_KEY: ${{ vars.BUTLER_API_KEY }}
 
 jobs:
   export-web:
@@ -32,6 +29,9 @@ jobs:
         with:
           lfs: true
       - name: Install Butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+
         run: |
           apt-get -y update && apt-get -y install curl unzip
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
@@ -47,16 +47,5 @@ jobs:
         run: |
           mkdir -vp _site
           godot --headless --export-release "Web" _site/index.html
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: export-web
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      - name: Butler Push
+        uses: ./butler push QUBE memeandme/qube:web-final

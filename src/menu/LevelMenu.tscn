@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7bv6qb40h5yc"]
+[gd_scene load_steps=9 format=3 uid="uid://b7bv6qb40h5yc"]
 
 [ext_resource type="Script" path="res://src/menu/LevelMenu.gd" id="1_3nn7g"]
 [ext_resource type="PackedScene" uid="uid://noenlh1wpuyu" path="res://src/levels/000.tscn" id="2_0tbpt"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bof80hj2jaon0" path="res://src/levels/003.tscn" id="5_8xgrq"]
 [ext_resource type="PackedScene" uid="uid://dtwiwe6lysi37" path="res://src/levels/004.tscn" id="6_lv0p6"]
 [ext_resource type="PackedScene" uid="uid://dupdvrgboq6ac" path="res://src/levels/005_tuto_single.tscn" id="7_3ejx8"]
+[ext_resource type="Theme" uid="uid://cpf3htl7plvcd" path="res://src/menu/menu_theme.tres" id="8_cf7ms"]
 
 [node name="LevelMenu" type="Control"]
 layout_mode = 3
@@ -20,15 +21,20 @@ levels = Array[PackedScene]([ExtResource("2_0tbpt"), ExtResource("3_fdckr"), Ext
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_right = 4.0
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -15.5
+offset_right = 31.0
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_cf7ms")
 
 [node name="DemoButton" type="Button" parent="ButtonsVBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_cf7ms")
 text = "Level 0"

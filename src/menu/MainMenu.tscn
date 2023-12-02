@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://yfmldiewjebk"]
+[gd_scene load_steps=3 format=3 uid="uid://yfmldiewjebk"]
 
 [ext_resource type="Script" path="res://src/menu/MainMenu.gd" id="1_awlug"]
+[ext_resource type="Theme" uid="uid://cpf3htl7plvcd" path="res://src/menu/menu_theme.tres" id="2_qf5ou"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -24,12 +25,15 @@ offset_right = 51.0
 offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_qf5ou")
 
 [node name="BeginButton" type="Button" parent="ButtonsVBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_qf5ou")
 text = "Commencer"
 
 [node name="LevelButton" type="Button" parent="ButtonsVBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_qf5ou")
 text = "Niveaux
 "

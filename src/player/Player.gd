@@ -1,5 +1,6 @@
-extends Node3D
-class_name Player
+class_name Player extends Node3D
+
+#region DECLARATION
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @export var max_transparency: float = 1
@@ -12,6 +13,9 @@ var joystick: Joystick
 var move_logic: CubeMoveLogic
 signal end_roll
 
+#endregion
+
+
 func _ready():
 	joystick = load("res://src/joystick/joystick.tscn").instantiate()
 	add_child(joystick)
@@ -22,26 +26,27 @@ func _ready():
 	await get_parent().level_initialized
 	_set_start_pos()
 
+
 func _process(_delta):
-	if not is_moving and Input.is_action_just_pressed("switch_mode"):
-		get_parent().is_in_camera_mode = !get_parent().is_in_camera_mode
+	if is_moving or get_parent().camera.is_moving:
 		return
-	if not is_moving and not get_parent().is_in_camera_mode:
-		_get_action_input()
+	_get_action_input()
+
 
 func _get_action_input():
-	var input = Utils.is_one_action_pressed(["top", "bottom", "right", "left"])
+	# TODO check if camera is not on the player
+	var input = Utils.is_one_action_pressed(["player_top", "player_bottom", "player_right", "player_left"])
 	if input.is_empty():
 		input = joystick.get_string_direction()
 	if input.is_empty():
 		return
 	var direction = Vector3.FORWARD
 	match input:
-		"bottom":
+		"player_bottom":
 			direction = -direction
-		"right":
+		"player_right":
 			direction = direction.cross(Vector3.UP)
-		"left":
+		"player_left":
 			direction = -direction.cross(Vector3.UP)
 	move_logic = CubeMoveLogic.new(self, direction).init_forward_roll()
 	if move_logic.has_neighbour:

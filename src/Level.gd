@@ -1,5 +1,7 @@
 class_name Level extends Node3D
 
+#region DECLARATION
+
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
 
@@ -13,7 +15,9 @@ var startCube: Cube
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
-var is_in_camera_mode:= false
+
+#endregion
+
 
 func _ready():
 	add_child(in_game_menu)

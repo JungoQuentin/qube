@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/env/Camera.gd" id="1_58fhl"]
 
 [node name="Camera3D" type="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.904, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76092)
 current = true
 fov = 30.0
 size = 5.0

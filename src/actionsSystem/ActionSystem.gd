@@ -13,14 +13,15 @@ func _input(_event):
 	# 	pass
 	# if Level.game_state == Level.MENU:
 	# 	pass
-	_level = get_tree().current_scene # TODO + opti ?
+	_level = get_tree().current_scene # TODO + opti ? -> just use get_tree().current_scene
 
 func _input_ingame():
 	var action_str: String = Utils.is_one_action_pressed(["undo", "redo", "reset", "settings"])
 	if action_str.is_empty():
 		return
-	if not Utils.is_one_action_pressed(["top", "bottom", "left", "right"]).is_empty():
-		return
+	# TODO : just if an other is pressed ? -> sinon block avec les is_moving ?
+	#if not Utils.is_one_action_pressed(["top", "bottom", "left", "right"]).is_empty():
+	#	return
 	match action_str:
 		"undo":
 			_undo()

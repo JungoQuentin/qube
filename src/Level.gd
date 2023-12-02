@@ -1,4 +1,3 @@
-## the level script
 class_name Level extends Node3D
 
 enum { INGAME, PAUSE, MENU }
@@ -8,12 +7,14 @@ signal level_initialized
 
 @onready var player: Node3D = $Player
 @onready var map_cube: MapCube = $MapCube
+@onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
 var startCube: Cube
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
 
 func _ready():
+	add_child(in_game_menu)
 	_init_action_stack_display()
 	_init_map()
 	level_initialized.emit()
@@ -26,19 +27,18 @@ func _init_map():
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
-### LEVEL ###
 
 func check_all_switch_state():
 	if switch_cubes.all(func(cube): return cube.on):
 		print("ALL TRUE !")
 		# TODO
 
-### DEBUG ###
-### STACK DISPLAY ###
+#region Debug
 
 # var action_stack_display: VBoxContainer
 # var undo_stack_display: VBoxContainer
 # ## only for debug purpose
+# ## will display the stack of the player actions (inputs)
 func _init_action_stack_display():
 	pass
 # 	action_stack_display = VBoxContainer.new()
@@ -64,3 +64,5 @@ func _add_action_to_stack_display(action: Action, is_undo=false):
 # 		action_stack_display.add_child(new_label)
 # 	else:
 # 		undo_stack_display.add_child(new_label)
+
+#endregion

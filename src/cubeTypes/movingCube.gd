@@ -62,7 +62,7 @@ func _down_roll(direction: Vector3, r_direction=null):
 	Utils.switch_parent(self, old_parent, true)
 	rotator.queue_free()
 
-func _roll(direction: Vector3, move_logic: MoveLogic):
+func _roll(direction: Vector3, move_logic: CubeMoveLogic):
 	await move_logic.roll()
 	move_logic.reset_pivot()
 	var reset_direction = direction

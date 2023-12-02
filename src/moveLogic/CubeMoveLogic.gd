@@ -1,11 +1,43 @@
-extends MoveLogic
+extends Node
 class_name CubeMoveLogic
 
+#region DECLARATION
+
+var _object: Node3D
+var _direction: Vector3
+var _pivot: Node3D
+var _start: Basis
+var _goal: Basis
+var _tween: Tween
+var _level
 var _is_on_edge = false
 ## null if _is_on_edge
 var floor_goal: Cube
 var has_neighbour: bool
 var neighbour: Node3D
+
+#endregion
+
+
+## Init the shared logic for a cube rolling or a map rotation
+func _init(object: Node3D, direction: Vector3):
+	_object = object
+	_object.add_child(self)
+	_direction = direction
+	_level = _object.get_tree().current_scene
+
+
+func _set_goals():
+	var axis = _direction.cross(Vector3.DOWN)
+	_start = _pivot.basis
+	_goal = _pivot.basis.rotated(-axis, PI / 2)
+	return axis
+
+
+func _tween_basis(t):
+	if _object.is_moving:
+		_pivot.basis = _start.slerp(_goal, t)
+
 
 ## Init the logic for a cube rolling. Only for moving cubes and player
 func init_forward_roll():

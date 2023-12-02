@@ -69,8 +69,6 @@ func _push_neighbour():
 	is_moving = false
 
 func _roll(direction: Vector3):
-	if is_on_edge:
-		get_parent().map_cube.start_cube_rotation(direction)
 	await move_logic.roll()
 	if not is_moving:
 		end_roll.emit()

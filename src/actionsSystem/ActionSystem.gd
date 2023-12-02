@@ -32,7 +32,6 @@ func _input_ingame():
 			_settings()
 
 func _undo():
-	_level.map_cube.abort_rotation()
 	if await _level.player.abort_move():
 		return
 	if actions.is_empty():

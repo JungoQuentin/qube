@@ -11,7 +11,7 @@ func _ready():
 	off_color = Colors.switch_cube_off_color
 	mesh.surface_get_material(0).albedo_color = on_color if on else off_color 
 
-func on_touch(_direction: Vector3, _cube):
+func on_touch():
 	on = not on
 	_switch_animation_start()
 	get_tree().current_animation.check_all_switch_state()

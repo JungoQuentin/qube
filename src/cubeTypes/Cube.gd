@@ -15,7 +15,7 @@ func _ready():
 	collision_shape.shape.size = mesh.size
 
 ## Called when the player, or a movingCube touch the cube (take the toucher as _cube: Node3D)
-func on_touch(_direction: Vector3, _cube: Node3D):
+func on_touch():
 	_touched_animation_start(mesh_instance, touched_color, initial_color)
 
 ## Called when the player, or a movingCube leave (in the edge of the map, it don't leave if the player move to the same cube)
@@ -42,11 +42,6 @@ func _animation_end():
 	mesh_instance.mesh = mesh
 	touch_tween = null
 
-## Pour envoyer le player en arriere (blockingCube, movingCube, SingleUseCube)
-func _send_cube_back(direction: Vector3i, to_roll):
-	await to_roll.end_roll
-	to_roll.order_roll(-direction, self)
-
 ## Check if the cube will reject anything that enter
-func is_blocking() -> bool:
-	return self is BlockingCube or (self is SingleUseCube and self.is_used)
+func is_rejecting() -> bool:
+	return (self is BlockingCube) or (self is SingleUseCube and self.is_used)

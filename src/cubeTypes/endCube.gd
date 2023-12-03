@@ -11,9 +11,7 @@ func _ready():
 	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
 
-func on_touch(direction: Vector3, cube):
-	if not cube == get_tree().current_scene.player:
-		return
-	super.on_touch(direction, cube)
-	print("YOU WIN !!!")
+func on_touch():
 	# TODO
+	super.on_touch()
+	print("YOU WIN !!!")

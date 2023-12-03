@@ -26,14 +26,14 @@ func _input(_event):
 		return
 	var input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not input.is_empty():
-		_move(input)
+		_input_move(input)
 
 
-func _move(input: String):
-	is_moving = true
-	var pivot = Node3D.new()
-	_level.add_child(pivot)
-	Utils.switch_parent(self, pivot, true)
+func player_move(direction: Vector3, floor_direction):
+	_move(direction.cross(floor_direction))
+
+
+func _input_move(input: String):
 	var axis: Vector3
 	match input:
 		"camera_bottom":
@@ -48,7 +48,14 @@ func _move(input: String):
 			axis = Vector3.FORWARD
 		"rotate_right":
 			axis = Vector3.BACK
-	axis = basis * axis # transform to get in the real "repert"
+	_move(basis * axis)
+
+
+func _move(axis: Vector3):
+	is_moving = true
+	var pivot = Node3D.new()
+	_level.add_child(pivot)
+	Utils.switch_parent(self, pivot, true)
 	var original_basis = pivot.basis
 	var goal_basis = pivot.basis.rotated(axis, PI / 2)
 	var _tween = create_tween().set_trans(Tween.TRANS_CUBIC)

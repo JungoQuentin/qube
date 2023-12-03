@@ -3,7 +3,7 @@ class_name Player extends Node3D
 #region DECLARATION
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var _level = get_parent()
+@onready var _level: Level = get_parent()
 @export var max_transparency: float = 1
 @export var min_transparency: float = 0.3
 @export var speed: float = 0.2
@@ -37,6 +37,9 @@ func _get_action_input():
 	if input.is_empty():
 		input = joystick.get_string_direction()
 	if input.is_empty():
+		return
+	if _level.camera.has_moved_away_from_player():
+		await _level.camera.go_to_player()
 		return
 	var direction: Vector3
 	match input:

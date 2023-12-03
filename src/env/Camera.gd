@@ -1,4 +1,4 @@
-extends Camera3D
+class_name MyCamera extends Camera3D
 
 #region DECLARATION
 
@@ -10,6 +10,7 @@ const camera_y_dist_by_cube_dimension: Dictionary = {
 }
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
+var global_transform_front_to_player: Transform3D
 
 #endregion
 
@@ -19,6 +20,7 @@ func _ready():
 	await Utils.wait_while(func(): return _level.map_cube == null)
 	position.z = camera_y_dist_by_cube_dimension[_level.map_cube.dimension]
 	current = true
+	global_transform_front_to_player = global_transform
 
 
 func _input(_event):
@@ -29,8 +31,21 @@ func _input(_event):
 		_input_move(input)
 
 
+func has_moved_away_from_player()-> bool:
+	return global_transform.origin != global_transform_front_to_player.origin
+
+
+func go_to_player():
+	is_moving = true
+	global_transform = global_transform_front_to_player
+	# TODO nice animation
+	await Utils.sleep(0.3)
+	is_moving = false
+
+
 func player_move(direction: Vector3, floor_direction):
-	_move(direction.cross(floor_direction))
+	await _move(direction.cross(floor_direction))
+	global_transform_front_to_player = global_transform
 
 
 func _input_move(input: String):

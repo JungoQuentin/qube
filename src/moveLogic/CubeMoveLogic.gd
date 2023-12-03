@@ -12,11 +12,10 @@ var _start: Basis
 var _is_going_to_change_face: bool
 @onready var _level = get_tree().current_scene
 @onready var _pivot: Node3D = Node3D.new() # preload("res://src/dbg/DbgPivot.tscn").instantiate()
-## null if _is_on_edge
 var floor_goal: Cube
 var floor_start: Cube
-var has_neighbour: bool
-var neighbour: Node3D
+## is only used for movingCubes in the edge
+var floor_neighbour: Cube
 
 #endregion
 
@@ -34,14 +33,17 @@ func init_forward_roll():
 	_pivot.global_position = _object.global_position
 	_pivot.position += _direction / 2 + _floor_direction / 2
 	Utils.switch_parent(_object, _pivot, true)
-	
-	#TODO
-	#neighbour = Utils.get_raycast_collider(_object, Vector3.ZERO, _direction)
-	#has_neighbour = true if neighbour != null else false
-	
 	floor_start = Utils.get_raycast_collider(_level, _object.global_position, _floor_direction)
 	floor_goal = Utils.get_raycast_collider(_level, _object.global_position + _direction, _floor_direction)
-	_is_going_to_change_face = true if floor_goal == null else false
+	
+	## are we going to change face ?
+	## if the floor_goal is a MovingCube that can be pushed, then yes
+	if floor_goal != null and floor_goal is MovingCube:
+		_is_going_to_change_face = floor_goal.can_push(_floor_direction, -_direction)
+		floor_neighbour = floor_goal
+	else:
+		_is_going_to_change_face = true if floor_goal == null else false
+
 	if _is_going_to_change_face:
 		floor_goal = floor_start
 	return self
@@ -51,8 +53,9 @@ func roll():
 	var axis = _direction.cross(_floor_direction)
 	_start = _pivot.basis
 	_goal = _pivot.basis.rotated(axis, PI / 2 if not _is_going_to_change_face else -PI)
-	_tween = create_tween().set_ease(Tween.EASE_OUT_IN)
+	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
+	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...
 	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
 	await _tween.finished
 	floor_goal.on_touch()
@@ -66,6 +69,7 @@ func roll_back():
 	_start = _pivot.basis
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
+	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...	
 	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed)# if not _is_on_edge else _object.speed * 2) 
 	await _tween.finished
 	floor_start.on_touch()

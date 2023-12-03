@@ -11,7 +11,6 @@ var is_moving = false
 var we_are_on_this_cube_now: Cube = null
 var joystick: Joystick
 var move_logic: CubeMoveLogic
-signal end_roll
 
 #endregion
 
@@ -56,41 +55,56 @@ func _get_action_input():
 	direction = camera_basis * direction
 	var floor_direction = camera_basis * Vector3.FORWARD
 	move_logic = CubeMoveLogic.new(self, direction, floor_direction).init_forward_roll()
-	
-	if move_logic.has_neighbour:
-		# TODO ce sera la meme action, vu que ca va se faire d'un coup
-		#_push_neighbour()
-		ActionSystem.add_action(Action.Type.PUSH)
-	else:
-		_roll(direction)
-		ActionSystem.add_action()
+	_roll()
 
 
-func _roll(direction: Vector3):
+func _roll():
+	## check if we are going to change face and push a moving cube
+	if move_logic.floor_neighbour is MovingCube:
+		var neighbour: MovingCube = move_logic.floor_neighbour
+		if neighbour.can_push(move_logic._floor_direction, -move_logic._direction):
+			neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
+		else:
+			is_moving = false
+			return
+
 	if move_logic._is_going_to_change_face:
 		_level.camera.player_move(move_logic._direction, move_logic._floor_direction)
+
+	## if our neighbour is a MovingCube, we try to push him
+	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
+	if neighbour != null and neighbour is MovingCube:
+		if neighbour.can_push(move_logic._direction, move_logic._floor_direction):
+			neighbour.on_push(move_logic._direction, move_logic._floor_direction)
+		else:
+			is_moving = false
+			return
+	# TODO -> ActionSystem.add_action()
+	
 	await move_logic.roll()
-	if not is_moving: # TODO
-		end_roll.emit()
-		return
+
+	## roll us back if our goal is rejecting
 	if move_logic.floor_goal and move_logic.floor_goal.is_rejecting():
 		await move_logic.roll_back()
-		ActionSystem.actions.pop_back()
+		# TODO ActionSystem.actions.pop_back()
 		if we_are_on_this_cube_now is SingleUseCube:
 			print("go to infinite recursion")
-	else:
-		ActionSystem.undo_stack.clear()
+	#else: # TODO
+		#ActionSystem.undo_stack.clear()
+	
+	## leave old floor and set new
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != move_logic.floor_goal:
 		we_are_on_this_cube_now.on_leave()
 	we_are_on_this_cube_now = move_logic.floor_goal
+	
 	move_logic.reset_pivot()
-	end_roll.emit()
 	is_moving = false
 
 
 func _set_start_pos():
 	position = _level.startCube.global_position + Vector3.BACK
 	we_are_on_this_cube_now = _level.startCube
+
 
 func reset():
 	abort_move()
@@ -100,5 +114,8 @@ func reset():
 func abort_move() -> bool:
 	if not is_moving:
 		return false
+	print("abort move")
+	
+	# TODO really abort the move !
 	move_logic.reset_pivot()
 	return true

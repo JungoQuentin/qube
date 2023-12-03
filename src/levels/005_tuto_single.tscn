@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dupdvrgboq6ac"]
+[gd_scene load_steps=8 format=3 uid="uid://dupdvrgboq6ac"]
 
 [ext_resource type="Script" path="res://src/Level.gd" id="1_44yla"]
-[ext_resource type="PackedScene" uid="uid://b67u0xirtdswa" path="res://src/env/EnvLightCam.tscn" id="1_f5ibh"]
-[ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="3_evdyv"]
+[ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/Player.tscn" id="3_evdyv"]
 [ext_resource type="PackedScene" uid="uid://dr1dabryp1i5t" path="res://src/mapCube/MapCube.tscn" id="5_reigc"]
 [ext_resource type="PackedScene" uid="uid://bkvnvq2drr7yi" path="res://src/cubeTypes/blockingCube.tscn" id="7_lret2"]
 [ext_resource type="PackedScene" path="res://src/cubeTypes/startCube.tscn" id="9_d1uv1"]
@@ -12,8 +11,6 @@
 [node name="level_5_tuto_single" type="Node3D"]
 script = ExtResource("1_44yla")
 
-[node name="EnvLightCam" parent="." instance=ExtResource("1_f5ibh")]
-
 [node name="Player" parent="." instance=ExtResource("3_evdyv")]
 
 [node name="MapCube" parent="." instance=ExtResource("5_reigc")]
@@ -22,295 +19,295 @@ dimension = 5
 [node name="cubes" type="Node3D" parent="MapCube"]
 
 [node name="BLOCKING" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 2)
-
-[node name="@BLOCKING@24777" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 2)
-
-[node name="@BLOCKING@24778" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
-
-[node name="@BLOCKING@24779" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
-
-[node name="@BLOCKING@24780" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
-
-[node name="@BLOCKING@24781" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 2)
-
-[node name="@BLOCKING@24782" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
-
-[node name="@BLOCKING@24783" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 2)
-
-[node name="@BLOCKING@24784" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -2)
-
-[node name="@BLOCKING@24785" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -2)
-
-[node name="@BLOCKING@24786" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -2)
-
-[node name="@BLOCKING@24787" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -2)
-
-[node name="@BLOCKING@24788" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
-
-[node name="@BLOCKING@24789" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -2)
-
-[node name="@BLOCKING@24790" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -2)
-
-[node name="@BLOCKING@24791" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 1)
-
-[node name="@BLOCKING@24792" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 2)
 
-[node name="@BLOCKING@24793" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 2)
-
-[node name="@BLOCKING@24794" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
-
-[node name="@BLOCKING@24795" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -1)
-
-[node name="@BLOCKING@24796" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
-
-[node name="@BLOCKING@24797" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 2)
-
-[node name="@BLOCKING@24798" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-
-[node name="@BLOCKING@24799" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, -2)
-
-[node name="@BLOCKING@24800" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, -1)
-
-[node name="@BLOCKING@24801" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 0)
-
-[node name="@BLOCKING@24802" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 1)
-
-[node name="@BLOCKING@24803" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 2)
-
-[node name="@BLOCKING@24804" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+[node name="_BLOCKING_24777" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 2)
 
-[node name="@BLOCKING@24805" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -2)
-
-[node name="@BLOCKING@24806" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -1)
-
-[node name="@BLOCKING@24807" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, 0)
-
-[node name="@BLOCKING@24808" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, 1)
-
-[node name="@BLOCKING@24809" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 1)
-
-[node name="@BLOCKING@24810" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 0)
-
-[node name="@BLOCKING@24811" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -1)
-
-[node name="@BLOCKING@24812" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
-
-[node name="@BLOCKING@24813" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
-
-[node name="@BLOCKING@24814" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 1)
-
-[node name="START" parent="MapCube/cubes" instance=ExtResource("9_d1uv1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="END" parent="MapCube/cubes" instance=ExtResource("11_afxl6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
-
-[node name="ONE" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
-
-[node name="@ONE@24815" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 1)
-
-[node name="@ONE@24816" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
-
-[node name="@ONE@24817" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
-
-[node name="@ONE@24818" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
-
-[node name="@ONE@24819" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 1)
-
-[node name="@ONE@24820" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -1)
-
-[node name="@ONE@24821" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -1)
-
-[node name="@ONE@24822" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 1)
-
-[node name="@ONE@24823" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 1)
-
-[node name="@ONE@24824" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
-
-[node name="@ONE@24825" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
-
-[node name="@ONE@24826" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
-
-[node name="@ONE@24827" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-
-[node name="@ONE@24828" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -1)
-
-[node name="@ONE@24829" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 0)
-
-[node name="@ONE@24830" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 1)
-
-[node name="@ONE@24831" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 1)
-
-[node name="@ONE@24832" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
-
-[node name="@ONE@24833" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -1)
-
-[node name="@ONE@24834" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
-
-[node name="@ONE@24835" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
-
-[node name="@ONE@24836" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
-
-[node name="@ONE@24837" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="@ONE@24838" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 0)
-
-[node name="@ONE@24839" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -1)
-
-[node name="@ONE@24840" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
-
-[node name="@ONE@24841" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -2)
-
-[node name="@ONE@24842" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 2)
-
-[node name="@ONE@24843" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
-
-[node name="@ONE@24844" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 2)
-
-[node name="@ONE@24845" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
-
-[node name="@ONE@24846" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="@ONE@24847" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 2)
-
-[node name="@ONE@24848" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 2)
-
-[node name="@ONE@24849" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
-
-[node name="@ONE@24850" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+[node name="_BLOCKING_24778" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 2)
 
-[node name="@ONE@24851" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+[node name="_BLOCKING_24779" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="_BLOCKING_24780" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 1)
+
+[node name="_BLOCKING_24781" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, 2)
 
-[node name="@ONE@24852" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 2)
+[node name="_BLOCKING_24782" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -8.74228e-08, 2)
 
-[node name="@ONE@24853" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -2)
+[node name="_BLOCKING_24783" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 2)
 
-[node name="@ONE@24854" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+[node name="_BLOCKING_24784" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 2)
 
-[node name="@ONE@24855" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+[node name="_BLOCKING_24785" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 2)
+
+[node name="_BLOCKING_24786" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 2)
+
+[node name="_BLOCKING_24787" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 2)
+
+[node name="_BLOCKING_24788" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 1)
+
+[node name="_BLOCKING_24789" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -1)
+
+[node name="_BLOCKING_24790" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -2)
+
+[node name="_BLOCKING_24791" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -2)
+
+[node name="_BLOCKING_24792" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -2)
+
+[node name="_BLOCKING_24793" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -1)
+
+[node name="_BLOCKING_24794" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 8.74228e-08, -2)
+
+[node name="_BLOCKING_24795" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
+
+[node name="_BLOCKING_24796" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 1)
+
+[node name="_BLOCKING_24797" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, -1)
+
+[node name="_BLOCKING_24798" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 8.74228e-08)
+
+[node name="_BLOCKING_24799" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -2)
+
+[node name="_BLOCKING_24800" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
+
+[node name="_BLOCKING_24801" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 8.74228e-08, -2)
+
+[node name="_BLOCKING_24802" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -2)
+
+[node name="_BLOCKING_24803" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, -2)
+
+[node name="_BLOCKING_24804" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -2)
+
+[node name="_BLOCKING_24805" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -2)
+
+[node name="_BLOCKING_24806" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -2)
 
-[node name="@ONE@24856" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+[node name="_BLOCKING_24807" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 8.74228e-08, -2)
 
-[node name="@ONE@24857" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
-
-[node name="@ONE@24858" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
-
-[node name="@ONE@24859" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -2)
-
-[node name="@ONE@24860" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -2)
-
-[node name="@ONE@24861" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -2)
-
-[node name="@ONE@24862" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+[node name="_BLOCKING_24808" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -2)
 
-[node name="@ONE@24863" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -2)
+[node name="_BLOCKING_24809" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -2)
 
-[node name="@ONE@24864" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 1)
+[node name="_BLOCKING_24810" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 8.74228e-08, -2)
 
-[node name="@ONE@24865" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+[node name="_BLOCKING_24811" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -2)
 
-[node name="@ONE@24866" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -1)
+[node name="_BLOCKING_24812" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
 
-[node name="@ONE@24867" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+[node name="_BLOCKING_24813" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -8.74228e-08, 2)
+
+[node name="_BLOCKING_24814" parent="MapCube/cubes" instance=ExtResource("7_lret2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -1)
+
+[node name="START" parent="MapCube/cubes" instance=ExtResource("9_d1uv1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.74228e-08, 2)
+
+[node name="END" parent="MapCube/cubes" instance=ExtResource("11_afxl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.74228e-08, -2)
+
+[node name="ONE" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 2)
+
+[node name="_ONE_24815" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 2)
+
+[node name="_ONE_24816" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -8.74228e-08)
+
+[node name="_ONE_24817" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -4.37114e-08)
+
+[node name="_ONE_24818" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -4.37114e-08, 1)
+
+[node name="_ONE_24819" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 1)
+
+[node name="_ONE_24820" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
+
+[node name="_ONE_24821" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 2)
+
+[node name="_ONE_24822" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 2)
+
+[node name="_ONE_24823" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 2)
+
+[node name="_ONE_24824" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
+
+[node name="_ONE_24825" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 4.37114e-08)
+
+[node name="_ONE_24826" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 1)
+
+[node name="_ONE_24827" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 8.74228e-08)
+
+[node name="_ONE_24828" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
+
+[node name="_ONE_24829" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.37114e-08, -1)
+
+[node name="_ONE_24830" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -1)
+
+[node name="_ONE_24831" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 1)
+
+[node name="_ONE_24832" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -4.37114e-08, 1)
+
+[node name="_ONE_24833" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 1)
+
+[node name="_ONE_24834" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -4.37114e-08)
+
+[node name="_ONE_24835" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, -8.74228e-08)
+
+[node name="_ONE_24836" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 1)
+
+[node name="_ONE_24837" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="_ONE_24838" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.37114e-08, -1)
+
+[node name="_ONE_24839" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -1)
+
+[node name="_ONE_24840" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 4.37114e-08)
+
+[node name="_ONE_24841" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -1)
 
-[node name="@ONE@24868" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
+[node name="_ONE_24842" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, 1)
 
-[node name="@ONE@24869" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+[node name="_ONE_24843" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 1)
+
+[node name="_ONE_24844" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, 1)
+
+[node name="_ONE_24845" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -8.74228e-08)
+
+[node name="_ONE_24846" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -8.74228e-08)
+
+[node name="_ONE_24847" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
+
+[node name="_ONE_24848" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -1)
+
+[node name="_ONE_24849" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -8.74228e-08)
+
+[node name="_ONE_24850" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -2)
+
+[node name="_ONE_24851" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -2)
+
+[node name="_ONE_24852" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -1)
+
+[node name="_ONE_24853" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 1)
 
-[node name="@ONE@24870" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+[node name="_ONE_24854" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
+
+[node name="_ONE_24855" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 1)
+
+[node name="_ONE_24856" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 8.74228e-08)
+
+[node name="_ONE_24857" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8.74228e-08)
+
+[node name="_ONE_24858" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 8.74228e-08)
+
+[node name="_ONE_24859" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -1)
+
+[node name="_ONE_24860" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
+
+[node name="_ONE_24861" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
+
+[node name="_ONE_24862" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -1)
+
+[node name="_ONE_24863" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -2)
+
+[node name="_ONE_24864" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -2)
+
+[node name="_ONE_24865" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -8.74228e-08, 2)
+
+[node name="_ONE_24866" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 2)
+
+[node name="_ONE_24867" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+
+[node name="_ONE_24868" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+
+[node name="_ONE_24869" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 2)
+
+[node name="_ONE_24870" parent="MapCube/cubes" instance=ExtResource("13_uy6ma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -8.74228e-08, 2)

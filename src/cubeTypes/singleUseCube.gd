@@ -5,28 +5,30 @@ var is_used: bool = false
 var _true_material: Material
 var _wird_tween: Tween
 
+
 func _ready():
 	super._ready()
 	initial_color = Colors.single_cube_init_color
 	touched_color = Colors.darker(initial_color)
 	mesh.surface_get_material(0).albedo_color = initial_color
 
+
 func on_leave():
 	super.on_leave()
 	is_used = true
 	_change_color_animation_start()
 
-func on_touch(direction: Vector3, cube):
-	if not is_used:
-		mesh = mesh.duplicate(true)
-		mesh_instance.mesh = mesh
-		_true_material = mesh_instance.mesh.surface_get_material(0)
-		initial_color = Colors.blocking_init_color
-		touched_color = Colors.darker(initial_color)
-		_wird_animation_start()
-	else:
-		super.on_touch(direction, cube)
-		await _send_cube_back(direction, cube)
+
+func on_touch():
+	if is_used:
+		return
+	mesh = mesh.duplicate(true)
+	mesh_instance.mesh = mesh
+	_true_material = mesh_instance.mesh.surface_get_material(0)
+	initial_color = Colors.blocking_init_color
+	touched_color = Colors.darker(initial_color)
+	_wird_animation_start()
+
 
 func _change_color_animation_start():
 	touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
@@ -43,6 +45,7 @@ func _wird_animation_start():
 	_wird_tween.tween_property(_true_material, "albedo_color", touched_color, 1)
 	_wird_tween.tween_property(_true_material, "albedo_color", initial_color, 1)
 	_wird_tween.tween_callback(_wird_animation_start)
+
 
 func update_color():
 	if _wird_tween: _wird_tween.kill(); _wird_tween = null

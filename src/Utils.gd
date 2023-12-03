@@ -13,6 +13,7 @@ func wait_while(condition: Callable, timeout=5, frequency=0.01) -> bool:
 func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3) -> Node:
 	var new_raycast = RayCast3D.new()
 	parent.add_child(new_raycast)
+	new_raycast.exclude_parent = true
 	new_raycast.target_position = _target_position
 	new_raycast.position = _position
 	new_raycast.enabled = true

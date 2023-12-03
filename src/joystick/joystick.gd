@@ -47,11 +47,11 @@ func get_y_input():
 
 func get_string_direction():
 	if get_x_input() == 1:
-		return "right"
+		return "player_right"
 	if get_x_input() == -1:
-		return "left"
+		return "player_left"
 	if get_y_input() == 1:
-		return "bottom"
+		return "player_bottom"
 	if get_y_input() == -1:
-		return "top"
+		return "player_top"
 	return ""

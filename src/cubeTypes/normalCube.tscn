@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/cubeTypes/normalCube.gd" id="1_ge7pe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rgxo"]
-albedo_color = Color(0, 0.882353, 0.976471, 1)
+albedo_color = Color(1, 0.882353, 0.976471, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_psbol"]
 material = SubResource("StandardMaterial3D_8rgxo")

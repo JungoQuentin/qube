@@ -4,18 +4,10 @@ class_name MovingCube
 #region DECLARATION
 
 @onready var _level = get_tree().current_scene
-
 var speed: float
 var is_moving = false
 
 #endregion
-
-
-func _ready():
-	super._ready()
-	initial_color = Colors.moving_cube_init_color
-	touched_color = Colors.darker(initial_color)
-	mesh.surface_get_material(0).albedo_color = initial_color
 
 
 func on_push(direction: Vector3, floor_direction: Vector3):

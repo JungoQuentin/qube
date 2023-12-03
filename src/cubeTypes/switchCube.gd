@@ -14,7 +14,7 @@ func _ready():
 func on_touch():
 	on = not on
 	_switch_animation_start()
-	get_tree().current_animation.check_all_switch_state()
+	get_tree().current_scene.check_all_switch_state()
 
 func _switch_animation_start():
 	var _tmp_mesh = mesh_instance.mesh.duplicate(true)

@@ -40,6 +40,23 @@ var property_list: Dictionary
 func _ready():
 	if Engine.is_editor_hint(): _ready_on_editor()
 
+
+func get_initial_color(cube: Cube) -> Color:
+	if cube is NormalCube:
+		return normal_init_color
+	elif cube is BlockingCube:
+		return blocking_init_color
+	elif cube is StartCube:
+		return start_cube_init_color
+	elif cube is EndCube:
+		return end_cube_init_color
+	elif cube is SingleUseCube:
+		return single_cube_init_color
+	elif cube is MovingCube:
+		return moving_cube_init_color
+	return normal_init_color
+
+
 func _ready_on_editor():
 	_set_property_list()
 

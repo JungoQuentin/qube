@@ -6,13 +6,6 @@ var _true_material: Material
 var _wird_tween: Tween
 
 
-func _ready():
-	super._ready()
-	initial_color = Colors.single_cube_init_color
-	touched_color = Colors.darker(initial_color)
-	mesh.surface_get_material(0).albedo_color = initial_color
-
-
 func on_leave():
 	super.on_leave()
 	is_used = true

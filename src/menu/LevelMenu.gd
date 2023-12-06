@@ -10,7 +10,7 @@ func _ready():
 
 
 func _create_level_buttons(): 
-	var i = 1
+	var i = 0
 	for level in levels:
 		var new_button = demo_button.duplicate()
 		new_button.text = "level %d" % i

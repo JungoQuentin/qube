@@ -4,8 +4,6 @@ class_name MovingCube
 #region DECLARATION
 
 @onready var _level = get_tree().current_scene
-var speed: float
-var is_moving = false
 
 #endregion
 

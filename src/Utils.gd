@@ -44,3 +44,7 @@ func are_tests_running() -> bool:
 
 func sleep(seconds: float):
 	await get_tree().create_timer(seconds).timeout
+
+func run_after_sleep(seconds: float, callback: Callable):
+	await sleep(seconds)
+	callback.call()

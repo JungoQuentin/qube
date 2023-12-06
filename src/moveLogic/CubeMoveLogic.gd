@@ -12,6 +12,7 @@ var _start: Basis
 var _is_going_to_change_face: bool
 @onready var _level = get_tree().current_scene
 @onready var _pivot: Node3D = Node3D.new() # preload("res://src/dbg/DbgPivot.tscn").instantiate()
+var is_going_to_hole:= false
 var floor_goal: Cube
 var floor_start: Cube
 ## is only used for movingCubes in the edge
@@ -38,11 +39,14 @@ func init_forward_roll():
 	
 	## are we going to change face ?
 	## if the floor_goal is a MovingCube that can be pushed, then yes
-	if floor_goal != null and floor_goal is MovingCube:
+	if floor_goal != null and floor_goal is MovingCube and not floor_goal.in_a_hole:
 		_is_going_to_change_face = floor_goal.can_push(_floor_direction, -_direction)
 		floor_neighbour = floor_goal
 	else:
 		_is_going_to_change_face = true if floor_goal == null else false
+		var long_range_cast = Utils.get_raycast_collider(_level, _object.global_position + _direction, _floor_direction * 10)
+		if long_range_cast is NormalCube and long_range_cast.is_inside:
+			is_going_to_hole = true
 
 	if _is_going_to_change_face:
 		floor_goal = floor_start

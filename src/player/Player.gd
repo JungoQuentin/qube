@@ -59,11 +59,14 @@ func _get_action_input():
 
 
 func _roll():
+	if move_logic.is_going_to_hole:
+		is_moving = false
+		return
 	if move_logic._is_going_to_change_face:
 		_level.camera.player_move(move_logic._direction, move_logic._floor_direction)
 	
-	## check if we are going to change face and push a moving cube
-	if move_logic.floor_neighbour is MovingCube:
+	## if we are going to change face, check if we also push a moving cube
+	if move_logic.floor_neighbour is MovingCube and not move_logic.floor_neighbour.in_a_hole:
 		var neighbour: MovingCube = move_logic.floor_neighbour
 		if neighbour.can_push(move_logic._floor_direction, -move_logic._direction):
 			neighbour.on_push(move_logic._floor_direction, -move_logic._direction)

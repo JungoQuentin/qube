@@ -59,6 +59,9 @@ func _get_action_input():
 
 
 func _roll():
+	if move_logic._is_going_to_change_face:
+		_level.camera.player_move(move_logic._direction, move_logic._floor_direction)
+	
 	## check if we are going to change face and push a moving cube
 	if move_logic.floor_neighbour is MovingCube:
 		var neighbour: MovingCube = move_logic.floor_neighbour
@@ -67,10 +70,13 @@ func _roll():
 		else:
 			is_moving = false
 			return
-
-	if move_logic._is_going_to_change_face:
-		_level.camera.player_move(move_logic._direction, move_logic._floor_direction)
-
+	
+	if move_logic.floor_goal is IceCube:
+		var new_position = move_logic.floor_goal.get_end_slide(move_logic._direction, move_logic._floor_direction)
+		Utils.run_after_sleep(0.25, func(): is_moving = false)
+		global_position = new_position - move_logic._floor_direction
+		return
+	
 	## if our neighbour is a MovingCube, we try to push him
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	if neighbour != null and neighbour is MovingCube:

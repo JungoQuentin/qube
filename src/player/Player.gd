@@ -7,6 +7,7 @@ class_name Player extends Node3D
 @export var max_transparency: float = 1
 @export var min_transparency: float = 0.3
 @export var speed: float = 0.2
+@onready var initial_transform:= global_transform
 var is_moving = false 
 var we_are_on_this_cube_now: Cube = null
 var joystick: Joystick
@@ -21,7 +22,6 @@ func _ready():
 	_level.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	await _level.level_initialized
-	_set_start_pos()
 
 
 func _process(_delta):
@@ -110,14 +110,9 @@ func _roll():
 	is_moving = false
 
 
-func _set_start_pos():
-	position = _level.startCube.global_position + Vector3.BACK
-	we_are_on_this_cube_now = _level.startCube
-
-
 func reset():
 	abort_move()
-	_set_start_pos()
+	global_position = initial_transform
 
 ## Abort the current move and return false if there was no move
 func abort_move() -> bool:

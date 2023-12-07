@@ -13,7 +13,7 @@
 script = ExtResource("1_4by8v")
 
 [node name="Player" parent="." instance=ExtResource("2_rta6h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
 [node name="MapCube" parent="." instance=ExtResource("3_mi2nf")]
 dimension = 7

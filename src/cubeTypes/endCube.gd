@@ -3,6 +3,5 @@ class_name EndCube
 
 
 func on_touch():
-	# TODO
 	super.on_touch()
-	print("YOU WIN !!!")
+	LevelManager.goto_next_level()

@@ -22,6 +22,7 @@ Colors="*res://colors/Colors.tscn"
 ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
 Log="*res://src/Log.gd"
+LevelManager="*res://src/levels/LevelManager.tscn"
 
 [editor]
 

@@ -112,7 +112,7 @@ func _roll():
 
 func reset():
 	abort_move()
-	global_position = initial_transform
+	global_transform = initial_transform
 
 ## Abort the current move and return false if there was no move
 func abort_move() -> bool:

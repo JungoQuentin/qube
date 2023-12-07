@@ -28,10 +28,6 @@ LevelManager="*res://src/levels/LevelManager.tscn"
 
 movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godotsize/plugin.cfg", "res://addons/lvldesigner/plugin.cfg")
-
 [github_to_itch]
 
 config/itch_username=""

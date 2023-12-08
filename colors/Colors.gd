@@ -44,11 +44,11 @@ func _ready():
 
 func get_initial_color(cube: Cube) -> Color:
 	if cube is NormalCube:
+		if cube.is_start:
+			return start_cube_init_color
 		return normal_init_color
 	elif cube is BlockingCube:
 		return blocking_init_color
-	elif cube is StartCube:
-		return start_cube_init_color
 	elif cube is EndCube:
 		return end_cube_init_color
 	elif cube is SingleUseCube:

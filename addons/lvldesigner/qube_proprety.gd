@@ -7,7 +7,6 @@ var current_key: String
 @onready var cube_preload: Dictionary = {
 	Cube.Type.NORMAL : preload("res://src/levels/cubeTypes/normalCube.gd"),
 	Cube.Type.BLOCKING : preload("res://src/levels/cubeTypes/blockingCube.gd"),
-	Cube.Type.START : preload("res://src/levels/cubeTypes/startCube.gd"),
 	Cube.Type.END : preload("res://src/levels/cubeTypes/endCube.gd"),
 	Cube.Type.SINGLE_USE: preload("res://src/levels/cubeTypes/singleUseCube.gd"),
 	Cube.Type.MOVING: preload("res://src/levels/cubeTypes/movingCube.gd"),

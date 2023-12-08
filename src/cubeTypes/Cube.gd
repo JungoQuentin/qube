@@ -1,7 +1,8 @@
 extends StaticBody3D
 class_name Cube
 
-enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START, MOVING }
+enum Type { NORMAL, START, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE }
+@export var cubeType: int
 
 @onready var collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
@@ -9,6 +10,25 @@ enum { SWITCH, NORMAL, SINGLE_USE, BLOCKING, END, START, MOVING }
 var initial_color: Color
 var touched_color: Color
 var touch_tween: Tween
+
+
+static func object_to_type(object: Cube) -> Type:
+	if object is NormalCube:
+		return Type.NORMAL
+	elif object is BlockingCube:
+		return Type.BLOCKING
+	elif object is StartCube:
+		return Type.START
+	elif object is EndCube:
+		return Type.END
+	elif object is SingleUseCube:
+		return Type.SINGLE_USE
+	elif object is MovingCube:
+		return Type.MOVING
+	elif object is IceCube:
+		return Type.ICE
+	return Type.NORMAL
+
 
 func _ready():
 	mesh.size = Vector3.ONE * Colors.cube_scale

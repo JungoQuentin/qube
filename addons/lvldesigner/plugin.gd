@@ -3,7 +3,6 @@ extends EditorPlugin
 class_name QubePlugin
 
 var dock: VBoxContainer
-var editor_interface: EditorInterface
 var dimension:= Vector3i.ONE * 3
 var dimensions_input: LineEdit
 var editorPlugin
@@ -11,9 +10,9 @@ var editorPlugin
 
 
 func _enter_tree():
-	editor_interface = get_editor_interface()
 	editorPlugin = preload("res://addons/lvldesigner/editor_plugin.gd").new()
 	add_inspector_plugin(editorPlugin)
+	scene_changed.connect(func(_node): _update_cubes_color())
 	_init_dock()
 
 
@@ -33,10 +32,28 @@ func _init_dock():
 	_add_button("creer un terrain", dim_box, func(): create_map(dimensions_input.text))
 
 
+func _update_cubes_color():
+	var scene = EditorInterface.get_edited_scene_root()
+	if scene == null:
+		return
+	var map_cube: Node3D = scene.find_child("MapCube", true, false)
+	if map_cube == null:
+		return
+	for cube in map_cube.get_children():
+		var mesh_instance: MeshInstance3D = cube.find_child("MeshInstance3D")
+		var initial_color = Colors.get_initial_color(cube)
+		mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
+		mesh_instance.get_surface_override_material(0).albedo_color = initial_color
+
+
 #region CREATE MAP
 
 func create_map(n: String):
-	var scene = editor_interface.get_edited_scene_root()
+	var scene = EditorInterface.get_edited_scene_root()
+
+	if scene == null:
+		_alert("Il faut se rendre dans un niveau", "Pas dans un niveau")
+		return
 	var map_cube: Node3D = scene.find_child("MapCube", true, false)
 	if map_cube == null:
 		_alert("Il faut se rendre dans un niveau", "Pas dans un niveau")
@@ -61,10 +78,9 @@ func create_map(n: String):
 			vector.y = y - int(dimension.y / 2)
 			for z in range(dimension.z):
 				vector.z = z - int(dimension.z / 2)
-				print(vector)
 				if z == 0 or y == 0 or x == 0 or y == dimension.y - 1 or x == dimension.x - 1 or z == dimension.z - 1:
 					_add_cube(vector, map_cube, normalCubePreload.instantiate(), "name", scene)
-
+	_update_cubes_color()
 
 func _add_cube(new_position: Vector3i, parent: Node3D, object: Node3D, new_name: String, scene: Node3D):
 	object.position = new_position

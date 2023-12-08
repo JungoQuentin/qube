@@ -48,10 +48,9 @@ func change_color(object: Object):
 	if not object is Cube:
 		return
 	var mesh_instance: MeshInstance3D = object.find_child("MeshInstance3D")
-	var new_mesh = mesh_instance.mesh.duplicate(true)
-	mesh_instance.mesh = new_mesh
 	var initial_color = Colors.get_initial_color(object)
-	new_mesh.surface_get_material(0).albedo_color = initial_color
+	mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
+	mesh_instance.get_surface_override_material(0).albedo_color = initial_color
 
 
 func set_current_button(key: String, caller = "null"):

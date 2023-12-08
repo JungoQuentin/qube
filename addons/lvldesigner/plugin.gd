@@ -6,16 +6,20 @@ var dock: VBoxContainer
 var editor_interface: EditorInterface
 var dimension:= Vector3i.ONE * 3
 var dimensions_input: LineEdit
+var editorPlugin
 @onready var normalCubePreload = preload("res://src/cubeTypes/normalCube.tscn");
 
 
 func _enter_tree():
 	editor_interface = get_editor_interface()
+	editorPlugin = preload("res://addons/lvldesigner/editor_plugin.gd").new()
+	add_inspector_plugin(editorPlugin)
 	_init_dock()
 
 
 func _exit_tree():
 	remove_control_from_docks(dock)
+	remove_inspector_plugin(editorPlugin)
 	dock.free()
 
 

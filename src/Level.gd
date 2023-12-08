@@ -8,7 +8,7 @@ var game_state = INGAME
 signal level_initialized
 
 @onready var player: Player = $Player
-@onready var map_cube: MapCube = $MapCube
+@onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
 @onready var camera: MyCamera = preload("res://src/env/Camera.tscn").instantiate()
 @onready var env_ligth: Node3D = preload("res://src/env/EnvLight.tscn").instantiate()

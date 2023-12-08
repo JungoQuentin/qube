@@ -3,11 +3,6 @@ class_name MyCamera extends Camera3D
 #region DECLARATION
 
 const camera_fov = 30.
-const camera_y_dist_by_cube_dimension: Dictionary = {
-	3: 9,
-	5: 15.,
-	7: 20.
-}
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
 var global_transform_front_to_player: Transform3D
@@ -17,8 +12,7 @@ var global_transform_front_to_player: Transform3D
 
 func _ready():
 	fov = camera_fov
-	await Utils.wait_while(func(): return _level.map_cube == null)
-	position.z = camera_y_dist_by_cube_dimension[_level.map_cube.dimension]
+	position.z = 15
 	current = true
 	global_transform_front_to_player = global_transform
 

@@ -7,7 +7,7 @@ var editor_interface: EditorInterface
 var dimension:= Vector3i.ONE * 3
 var dimensions_input: LineEdit
 var editorPlugin
-@onready var normalCubePreload = preload("res://src/cubeTypes/normalCube.tscn");
+@onready var normalCubePreload = preload("res://src/cubeTypes/Cube.tscn");
 
 
 func _enter_tree():
@@ -37,7 +37,7 @@ func _init_dock():
 
 func create_map(n: String):
 	var scene = editor_interface.get_edited_scene_root()
-	var map_cube: MapCube = scene.find_child("MapCube", true, false)
+	var map_cube: Node3D = scene.find_child("MapCube", true, false)
 	if map_cube == null:
 		_alert("Il faut se rendre dans un niveau", "Pas dans un niveau")
 		return

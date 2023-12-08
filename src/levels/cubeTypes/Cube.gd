@@ -33,11 +33,13 @@ func _ready():
 	collision_shape.shape.size = mesh.size
 	initial_color = Colors.get_initial_color(self)
 	touched_color = Colors.darker(initial_color)
-	mesh.surface_get_material(0).albedo_color = initial_color
+	mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
+	mesh_instance.get_surface_override_material(0).albedo_color = initial_color
+
 
 ## Called when the player, or a movingCube touch the cube (take the toucher as _cube: Node3D)
 func on_touch():
-	_touched_animation_start(mesh_instance, touched_color, initial_color)
+	_touched_animation_start(touched_color, initial_color)
 
 ## Called when the player, or a movingCube leave (in the edge of the map, it don't leave if the player move to the same cube)
 func on_leave():
@@ -45,10 +47,8 @@ func on_leave():
 
 ## Lauch the animation when the cube is touched
 ## TODO add sound 
-func _touched_animation_start(_mesh_instance: MeshInstance3D, _touched_color: Color, _initial_color: Color):
-	var _tmp_mesh = _mesh_instance.mesh.duplicate(true)
-	_mesh_instance.mesh = _tmp_mesh
-	var _material = _tmp_mesh.surface_get_material(0)
+func _touched_animation_start(_touched_color: Color, _initial_color: Color):
+	var _material = mesh_instance.get_surface_override_material(0)
 	if touch_tween:
 		touch_tween.pause()
 		touch_tween.kill()

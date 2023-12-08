@@ -1,21 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://crm7r27jrvees"]
 
-[ext_resource type="Script" path="res://src/levels/cubeTypes/normalCube.gd" id="1_dkupo"]
+[ext_resource type="Script" path="res://src/levels/cubeTypes/normalCube.gd" id="1_5iw2g"]
+[ext_resource type="Material" uid="uid://dk6d23khiuxqd" path="res://src/levels/cubeTypes/cubeMaterial.tres" id="2_dwpet"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ht1i8"]
-albedo_color = Color(0.941176, 0.580392, 0.121569, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gpch4"]
-material = SubResource("StandardMaterial3D_ht1i8")
-size = Vector3(0.95, 0.95, 0.95)
+[sub_resource type="BoxMesh" id="BoxMesh_vua4o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_612fi"]
 
 [node name="Cube" type="StaticBody3D"]
-script = ExtResource("1_dkupo")
+script = ExtResource("1_5iw2g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_gpch4")
+mesh = SubResource("BoxMesh_vua4o")
+surface_material_override/0 = ExtResource("2_dwpet")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_612fi")

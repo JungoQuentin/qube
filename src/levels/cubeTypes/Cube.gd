@@ -49,20 +49,17 @@ func on_leave():
 ## TODO add sound 
 func _touched_animation_start(_touched_color: Color, _initial_color: Color):
 	var _material = mesh_instance.get_surface_override_material(0)
-	if touch_tween:
-		touch_tween.pause()
+	if _touch_tween_running():
 		touch_tween.kill()
 	touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
 	touch_tween.tween_property(_material, "albedo_color", _touched_color, 0.05)
 	touch_tween.tween_property(_material, "albedo_color", _initial_color, 1)
-	touch_tween.tween_callback(_animation_end)
-	touch_tween.play()
-
-## Set the mesh to the initial mesh and reset the touch_tween
-func _animation_end():
-	mesh_instance.mesh = mesh
-	touch_tween = null
+	touch_tween.tween_callback(func(): touch_tween.kill())
 
 ## Check if the cube will reject anything that enter
 func is_rejecting() -> bool:
 	return (self is BlockingCube) or (self is SingleUseCube and self.is_used)
+
+
+func _touch_tween_running() -> bool:
+	return touch_tween and touch_tween.is_valid() and touch_tween.is_running()

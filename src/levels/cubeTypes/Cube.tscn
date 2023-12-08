@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://crm7r27jrvees"]
 
 [ext_resource type="Script" path="res://src/levels/cubeTypes/normalCube.gd" id="1_5iw2g"]
-[ext_resource type="Material" uid="uid://dk6d23khiuxqd" path="res://src/levels/cubeTypes/cubeMaterial.tres" id="2_dwpet"]
+[ext_resource type="Material" uid="uid://cce1w4vu5kkiu" path="res://src/levels/cubeTypes/cubeMaterial.tres" id="2_dwpet"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vua4o"]
 

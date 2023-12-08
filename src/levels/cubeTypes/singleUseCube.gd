@@ -18,25 +18,25 @@ func on_touch():
 
 func _change_color_animation_start():
 	if _touch_tween_running():
-		touch_tween.kill()
-	initial_color = Colors.blocking_init_color
-	touched_color = Colors.darker(initial_color)
-	var _material = mesh_instance.get_surface_override_material(0)
-	touch_tween = create_tween()
-	touch_tween.tween_property(_material, "albedo_color", initial_color, 1)
-	touch_tween.tween_callback(func(): touch_tween.kill(); _color_changed = true)
+		_touch_tween.kill()
+	_initial_color = Colors.blocking_init_color
+	_touched_color = Colors.darker(_initial_color)
+	var _material = _mesh_instance.get_surface_override_material(0)
+	_touch_tween = create_tween()
+	_touch_tween.tween_property(_material, "albedo_color", _initial_color, 1)
+	_touch_tween.tween_callback(func(): _touch_tween.kill(); _color_changed = true)
 
 ## Set the color according to the current state of the singleUseCube
 func update_color():
 	if _touch_tween_running(): 
-		touch_tween.kill()
+		_touch_tween.kill()
 	if is_used:
-		initial_color = Colors.blocking_init_color
-		touched_color = Colors.darker(initial_color)
+		_initial_color = Colors.blocking_init_color
+		_touched_color = Colors.darker(_initial_color)
 	else:
-		initial_color = Colors.single_cube_init_color
-		touched_color = Colors.darker(initial_color)
-	mesh_instance.get_surface_override_material(0).albedo_color = initial_color
+		_initial_color = Colors.single_cube_init_color
+		_touched_color = Colors.darker(_initial_color)
+	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
 
 
 func reset():

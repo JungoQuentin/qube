@@ -2,28 +2,26 @@ extends Cube
 class_name SwitchCube
 
 var on: bool = false 
-var on_color: Color
-var off_color: Color
+var _on_color: Color
+var _off_color: Color
 
 func _ready():
 	super._ready()
-	on_color =  Colors.switch_cube_on_color
-	off_color = Colors.switch_cube_off_color
-	mesh.surface_get_material(0).albedo_color = on_color if on else off_color 
+	_on_color =  Colors.switch_cube_on_color
+	_off_color = Colors.switch_cube_off_color
+	_mesh_instance.get_surface_override_material(0).albedo_color = _on_color if on else _off_color 
+
 
 func on_touch():
 	on = not on
 	_switch_animation_start()
 	get_tree().current_scene.check_all_switch_state()
 
+
 func _switch_animation_start():
-	var _tmp_mesh = mesh_instance.mesh.duplicate(true)
-	mesh_instance.mesh = _tmp_mesh
-	var _material = _tmp_mesh.surface_get_material(0)
-	if touch_tween:
-		touch_tween.pause()
-		touch_tween.kill()
-	touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	touch_tween.tween_property(_material, "albedo_color", on_color if on else off_color , 0.1)
-	touch_tween.tween_callback(func(): touch_tween = null)
-	touch_tween.play()
+	if _touch_tween_running():
+		_touch_tween.kill()
+	var material = _mesh_instance.get_surface_override_material(0)
+	_touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	_touch_tween.tween_property(material, "albedo_color", _on_color if on else _off_color , 0.1)
+	_touch_tween.tween_callback(func(): _touch_tween.kill())

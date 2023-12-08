@@ -7,7 +7,7 @@ var editor_interface: EditorInterface
 var dimension:= Vector3i.ONE * 3
 var dimensions_input: LineEdit
 var editorPlugin
-@onready var normalCubePreload = preload("res://src/cubeTypes/Cube.tscn");
+@onready var normalCubePreload = preload("res://src/levels/cubeTypes/Cube.tscn");
 
 
 func _enter_tree():

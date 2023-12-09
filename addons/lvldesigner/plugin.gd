@@ -2,12 +2,13 @@
 extends EditorPlugin
 class_name QubePlugin
 
-var dock: VBoxContainer
+var _plugin_dock: VBoxContainer
 var dimension:= Vector3i.ONE * 3
-var dimensions_input: LineEdit
 var editorPlugin
+var _level_file_regex = RegEx.create_from_string("(?<digit>[0-9]+)(_*)(?<name>\\w*)\\.tscn")
 @onready var normalCubePreload = preload("res://src/levels/cubeTypes/Cube.tscn");
-
+const LEVEL_PATH = &"res://src/levels"
+const LEVEL_MANAGER_PATH = &"res://src/levels/LevelManager.tscn"
 
 func _enter_tree():
 	editorPlugin = preload("res://addons/lvldesigner/editor_plugin.gd").new()
@@ -17,19 +18,22 @@ func _enter_tree():
 
 
 func _exit_tree():
-	remove_control_from_docks(dock)
+	remove_control_from_docks(_plugin_dock)
 	remove_inspector_plugin(editorPlugin)
-	dock.free()
+	_plugin_dock.free()
 
 
 func _init_dock():
-	dock = VBoxContainer.new()
-	dock.name = "LvlMaker"
-	add_control_to_dock(DOCK_SLOT_LEFT_UL, dock)
-	var dim_box = HBoxContainer.new()
-	dock.add_child(dim_box)
-	dimensions_input = _add_intut("dimension (ex: '3' pour cube et '3x1x3' pour rectangle)")
-	_add_button("creer un terrain", dim_box, func(): create_map(dimensions_input.text))
+	_plugin_dock = VBoxContainer.new()
+	_plugin_dock.name = "LvlMaker"
+	add_control_to_dock(DOCK_SLOT_LEFT_UL, _plugin_dock)
+	
+	var create_dock = HBoxContainer.new()
+	_plugin_dock.add_child(create_dock)
+	var dimensions_input = _add_intut("3(x3x3)", create_dock, false)
+	_add_button("creer", create_dock, func(): create_map(dimensions_input.text))
+
+	_add_button("auto levels", _plugin_dock, _auto_fill_level_manager)
 
 
 func _update_cubes_color():
@@ -44,6 +48,20 @@ func _update_cubes_color():
 		var initial_color = Colors.get_initial_color(cube)
 		mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
 		mesh_instance.get_surface_override_material(0).albedo_color = initial_color
+
+
+func _auto_fill_level_manager():
+	var scene = EditorInterface.get_edited_scene_root()
+	if scene == null or scene.name != "LevelManager":
+		EditorInterface.open_scene_from_path(LEVEL_MANAGER_PATH)
+		scene = EditorInterface.get_edited_scene_root()
+
+	var files = DirAccess.get_files_at(LEVEL_PATH)
+	var level_matches: Array = Array(files) \
+		.map(func(file): return _level_file_regex.search(file)) \
+		.filter(func(m): return m)
+	var level_paths = level_matches.map(func(m): return load(LEVEL_PATH + "/" + m.get_string()))
+	scene.levels = level_paths
 
 
 #region CREATE MAP
@@ -101,21 +119,21 @@ func _add_button(_name, parent, callback):
 	return n_button
 
 
-func _add_intut(_name, number=false) -> LineEdit:
+func _add_intut(new_name, parent, is_number) -> LineEdit:
 	var n_input: LineEdit = LineEdit.new()
-	n_input.name = _name
-	if number:
+	n_input.name = new_name
+	if is_number:
 		n_input.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
-	n_input.placeholder_text = _name
+	n_input.placeholder_text = new_name
 	n_input.custom_minimum_size.y = 30
-	dock.add_child(n_input)
+	parent.add_child(n_input)
 	return n_input
 
 
 func _add_h_sep(n=30):
 	var n_sep = HSeparator.new()
 	n_sep.custom_minimum_size.y = n
-	dock.add_child(n_sep)
+	_plugin_dock.add_child(n_sep)
 
 #endregion
 

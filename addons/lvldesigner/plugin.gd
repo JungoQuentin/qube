@@ -4,14 +4,14 @@ class_name QubePlugin
 
 var _plugin_dock: VBoxContainer
 var dimension:= Vector3i.ONE * 3
-var editorPlugin
+var editorPlugin: QubeEditorInspectorPlugin
 var _level_file_regex = RegEx.create_from_string("(?<digit>[0-9]+)(_*)(?<name>\\w*)\\.tscn")
 @onready var normalCubePreload = preload("res://src/levels/cubeTypes/Cube.tscn");
 const LEVEL_PATH = &"res://src/levels"
 const LEVEL_MANAGER_PATH = &"res://src/levels/LevelManager.tscn"
 
 func _enter_tree():
-	editorPlugin = preload("res://addons/lvldesigner/editor_plugin.gd").new()
+	editorPlugin = QubeEditorInspectorPlugin.new()
 	add_inspector_plugin(editorPlugin)
 	scene_changed.connect(func(_node): _update_cubes_color())
 	_init_dock()

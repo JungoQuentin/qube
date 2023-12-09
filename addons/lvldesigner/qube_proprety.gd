@@ -1,4 +1,5 @@
 extends EditorProperty
+class_name QubeTypeEditorProperty
 
 
 var updating = false

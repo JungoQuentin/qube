@@ -1,6 +1,5 @@
 extends EditorInspectorPlugin
-
-var CubeIntEditor = preload("res://addons/lvldesigner/qube_proprety.gd")
+class_name QubeEditorInspectorPlugin
 
 
 func _can_handle(object):
@@ -10,5 +9,5 @@ func _can_handle(object):
 func _parse_property(object, type, name, hint_type, hint_string, usage_flags, wide):
 	if name != "cubeType":
 		return false
-	add_property_editor(name, CubeIntEditor.new())
+	add_property_editor(name, QubeTypeEditorProperty.new())
 	return true

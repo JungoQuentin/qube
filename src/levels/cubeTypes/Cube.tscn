@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://cce1w4vu5kkiu" path="res://src/levels/cubeTypes/cubeMaterial.tres" id="2_dwpet"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vua4o"]
+size = Vector3(0.9, 0.9, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_612fi"]
 

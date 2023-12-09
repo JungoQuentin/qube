@@ -26,7 +26,6 @@ func _to_string():
 
 ## Set the level to correspond to the state of the action
 func _apply_level_state():
-	level.map_cube.basis = state.map_basis
 	level.player.position = state.player_position 
 	state.moving_cubes_position.keys().map(func(cube): cube.position = state.moving_cubes_position[cube])
 	state.single_cubes_state.keys().map(func(cube): cube.is_used = state.single_cubes_state[cube]; cube.update_color())

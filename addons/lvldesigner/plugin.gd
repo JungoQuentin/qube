@@ -1,94 +1,114 @@
 @tool
 extends EditorPlugin
-class_name BCubePlugin
+class_name QubePlugin
 
-var dock: VBoxContainer
-var editor_interface: EditorInterface
-var lvl_editor_scene: Node3D
-var dimension: int = 0
-var lvl_name_input: LineEdit
+var _plugin_dock: VBoxContainer
+var dimension:= Vector3i.ONE * 3
+var editorPlugin: QubeEditorInspectorPlugin
+var _level_file_regex = RegEx.create_from_string("(?<digit>[0-9]+)(_*)(?<name>\\w*)\\.tscn")
+@onready var normalCubePreload = preload("res://src/levels/cubeTypes/Cube.tscn");
+const LEVEL_PATH = &"res://src/levels"
+const LEVEL_MANAGER_PATH = &"res://src/levels/LevelManager.tscn"
 
 func _enter_tree():
-	editor_interface = get_editor_interface()
+	editorPlugin = QubeEditorInspectorPlugin.new()
+	add_inspector_plugin(editorPlugin)
+	scene_changed.connect(func(_node): _update_cubes_color())
 	_init_dock()
-	Tools.plugin = self
+
 
 func _exit_tree():
-	remove_control_from_docks(dock)
-	dock.free()
+	remove_control_from_docks(_plugin_dock)
+	remove_inspector_plugin(editorPlugin)
+	_plugin_dock.free()
 
-func _test_level():
-	if not _is_lvl_maker_current():
-		_go_to_lvl_editor()
-		return
-	if not _args_valid(true, dimension, ""):
-		return
-	lvl_editor_scene.test(dimension)
-
-func _save_level():
-	if not _is_lvl_maker_current():
-		_go_to_lvl_editor()
-		return
-	if not _args_valid(false, dimension, lvl_name_input.text):
-		return
-	lvl_editor_scene.save(dimension, lvl_name_input.text)
-
-func _args_valid(_test: bool, dimension, lvl_name) -> bool:
-	if dimension == 0 or dimension % 2 == 0 or dimension < 3:
-		Tools.alert("mauvaise dimension (0 ou pair, doit commencer a 3)")
-		print("end alert")
-		return false
-	if not _test and lvl_name.length() == 0:
-		Tools.alert("faut donner un nom au niveau...")
-		return false
-	return true
-
-func _add_h_sep(n=30):
-	var n_sep = HSeparator.new()
-	n_sep.custom_minimum_size.y = n
-	dock.add_child(n_sep)
 
 func _init_dock():
-	dock = VBoxContainer.new()
-	dock.name = "LvlMakerPlugin"
-	add_control_to_dock(DOCK_SLOT_LEFT_UL, dock)
+	_plugin_dock = VBoxContainer.new()
+	_plugin_dock.name = "LvlMaker"
+	add_control_to_dock(DOCK_SLOT_LEFT_UL, _plugin_dock)
+	
+	var create_dock = HBoxContainer.new()
+	_plugin_dock.add_child(create_dock)
+	var dimensions_input = _add_intut("3(x3x3)", create_dock, false)
+	_add_button("creer", create_dock, func(): create_map(dimensions_input.text))
 
-	##### 
+	_add_button("auto levels", _plugin_dock, _auto_fill_level_manager)
 
-	var dim_label = Label.new()
-	dim_label.text = "dimension"
-	var dim_box = HBoxContainer.new()
-	dock.add_child(dim_box)
-	dim3 = _add_button("3", dim_box, func(): set_dimension(3))
-	dim5 = _add_button("5", dim_box, func(): set_dimension(5))
-	dim7 = _add_button("7", dim_box, func(): set_dimension(7))
 
-	lvl_name_input = _add_intut("lvl name")
-	_add_button("Tester le niveau", dock, _test_level)
-	_add_button("Sauvegarder le niveau", dock, _save_level)
-	_add_h_sep()
-
-	##########
-
-	var adder = HBoxContainer.new()
-	dock.add_child(adder)
-	for template_name in DirAccess.open(Tools.TEMPLATES_PATH).get_files():
-		_add_button("add " + template_name.split('.')[0], adder, func(): if _is_lvl_maker_current(): lvl_editor_scene.add_template(template_name) else: _go_to_lvl_editor())
-	# _add_h_sep()
-	# _add_h_sep()
-	# _add_button("go to colors", dock, func(): editor_interface.open_scene_from_path("res://src/auto_loads/Colors.tscn"))
-
-var dim3
-var dim5
-var dim7
-func set_dimension(n):
-	if not [3, 5, 7].has(n):
+func _update_cubes_color():
+	var scene = EditorInterface.get_edited_scene_root()
+	if scene == null:
 		return
-	dimension = n
-	[dim3, dim5, dim7].map(func(button): button.custom_minimum_size.x = 0)
-	var to_focus: Button = get("dim{}".format([n], '{}'))
-	to_focus.custom_minimum_size.x = 70
+	var map_cube: Node3D = scene.find_child("MapCube", true, false)
+	if map_cube == null:
+		return
+	for cube in map_cube.get_children():
+		var mesh_instance: MeshInstance3D = cube.find_child("MeshInstance3D")
+		var initial_color = Colors.get_initial_color(cube)
+		mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
+		mesh_instance.get_surface_override_material(0).albedo_color = initial_color
 
+
+func _auto_fill_level_manager():
+	var scene = EditorInterface.get_edited_scene_root()
+	if scene == null or scene.name != "LevelManager":
+		EditorInterface.open_scene_from_path(LEVEL_MANAGER_PATH)
+		scene = EditorInterface.get_edited_scene_root()
+
+	var files = DirAccess.get_files_at(LEVEL_PATH)
+	var level_matches: Array = Array(files) \
+		.map(func(file): return _level_file_regex.search(file)) \
+		.filter(func(m): return m)
+	var level_paths = level_matches.map(func(m): return load(LEVEL_PATH + "/" + m.get_string()))
+	scene.levels = level_paths
+
+
+#region CREATE MAP
+
+func create_map(n: String):
+	var scene = EditorInterface.get_edited_scene_root()
+
+	if scene == null:
+		_alert("Il faut se rendre dans un niveau", "Pas dans un niveau")
+		return
+	var map_cube: Node3D = scene.find_child("MapCube", true, false)
+	if map_cube == null:
+		_alert("Il faut se rendre dans un niveau", "Pas dans un niveau")
+		return
+
+	var dimension_numbers = n.split('x')
+	if dimension_numbers.size() == 1:
+		dimension = Vector3i.ONE * int(dimension_numbers[0])
+	elif dimension_numbers.size() == 3:
+		dimension.x = int(dimension_numbers[0])
+		dimension.y = int(dimension_numbers[1])
+		dimension.z = int(dimension_numbers[2])
+	else:
+		_alert("Faut formater comme ca: '3x1x3' ou comme ca: '3'", "Mauvais formatage - dimension")
+
+	#map_cube.dimension = dimension # TODO -> pour la camera: changer de zoom a chaque fois ??
+	
+	var vector = Vector3i.ZERO
+	for x in range(dimension.x):
+		vector.x = x - int(dimension.x / 2)
+		for y in range(dimension.y):
+			vector.y = y - int(dimension.y / 2)
+			for z in range(dimension.z):
+				vector.z = z - int(dimension.z / 2)
+				if z == 0 or y == 0 or x == 0 or y == dimension.y - 1 or x == dimension.x - 1 or z == dimension.z - 1:
+					_add_cube(vector, map_cube, normalCubePreload.instantiate(), "name", scene)
+	_update_cubes_color()
+
+func _add_cube(new_position: Vector3i, parent: Node3D, object: Node3D, new_name: String, scene: Node3D):
+	object.position = new_position
+	object.visible = true
+	object.name = new_name
+	_add_and_set_own(object, parent, scene)
+
+#endregion
+
+#region UI HELPERS
 
 func _add_button(_name, parent, callback):
 	var n_button = Button.new()
@@ -98,24 +118,34 @@ func _add_button(_name, parent, callback):
 	parent.add_child(n_button)
 	return n_button
 
-func _add_intut(_name, number=false) -> LineEdit:
+
+func _add_intut(new_name, parent, is_number) -> LineEdit:
 	var n_input: LineEdit = LineEdit.new()
-	n_input.name = _name
-	if number:
+	n_input.name = new_name
+	if is_number:
 		n_input.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
-	n_input.placeholder_text = _name
+	n_input.placeholder_text = new_name
 	n_input.custom_minimum_size.y = 30
-	dock.add_child(n_input)
+	parent.add_child(n_input)
 	return n_input
 
-func _clicked():
-	print(editor_interface.get_open_scenes())
-	editor_interface.get_open_scenes().clear()
-	editor_interface.stop_playing_scene()
 
-func _go_to_lvl_editor():
-	if not _is_lvl_maker_current():
-		editor_interface.open_scene_from_path(Tools.LVL_DESIGNER_PATH)
+func _add_h_sep(n=30):
+	var n_sep = HSeparator.new()
+	n_sep.custom_minimum_size.y = n
+	_plugin_dock.add_child(n_sep)
 
-func _is_lvl_maker_current():
-	return lvl_editor_scene == editor_interface.get_edited_scene_root()
+#endregion
+
+#region UTILS
+
+func _add_and_set_own(node, parent, _owner):
+	parent.add_child(node)
+	if _owner != null:
+		node.set_owner(_owner)
+
+
+func _alert(msg: String, title: String="alert"):
+	OS.alert(msg, title)
+
+#endregion

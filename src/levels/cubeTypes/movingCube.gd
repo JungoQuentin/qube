@@ -32,7 +32,7 @@ func _get_floor_goal(direction: Vector3, floor_direction: Vector3):
 func can_push(direction: Vector3, floor_direction: Vector3) -> bool:
 	var floor_goal = _get_floor_goal(direction, floor_direction)
 	var is_floor_rejecting = floor_goal != null and floor_goal.is_rejecting()
-	var is_floor_a_moving_cube = floor_goal is MovingCube
+	var is_floor_a_moving_cube = floor_goal is MovingCube and not floor_goal.in_a_hole
 	return not is_floor_rejecting and \
 		_get_neighbour(direction) == null and \
 		not is_floor_a_moving_cube

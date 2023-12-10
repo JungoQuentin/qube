@@ -30,9 +30,14 @@ func _get_floor_goal(direction: Vector3, floor_direction: Vector3):
 
 
 func can_push(direction: Vector3, floor_direction: Vector3) -> bool:
+	var current_floor = Utils.get_raycast_collider(_level, self.global_position, floor_direction)
+	if current_floor is IceCube:
+		return false
 	var floor_goal = _get_floor_goal(direction, floor_direction)
-	var is_floor_rejecting = floor_goal != null and floor_goal.is_rejecting()
-	var is_floor_a_moving_cube = floor_goal is MovingCube and not floor_goal.in_a_hole
-	return not is_floor_rejecting and \
-		_get_neighbour(direction) == null and \
-		not is_floor_a_moving_cube
+	if floor_goal != null and floor_goal.is_rejecting(): # TODO check
+		return false
+	if floor_goal is MovingCube and not floor_goal.in_a_hole:
+		return false
+	if _get_neighbour(direction) != null:
+		return false
+	return true

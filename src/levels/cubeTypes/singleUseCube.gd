@@ -30,12 +30,8 @@ func _change_color_animation_start():
 func update_color():
 	if _touch_tween_running(): 
 		_touch_tween.kill()
-	if is_used:
-		_initial_color = Colors.blocking_init_color
-		_touched_color = Colors.darker(_initial_color)
-	else:
-		_initial_color = Colors.single_cube_init_color
-		_touched_color = Colors.darker(_initial_color)
+	_initial_color = Colors.blocking_init_color if is_used else Colors.single_cube_init_color
+	_touched_color = Colors.darker(_initial_color)
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
 
 

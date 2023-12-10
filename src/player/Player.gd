@@ -91,13 +91,14 @@ func _roll():
 	# TODO -> ActionSystem.add_action()
 	
 	await move_logic.roll()
-
+	
 	## roll us back if our goal is rejecting
 	if move_logic.floor_goal and move_logic.floor_goal.is_rejecting():
 		await move_logic.roll_back()
 		# TODO ActionSystem.actions.pop_back()
-		if we_are_on_this_cube_now is SingleUseCube:
-			print("go to infinite recursion")
+		move_logic.remove_pivot()
+		is_moving = false
+		return
 	#else: # TODO
 		#ActionSystem.undo_stack.clear()
 	
@@ -106,7 +107,7 @@ func _roll():
 		we_are_on_this_cube_now.on_leave()
 	we_are_on_this_cube_now = move_logic.floor_goal
 	
-	move_logic.reset_pivot()
+	move_logic.remove_pivot()
 	is_moving = false
 
 
@@ -121,5 +122,5 @@ func abort_move() -> bool:
 	print("abort move")
 	
 	# TODO really abort the move !
-	move_logic.reset_pivot()
+	move_logic.remove_pivot()
 	return true

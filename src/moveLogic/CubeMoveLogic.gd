@@ -79,7 +79,7 @@ func roll_back():
 
 ## Reset the pivot and rotator. Only for moving cubes and player
 # TODO rename remove
-func reset_pivot():
+func remove_pivot():
 	if not _object.is_moving: # modified elsewhere TODO
 		return
 	Utils.switch_parent(_object, _level, true)

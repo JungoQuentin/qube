@@ -1,6 +1,7 @@
 extends Cube 
 class_name HoleCube
 
+var filled:= false
 
 func _ready():
 	_mesh.size = Vector3.ONE * Colors.cube_scale
@@ -11,3 +12,14 @@ func _ready():
 
 func on_touch():
 	pass
+
+
+## If a cube is in, disable the collision
+func fill():
+	filled = true
+	_collision_shape.disabled = true
+
+
+func reset():
+	filled = false
+	_collision_shape.disabled = false

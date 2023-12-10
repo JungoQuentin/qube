@@ -44,9 +44,7 @@ func init_forward_roll():
 		floor_neighbour = floor_goal
 	else:
 		_is_going_to_change_face = true if floor_goal == null else false
-		var long_range_cast = Utils.get_raycast_collider(_level, _object.global_position + _direction, _floor_direction * 10)
-		if long_range_cast is NormalCube and long_range_cast.is_inside:
-			is_going_to_hole = true
+		is_going_to_hole = floor_goal is HoleCube
 
 	if _is_going_to_change_face:
 		floor_goal = floor_start

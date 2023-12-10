@@ -11,14 +11,14 @@ var in_a_hole:= false
 
 
 func on_push(direction: Vector3, floor_direction: Vector3):
-	var _is_going_to_change_face = true if _get_floor_goal(direction, floor_direction) == null else false
-	if not _is_going_to_change_face:
-		position += direction
-	else:
+	var floor_goal = _get_floor_goal(direction, floor_direction)
+	if floor_goal == null or floor_goal is HoleCube: # change face or hole
 		position += direction + floor_direction
-		var under_the_cube = Utils.get_raycast_collider(_level, self.global_position, floor_direction)
-		if under_the_cube is NormalCube and under_the_cube.is_inside:
-			in_a_hole = true
+	else:
+		position += direction
+	if floor_goal is HoleCube:
+		in_a_hole = true
+		floor_goal.fill()
 
 
 func _get_neighbour(direction: Vector3) -> Node3D:
@@ -30,9 +30,14 @@ func _get_floor_goal(direction: Vector3, floor_direction: Vector3):
 
 
 func can_push(direction: Vector3, floor_direction: Vector3) -> bool:
+	var current_floor = Utils.get_raycast_collider(_level, self.global_position, floor_direction)
+	if current_floor is IceCube:
+		return false
 	var floor_goal = _get_floor_goal(direction, floor_direction)
-	var is_floor_rejecting = floor_goal != null and floor_goal.is_rejecting()
-	var is_floor_a_moving_cube = floor_goal is MovingCube
-	return not is_floor_rejecting and \
-		_get_neighbour(direction) == null and \
-		not is_floor_a_moving_cube
+	if floor_goal != null and floor_goal.is_rejecting(): # TODO check
+		return false
+	if floor_goal is MovingCube and not floor_goal.in_a_hole:
+		return false
+	if _get_neighbour(direction) != null:
+		return false
+	return true

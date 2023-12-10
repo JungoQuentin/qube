@@ -45,7 +45,7 @@ func _update_cubes_color():
 		return
 	for cube in map_cube.get_children():
 		var mesh_instance: MeshInstance3D = cube.find_child("MeshInstance3D")
-		var initial_color = Colors.get_initial_color(cube)
+		var initial_color = Colors.get_initial_color(Cube.object_to_type(cube))
 		mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
 		mesh_instance.get_surface_override_material(0).albedo_color = initial_color
 

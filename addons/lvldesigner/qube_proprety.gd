@@ -12,7 +12,8 @@ var current_key: String
 	Cube.Type.SINGLE_USE: preload("res://src/levels/cubeTypes/singleUseCube.gd"),
 	Cube.Type.MOVING: preload("res://src/levels/cubeTypes/movingCube.gd"),
 	Cube.Type.SWITCH: preload("res://src/levels/cubeTypes/switchCube.gd"),
-	Cube.Type.ICE: preload("res://src/levels/cubeTypes/IceCube.gd")
+	Cube.Type.ICE: preload("res://src/levels/cubeTypes/iceCube.gd"),
+	Cube.Type.HOLE: preload("res://src/levels/cubeTypes/holeCube.gd")
 }
 
 func _init():
@@ -49,9 +50,8 @@ func change_color(object: Object):
 	if not object is Cube:
 		return
 	var mesh_instance: MeshInstance3D = object.find_child("MeshInstance3D")
-	var initial_color = Colors.get_initial_color(object)
 	mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
-	mesh_instance.get_surface_override_material(0).albedo_color = initial_color
+	mesh_instance.get_surface_override_material(0).albedo_color = Colors.get_initial_color(object)
 
 
 func set_current_button(key: String, caller = "null"):

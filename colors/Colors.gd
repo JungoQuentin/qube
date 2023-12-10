@@ -27,12 +27,12 @@
 @export var normal_init_color = Color.REBECCA_PURPLE
 @export var blocking_init_color = Color.DARK_GRAY
 @export var single_cube_init_color = Color.DARK_GRAY
-@export var start_cube_init_color = Color.DARK_GRAY
 @export var end_cube_init_color = Color.DARK_GRAY
 @export var switch_cube_on_color = Color.YELLOW
 @export var switch_cube_off_color = Color.BLACK
 @export var moving_cube_init_color = Color.YELLOW
 @export var ice_cube_init_color = Color.LIGHT_SKY_BLUE
+@export var hole_cube_editor_color = Color.AZURE
 @export_group("Others")
 @export_range(0, 1) var cube_scale: float = 0.965
 
@@ -42,21 +42,15 @@ func _ready():
 	if Engine.is_editor_hint(): _ready_on_editor()
 
 
-func get_initial_color(cube: Cube) -> Color:
-	if cube is NormalCube:
-		if cube.is_start:
-			return start_cube_init_color
-		return normal_init_color
-	elif cube is BlockingCube:
-		return blocking_init_color
-	elif cube is EndCube:
-		return end_cube_init_color
-	elif cube is SingleUseCube:
-		return single_cube_init_color
-	elif cube is MovingCube:
-		return moving_cube_init_color
-	elif cube is IceCube:
-		return ice_cube_init_color
+func get_initial_color(cubeType: Cube.Type) -> Color:
+	match cubeType:
+		Cube.Type.NORMAL: return normal_init_color
+		Cube.Type.BLOCKING: return blocking_init_color
+		Cube.Type.END: return end_cube_init_color
+		Cube.Type.SINGLE_USE: return single_cube_init_color
+		Cube.Type.MOVING: return moving_cube_init_color
+		Cube.Type.ICE: return ice_cube_init_color
+		Cube.Type.HOLE: return hole_cube_editor_color
 	return normal_init_color
 
 

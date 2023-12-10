@@ -27,7 +27,6 @@
 @export var normal_init_color = Color.REBECCA_PURPLE
 @export var blocking_init_color = Color.DARK_GRAY
 @export var single_cube_init_color = Color.DARK_GRAY
-@export var start_cube_init_color = Color.DARK_GRAY
 @export var end_cube_init_color = Color.DARK_GRAY
 @export var switch_cube_on_color = Color.YELLOW
 @export var switch_cube_off_color = Color.BLACK
@@ -44,8 +43,6 @@ func _ready():
 
 func get_initial_color(cube: Cube) -> Color:
 	if cube is NormalCube:
-		if cube.is_start:
-			return start_cube_init_color
 		return normal_init_color
 	elif cube is BlockingCube:
 		return blocking_init_color

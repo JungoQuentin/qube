@@ -6,14 +6,14 @@ var updating = false
 var vbox = VBoxContainer.new()
 var current_key: String
 @onready var cube_preload: Dictionary = {
-	Cube.Type.NORMAL : preload("res://src/levels/cubeTypes/normalCube.gd"),
-	Cube.Type.BLOCKING : preload("res://src/levels/cubeTypes/blockingCube.gd"),
-	Cube.Type.END : preload("res://src/levels/cubeTypes/endCube.gd"),
-	Cube.Type.SINGLE_USE: preload("res://src/levels/cubeTypes/singleUseCube.gd"),
-	Cube.Type.MOVING: preload("res://src/levels/cubeTypes/movingCube.gd"),
-	Cube.Type.SWITCH: preload("res://src/levels/cubeTypes/switchCube.gd"),
-	Cube.Type.ICE: preload("res://src/levels/cubeTypes/iceCube.gd"),
-	Cube.Type.HOLE: preload("res://src/levels/cubeTypes/holeCube.gd")
+	Cube.Type.NORMAL : NormalCube,
+	Cube.Type.BLOCKING : BlockingCube,
+	Cube.Type.END : EndCube,
+	Cube.Type.SINGLE_USE: SingleUseCube,
+	Cube.Type.MOVING: MovingCube,
+	Cube.Type.SWITCH: SwitchCube,
+	Cube.Type.ICE: IceCube,
+	Cube.Type.HOLE: HoleCube
 }
 
 func _init():

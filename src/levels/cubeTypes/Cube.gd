@@ -1,7 +1,7 @@
 extends StaticBody3D
 class_name Cube
 
-enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE }
+enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE }
 @export var cubeType: int
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
@@ -47,17 +47,19 @@ func _touch_tween_running() -> bool:
 	return _touch_tween and _touch_tween.is_valid() and _touch_tween.is_running()
 
 ## Get the Type by duck typing a cube
-static func object_to_type(object: Cube) -> Type:
-	if object is NormalCube:
+static func object_to_type(cube: Cube) -> Type:
+	if cube is NormalCube:
 		return Type.NORMAL
-	elif object is BlockingCube:
+	elif cube is BlockingCube:
 		return Type.BLOCKING
-	elif object is EndCube:
+	elif cube is EndCube:
 		return Type.END
-	elif object is SingleUseCube:
+	elif cube is SingleUseCube:
 		return Type.SINGLE_USE
-	elif object is MovingCube:
+	elif cube is MovingCube:
 		return Type.MOVING
-	elif object is IceCube:
+	elif cube is IceCube:
 		return Type.ICE
+	elif cube is HoleCube:
+		return Type.HOLE
 	return Type.NORMAL

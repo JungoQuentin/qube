@@ -32,6 +32,7 @@
 @export var switch_cube_off_color = Color.BLACK
 @export var moving_cube_init_color = Color.YELLOW
 @export var ice_cube_init_color = Color.LIGHT_SKY_BLUE
+@export var hole_cube_editor_color = Color.AZURE
 @export_group("Others")
 @export_range(0, 1) var cube_scale: float = 0.965
 
@@ -54,6 +55,8 @@ func get_initial_color(cube: Cube) -> Color:
 		return moving_cube_init_color
 	elif cube is IceCube:
 		return ice_cube_init_color
+	elif cube is HoleCube:
+		return hole_cube_editor_color
 	return normal_init_color
 
 

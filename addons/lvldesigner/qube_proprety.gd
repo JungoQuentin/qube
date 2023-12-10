@@ -40,7 +40,6 @@ func _update_property():
 	var edited_property = get_edited_property()
 	var object = get_edited_object()
 	object.set_script(cube_preload[Cube.Type[current_key]])
-	print(object, current_key, edited_property)
 	var new_value = object[edited_property]
 	change_color(object)
 	set_current_button(current_key, "update")

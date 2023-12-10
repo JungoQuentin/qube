@@ -42,21 +42,15 @@ func _ready():
 	if Engine.is_editor_hint(): _ready_on_editor()
 
 
-func get_initial_color(cube: Cube) -> Color:
-	if cube is NormalCube:
-		return normal_init_color
-	elif cube is BlockingCube:
-		return blocking_init_color
-	elif cube is EndCube:
-		return end_cube_init_color
-	elif cube is SingleUseCube:
-		return single_cube_init_color
-	elif cube is MovingCube:
-		return moving_cube_init_color
-	elif cube is IceCube:
-		return ice_cube_init_color
-	elif cube is HoleCube:
-		return hole_cube_editor_color
+func get_initial_color(cubeType: Cube.Type) -> Color:
+	match cubeType:
+		Cube.Type.NORMAL: return normal_init_color
+		Cube.Type.BLOCKING: return blocking_init_color
+		Cube.Type.END: return end_cube_init_color
+		Cube.Type.SINGLE_USE: return single_cube_init_color
+		Cube.Type.MOVING: return moving_cube_init_color
+		Cube.Type.ICE: return ice_cube_init_color
+		Cube.Type.HOLE: return hole_cube_editor_color
 	return normal_init_color
 
 

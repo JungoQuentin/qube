@@ -48,6 +48,8 @@ func _update_cubes_color():
 		var initial_color = Colors.get_initial_color(Cube.object_to_type(cube))
 		mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
 		mesh_instance.get_surface_override_material(0).albedo_color = initial_color
+		if cube is SwitchCube:
+			cube.update_color()
 
 
 func _auto_fill_level_manager():

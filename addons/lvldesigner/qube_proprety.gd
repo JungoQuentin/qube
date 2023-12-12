@@ -60,6 +60,8 @@ func _update_color(object: Object):
 	var mesh_instance: MeshInstance3D = object.find_child("MeshInstance3D")
 	mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
 	mesh_instance.get_surface_override_material(0).albedo_color = Colors.get_initial_color(Cube.object_to_type(object))
+	if object is SwitchCube:
+		object.update_color()
 
 
 func _set_current_button(key: String):

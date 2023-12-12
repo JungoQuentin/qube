@@ -21,7 +21,6 @@ func _ready():
 	add_child(joystick)
 	_level.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
-	await _level.level_initialized
 
 
 func _process(_delta):

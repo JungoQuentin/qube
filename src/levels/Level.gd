@@ -12,6 +12,7 @@ var game_state = INGAME
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
+var end_cube: EndCube
 
 #endregion
 
@@ -25,17 +26,29 @@ func _ready():
 
 ## init the map by getting all the special cubes
 func _init_map():
-	var map_cube_children = map_cube.get_child(0).get_children()
+	var map_cube_children = map_cube.get_children()
+	var end_cubes = map_cube_children.filter(func(cube): return cube is EndCube)
+	if end_cubes.size() != 1:
+		printerr("Il ne doit y avoir qu'un fin !")
+		OS.alert("Il ne doit y avoir qu'un fin !", "oups")
+		get_tree().quit()
+		return
+	end_cube = end_cubes[0]
 	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
 
-func check_all_switch_state():
-	if switch_cubes.all(func(cube): return cube.on):
-		print("ALL TRUE !")
-		# TODO
+func a_switch_cube_change_state():
+	_update_can_win()
+
+
+func _update_can_win():
+	var all_switch_on = switch_cubes.all(func(cube): return cube.on)
+	var can_win = all_switch_on
+	end_cube.can_win = can_win
+
 
 #region Debug
 

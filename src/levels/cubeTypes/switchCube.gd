@@ -9,6 +9,7 @@ class_name SwitchCube
 			update_color()
 var _on_color: Color = Colors.switch_cube_on_color
 var _off_color: Color = Colors.switch_cube_off_color
+@onready var _level: Level = get_tree().current_scene
 
 
 func _ready():
@@ -21,7 +22,7 @@ func _ready():
 func on_touch():
 	on = not on
 	_switch_animation_start()
-	get_tree().current_scene.check_all_switch_state()
+	_level.a_switch_cube_change_state()
 
 
 func _switch_animation_start():

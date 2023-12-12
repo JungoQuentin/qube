@@ -19,7 +19,6 @@ func _ready():
 	_mesh_instance.set_surface_override_material(0, _mesh_instance.get_surface_override_material(0).duplicate(true))
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
 
-
 ## Called when the player, or a movingCube touch the cube (take the toucher as _cube: Node3D)
 func on_touch():
 	_touched_animation_start()
@@ -29,13 +28,13 @@ func on_leave():
 	pass
 
 ## Lauch the animation when the cube is touched
-func _touched_animation_start():
+func _touched_animation_start(touched_color = _touched_color, initial_color = _initial_color):
 	var material = _mesh_instance.get_surface_override_material(0)
 	if _touch_tween_running():
 		_touch_tween.kill()
 	_touch_tween = create_tween().set_ease(Tween.EASE_IN_OUT)
-	_touch_tween.tween_property(material, "albedo_color", _touched_color, 0.05)
-	_touch_tween.tween_property(material, "albedo_color", _initial_color, 1)
+	_touch_tween.tween_property(material, "albedo_color", touched_color, 0.05)
+	_touch_tween.tween_property(material, "albedo_color", initial_color, 1)
 	_touch_tween.tween_callback(func(): _touch_tween.kill())
 
 ## Check if the cube will reject anything that enter
@@ -62,4 +61,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.ICE
 	elif cube is HoleCube:
 		return Type.HOLE
+	elif cube is SwitchCube:
+		return Type.SWITCH
 	return Type.NORMAL

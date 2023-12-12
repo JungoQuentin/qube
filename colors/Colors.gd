@@ -51,14 +51,17 @@ func get_initial_color(cubeType: Cube.Type) -> Color:
 		Cube.Type.MOVING: return moving_cube_init_color
 		Cube.Type.ICE: return ice_cube_init_color
 		Cube.Type.HOLE: return hole_cube_editor_color
+		Cube.Type.SWITCH: return switch_cube_on_color
 	return normal_init_color
 
 
 func _ready_on_editor():
 	_set_property_list()
 
+
 func _color_path(_name: String):
 	return "res://colors/color_palette_" + _name + ".cfg"
+
 
 func save_color_palette(_name: String, override=false):
 	if not override and FileAccess.file_exists(_color_path(_name)):
@@ -69,6 +72,7 @@ func save_color_palette(_name: String, override=false):
 		config.set_value("Colors", key, get(key))
 	config.save(_color_path(_name))
 
+
 func load_color_palette(_name: String):
 	var config = ConfigFile.new()
 	if config.load(_color_path(_name)) != OK:
@@ -78,18 +82,15 @@ func load_color_palette(_name: String):
 		property_list[key] = config.get_value("Colors", key)
 		set(key, property_list[key])
 
+
 func darker(_color: Color, _dark_factor: float=0.8, _saturation_factor: float=2):
-	#return Color.from_hsv(_color.h, 1, _color.v * _dark_factor)
 	return Color.from_hsv(_color.h, _color.s * _saturation_factor, _color.v * _dark_factor)
-
-
-
-
 
 
 func _set_property_list():
 	var property_names = get_script().get_script_property_list().filter(_is_palette_var).map(func(prop): return prop["name"])
 	property_names.map(func(prop_name): property_list[prop_name] = get(prop_name) )
+
 
 func _is_palette_var(prop):
 	var unwanted_export = ["palette_name", "load_palette", "save_palette", "save_palette_override", "property_list"]

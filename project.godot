@@ -30,6 +30,10 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [github_to_itch]
 
 config/itch_username=""

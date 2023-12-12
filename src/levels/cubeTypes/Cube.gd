@@ -62,4 +62,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.ICE
 	elif cube is HoleCube:
 		return Type.HOLE
+	elif cube is SwitchCube:
+		return Type.SWITCH
 	return Type.NORMAL

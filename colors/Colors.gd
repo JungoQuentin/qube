@@ -51,6 +51,7 @@ func get_initial_color(cubeType: Cube.Type) -> Color:
 		Cube.Type.MOVING: return moving_cube_init_color
 		Cube.Type.ICE: return ice_cube_init_color
 		Cube.Type.HOLE: return hole_cube_editor_color
+		Cube.Type.SWITCH: return switch_cube_on_color
 	return normal_init_color
 
 

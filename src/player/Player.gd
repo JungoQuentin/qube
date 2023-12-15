@@ -99,6 +99,7 @@ func _roll():
 			return
 	# TODO -> ActionSystem.add_action()
 	
+	_level.player_move()
 	await move_logic.roll()
 	
 	## roll us back if our goal is rejecting

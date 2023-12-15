@@ -2,7 +2,7 @@ extends StaticBody3D
 class_name Cube
 
 enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, LIVING }
-@export var cubeType: int
+@export var cubeType: Type
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
 @onready var _mesh: Mesh = _mesh_instance.mesh

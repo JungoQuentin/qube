@@ -46,8 +46,8 @@ func a_switch_cube_change_state():
 	_update_can_win()
 
 
-func player_move():
-	living_cubes.map(func(l_cube): l_cube.player_move())
+func player_move(direction: Vector3):
+	living_cubes.map(func(l_cube): l_cube.player_move(direction))
 
 
 func _update_can_win():

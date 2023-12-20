@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c0odmoxr8eh41" path="res://src/levels/010_Bloc.tscn" id="3_42xde"]
 [ext_resource type="Script" path="res://src/levels/Level.gd" id="4_gpwni"]
 [ext_resource type="PackedScene" uid="uid://d2cytd4d3vaka" path="res://src/levels/023_Trou.tscn" id="5_7smpw"]
-[ext_resource type="PackedScene" uid="uid://dcgaqllj4j6l2" path="res://src/levels/030_One.tscn" id="5_leac8"]
+[ext_resource type="PackedScene" uid="uid://dcgaqllj4j6l2" path="res://src/levels/031_One.tscn" id="5_leac8"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="5_ynmch"]
 [ext_resource type="PackedScene" uid="uid://crm7r27jrvees" path="res://src/levels/cubeTypes/Cube.tscn" id="6_78r43"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/blockingCube.gd" id="7_o6iy2"]

@@ -78,10 +78,6 @@ func _roll():
 	
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	
-	if move_logic.floor_goal is IceCube:
-		_ice_move(neighbour)
-		return
-	
 	## if our neighbour is a MovingCube, we try to push him
 	if neighbour is MovingCube:
 		if neighbour.can_push(move_logic._direction, move_logic._floor_direction):
@@ -93,6 +89,7 @@ func _roll():
 	
 	_level.player_move(move_logic._direction)
 	await move_logic.roll()
+	move_logic.floor_goal.on_touch()
 	
 	## roll us back if our goal is rejecting
 	if move_logic.floor_goal and move_logic.floor_goal.is_rejecting():
@@ -111,21 +108,6 @@ func _roll():
 	
 	move_logic.remove_pivot()
 	is_moving = false
-
-
-func _ice_move(neighbour: Cube):
-	if neighbour != null:
-		is_moving = false
-		return
-	var is_going_to_change_face_by_slide = move_logic.floor_goal.will_change_face(move_logic._direction, move_logic._floor_direction)
-	var new_position = move_logic.floor_goal.get_end_slide(move_logic._direction, move_logic._floor_direction)
-	Utils.run_after_sleep(0.25, func(): is_moving = false)
-	global_position = new_position - move_logic._floor_direction
-	if is_going_to_change_face_by_slide:
-		_level.camera.player_move(move_logic._direction, move_logic._floor_direction)
-		# TODO dirty calcul
-		global_position += move_logic._direction + move_logic._floor_direction
-	_level.player_move(move_logic._direction)
 
 
 func reset():

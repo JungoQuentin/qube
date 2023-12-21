@@ -61,7 +61,7 @@ func _get_action_input():
 
 
 func _roll():
-	if move_logic.is_going_to_hole:
+	if move_logic.is_going_to_hole or move_logic.floor_goal is LivingCube:
 		is_moving = false
 		return
 	if move_logic._is_going_to_change_face:

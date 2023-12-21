@@ -12,7 +12,7 @@ var global_transform_front_to_player: Transform3D
 
 func _ready():
 	fov = camera_fov
-	position.z = 15
+	position.z = 18.5
 	current = true
 	global_transform_front_to_player = global_transform
 

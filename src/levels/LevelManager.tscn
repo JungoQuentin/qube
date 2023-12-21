@@ -1,6 +1,15 @@
 [gd_scene load_steps=10 format=3 uid="uid://cqys1tbgm63pn"]
 
 [ext_resource type="Script" path="res://src/levels/LevelManager.gd" id="1_2skkv"]
+[ext_resource type="PackedScene" uid="uid://dvrqbm03jnuqt" path="res://src/levels/001_Laby.tscn" id="2_ho4ph"]
+[ext_resource type="PackedScene" uid="uid://c0odmoxr8eh41" path="res://src/levels/010_Bloc.tscn" id="3_42xde"]
+[ext_resource type="PackedScene" uid="uid://b4aqgg3gq4wfd" path="res://src/levels/006_Laby.tscn" id="3_tho62"]
+[ext_resource type="PackedScene" uid="uid://b2uusrvqee3u4" path="res://src/levels/016_Bloc.tscn" id="5_1jqax"]
+[ext_resource type="PackedScene" uid="uid://sb47bkjghw6t" path="res://src/levels/020_Trou.tscn" id="6_10gdv"]
+[ext_resource type="PackedScene" uid="uid://c56db3m15y3iv" path="res://src/levels/025_Trou.tscn" id="7_tfgml"]
+[ext_resource type="PackedScene" uid="uid://yjy7bi8a3p33" path="res://src/levels/030_One.tscn" id="8_lxpy7"]
+[ext_resource type="PackedScene" uid="uid://pmk57gxrnd1l" path="res://src/levels/044_One+.tscn" id="9_77dlu"]
 
 [node name="LevelManager" type="Node"]
 script = ExtResource("1_2skkv")
+levels = [ExtResource("2_ho4ph"), ExtResource("3_tho62"), ExtResource("3_42xde"), ExtResource("5_1jqax"), ExtResource("6_10gdv"), ExtResource("7_tfgml"), ExtResource("8_lxpy7"), ExtResource("9_77dlu")]

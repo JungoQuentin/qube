@@ -24,6 +24,7 @@ func _ready():
 	add_child(env_ligth)
 	_init_action_stack_display()
 	_init_map()
+	_update_can_win()
 
 ## init the map by getting all the special cubes
 func _init_map():

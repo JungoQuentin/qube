@@ -14,6 +14,16 @@ func _ready():
 	speed = _level.player.speed
 
 
+func first_set_we_are_on_this_cube_now():
+	if we_are_on_this_cube_now != null:
+		return
+	if not _is_on_same_face_that_player():
+		return
+	await Utils.wait_while(func(): return _level.camera == null)
+	var floor_direction = _level.camera.basis * Vector3.FORWARD
+	we_are_on_this_cube_now = Utils.get_raycast_collider(_level, global_position, floor_direction)
+
+
 func player_move(player_direction: Vector3):
 	if not _is_on_same_face_that_player():
 		return
@@ -21,6 +31,7 @@ func player_move(player_direction: Vector3):
 		# TODO player cant move if a living cube is moving ?
 		printerr(self.name, "living cube, is already moving...")
 		return
+	first_set_we_are_on_this_cube_now()
 	is_moving = true
 	var camera_basis = _level.camera.basis
 	var floor_direction = camera_basis * Vector3.FORWARD

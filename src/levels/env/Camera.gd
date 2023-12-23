@@ -12,13 +12,13 @@ var global_transform_front_to_player: Transform3D
 
 func _ready():
 	fov = camera_fov
-	position.z = 15
+	position.z = 18.5
 	current = true
 	global_transform_front_to_player = global_transform
 
 
 func _input(_event):
-	if is_moving:
+	if is_moving or _level.player.is_moving:
 		return
 	var input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not input.is_empty():

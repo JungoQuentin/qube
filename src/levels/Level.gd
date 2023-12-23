@@ -12,6 +12,7 @@ var game_state = INGAME
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
+var living_cubes: Array
 var end_cube: EndCube
 
 #endregion
@@ -35,6 +36,7 @@ func _init_map():
 		get_tree().quit()
 		return
 	end_cube = end_cubes[0]
+	living_cubes = map_cube_children.filter(func(cube): return cube is LivingCube)
 	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
@@ -43,6 +45,10 @@ func _init_map():
 
 func a_switch_cube_change_state():
 	_update_can_win()
+
+
+func player_move(direction: Vector3):
+	living_cubes.map(func(l_cube): l_cube.player_move(direction))
 
 
 func _update_can_win():

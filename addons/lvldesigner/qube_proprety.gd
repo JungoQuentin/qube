@@ -14,7 +14,8 @@ var _first_update:= false
 	Cube.Type.MOVING: MovingCube,
 	Cube.Type.SWITCH: SwitchCube,
 	Cube.Type.ICE: IceCube,
-	Cube.Type.HOLE: HoleCube
+	Cube.Type.HOLE: HoleCube,
+	Cube.Type.LIVING: LivingCube
 }
 
 

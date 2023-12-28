@@ -39,11 +39,14 @@ func _redo():
 
 func _reset_level():
 	await _level.abort_move()
-	#_remove_redo()
-	state_stack.push_back(state_stack.front())
-	current_state_index += 1
+	if current_state_index == 0:
+		return
+	_add_state(state_stack.front())
 	state_stack.front().apply(_level)
 	_level.camera.go_to_player()
+	current_state_index = state_stack.size() - 1
+	_remove_redo()
+	current_state_index = state_stack.size() - 1
 
 
 func player_start_move():
@@ -52,7 +55,8 @@ func player_start_move():
 
 
 func player_end_move():
-	state_stack.push_back(LevelState.from_level(_level))
+	_add_state(LevelState.from_level(_level))
+	current_state_index = state_stack.size() - 1
 
 
 func _remove_redo():
@@ -60,8 +64,11 @@ func _remove_redo():
 		state_stack = state_stack.slice(0, current_state_index)
 
 
-func _add_state(state: LevelState):
-	state_stack.push_back(state)
+func _add_state(state: LevelState) -> bool:
+	if not state.is_equal(state_stack.back()):
+		state_stack.push_back(state)
+		return true
+	return false
 
 
 #region DEBUG

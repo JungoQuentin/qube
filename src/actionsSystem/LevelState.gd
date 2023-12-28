@@ -41,3 +41,10 @@ func apply(level: Level):
 	single_cubes_state.keys().map(func(cube): cube.is_used = single_cubes_state[cube]; cube.update_color())
 	switch_cubes_state.keys().map(func(cube): cube.on = switch_cubes_state[cube]; cube.update_color())
 	living_cubes_position.keys().map(func(cube): cube.global_transform = living_cubes_position[cube])
+
+func is_equal(other: LevelState) -> bool:
+	return player_global_transform == other.player_global_transform and \
+		moving_cubes_position == other.moving_cubes_position and \
+		single_cubes_state == other.single_cubes_state and \
+		switch_cubes_state == other.switch_cubes_state and \
+		living_cubes_position == other.living_cubes_position

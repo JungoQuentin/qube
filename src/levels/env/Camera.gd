@@ -3,12 +3,13 @@ class_name MyCamera extends Camera3D
 const camera_fov = 30.
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
-
+var last_face: Vector3
 
 func _ready():
 	fov = camera_fov
 	position.z = 18.5
 	current = true
+	last_face = global_position.normalized()
 
 
 func _input(_event):
@@ -27,10 +28,7 @@ func go_to_player():
 	is_moving = true
 	var player_face = _level.object_current_face(_level.player)
 	if player_face + global_position.normalized() == Vector3.ZERO:
-		if player_face == Vector3.UP or player_face == Vector3.DOWN:
-			await _move(global_position.normalized().cross(Vector3.RIGHT))
-		else:
-			await _move(global_position.normalized().cross(Vector3.UP))
+		await _move(global_position.normalized().cross(last_face))
 	await _move(global_position.normalized().cross(player_face))
 	is_moving = false
 
@@ -58,6 +56,7 @@ func _input_move(input: String):
 
 
 func _move(axis: Vector3):
+	last_face = global_position.normalized()
 	is_moving = true
 	var pivot = Node3D.new()
 	_level.add_child(pivot)

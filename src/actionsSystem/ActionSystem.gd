@@ -24,6 +24,7 @@ func _undo():
 		return
 	current_state_index -= 1
 	state_stack[current_state_index].apply(_level)
+	_level.camera.go_to_player()
 
 
 func _redo():
@@ -33,6 +34,7 @@ func _redo():
 		return
 	state_stack[current_state_index + 1].apply(_level)
 	current_state_index += 1
+	_level.camera.go_to_player()
 
 
 func _reset_level():
@@ -41,6 +43,7 @@ func _reset_level():
 	state_stack.push_back(state_stack.front())
 	current_state_index += 1
 	state_stack.front().apply(_level)
+	_level.camera.go_to_player()
 
 
 func player_start_move():

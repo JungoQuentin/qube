@@ -93,23 +93,7 @@ func _roll(direction: Vector3, floor_direction: Vector3):
 
 
 func _is_on_same_face_that_player() -> bool:
-	var floor_direction = _level.camera.basis * Vector3.FORWARD
-	match abs(floor_direction).max_axis_index():
-		Vector3.AXIS_X: return global_position.x == _level.player.global_position.x
-		Vector3.AXIS_Y: return global_position.y == _level.player.global_position.y
-		Vector3.AXIS_Z: return global_position.z == _level.player.global_position.z
-		_: 
-			printerr("math problem")
-			get_tree().quit()
-			return false
-
-
-func _axis_str(axis: int) -> String:
-	match axis:
-		Vector3.AXIS_X: return "axe x"
-		Vector3.AXIS_Y: return "axe y"
-		Vector3.AXIS_Z: return "axe z"
-		_: return "axe ?"
+	return _level.object_current_face(self) == _level.object_current_face(_level.player)
 
 # TODO rename
 func _flatten_other_axis(vector: Vector3) -> Vector3:

@@ -109,22 +109,6 @@ func _roll():
 	move_logic.remove_pivot()
 	is_moving = false
 
-
-func current_face() -> Vector3:
-	if _level.max_plus.x < global_position.x:
-		return Vector3.RIGHT
-	if _level.max_plus.y < global_position.y:
-		return Vector3.UP
-	if _level.max_plus.z < global_position.z:
-		return Vector3.BACK
-	if _level.max_minus.x > global_position.x:
-		return Vector3.LEFT
-	if _level.max_minus.y > global_position.y:
-		return Vector3.DOWN
-	if _level.max_minus.z > global_position.z:
-		return Vector3.FORWARD
-	return Vector3.ZERO
-
 ## Abort the current move and return false if there was no move
 func abort_move() -> bool:
 	if not is_moving:

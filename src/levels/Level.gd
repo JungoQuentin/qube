@@ -81,6 +81,21 @@ func _update_can_win():
 	end_cube.can_win = can_win
 
 
+func object_current_face(object: Node3D) -> Vector3:
+	if max_plus.x < object.global_position.x:
+		return Vector3.RIGHT
+	if max_plus.y < object.global_position.y:
+		return Vector3.UP
+	if max_plus.z < object.global_position.z:
+		return Vector3.BACK
+	if max_minus.x > object.global_position.x:
+		return Vector3.LEFT
+	if max_minus.y > object.global_position.y:
+		return Vector3.DOWN
+	if max_minus.z > object.global_position.z:
+		return Vector3.FORWARD
+	return Vector3.ZERO
+
 #region Debug
 
 var action_stack_display: VBoxContainer

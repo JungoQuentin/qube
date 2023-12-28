@@ -20,12 +20,12 @@ func _input(_event):
 
 
 func is_front_player() -> bool:
-	return global_position.normalized() == _level.player.current_face()
+	return global_position.normalized() == _level.object_current_face(_level.player)
 
 
 func go_to_player():
 	is_moving = true
-	var player_face = _level.player.current_face()
+	var player_face = _level.object_current_face(_level.player)
 	if player_face + global_position.normalized() == Vector3.ZERO:
 		if player_face == Vector3.UP or player_face == Vector3.DOWN:
 			await _move(global_position.normalized().cross(Vector3.RIGHT))

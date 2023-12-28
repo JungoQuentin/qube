@@ -25,6 +25,8 @@ func is_front_player() -> bool:
 
 
 func go_to_player():
+	if is_moving:
+		await Utils.wait_while(func(): return is_moving)
 	is_moving = true
 	var player_face = _level.object_current_face(_level.player)
 	if player_face + global_position.normalized() == Vector3.ZERO:

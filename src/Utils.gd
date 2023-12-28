@@ -50,3 +50,10 @@ func sleep(seconds: float):
 func run_after_sleep(seconds: float, callback: Callable):
 	await sleep(seconds)
 	callback.call()
+
+## from an array, create a dictionary where the key is the element of the array and the value, what you did with the predicate
+func arr_to_dict(array: Array, predicate: Callable):
+	var dict = {}
+	for el in array:
+		dict[el] = predicate.call(el)
+	return dict

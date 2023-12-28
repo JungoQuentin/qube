@@ -85,21 +85,21 @@ func _roll():
 		else:
 			is_moving = false
 			return
-	# TODO -> ActionSystem.add_action()
+	
+	ActionSystem.player_start_move()
 	
 	_level.player_move(move_logic._direction)
 	await move_logic.roll()
 	move_logic.floor_goal.on_touch()
 	
+	ActionSystem.player_end_move()
+	
 	## roll us back if our goal is rejecting
 	if move_logic.floor_goal and move_logic.floor_goal.is_rejecting():
 		await move_logic.roll_back()
-		# TODO ActionSystem.actions.pop_back()
 		move_logic.remove_pivot()
 		is_moving = false
 		return
-	#else: # TODO
-		#ActionSystem.undo_stack.clear()
 	
 	## leave old floor and set new
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != move_logic.floor_goal:

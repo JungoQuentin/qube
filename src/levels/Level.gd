@@ -25,6 +25,11 @@ func _ready():
 	_init_action_stack_display()
 	_init_map()
 	_update_can_win()
+	ActionSystem.start_level(self)
+
+
+func abort_move():
+	await player.abort_move()
 
 ## init the map by getting all the special cubes
 func _init_map():
@@ -59,34 +64,27 @@ func _update_can_win():
 
 #region Debug
 
-# var action_stack_display: VBoxContainer
-# var undo_stack_display: VBoxContainer
-# ## only for debug purpose
-# ## will display the stack of the player actions (inputs)
+var action_stack_display: VBoxContainer
+## only for debug purpose
+## will display the stack of the player actions (inputs)
 func _init_action_stack_display():
-	pass
-# 	action_stack_display = VBoxContainer.new()
-# 	add_child(action_stack_display)
-# 	undo_stack_display = VBoxContainer.new()
-# 	undo_stack_display.anchor_left = 0.5
-# 	add_child(undo_stack_display)
+	action_stack_display = VBoxContainer.new()
+	add_child(action_stack_display)
 
 func update_stack_display():
-	pass
-# 	action_stack_display.get_children().map(func(child): child.queue_free())
-# 	undo_stack_display.get_children().map(func(child): child.queue_free())
-# 	for action in ActionSystem.actions:
-# 		_add_action_to_stack_display(action)
-# 	for action in ActionSystem.undo_stack:
-# 		_add_action_to_stack_display(action, true)
+	action_stack_display.get_children().map(func(child): child.queue_free())
+	var i = 0
+	for action in ActionSystem.state_stack:
+		_add_state_to_stack_display(action, i)
+		i += 1
 
-func _add_action_to_stack_display(action: Action, is_undo=false):
-	pass
-# 	var new_label = Label.new()
-# 	new_label.text = str(action)
-# 	if not is_undo:
-# 		action_stack_display.add_child(new_label)
-# 	else:
-# 		undo_stack_display.add_child(new_label)
+func _add_state_to_stack_display(state: LevelState, index: int):
+	var new_label: Label = Label.new()
+	new_label.text = str(state)
+	action_stack_display.add_child(new_label)
+	if index == ActionSystem.current_state_index:
+		new_label.text = new_label.text + " CURRENT "
+	#elif index > ActionSystem.current_state_index:
+		#new_label.add_theme_color_override("color", Color.BLACK)
 
 #endregion

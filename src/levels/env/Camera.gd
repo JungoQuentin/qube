@@ -1,20 +1,14 @@
 class_name MyCamera extends Camera3D
 
-#region DECLARATION
-
 const camera_fov = 30.
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
-var global_transform_front_to_player: Transform3D
-
-#endregion
 
 
 func _ready():
 	fov = camera_fov
 	position.z = 18.5
 	current = true
-	global_transform_front_to_player = global_transform
 
 
 func _input(_event):
@@ -25,21 +19,24 @@ func _input(_event):
 		_input_move(input)
 
 
-func has_moved_away_from_player()-> bool:
-	return global_transform.origin != global_transform_front_to_player.origin
+func is_front_player() -> bool:
+	return global_position.normalized() == _level.player.current_face()
 
 
 func go_to_player():
 	is_moving = true
-	global_transform = global_transform_front_to_player
-	# TODO nice animation
-	await Utils.sleep(0.3)
+	var player_face = _level.player.current_face()
+	if player_face + global_position.normalized() == Vector3.ZERO:
+		if player_face == Vector3.UP or player_face == Vector3.DOWN:
+			await _move(global_position.normalized().cross(Vector3.RIGHT))
+		else:
+			await _move(global_position.normalized().cross(Vector3.UP))
+	await _move(global_position.normalized().cross(player_face))
 	is_moving = false
 
 
 func player_move(direction: Vector3, floor_direction):
 	await _move(direction.cross(floor_direction))
-	global_transform_front_to_player = global_transform
 
 
 func _input_move(input: String):

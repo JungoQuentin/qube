@@ -14,6 +14,8 @@ var single_use_cubes: Array
 var moving_cubes: Array
 var living_cubes: Array
 var end_cube: EndCube
+var max_plus: Vector3
+var max_minus: Vector3
 
 #endregion
 
@@ -24,6 +26,7 @@ func _ready():
 	add_child(env_ligth)
 	_init_action_stack_display()
 	_init_map()
+	_get_max()
 	_update_can_win()
 	ActionSystem.start_level(self)
 
@@ -46,6 +49,22 @@ func _init_map():
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
+
+
+func _get_max():
+	max_plus = Vector3.ZERO
+	max_minus = Vector3.ZERO
+	for cube in map_cube.get_children():
+		if not cube.is_floor():
+			continue
+		var pos = cube.global_position
+		max_plus.x = max(max_plus.x, pos.x)
+		max_plus.y = max(max_plus.y, pos.y)
+		max_plus.z = max(max_plus.z, pos.z)
+		max_minus.x = min(max_minus.x, pos.x)
+		max_minus.y = min(max_minus.y, pos.y)
+		max_minus.z = min(max_minus.z, pos.z)
+	print("max :", max_plus, "min: ", max_minus)
 
 
 func a_switch_cube_change_state():

@@ -41,6 +41,11 @@ func _touched_animation_start(touched_color = _touched_color, initial_color = _i
 func is_rejecting() -> bool:
 	return (self is BlockingCube) or (self is SingleUseCube and self.is_used)
 
+## Check if is the kind that is on the floor
+func is_floor() -> bool:
+	return (object_to_type(self) in [Type.NORMAL, Type.END, Type.SWITCH, Type.SINGLE_USE, Type.HOLE, Type.BLOCKING, Type.ICE]) or \
+			(self is MovingCube and self.in_a_hole)
+
 ## Check if the touch tween exists, is_valid and is_running
 func _touch_tween_running() -> bool:
 	return _touch_tween and _touch_tween.is_valid() and _touch_tween.is_running()

@@ -25,16 +25,14 @@ func is_front_player() -> bool:
 
 
 func go_to_player():
-	if is_front_player():
-		return
 	if is_moving:
 		await Utils.wait_while(func(): return is_moving)
-	is_moving = true
+	if is_front_player():
+		return
 	var player_face = _level.object_current_face(_level.player)
 	if player_face + global_position.normalized() == Vector3.ZERO:
 		await _move(global_position.normalized().cross(last_face))
 	await _move(global_position.normalized().cross(player_face))
-	is_moving = false
 
 
 func player_move(direction: Vector3, floor_direction):
@@ -62,7 +60,7 @@ func _input_move(input: String):
 func _move(axis: Vector3):
 	last_face = global_position.normalized()
 	if not axis.is_normalized():
-		printerr("Should be normalized !")
+		printerr("axis should be normalized !", axis)
 		return
 	is_moving = true
 	var pivot = Node3D.new()

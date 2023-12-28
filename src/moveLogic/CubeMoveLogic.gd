@@ -104,6 +104,7 @@ func _transfert_in_pivot():
 
 func _new_roll():
 	var new_move_logic = CubeMoveLogic.new(_object, _floor_direction, -_direction).init_forward_roll()
+	_object.move_logic = new_move_logic
 	await new_move_logic.roll()
 	floor_goal = new_move_logic.floor_goal
 

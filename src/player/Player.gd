@@ -110,16 +110,10 @@ func _roll():
 	is_moving = false
 
 
-func reset():
-	abort_move()
-	global_transform = initial_transform
-
 ## Abort the current move and return false if there was no move
 func abort_move() -> bool:
 	if not is_moving:
 		return false
-	print("abort move")
-	
-	# TODO really abort the move !
-	move_logic.remove_pivot()
+	move_logic.abort()
+	is_moving = false
 	return true

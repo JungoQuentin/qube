@@ -124,3 +124,10 @@ func _slide():
 	if is_going_to_change_face_by_slide:
 		await _new_roll()
 	_transfert_in_pivot()
+
+
+func abort():
+	_tween.stop()
+	_tween.kill()
+	if not _pivot == null:
+		remove_pivot()

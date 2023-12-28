@@ -7,7 +7,7 @@ enum Pattern { FOLLOW, ASYMETRIC }
 var is_moving:= false
 var speed: float
 var we_are_on_this_cube_now: Cube
-
+var move_logic: CubeMoveLogic
 
 func _ready():
 	super._ready()
@@ -45,7 +45,7 @@ func player_move(player_direction: Vector3):
 
 
 func _roll(direction: Vector3, floor_direction: Vector3):
-	var move_logic = CubeMoveLogic.new(self, direction, floor_direction).init_forward_roll()
+	move_logic = CubeMoveLogic.new(self, direction, floor_direction).init_forward_roll()
 	if move_logic.is_going_to_hole:
 		return
 	if move_logic._is_going_to_change_face:
@@ -108,3 +108,11 @@ func _flatten_other_axis(vector: Vector3) -> Vector3:
 			vector.y = 0
 			vector.x = 0
 	return vector.normalized()
+
+
+func abort_move() -> bool:
+	if not is_moving:
+		return false
+	move_logic.abort()
+	is_moving = false
+	return true

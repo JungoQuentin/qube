@@ -32,6 +32,7 @@ func _ready():
 
 
 func abort_move():
+	living_cubes.map(func(c): c.abort_move())
 	await player.abort_move()
 
 ## init the map by getting all the special cubes
@@ -50,7 +51,7 @@ func _init_map():
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
-
+## set max_plus and max_minus. This are vector3 that get the far away position from center, to get face
 func _get_max():
 	max_plus = Vector3.ZERO
 	max_minus = Vector3.ZERO
@@ -64,7 +65,6 @@ func _get_max():
 		max_minus.x = min(max_minus.x, pos.x)
 		max_minus.y = min(max_minus.y, pos.y)
 		max_minus.z = min(max_minus.z, pos.z)
-	print("max :", max_plus, "min: ", max_minus)
 
 
 func a_switch_cube_change_state():

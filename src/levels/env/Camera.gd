@@ -25,6 +25,8 @@ func is_front_player() -> bool:
 
 
 func go_to_player():
+	if is_front_player():
+		return
 	if is_moving:
 		await Utils.wait_while(func(): return is_moving)
 	is_moving = true
@@ -59,6 +61,9 @@ func _input_move(input: String):
 
 func _move(axis: Vector3):
 	last_face = global_position.normalized()
+	if not axis.is_normalized():
+		printerr("Should be normalized !")
+		return
 	is_moving = true
 	var pivot = Node3D.new()
 	_level.add_child(pivot)

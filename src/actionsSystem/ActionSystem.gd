@@ -2,13 +2,15 @@
 extends Node
 
 var _level: Level
-var state_stack: Array[LevelState] = []
+var state_stack: Array[LevelState]
 var current_state_index: int = 0
 
 
 func start_level(level: Level):
 	_level = level
+	state_stack.clear()
 	state_stack.push_back(LevelState.from_level(_level))
+	current_state_index = 0
 
 
 func _input(_event):
@@ -38,6 +40,8 @@ func _redo():
 
 
 func _reset_level():
+	get_tree().reload_current_scene()
+	return # TODO this is the nice way, where you can undo a reset
 	await _level.abort_move()
 	if current_state_index == 0:
 		return

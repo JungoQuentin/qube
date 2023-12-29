@@ -4,6 +4,7 @@ class_name Level extends Node3D
 
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
+@export var is_level_gate:= false
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
@@ -16,6 +17,7 @@ var living_cubes: Array
 var end_cube: EndCube
 var max_plus: Vector3
 var max_minus: Vector3
+var _stack_display_enable:= false
 
 #endregion
 
@@ -24,11 +26,13 @@ func _ready():
 	add_child(in_game_menu)
 	add_child(camera)
 	add_child(env_ligth)
-	_init_action_stack_display()
-	_init_map()
+	#_init_action_stack_display()
 	_get_max()
-	_update_can_win()
 	ActionSystem.start_level(self)
+	if is_level_gate:
+		return
+	_init_map()
+	_update_can_win()
 
 
 func abort_move():
@@ -102,10 +106,13 @@ var action_stack_display: VBoxContainer
 ## only for debug purpose
 ## will display the stack of the player actions (inputs)
 func _init_action_stack_display():
+	_stack_display_enable = true
 	action_stack_display = VBoxContainer.new()
 	add_child(action_stack_display)
 
 func update_stack_display():
+	if not _stack_display_enable:
+		return
 	action_stack_display.get_children().map(func(child): child.queue_free())
 	var i = 0
 	for action in ActionSystem.state_stack:
@@ -113,12 +120,12 @@ func update_stack_display():
 		i += 1
 
 func _add_state_to_stack_display(state: LevelState, index: int):
+	if not _stack_display_enable:
+		return
 	var new_label: Label = Label.new()
 	new_label.text = str(state)
 	action_stack_display.add_child(new_label)
 	if index == ActionSystem.current_state_index:
 		new_label.text = new_label.text + " CURRENT "
-	#elif index > ActionSystem.current_state_index:
-		#new_label.add_theme_color_override("color", Color.BLACK)
 
 #endregion

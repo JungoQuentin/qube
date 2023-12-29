@@ -16,6 +16,7 @@ func _ready():
 	super._ready()
 	_can_go_color = _initial_color
 	_cannot_go_color = Colors.darker(_initial_color, 1, 0)
+	gate_open = true
 	_update_color()
 
 
@@ -23,7 +24,7 @@ func on_touch():
 	_touched_animation_start()
 	print(gate_open)
 	if gate_open:
-		LevelManager.goto_next_level()
+		LevelManager.goto_level_by_index(gate_to_level_index)
 
 
 func _update_color():

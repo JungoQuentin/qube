@@ -34,6 +34,7 @@
 @export var ice_cube_init_color = Color.LIGHT_SKY_BLUE
 @export var hole_cube_editor_color = Color.AZURE
 @export var living_init_color = Color.DARK_GREEN
+@export var gate_init_color = Color.DARK_CYAN
 @export_group("Others")
 @export_range(0, 1) var cube_scale: float = 0.965
 
@@ -44,17 +45,18 @@ func _ready():
 
 
 func get_initial_color(cubeType: Cube.Type) -> Color:
-	match cubeType:
-		Cube.Type.NORMAL: return normal_init_color
-		Cube.Type.BLOCKING: return blocking_init_color
-		Cube.Type.END: return end_cube_init_color
-		Cube.Type.SINGLE_USE: return single_cube_init_color
-		Cube.Type.MOVING: return moving_cube_init_color
-		Cube.Type.ICE: return ice_cube_init_color
-		Cube.Type.HOLE: return hole_cube_editor_color
-		Cube.Type.SWITCH: return switch_cube_on_color
-		Cube.Type.LIVING: return living_init_color
-	return normal_init_color
+	return {
+		Cube.Type.BLOCKING: blocking_init_color,
+		Cube.Type.END: end_cube_init_color,
+		Cube.Type.SINGLE_USE: single_cube_init_color,
+		Cube.Type.MOVING: moving_cube_init_color,
+		Cube.Type.ICE: ice_cube_init_color,
+		Cube.Type.HOLE: hole_cube_editor_color,
+		Cube.Type.SWITCH: switch_cube_on_color,
+		Cube.Type.LIVING: living_init_color,
+		Cube.Type.NORMAL: normal_init_color,
+		Cube.Type.GATE: gate_init_color,
+	}[cubeType]
 
 
 func _ready_on_editor():

@@ -11,10 +11,11 @@ var _goal: Basis
 var _start: Basis
 var _is_going_to_change_face: bool
 @onready var _level = get_tree().current_scene
-@onready var _pivot: Node3D = Node3D.new() # preload("res://src/dbg/DbgPivot.tscn").instantiate()
+var _pivot: Node3D
 var is_going_to_hole:= false
 var floor_goal: Cube
 var floor_start: Cube
+var is_going_to_slide:= false
 ## is only used for movingCubes in the edge
 var floor_neighbour: Cube
 
@@ -30,11 +31,8 @@ func _init(object: Node3D, direction: Vector3, floor_direction: Vector3):
 
 ## Init the logic for a cube rolling. Only for moving cubes and player
 func init_forward_roll():
-	_level.add_child(_pivot)
-	_pivot.global_position = _object.global_position
-	_pivot.position += _direction / 2 + _floor_direction / 2
-	Utils.switch_parent(_object, _pivot, true)
-	floor_start = Utils.get_raycast_collider(_level, _object.global_position, _floor_direction)
+	_transfert_in_pivot()
+	floor_start = _get_floor_under_object()
 	floor_goal = Utils.get_raycast_collider(_level, _object.global_position + _direction, _floor_direction)
 	
 	## are we going to change face ?
@@ -48,6 +46,9 @@ func init_forward_roll():
 
 	if _is_going_to_change_face:
 		floor_goal = floor_start
+	
+	if floor_goal is IceCube:
+		is_going_to_slide = true
 	return self
 
 ## Lauch the animation of a cube rolling. Only for moving cubes and player
@@ -60,7 +61,10 @@ func roll():
 	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...
 	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
 	await _tween.finished
-	floor_goal.on_touch()
+	if is_going_to_slide and _is_going_to_change_face:
+		await _new_roll()
+	elif is_going_to_slide:
+		await _slide()
 	return self
 
 
@@ -84,3 +88,47 @@ func remove_pivot():
 		return
 	Utils.switch_parent(_object, _level, true)
 	_pivot.queue_free()
+
+
+func _get_floor_under_object() -> Cube:
+	return Utils.get_raycast_collider(_level, _object.global_position, _floor_direction)
+
+
+func _transfert_in_pivot():
+	_pivot = Node3D.new()
+	_level.add_child(_pivot)
+	_pivot.global_position = _object.global_position
+	_pivot.position += _direction / 2 + _floor_direction / 2
+	Utils.switch_parent(_object, _pivot, true)
+
+
+func _new_roll():
+	var new_move_logic = CubeMoveLogic.new(_object, _floor_direction, -_direction).init_forward_roll()
+	_object.move_logic = new_move_logic
+	await new_move_logic.roll()
+	floor_goal = new_move_logic.floor_goal
+
+
+func _slide():
+	var start_position = _object.global_position
+	var is_going_to_change_face_by_slide = floor_goal.will_change_face(_direction, _floor_direction)
+	var goal_position = floor_goal.get_end_slide(_direction, _floor_direction) - _floor_direction
+	if is_going_to_change_face_by_slide:
+		goal_position = floor_goal.get_end_slide(_direction, _floor_direction) + _direction - _floor_direction
+		await _level.camera.player_move(_direction, _floor_direction)
+	remove_pivot()
+
+	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
+	_tween.tween_property(_object, "global_position", goal_position, _object.speed)
+	await _tween.finished
+	floor_goal = _get_floor_under_object()
+	if is_going_to_change_face_by_slide:
+		await _new_roll()
+	_transfert_in_pivot()
+
+
+func abort():
+	_tween.stop()
+	_tween.kill()
+	if not _pivot == null:
+		remove_pivot()

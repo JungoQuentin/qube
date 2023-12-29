@@ -1,45 +1,42 @@
 class_name MyCamera extends Camera3D
 
-#region DECLARATION
-
 const camera_fov = 30.
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
-var global_transform_front_to_player: Transform3D
-
-#endregion
-
+var last_face: Vector3
 
 func _ready():
 	fov = camera_fov
-	position.z = 15
+	position.z = 18.5
 	current = true
-	global_transform_front_to_player = global_transform
+	last_face = global_position.normalized()
 
 
 func _input(_event):
-	if is_moving:
+	if is_moving or _level.player.is_moving:
 		return
 	var input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not input.is_empty():
 		_input_move(input)
 
 
-func has_moved_away_from_player()-> bool:
-	return global_transform.origin != global_transform_front_to_player.origin
+func is_front_player() -> bool:
+	return global_position.normalized() == _level.object_current_face(_level.player)
 
 
 func go_to_player():
-	is_moving = true
-	global_transform = global_transform_front_to_player
-	# TODO nice animation
-	await Utils.sleep(0.3)
-	is_moving = false
+	if is_moving:
+		await Utils.wait_while(func(): return is_moving)
+	if is_front_player():
+		return
+	var player_face = _level.object_current_face(_level.player)
+	if player_face + global_position.normalized() == Vector3.ZERO:
+		await _move(global_position.normalized().cross(last_face))
+	await _move(global_position.normalized().cross(player_face))
 
 
 func player_move(direction: Vector3, floor_direction):
 	await _move(direction.cross(floor_direction))
-	global_transform_front_to_player = global_transform
 
 
 func _input_move(input: String):
@@ -61,6 +58,10 @@ func _input_move(input: String):
 
 
 func _move(axis: Vector3):
+	last_face = global_position.normalized()
+	if not axis.is_normalized():
+		printerr("axis should be normalized !", axis)
+		return
 	is_moving = true
 	var pivot = Node3D.new()
 	_level.add_child(pivot)

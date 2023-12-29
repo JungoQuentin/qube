@@ -14,12 +14,12 @@ func get_end_slide(direction: Vector3, floor_direction: Vector3) -> Vector3:
 		return global_position
 	var next: Cube = Utils.get_raycast_collider(_level, global_position, direction)
 	if next == null: # on edge
-		# TODO dirty calcul
-		return self.get_end_slide(floor_direction, -direction)
+		return global_position
 	if next is HoleCube:
 		return global_position
 	if next is IceCube:
 		return next.get_end_slide(direction, floor_direction)
+	# if is any other cube : 
 	return next.global_position
 
 ## Check if we will slide to another face

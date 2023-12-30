@@ -39,7 +39,7 @@ func _touched_animation_start(touched_color = _touched_color, initial_color = _i
 
 ## Check if the cube will reject anything that enter
 func is_rejecting() -> bool:
-	return (self is BlockingCube) or (self is SingleUseCube and self.is_used)
+	return (self is BlockingCube) or (self is SingleUseCube and self.is_used) or (self is LevelGateCube and not self.is_gate_open.call())
 
 ## Check if is the kind that is on the floor
 func is_floor() -> bool:

@@ -92,7 +92,7 @@ func darker(_color: Color, _dark_factor: float=0.8, _saturation_factor: float=2)
 
 
 func _set_property_list():
-	var property_names = get_script().get_script_property_list().filter(_is_palette_var).map(func(prop): return prop["name"])
+	var property_names = get_property_list().filter(_is_palette_var).map(func(prop): return prop["name"])
 	property_names.map(func(prop_name): property_list[prop_name] = get(prop_name) )
 
 

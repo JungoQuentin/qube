@@ -37,3 +37,9 @@ layout_mode = 2
 theme = ExtResource("2_qf5ou")
 text = "Niveaux
 "
+
+[node name="SettingsButton" type="Button" parent="ButtonsVBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qf5ou")
+text = "Reglages
+"

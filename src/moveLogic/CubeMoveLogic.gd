@@ -37,8 +37,6 @@ func _init(object: Node3D, direction: Vector3, floor_direction: Vector3):
 	add_child(_animation_player)
 	_animation_player.add_animation_library("", _animation_library)
 
-## Init the logic for a cube rolling. Only for moving cubes and player
-func init_forward_roll():
 	_transfert_in_pivot()
 	floor_start = _get_floor_under_object()
 	floor_goal = Utils.get_raycast_collider(_level, _object.global_position + _direction, _floor_direction)
@@ -51,13 +49,11 @@ func init_forward_roll():
 	else:
 		_is_going_to_change_face = true if floor_goal == null else false
 		is_going_to_hole = floor_goal is HoleCube
-
 	if _is_going_to_change_face:
 		floor_goal = floor_start
-	
 	if floor_goal is IceCube:
 		is_going_to_slide = true
-	return self
+
 
 ## Lauch the animation of a cube rolling. Only for moving cubes and player
 func roll():
@@ -82,20 +78,6 @@ func roll():
 		await _slide()
 	return self
 
-
-func roll_back():
-	_direction = -_direction
-	var axis = _direction.cross(_floor_direction)
-	_goal = _start
-	_start = _pivot.basis
-	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
-	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
-	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...	
-	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed)# if not _is_on_edge else _object.speed * 2) 
-	await _tween.finished
-	floor_start.on_touch()
-	return self
-
 ## Reset the pivot and rotator. Only for moving cubes and player
 # TODO rename remove
 func remove_pivot():
@@ -118,7 +100,7 @@ func _transfert_in_pivot():
 
 
 func _new_roll():
-	var new_move_logic = CubeMoveLogic.new(_object, _floor_direction, -_direction).init_forward_roll()
+	var new_move_logic = CubeMoveLogic.new(_object, _floor_direction, -_direction)
 	_object.move_logic = new_move_logic
 	await new_move_logic.roll()
 	floor_goal = new_move_logic.floor_goal
@@ -147,3 +129,26 @@ func abort():
 	_tween.kill()
 	if not _pivot == null:
 		remove_pivot()
+
+
+func can_roll() -> bool:
+	if floor_goal and floor_goal.is_rejecting():
+		return false
+	if is_going_to_hole:
+		return false
+	if floor_goal is LivingCube:
+		return false
+	if floor_goal is BlockingCube:
+		return false
+	if floor_neighbour is MovingCube and not floor_neighbour.in_a_hole and not floor_neighbour.can_push(_floor_direction, -_direction):
+		return false
+	## if our neighbour is a MovingCube, we try to push him
+	var neighbour: Cube = Utils.get_raycast_collider(_level, _object.global_position, _direction)
+	if neighbour is MovingCube and not neighbour.can_push(_direction, _floor_direction):
+		return false
+	return true
+
+
+func cant_roll():
+	print("cant roll anim !")
+	await Utils.sleep(0.5)

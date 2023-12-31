@@ -15,7 +15,8 @@ var _first_update:= false
 	Cube.Type.SWITCH: SwitchCube,
 	Cube.Type.ICE: IceCube,
 	Cube.Type.HOLE: HoleCube,
-	Cube.Type.LIVING: LivingCube
+	Cube.Type.LIVING: LivingCube,
+	Cube.Type.GATE: LevelGateCube,
 }
 
 

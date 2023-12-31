@@ -23,7 +23,7 @@ func on_touch():
 	_touched_animation_start()
 	print(can_win)
 	if can_win:
-		LevelManager.goto_next_level()
+		LevelManager.win()
 
 
 func _update_color():

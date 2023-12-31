@@ -6,14 +6,13 @@ enum {
 	SQUISH,
 	MOVE # pivot rotation animation
 }
-const MOVE_ANIMATION = &"move_animation"
+const MOVE_ANIMATION = &"normal_roll_animation"
+const CHANGE_FACE_ROLL_ANIMATION = &"change_face_roll_animation"
 
 var _object: Node3D
 var _direction: Vector3
 var _floor_direction: Vector3
 var _tween: Tween
-var _goal: Basis
-var _start: Basis
 var _is_going_to_change_face: bool
 @onready var _level = get_tree().current_scene
 var _pivot: Node3D
@@ -25,7 +24,7 @@ var is_going_to_slide:= false
 var floor_neighbour: Cube
 var _animation_player:= AnimationPlayer.new()
 @onready var _animation_library: AnimationLibrary = preload("res://src/moveLogic/move_animation_library.tres")
-@onready var _animation: Animation = _animation_library.get_animation(MOVE_ANIMATION)
+
 
 
 ## Init the shared logic for a cube rolling or a map rotation
@@ -36,6 +35,7 @@ func _init(object: Node3D, direction: Vector3, floor_direction: Vector3):
 	_direction = direction
 	add_child(_animation_player)
 	_animation_player.add_animation_library("", _animation_library)
+	_animation_player.root_node = get_path_to(get_parent())
 
 	_transfert_in_pivot()
 	floor_start = _get_floor_under_object()
@@ -55,28 +55,42 @@ func _init(object: Node3D, direction: Vector3, floor_direction: Vector3):
 		is_going_to_slide = true
 
 
+func direction_to_axis(direction) -> int: # Vector3.AXIS_{X, Y, Z}
+	return abs(_object.basis.inverse() * direction).max_axis_index()
+
 ## Lauch the animation of a cube rolling. Only for moving cubes and player
 func roll():
-	var axis = _direction.cross(_floor_direction)
-	_start = _pivot.basis
-	_goal = _pivot.basis.rotated(axis, PI / 2 if not _is_going_to_change_face else -PI)
+	if _is_going_to_change_face:
+		await change_face_roll()
+	else:
+		await normal_roll()
+
+
+func change_face_roll():
+	pass
+
+
+func normal_roll():
+	var squish_axis_str = Utils.vector_axis_to_str(direction_to_axis(_floor_direction))
+	var normal_roll_animation = _animation_library.get_animation(MOVE_ANIMATION)
+	var squish_path = get_path_to(_object) as String + ":scale:" + squish_axis_str
+	print(squish_path)
+	normal_roll_animation.track_set_path(SQUISH, squish_path)
 	
-	_animation.track_set_path(SQUISH, get_path_to(_object) as String + ":scale:y")
-	_animation.track_set_path(MOVE, get_path_to(_pivot) as String + ":scale:x")
+	var axis = _direction.cross(_floor_direction)
+	var rotation_axis_str = Utils.vector_axis_to_str(abs(axis).max_axis_index())
+	var rotation_axis_sign = axis[abs(axis).max_axis_index()]
+	normal_roll_animation.track_set_key_value(MOVE, 1, normal_roll_animation.track_get_key_value(MOVE, 1).map(func(f): return f * rotation_axis_sign))
+	var rotation_path = get_path_to(_pivot) as String + ":rotation:" + rotation_axis_str
+	print(rotation_path)
+	normal_roll_animation.track_set_path(MOVE, rotation_path)
+	
+	
 	_animation_player.play(MOVE_ANIMATION)
 	
 	await _animation_player.animation_finished
+	normal_roll_animation.track_set_key_value(MOVE, 1, normal_roll_animation.track_get_key_value(MOVE, 1).map(func(f): return f * rotation_axis_sign))
 
-	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
-	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
-	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...
-	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
-	await _tween.finished
-	if is_going_to_slide and _is_going_to_change_face:
-		await _new_roll()
-	elif is_going_to_slide:
-		await _slide()
-	return self
 
 ## Reset the pivot and rotator. Only for moving cubes and player
 # TODO rename remove
@@ -93,6 +107,7 @@ func _get_floor_under_object() -> Cube:
 
 func _transfert_in_pivot():
 	_pivot = Node3D.new()
+	_pivot.name = _object.name + "_pivot"
 	_level.add_child(_pivot)
 	_pivot.global_position = _object.global_position
 	_pivot.position += _direction / 2 + _floor_direction / 2
@@ -107,7 +122,6 @@ func _new_roll():
 
 
 func _slide():
-	var start_position = _object.global_position
 	var is_going_to_change_face_by_slide = floor_goal.will_change_face(_direction, _floor_direction)
 	var goal_position = floor_goal.get_end_slide(_direction, _floor_direction) - _floor_direction
 	if is_going_to_change_face_by_slide:

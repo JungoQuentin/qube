@@ -57,3 +57,11 @@ func arr_to_dict(array: Array, predicate: Callable):
 	for el in array:
 		dict[el] = predicate.call(el)
 	return dict
+
+
+func vector_axis_to_str(axis: int) -> String:
+	return {
+		Vector3.AXIS_X: "x",
+		Vector3.AXIS_Y: "y",
+		Vector3.AXIS_Z: "z",
+	}[axis]

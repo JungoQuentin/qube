@@ -8,13 +8,13 @@ class_name Player extends Node3D
 @onready var initial_transform:= global_transform
 var is_moving = false 
 var we_are_on_this_cube_now: Cube = null
-var joystick: Joystick
+#var joystick: Joystick
 var move_logic: CubeMoveLogic
 
 
 func _ready():
-	joystick = load("res://src/joystick/joystick.tscn").instantiate()
-	add_child(joystick)
+	#joystick = load("res://src/joystick/joystick.tscn").instantiate()
+	#add_child(joystick)
 	_level.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	await Utils.wait_while(func(): return _level.camera == null)
@@ -31,8 +31,8 @@ func _process(_delta):
 func _get_action_input():
 	# TODO check if camera is not on the player
 	var input = Utils.is_one_action_pressed(["player_top", "player_bottom", "player_right", "player_left"])
-	if input.is_empty():
-		input = joystick.get_string_direction()
+	#if input.is_empty():
+		#input = joystick.get_string_direction()
 	if input.is_empty():
 		return
 	if not _level.camera.is_front_player():
@@ -54,6 +54,7 @@ func _get_action_input():
 	else:
 		await _cant_roll()
 	is_moving = false
+	move_logic.queue_free()
 
 
 func _roll():

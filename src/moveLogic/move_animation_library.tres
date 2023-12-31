@@ -1,8 +1,32 @@
 [gd_resource type="AnimationLibrary" load_steps=2 format=3 uid="uid://dov0pqngyv2t"]
 
-[ext_resource type="Animation" uid="uid://c1m1y8q5hxblh" path="res://src/moveLogic/move_animation.res" id="1_qdm4l"]
+[sub_resource type="Animation" id="Animation_tydt5"]
+resource_name = "track"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Player:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 0.506813, -0.155671, -0.0252888, 0.0724093, 0.798405, 1, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.18, 0.414452)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.241949, 0.0480009, 1.5708, -0.134054, -0.767743, 0, 0),
+"times": PackedFloat32Array(0.18, 1)
+}
 
 [resource]
+resource_local_to_scene = true
 _data = {
-"move_animation": ExtResource("1_qdm4l")
+"normal_roll_animation": SubResource("Animation_tydt5")
 }

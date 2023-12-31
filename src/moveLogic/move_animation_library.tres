@@ -1,0 +1,8 @@
+[gd_resource type="AnimationLibrary" load_steps=2 format=3 uid="uid://dov0pqngyv2t"]
+
+[ext_resource type="Animation" uid="uid://c1m1y8q5hxblh" path="res://src/moveLogic/move_animation.res" id="1_qdm4l"]
+
+[resource]
+_data = {
+"move_animation": ExtResource("1_qdm4l")
+}

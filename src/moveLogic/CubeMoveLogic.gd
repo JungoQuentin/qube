@@ -1,7 +1,12 @@
 extends Node
 class_name CubeMoveLogic
 
-#region DECLARATION
+
+enum {
+	SQUISH,
+	MOVE # pivot rotation animation
+}
+const MOVE_ANIMATION = &"move_animation"
 
 var _object: Node3D
 var _direction: Vector3
@@ -18,8 +23,9 @@ var floor_start: Cube
 var is_going_to_slide:= false
 ## is only used for movingCubes in the edge
 var floor_neighbour: Cube
-
-#endregion
+var _animation_player:= AnimationPlayer.new()
+@onready var _animation_library: AnimationLibrary = preload("res://src/moveLogic/move_animation_library.tres")
+@onready var _animation: Animation = _animation_library.get_animation(MOVE_ANIMATION)
 
 
 ## Init the shared logic for a cube rolling or a map rotation
@@ -28,6 +34,8 @@ func _init(object: Node3D, direction: Vector3, floor_direction: Vector3):
 	_floor_direction = floor_direction
 	_object.add_child(self)
 	_direction = direction
+	add_child(_animation_player)
+	_animation_player.add_animation_library("", _animation_library)
 
 ## Init the logic for a cube rolling. Only for moving cubes and player
 func init_forward_roll():
@@ -56,6 +64,13 @@ func roll():
 	var axis = _direction.cross(_floor_direction)
 	_start = _pivot.basis
 	_goal = _pivot.basis.rotated(axis, PI / 2 if not _is_going_to_change_face else -PI)
+	
+	_animation.track_set_path(SQUISH, get_path_to(_object) as String + ":scale:y")
+	_animation.track_set_path(MOVE, get_path_to(_pivot) as String + ":scale:x")
+	_animation_player.play(MOVE_ANIMATION)
+	
+	await _animation_player.animation_finished
+
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
 	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...

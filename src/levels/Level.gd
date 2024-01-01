@@ -8,7 +8,10 @@ var game_state = INGAME
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
-@onready var camera: MyCamera = preload("res://src/levels/env/Camera.tscn").instantiate()
+var camera:= FixedCamera.new()
+var natural_camera:= NaturalCamera.new()
+var sub_viewport_container = SubViewportContainer.new()
+var sub_viewport = SubViewport.new()
 @onready var env_ligth: Node3D = preload("res://src/levels/env/EnvLight.tscn").instantiate()
 var switch_cubes: Array
 var single_use_cubes: Array
@@ -24,8 +27,13 @@ var _stack_display_enable:= false
 
 
 func _ready():
+	## init cameras
+	add_child(sub_viewport_container)
+	sub_viewport_container.add_child(sub_viewport)
+	sub_viewport.add_child(natural_camera)
 	add_child(in_game_menu)
 	add_child(camera)
+
 	add_child(env_ligth)
 	#_init_action_stack_display()
 	_get_max()

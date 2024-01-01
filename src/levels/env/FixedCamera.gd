@@ -1,4 +1,4 @@
-class_name MyCamera extends Camera3D
+class_name FixedCamera extends Camera3D
 
 const camera_fov = 30.
 @onready var _level: Level = get_tree().current_scene
@@ -8,7 +8,6 @@ var last_face: Vector3
 func _ready():
 	fov = camera_fov
 	position.z = 18.5
-	current = true
 	last_face = global_position.normalized()
 
 
@@ -58,19 +57,20 @@ func _input_move(input: String):
 
 
 func _move(axis: Vector3):
+	var parent = get_parent()
 	last_face = global_position.normalized()
 	if not axis.is_normalized():
 		printerr("axis should be normalized !", axis)
 		return
 	is_moving = true
 	var pivot = Node3D.new()
-	_level.add_child(pivot)
+	parent.add_child(pivot)
 	Utils.switch_parent(self, pivot, true)
 	var original_basis = pivot.basis
 	var goal_basis = pivot.basis.rotated(axis, PI / 2)
 	var _tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_method(func(t): pivot.basis = original_basis.slerp(goal_basis, t), 0., 1., 0.3)
 	await _tween.finished
-	Utils.switch_parent(self, _level, true)
+	Utils.switch_parent(self, parent, true)
 	pivot.free()
 	is_moving = false

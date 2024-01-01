@@ -60,8 +60,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.END
 	elif cube is SingleUseCube:
 		return Type.SINGLE_USE
-	elif cube is MovingCube:
-		return Type.MOVING
 	elif cube is IceCube:
 		return Type.ICE
 	elif cube is HoleCube:
@@ -74,4 +72,7 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.GATE
 	elif cube is LaserCube:
 		return Type.LASER
+	# last because laser cube inherit from it
+	elif cube is MovingCube:
+		return Type.MOVING
 	return Type.NORMAL

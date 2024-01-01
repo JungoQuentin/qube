@@ -23,6 +23,8 @@ func _change_color_animation_start():
 	_touched_color = Colors.darker(_initial_color)
 	var _material = _mesh_instance.get_surface_override_material(0)
 	_touch_tween = create_tween()
+	if _touch_tween == null:
+		return
 	_touch_tween.tween_property(_material, "albedo_color", _initial_color, 1)
 	_touch_tween.tween_callback(func(): _touch_tween.kill(); _color_changed = true)
 

@@ -2,6 +2,8 @@ class_name Level extends Node3D
 
 #region DECLARATION
 
+static var CAMERA_DISTANCE = 18.5
+
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
 @export var is_level_gate:= false
@@ -97,7 +99,8 @@ func player_end_move():
 
 
 func update_can_win():
-	end_cube.can_win = single_use_cubes.all(func(cube): return cube.is_used)
+	if end_cube:
+		end_cube.can_win = single_use_cubes.all(func(cube): return cube.is_used)
 
 
 func object_current_face(object: Node3D) -> Vector3:

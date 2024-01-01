@@ -7,7 +7,7 @@ var last_face: Vector3
 
 func _ready():
 	fov = camera_fov
-	position.z = 18.5
+	position.z = Level.CAMERA_DISTANCE
 	last_face = global_position.normalized()
 
 

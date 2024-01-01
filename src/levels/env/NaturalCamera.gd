@@ -9,14 +9,11 @@ var is_op:= false
 
 func _ready():
 	fov = camera_fov
-	position.z = 18.5
+	position.z = Level.CAMERA_DISTANCE
 	last_face = global_position.normalized()
 
 
 func _process(delta):
 	if _level.player:
-		global_position = _level.player.global_position.normalized() * 18.5
-		if is_op:
-			global_position = -_level.player.global_position.normalized() * 18.5
-			
+		global_position = _level.player.global_position.normalized() * Level.CAMERA_DISTANCE * (-1 if is_op else 1)
 		look_at(Vector3.ZERO, _level.camera.global_basis * Vector3.UP)

@@ -14,6 +14,7 @@ var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
 var living_cubes: Array
+var laser_cubes: Array
 var end_cube: EndCube
 var max_plus: Vector3
 var max_minus: Vector3
@@ -52,7 +53,8 @@ func _init_map():
 	living_cubes = map_cube_children.filter(func(cube): return cube is LivingCube)
 	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
-	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
+	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube) # will also take LaserCube 
+	laser_cubes = map_cube_children.filter(func(cube): return cube is LaserCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
 ## set max_plus and max_minus. This are vector3 that get the far away position from center, to get face
@@ -75,8 +77,13 @@ func a_switch_cube_change_state():
 	_update_can_win()
 
 
-func player_move(direction: Vector3):
-	living_cubes.map(func(l_cube): l_cube.player_move(direction))
+func player_start_move(direction: Vector3):
+	living_cubes.map(func(c): c.player_move(direction))
+	laser_cubes.map(func(c): c.player_start_move())
+
+
+func player_end_move():
+	laser_cubes.map(func(c): c.player_end_move())
 
 
 func _update_can_win():

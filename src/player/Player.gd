@@ -71,9 +71,10 @@ func _roll():
 		neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 	
 	ActionSystem.player_start_move()
-	_level.player_move(move_logic._direction)
+	_level.player_start_move(move_logic._direction)
 	await move_logic.roll()
 	move_logic.floor_goal.on_touch()
+	_level.player_end_move()
 	ActionSystem.player_end_move()
 	
 	## leave old floor and set new

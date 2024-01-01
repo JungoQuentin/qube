@@ -8,7 +8,7 @@ script = ExtResource("1_b286e")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
-radius = 0.01
+radius = 0.05
 height = 20.0
 sides = 3
 smooth_faces = false

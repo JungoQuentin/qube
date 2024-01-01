@@ -4,6 +4,7 @@ class_name Level extends Node3D
 
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
+@export var is_level_gate:= false
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
@@ -14,6 +15,9 @@ var single_use_cubes: Array
 var moving_cubes: Array
 var living_cubes: Array
 var end_cube: EndCube
+var max_plus: Vector3
+var max_minus: Vector3
+var _stack_display_enable:= false
 
 #endregion
 
@@ -22,9 +26,18 @@ func _ready():
 	add_child(in_game_menu)
 	add_child(camera)
 	add_child(env_ligth)
-	_init_action_stack_display()
+	#_init_action_stack_display()
+	_get_max()
+	ActionSystem.start_level(self)
+	if is_level_gate:
+		return
 	_init_map()
 	_update_can_win()
+
+
+func abort_move():
+	living_cubes.map(func(c): c.abort_move())
+	await player.abort_move()
 
 ## init the map by getting all the special cubes
 func _init_map():
@@ -42,6 +55,21 @@ func _init_map():
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
+## set max_plus and max_minus. This are vector3 that get the far away position from center, to get face
+func _get_max():
+	max_plus = Vector3.ZERO
+	max_minus = Vector3.ZERO
+	for cube in map_cube.get_children():
+		if not cube.is_floor():
+			continue
+		var pos = cube.global_position
+		max_plus.x = max(max_plus.x, pos.x)
+		max_plus.y = max(max_plus.y, pos.y)
+		max_plus.z = max(max_plus.z, pos.z)
+		max_minus.x = min(max_minus.x, pos.x)
+		max_minus.y = min(max_minus.y, pos.y)
+		max_minus.z = min(max_minus.z, pos.z)
+
 
 func a_switch_cube_change_state():
 	_update_can_win()
@@ -57,36 +85,47 @@ func _update_can_win():
 	end_cube.can_win = can_win
 
 
+func object_current_face(object: Node3D) -> Vector3:
+	if max_plus.x < object.global_position.x:
+		return Vector3.RIGHT
+	if max_plus.y < object.global_position.y:
+		return Vector3.UP
+	if max_plus.z < object.global_position.z:
+		return Vector3.BACK
+	if max_minus.x > object.global_position.x:
+		return Vector3.LEFT
+	if max_minus.y > object.global_position.y:
+		return Vector3.DOWN
+	if max_minus.z > object.global_position.z:
+		return Vector3.FORWARD
+	return Vector3.ZERO
+
 #region Debug
 
-# var action_stack_display: VBoxContainer
-# var undo_stack_display: VBoxContainer
-# ## only for debug purpose
-# ## will display the stack of the player actions (inputs)
+var action_stack_display: VBoxContainer
+## only for debug purpose
+## will display the stack of the player actions (inputs)
 func _init_action_stack_display():
-	pass
-# 	action_stack_display = VBoxContainer.new()
-# 	add_child(action_stack_display)
-# 	undo_stack_display = VBoxContainer.new()
-# 	undo_stack_display.anchor_left = 0.5
-# 	add_child(undo_stack_display)
+	_stack_display_enable = true
+	action_stack_display = VBoxContainer.new()
+	add_child(action_stack_display)
 
 func update_stack_display():
-	pass
-# 	action_stack_display.get_children().map(func(child): child.queue_free())
-# 	undo_stack_display.get_children().map(func(child): child.queue_free())
-# 	for action in ActionSystem.actions:
-# 		_add_action_to_stack_display(action)
-# 	for action in ActionSystem.undo_stack:
-# 		_add_action_to_stack_display(action, true)
+	if not _stack_display_enable:
+		return
+	action_stack_display.get_children().map(func(child): child.queue_free())
+	var i = 0
+	for action in ActionSystem.state_stack:
+		_add_state_to_stack_display(action, i)
+		i += 1
 
-func _add_action_to_stack_display(action: Action, is_undo=false):
-	pass
-# 	var new_label = Label.new()
-# 	new_label.text = str(action)
-# 	if not is_undo:
-# 		action_stack_display.add_child(new_label)
-# 	else:
-# 		undo_stack_display.add_child(new_label)
+func _add_state_to_stack_display(state: LevelState, index: int):
+	if not _stack_display_enable:
+		return
+	var new_label: Label = Label.new()
+	new_label.text = str(state)
+	action_stack_display.add_child(new_label)
+	if index == ActionSystem.current_state_index:
+		new_label.text = new_label.text + " CURRENT "
 
 #endregion

@@ -7,7 +7,7 @@ enum Pattern { FOLLOW, ASYMETRIC }
 var is_moving:= false
 var speed: float
 var we_are_on_this_cube_now: Cube
-
+var move_logic: CubeMoveLogic
 
 func _ready():
 	super._ready()
@@ -45,11 +45,13 @@ func player_move(player_direction: Vector3):
 
 
 func _roll(direction: Vector3, floor_direction: Vector3):
-	var move_logic = CubeMoveLogic.new(self, direction, floor_direction).init_forward_roll()
-	if move_logic.is_going_to_hole:
+	move_logic = CubeMoveLogic.new(self, direction, floor_direction)
+	if not move_logic.can_roll():
+		await move_logic.cant_roll()
 		return
 	if move_logic._is_going_to_change_face:
 		if pattern == Pattern.ASYMETRIC:
+			await move_logic.cant_roll()
 			return
 		printerr("living cube, should not follow by going to other face")
 		get_tree().quit()
@@ -57,8 +59,6 @@ func _roll(direction: Vector3, floor_direction: Vector3):
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	
 	if move_logic.floor_goal is IceCube:
-		if neighbour != null:
-			return
 		var is_going_to_change_face_by_slide = move_logic.floor_goal.will_change_face(move_logic._direction, move_logic._floor_direction)
 		if is_going_to_change_face_by_slide:
 			if pattern == Pattern.ASYMETRIC:
@@ -70,19 +70,10 @@ func _roll(direction: Vector3, floor_direction: Vector3):
 		global_position = new_position - move_logic._floor_direction
 
 	## if our neighbour is a MovingCube, we try to push him
-	if neighbour is MovingCube:
-		if neighbour.can_push(move_logic._direction, move_logic._floor_direction):
-			neighbour.on_push(move_logic._direction, move_logic._floor_direction)
-		else:
-			return
+	if neighbour is MovingCube and neighbour.can_push(move_logic._direction, move_logic._floor_direction):
+		neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 	
 	await move_logic.roll()
-	
-	## roll us back if our goal is rejecting
-	if move_logic.floor_goal and move_logic.floor_goal.is_rejecting():
-		await move_logic.roll_back()
-		move_logic.remove_pivot()
-		return
 	
 	## leave old floor and set new
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != move_logic.floor_goal:
@@ -93,23 +84,7 @@ func _roll(direction: Vector3, floor_direction: Vector3):
 
 
 func _is_on_same_face_that_player() -> bool:
-	var floor_direction = _level.camera.basis * Vector3.FORWARD
-	match abs(floor_direction).max_axis_index():
-		Vector3.AXIS_X: return global_position.x == _level.player.global_position.x
-		Vector3.AXIS_Y: return global_position.y == _level.player.global_position.y
-		Vector3.AXIS_Z: return global_position.z == _level.player.global_position.z
-		_: 
-			printerr("math problem")
-			get_tree().quit()
-			return false
-
-
-func _axis_str(axis: int) -> String:
-	match axis:
-		Vector3.AXIS_X: return "axe x"
-		Vector3.AXIS_Y: return "axe y"
-		Vector3.AXIS_Z: return "axe z"
-		_: return "axe ?"
+	return _level.object_current_face(self) == _level.object_current_face(_level.player)
 
 # TODO rename
 func _flatten_other_axis(vector: Vector3) -> Vector3:
@@ -124,3 +99,11 @@ func _flatten_other_axis(vector: Vector3) -> Vector3:
 			vector.y = 0
 			vector.x = 0
 	return vector.normalized()
+
+
+func abort_move() -> bool:
+	if not is_moving:
+		return false
+	move_logic.abort()
+	is_moving = false
+	return true

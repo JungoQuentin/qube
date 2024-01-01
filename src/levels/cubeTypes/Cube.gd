@@ -1,7 +1,7 @@
 extends StaticBody3D
 class_name Cube
 
-enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, LIVING }
+enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, LIVING, GATE }
 @export var cubeType: Type
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
@@ -39,7 +39,12 @@ func _touched_animation_start(touched_color = _touched_color, initial_color = _i
 
 ## Check if the cube will reject anything that enter
 func is_rejecting() -> bool:
-	return (self is BlockingCube) or (self is SingleUseCube and self.is_used)
+	return (self is BlockingCube) or (self is SingleUseCube and self.is_used) or (self is LevelGateCube and not self.is_gate_open.call())
+
+## Check if is the kind that is on the floor
+func is_floor() -> bool:
+	return (object_to_type(self) in [Type.NORMAL, Type.END, Type.SWITCH, Type.SINGLE_USE, Type.HOLE, Type.BLOCKING, Type.ICE]) or \
+			(self is MovingCube and self.in_a_hole)
 
 ## Check if the touch tween exists, is_valid and is_running
 func _touch_tween_running() -> bool:
@@ -65,4 +70,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.SWITCH
 	elif cube is LivingCube:
 		return Type.LIVING
+	elif cube is LevelGateCube:
+		return Type.GATE
 	return Type.NORMAL

@@ -1,87 +1,86 @@
 ## AutoLoad that handles the undo/redo/reset system
 extends Node
 
-var _level
-var actions: Array[Action] = []
-var undo_stack: Array[Action] = []
+var _level: Level
+var state_stack: Array[LevelState]
+var current_state_index: int = 0
+
+
+func start_level(level: Level):
+	_level = level
+	state_stack.clear()
+	state_stack.push_back(LevelState.from_level(_level))
+	current_state_index = 0
+
 
 func _input(_event):
-	_input_ingame()
-	# if Level.game_state == Level.INGAME: TODO
-	# 	_input_ingame()
-	# if Level.game_state == Level.PAUSE:
-	# 	pass
-	# if Level.game_state == Level.MENU:
-	# 	pass
-	_level = get_tree().current_scene # TODO + opti ? -> just use get_tree().current_scene
-
-func _input_ingame():
-	var action_str: String = Utils.is_one_action_pressed(["undo", "redo", "reset", "settings"])
+	var action_str: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
 	if action_str.is_empty():
 		return
-	# TODO : just if an other is pressed ? -> sinon block avec les is_moving ?
-	#if not Utils.is_one_action_pressed(["top", "bottom", "left", "right"]).is_empty():
-	#	return
-	match action_str:
-		"undo":
-			_undo()
-		"redo":
-			_redo()
-		"reset":
-			_reset_level()
-		"settings":
-			_settings()
+	{ "undo": _undo, "redo": _redo, "reset": _reset_level }[action_str].call()
+
 
 func _undo():
-	if await _level.player.abort_move():
+	await _level.abort_move()
+	if current_state_index == 0:
 		return
-	if actions.is_empty():
-		return
-	actions.pop_back().undo()
+	current_state_index -= 1
+	state_stack[current_state_index].apply(_level)
+	_level.camera.go_to_player()
+
 
 func _redo():
-	if undo_stack.is_empty():
+	if _level.player.is_moving or _level.camera.is_moving:
 		return
-	undo_stack.pop_back().redo()
+	if current_state_index + 1 >= state_stack.size():
+		return
+	state_stack[current_state_index + 1].apply(_level)
+	current_state_index += 1
+	_level.camera.go_to_player()
+
 
 func _reset_level():
-	if actions.is_empty() or actions[actions.size() - 1].type == Action.Type.RESET:
+	get_tree().reload_current_scene()
+	return # TODO this is the nice way, where you can undo a reset
+	await _level.abort_move()
+	if current_state_index == 0:
 		return
-	if not _level.player.is_moving:
-		add_action(Action.Type.RESET)
-	undo_stack.clear()
-	_level.map_cube.reset()
-	_level.player.reset()
-	_level.moving_cubes.map(func(cube): cube.reset())
-	_level.single_use_cubes.map(func(cube): cube.reset())
-
-func _settings():
-	pass
-
-func add_action(_type=Action.Type.MOVE,
-		_to_undo=false,
-		_player_position=_level.player.position,
-		_map_basis=_level.map_cube.basis,
-		_move_cubes_position={},
-		_single_cubes_state={}):
-	if _move_cubes_position.is_empty():
-		_level.moving_cubes.map(func(cube): _move_cubes_position[cube] = cube.position)
-	if _single_cubes_state.is_empty():
-		_level.single_use_cubes.map(func(cube): _single_cubes_state[cube] = cube.is_used)
-	var action = Action.new(
-			LevelState.new(
-					_player_position,
-					_map_basis,
-					_move_cubes_position,
-					_single_cubes_state), _type, _level)
-	(undo_stack if _to_undo else actions).push_back(action)
+	_add_state(state_stack.front())
+	state_stack.front().apply(_level)
+	_level.camera.go_to_player()
+	current_state_index = state_stack.size() - 1
+	_remove_redo()
+	current_state_index = state_stack.size() - 1
 
 
-# DEBUG
-var last_actions_size = 0
-var last_undo_stack_size = 0
+func player_start_move():
+	current_state_index += 1
+	_remove_redo()
+
+
+func player_end_move():
+	_add_state(LevelState.from_level(_level))
+	current_state_index = state_stack.size() - 1
+
+
+func _remove_redo():
+	if state_stack.size() > current_state_index:
+		state_stack = state_stack.slice(0, current_state_index)
+
+
+func _add_state(state: LevelState) -> bool:
+	if not state.is_equal(state_stack.back()):
+		state_stack.push_back(state)
+		return true
+	return false
+
+
+#region DEBUG
+var last_state_stack_size = 0
+var last_current_state_index = 0
 func _process(_delta):
-	if last_actions_size != actions.size() or last_undo_stack_size != undo_stack.size():
+	if last_state_stack_size != state_stack.size() or last_current_state_index != current_state_index:
 		_level.update_stack_display()
-	last_actions_size = actions.size()
-	last_undo_stack_size = undo_stack.size()
+	last_state_stack_size = state_stack.size()
+	last_current_state_index = current_state_index
+#endregion

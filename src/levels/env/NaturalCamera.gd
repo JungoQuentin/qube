@@ -14,6 +14,17 @@ func _ready():
 
 
 func _process(delta):
-	if _level.player:
-		global_position = _level.player.global_position.normalized() * Level.CAMERA_DISTANCE * (-1 if is_op else 1)
-		look_at(Vector3.ZERO, _level.camera.global_basis * Vector3.UP)
+	if not _level.player:
+		return
+	var speed = 30
+	var goal = Vector3.ZERO
+	if _level.camera.mode == FixedCamera.Mode.FIXED:
+		goal = _level.camera.global_position
+		print("FIXEEED")
+	else:
+		goal = _level.player.global_position.normalized() * Level.CAMERA_DISTANCE * (-1 if is_op else 1)
+	global_position.x = move_toward(global_position.x, goal.x, delta * speed)
+	global_position.y = move_toward(global_position.y, goal.y, delta * speed)
+	global_position.z = move_toward(global_position.z, goal.z, delta * speed)
+	global_position = global_position.normalized() * Level.CAMERA_DISTANCE
+	look_at(Vector3.ZERO, _level.camera.global_basis * Vector3.UP)

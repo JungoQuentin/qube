@@ -4,6 +4,9 @@ const camera_fov = 30.
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
 var last_face: Vector3
+enum Mode { NATURAL, FIXED }
+const DURATION = 0.1
+var mode:= Mode.NATURAL
 
 func _ready():
 	fov = camera_fov
@@ -24,6 +27,7 @@ func is_front_player() -> bool:
 
 
 func go_to_player():
+	mode = Mode.NATURAL
 	if is_moving:
 		await Utils.wait_while(func(): return is_moving)
 	if is_front_player():
@@ -53,7 +57,11 @@ func _input_move(input: String):
 			axis = Vector3.FORWARD
 		"rotate_right":
 			axis = Vector3.BACK
-	_move(basis * axis)
+	await _move(basis * axis)
+	if not "rotate" in input:
+		mode = Mode.FIXED
+	await Utils.wait_while(func(): return _level.natural_camera.global_position != global_position)
+
 
 
 func _move(axis: Vector3):
@@ -69,7 +77,7 @@ func _move(axis: Vector3):
 	var original_basis = pivot.basis
 	var goal_basis = pivot.basis.rotated(axis, PI / 2)
 	var _tween = create_tween().set_trans(Tween.TRANS_CUBIC)
-	_tween.tween_method(func(t): pivot.basis = original_basis.slerp(goal_basis, t), 0., 1., 0.3)
+	_tween.tween_method(func(t): pivot.basis = original_basis.slerp(goal_basis, t), 0., 1., DURATION)
 	await _tween.finished
 	Utils.switch_parent(self, parent, true)
 	pivot.free()

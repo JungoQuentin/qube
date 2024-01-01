@@ -29,13 +29,7 @@ var _stack_display_enable:= false
 
 
 func _ready():
-	## init cameras
-	add_child(sub_viewport_container)
-	sub_viewport_container.add_child(sub_viewport)
-	sub_viewport.add_child(natural_camera)
 	add_child(in_game_menu)
-	add_child(camera)
-
 	add_child(env_ligth)
 	#_init_action_stack_display()
 	_get_max()
@@ -43,8 +37,17 @@ func _ready():
 	if is_level_gate:
 		return
 	_init_map()
+	_init_camera()
 	update_can_win()
 
+
+func _init_camera():
+	## init cameras
+	#add_child(sub_viewport_container)
+	#sub_viewport_container.add_child(sub_viewport)
+	#sub_viewport.add_child(camera)
+	add_child(natural_camera)
+	add_child(camera)
 
 func abort_move():
 	living_cubes.map(func(c): c.abort_move())

@@ -35,6 +35,7 @@
 @export var hole_cube_editor_color = Color.AZURE
 @export var living_init_color = Color.DARK_GREEN
 @export var gate_init_color = Color.DARK_CYAN
+@export var laser_cube_init_color = Color.LIGHT_CORAL
 @export_group("Others")
 @export_range(0, 1) var cube_scale: float = 0.965
 
@@ -56,6 +57,7 @@ func get_initial_color(cubeType: Cube.Type) -> Color:
 		Cube.Type.LIVING: living_init_color,
 		Cube.Type.NORMAL: normal_init_color,
 		Cube.Type.GATE: gate_init_color,
+		Cube.Type.LASER: laser_cube_init_color,
 	}[cubeType]
 
 

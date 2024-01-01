@@ -1,4 +1,5 @@
-class_name Player extends Node3D
+extends StaticBody3D
+class_name Player
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var _level: Level = get_parent()
@@ -97,3 +98,7 @@ func abort_move() -> bool:
 	move_logic.abort()
 	is_moving = false
 	return true
+
+
+func laser_hit():
+	print("je suis hit !")

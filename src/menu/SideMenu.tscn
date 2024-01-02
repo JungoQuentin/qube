@@ -31,35 +31,35 @@ focus_mode = 1
 [node name="Resume" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "Reprendre"
+text = "RESUME"
 alignment = 0
 
 [node name="ReturneToTitle" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "Retourner au menu"
+text = "TITLE"
 alignment = 0
 
 [node name="Settings" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "Parametres"
+text = "SETTINGS"
 alignment = 0
 
 [node name="Extra" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "Extra"
+text = "EXTRA"
 alignment = 0
 
 [node name="SaveFiles" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "Fichiers de sauvegarde"
+text = "SAVE_FILES"
 alignment = 0
 
 [node name="Quit" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "Quitter"
+text = "QUIT"
 alignment = 0

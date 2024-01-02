@@ -87,14 +87,14 @@ vertical_alignment = 1
 [node name="CreatedBy" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "un jeu cree par Benoit et Quentin Jungo"
+text = "GAME_CREATED_BY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MusicBy" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "aux sons crees par X"
+text = "SOUNDS_CREATED_BY"
 horizontal_alignment = 1
 vertical_alignment = 1
 

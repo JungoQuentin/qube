@@ -39,6 +39,14 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "purple",
+"res://build/": "orange",
+"res://src/": "blue"
+}
+
 [filesystem]
 
 import/blender/enabled=false
@@ -150,6 +158,10 @@ camera_bottom={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets_/trads.fr.translation", "res://assets_/trads.en.translation")
 
 [rendering]
 

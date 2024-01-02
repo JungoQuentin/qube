@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://yfmldiewjebk"]
 
-[ext_resource type="Script" path="res://src/menu/MainMenu.gd" id="1_awlug"]
-[ext_resource type="Theme" uid="uid://cpf3htl7plvcd" path="res://src/menu/menu_theme.tres" id="2_qf5ou"]
+[ext_resource type="Script" path="res://src/menu/Title.gd" id="1_8k2cc"]
+[ext_resource type="Theme" uid="uid://cpf3htl7plvcd" path="res://src/menu/menu_theme.tres" id="2_h2828"]
 
 [sub_resource type="Gradient" id="Gradient_6dboo"]
 colors = PackedColorArray(0.171039, 0.171039, 0.171039, 1, 0.323584, 0.323584, 0.323584, 1)
@@ -16,7 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_awlug")
+script = ExtResource("1_8k2cc")
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="."]
 visible = false
@@ -32,22 +32,22 @@ offset_right = 51.0
 offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_qf5ou")
+theme = ExtResource("2_h2828")
 
 [node name="BeginButton" type="Button" parent="ButtonsVBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_qf5ou")
+theme = ExtResource("2_h2828")
 text = "Commencer"
 
 [node name="LevelButton" type="Button" parent="ButtonsVBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_qf5ou")
+theme = ExtResource("2_h2828")
 text = "Niveaux
 "
 
 [node name="SettingsButton" type="Button" parent="ButtonsVBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_qf5ou")
+theme = ExtResource("2_h2828")
 text = "Reglages
 "
 

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bcito8viafbmq"]
+
+[node name="SideMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Resume" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Reprendre"
+
+[node name="ReturneToTitle" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Retourner au menu"
+
+[node name="Settings" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Parametres"
+
+[node name="Extra" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Extra"
+
+[node name="SaveFiles" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Fichiers de sauvegarde"
+
+[node name="Quit" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quitter"

@@ -1,46 +1,65 @@
-[gd_scene format=3 uid="uid://bcito8viafbmq"]
+[gd_scene load_steps=2 format=3 uid="uid://bcito8viafbmq"]
 
-[node name="SideMenu" type="Control"]
+[ext_resource type="Script" path="res://src/menu/SideMenu.gd" id="1_idulr"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="SideMenu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_idulr")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="SideMenu"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = 20.0
+offset_left = -522.72
+offset_top = -240.0
+offset_right = -86.72
+offset_bottom = 240.0
 grow_horizontal = 0
 grow_vertical = 2
+focus_mode = 1
 
-[node name="Resume" type="Label" parent="VBoxContainer"]
+[node name="Resume" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
+theme_type_variation = &"SideButton"
 text = "Reprendre"
+alignment = 0
 
-[node name="ReturneToTitle" type="Label" parent="VBoxContainer"]
+[node name="ReturneToTitle" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
+theme_type_variation = &"SideButton"
 text = "Retourner au menu"
+alignment = 0
 
-[node name="Settings" type="Label" parent="VBoxContainer"]
+[node name="Settings" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
+theme_type_variation = &"SideButton"
 text = "Parametres"
+alignment = 0
 
-[node name="Extra" type="Label" parent="VBoxContainer"]
+[node name="Extra" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
+theme_type_variation = &"SideButton"
 text = "Extra"
+alignment = 0
 
-[node name="SaveFiles" type="Label" parent="VBoxContainer"]
+[node name="SaveFiles" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
+theme_type_variation = &"SideButton"
 text = "Fichiers de sauvegarde"
+alignment = 0
 
-[node name="Quit" type="Label" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="SideMenu/Buttons"]
 layout_mode = 2
+theme_type_variation = &"SideButton"
 text = "Quitter"
+alignment = 0

@@ -9,7 +9,7 @@ colors = PackedColorArray(0.171039, 0.171039, 0.171039, 1, 0.323584, 0.323584, 0
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_2pi57"]
 gradient = SubResource("Gradient_6dboo")
 
-[node name="MainMenu" type="Control"]
+[node name="Title" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

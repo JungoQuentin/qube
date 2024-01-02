@@ -17,4 +17,4 @@
 
 [node name="LevelManager" type="Node"]
 script = ExtResource("1_2skkv")
-levels = [ExtResource("2_ho4ph"), ExtResource("4_rka1e"), ExtResource("3_42xde"), ExtResource("9_h7731"), ExtResource("10_k1e82"), ExtResource("6_10gdv"), ExtResource("16_6vfks"), ExtResource("17_h1vdw"), ExtResource("18_okems"), ExtResource("7_tfgml"), ExtResource("28_vghhe"), ExtResource("30_gkous"), ExtResource("33_efiu0")]
+levels = Array[PackedScene]([ExtResource("2_ho4ph"), ExtResource("4_rka1e"), ExtResource("3_42xde"), ExtResource("9_h7731"), ExtResource("10_k1e82"), ExtResource("6_10gdv"), ExtResource("16_6vfks"), ExtResource("17_h1vdw"), ExtResource("18_okems"), ExtResource("7_tfgml"), ExtResource("28_vghhe"), ExtResource("30_gkous"), ExtResource("33_efiu0")])

@@ -1,4 +1,5 @@
-class_name Player extends Node3D
+extends StaticBody3D
+class_name Player
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var _level: Level = get_parent()
@@ -70,9 +71,10 @@ func _roll():
 		neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 	
 	ActionSystem.player_start_move()
-	_level.player_move(move_logic._direction)
+	_level.player_start_move(move_logic._direction)
 	await move_logic.roll()
 	move_logic.floor_goal.on_touch()
+	_level.player_end_move()
 	ActionSystem.player_end_move()
 	
 	## leave old floor and set new
@@ -85,9 +87,10 @@ func _roll():
 
 func _cant_roll():
 	ActionSystem.player_start_move()
-	_level.player_move(move_logic._direction)
+	_level.player_start_move(move_logic._direction)
 	await move_logic.cant_roll()
 	move_logic.remove_pivot()
+	_level.player_end_move()
 	ActionSystem.player_end_move()
 
 ## Abort the current move and return false if there was no move
@@ -97,3 +100,7 @@ func abort_move() -> bool:
 	move_logic.abort()
 	is_moving = false
 	return true
+
+
+func laser_hit():
+	print("je suis hit !")

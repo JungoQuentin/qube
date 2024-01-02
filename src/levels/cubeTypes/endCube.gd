@@ -20,6 +20,8 @@ func _ready():
 
 
 func on_touch():
+	await get_tree().process_frame
+	get_tree().current_scene.update_can_win()
 	_touched_animation_start()
 	print(can_win)
 	if can_win:

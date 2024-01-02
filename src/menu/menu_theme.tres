@@ -19,8 +19,10 @@ anti_aliasing = false
 
 [resource]
 /fonts/font_size = null
-Button/colors/font_color = Color(0.682353, 0.921569, 0.996078, 1)
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 30
 Button/fonts/font = null
 Button/styles/normal = SubResource("StyleBoxFlat_aawma")
+TitleLabel/base_type = &"Label"
+TitleLabel/font_sizes/font_size = 190
 VBoxContainer/constants/separation = 30

@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://yfmldiewjebk"]
+[gd_scene load_steps=5 format=3 uid="uid://yfmldiewjebk"]
 
 [ext_resource type="Script" path="res://src/menu/MainMenu.gd" id="1_awlug"]
 [ext_resource type="Theme" uid="uid://cpf3htl7plvcd" path="res://src/menu/menu_theme.tres" id="2_qf5ou"]
+
+[sub_resource type="Gradient" id="Gradient_6dboo"]
+colors = PackedColorArray(0.171039, 0.171039, 0.171039, 1, 0.323584, 0.323584, 0.323584, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2pi57"]
+gradient = SubResource("Gradient_6dboo")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -13,6 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_awlug")
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,3 +50,73 @@ layout_mode = 2
 theme = ExtResource("2_qf5ou")
 text = "Reglages
 "
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_2pi57")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "qube"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreatedBy" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "un jeu cree par Benoit et Quentin Jungo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicBy" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "aux sons crees par X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[enter logo]
+Demarer la partie"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[Esc logo]
+Menu"
+horizontal_alignment = 1
+vertical_alignment = 1

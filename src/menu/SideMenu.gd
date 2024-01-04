@@ -5,19 +5,6 @@ const change_menu_buttons_name = ["Settings", "Extra", "SaveFiles", "MovementSet
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_children().map(func(menu: Control): 
-		menu.hide()
-		if menu.get_child_count() == 0:
-			return
-		menu.get_child(0).focus_mode = Control.FOCUS_ALL
-		menu.get_children().map(func(button):
-			if button is Button: 
-				button.pressed.connect(func(): click(button.name))
-		)
-	)
-	hide()
-	$Main.show()
-	current_menu = $Main
 	
 	## Set Language
 	var template_button = $Main/Quit
@@ -29,7 +16,29 @@ func _ready():
 		new_button.pressed.connect(func(): click(new_button.name))
 		$Language.add_child(new_button)
 	)
-	
+
+	## Connect buttons
+	get_children().map(func(menu: Control):
+		if menu != $Main:
+			var back_button = Button.new()
+			back_button.text = "<"
+			back_button.name = "Back"
+			#back_button.theme = "SideButton"
+			back_button.theme_type_variation = "SideButton"
+			menu.add_child(back_button)
+		menu.hide()
+		if menu.get_child_count() == 0:
+			return
+		menu.get_child(0).focus_mode = Control.FOCUS_ALL
+		menu.get_children().map(func(button):
+			if button is Button: 
+				button.pressed.connect(func(): click(button.name))
+		)
+	)
+
+	hide()
+	$Main.show()
+	current_menu = $Main
 
 
 func click(button_name: String):
@@ -43,6 +52,7 @@ func click(button_name: String):
 		"Resume": func(): toggle_settings(),
 		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"),
 		"Quit": func(): get_tree().quit(),
+		"Back": func(): go_out_sub_menu(),
 	}[button_name].call()
 
 

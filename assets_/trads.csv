@@ -9,3 +9,13 @@ QUIT,Quit,Quitter
 GAME_CREATED_BY,a game created by Benoit and Quentin Jungo,un jeu créé par Benoit et Quentin Jungo
 SOUNDS_CREATED_BY,sounds created by X,aux sons créés par X
 LANGUAGE,Language,Langue [Language]
+MUSIC_VOLUME,Music volume,Volume de la musique
+SOUND_VOLUME,Sound volume,Volume du son
+MOVEMENT_SETTINGS,Movement settings,Paramètres de mouvement
+DISPLAY_SETTINGS,Display settings,Paramètres d’affichage
+CONTROLS,Controls,Contrôles 
+UNLOCK_ALL_PUZZLES,Unlock all puzzles,Débloquer tous les puzzles
+fr,Français,Français
+en,English,English
+START_GAME,Start game,Commencer la partie
+MENU,Menu,Menu

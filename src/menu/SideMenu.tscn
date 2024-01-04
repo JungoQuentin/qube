@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcito8viafbmq"]
+[gd_scene load_steps=4 format=3 uid="uid://bcito8viafbmq"]
 
 [ext_resource type="Script" path="res://src/menu/SideMenu.gd" id="1_idulr"]
+[ext_resource type="Script" path="res://src/menu/VBoxMenu.gd" id="2_ee0ry"]
+[ext_resource type="PackedScene" uid="uid://b6tjdhrsecbdd" path="res://src/menu/SliderInput.tscn" id="3_qys5f"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_idulr")
 
 [node name="Main" type="VBoxContainer" parent="."]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -18,6 +21,7 @@ offset_bottom = 240.0
 grow_horizontal = 0
 grow_vertical = 2
 focus_mode = 1
+script = ExtResource("2_ee0ry")
 
 [node name="Resume" type="Button" parent="Main"]
 layout_mode = 2
@@ -55,7 +59,7 @@ theme_type_variation = &"SideButton"
 text = "QUIT"
 alignment = 0
 
-[node name="Settings" type="VBoxContainer" parent="."]
+[node name="Settings" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -68,9 +72,131 @@ offset_bottom = 240.0
 grow_horizontal = 0
 grow_vertical = 2
 focus_mode = 1
+script = ExtResource("2_ee0ry")
+parent_menu = NodePath("../Main")
+
+[node name="MusicVolume" parent="Settings" instance=ExtResource("3_qys5f")]
+layout_mode = 2
+label = "MUSIC_VOLUME"
+max = 10
+
+[node name="SoundVolume" parent="Settings" instance=ExtResource("3_qys5f")]
+layout_mode = 2
+label = "SOUND_VOLUME"
+max = 10
+
+[node name="MovementSettings" type="Button" parent="Settings"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "MOVEMENT_SETTINGS"
+alignment = 0
+
+[node name="DisplaySettings" type="Button" parent="Settings"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "DISPLAY_SETTINGS"
+alignment = 0
+
+[node name="Controls" type="Button" parent="Settings"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "CONTROLS"
+alignment = 0
 
 [node name="Language" type="Button" parent="Settings"]
 layout_mode = 2
 theme_type_variation = &"SideButton"
 text = "LANGUAGE"
 alignment = 0
+
+[node name="UnlockAllPuzzles" type="Button" parent="Settings"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "UNLOCK_ALL_PUZZLES"
+alignment = 0
+
+[node name="MovementSettings" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -522.72
+offset_top = -240.0
+offset_right = -86.72
+offset_bottom = 240.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 1
+script = ExtResource("2_ee0ry")
+parent_menu = NodePath("../Settings")
+
+[node name="RollSpeed" type="Button" parent="MovementSettings"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "mov1"
+alignment = 0
+
+[node name="DisplaySettings" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -522.72
+offset_top = -240.0
+offset_right = -86.72
+offset_bottom = 240.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 1
+script = ExtResource("2_ee0ry")
+parent_menu = NodePath("../Settings")
+
+[node name="Fullscreen" type="Button" parent="DisplaySettings"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "mov1"
+alignment = 0
+
+[node name="Controls" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -522.72
+offset_top = -240.0
+offset_right = -86.72
+offset_bottom = 240.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 1
+script = ExtResource("2_ee0ry")
+parent_menu = NodePath("../Settings")
+
+[node name="Fullscreen" type="Button" parent="Controls"]
+layout_mode = 2
+theme_type_variation = &"SideButton"
+text = "mov1"
+alignment = 0
+
+[node name="Language" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -522.72
+offset_top = -240.0
+offset_right = -86.72
+offset_bottom = 240.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 1
+script = ExtResource("2_ee0ry")
+parent_menu = NodePath("../Settings")

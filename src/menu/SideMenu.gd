@@ -1,25 +1,57 @@
 extends CanvasLayer
 
-@onready var main: VBoxContainer = $Main
-@onready var current_menu: VBoxContainer = $Main
-
+var current_menu: VBoxMenu
+const change_menu_buttons_name = ["Settings", "Extra", "SaveFiles", "MovementSettings", "DisplaySettings", "Controls", "Language"]
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	main.get_children().map(func(button: Button): button.pressed.connect(func(): click(button.name)))
+	get_children().map(func(menu: Control): 
+		menu.hide()
+		if menu.get_child_count() == 0:
+			return
+		menu.get_child(0).focus_mode = Control.FOCUS_ALL
+		menu.get_children().map(func(button):
+			if button is Button: 
+				button.pressed.connect(func(): click(button.name))
+		)
+	)
 	hide()
-	$Settings.hide()
+	$Main.show()
+	current_menu = $Main
+	
+	## Set Language
+	var template_button = $Main/Quit
+	var languages = Array(TranslationServer.get_loaded_locales())
+	languages.map(func(lang: String):
+		var new_button = template_button.duplicate()
+		new_button.name = lang
+		new_button.text = lang
+		new_button.pressed.connect(func(): click(new_button.name))
+		$Language.add_child(new_button)
+	)
 	
 
+
 func click(button_name: String):
-	if button_name in ["Settings", "Extra", "SaveFiles"]:
+	if button_name in change_menu_buttons_name:
 		go_in_sub_menu(button_name)
+		return
+	if button_name in TranslationServer.get_loaded_locales():
+		TranslationServer.set_locale(button_name)
 		return
 	{
 		"Resume": func(): toggle_settings(),
 		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"),
 		"Quit": func(): get_tree().quit(),
 	}[button_name].call()
+
+
+func toggle_settings(to:= not visible):
+	visible = to
+	get_tree().paused = visible
+	if visible:
+		$Main.get_child(0).grab_focus()
+		$Main/ReturneToTitle.disabled = get_tree().current_scene is Title
 
 
 func go_in_sub_menu(submenu_name: String):
@@ -29,14 +61,17 @@ func go_in_sub_menu(submenu_name: String):
 	current_menu.get_child(0).grab_focus()
 
 
-func toggle_settings(to:= not visible):
-	visible = to
-	get_tree().paused = visible
-	if visible:
-		main.get_child(0).grab_focus()
-		$Main/ReturneToTitle.disabled = get_tree().current_scene is Title
+func go_out_sub_menu():
+	var last_menu_name = current_menu.name
+	current_menu.hide()
+	current_menu = current_menu.parent_menu
+	current_menu.show()
+	current_menu.find_child(last_menu_name).grab_focus()
 
 
 func _input(_event):
 	if Input.is_action_just_pressed("settings"):
-		toggle_settings()
+		if not current_menu.parent_menu:
+			toggle_settings()
+		else:
+			go_out_sub_menu()

@@ -1,4 +1,5 @@
-class_name Player extends Node3D
+extends StaticBody3D
+class_name Player
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var _level: Level = get_parent()
@@ -19,6 +20,7 @@ func _ready():
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	await Utils.wait_while(func(): return _level.camera == null)
 	var floor_direction = _level.camera.basis * Vector3.FORWARD
+	await get_tree().process_frame
 	we_are_on_this_cube_now = Utils.get_raycast_collider(_level, global_position, floor_direction)
 
 
@@ -35,8 +37,10 @@ func _get_action_input():
 		input = joystick.get_string_direction()
 	if input.is_empty():
 		return
-	if not _level.camera.is_front_player():
-		await _level.camera.go_to_player()
+	if not _level.natural_camera.current:
+		if _level.camera.is_moving or _level.natural_camera.locked:
+			return
+		_level.camera.go_to_player()
 		return
 	is_moving = true
 	var direction: Vector3 = {
@@ -70,9 +74,10 @@ func _roll():
 		neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 	
 	ActionSystem.player_start_move()
-	_level.player_move(move_logic._direction)
+	_level.player_start_move(move_logic._direction)
 	await move_logic.roll()
 	move_logic.floor_goal.on_touch()
+	_level.player_end_move()
 	ActionSystem.player_end_move()
 	
 	## leave old floor and set new
@@ -85,9 +90,10 @@ func _roll():
 
 func _cant_roll():
 	ActionSystem.player_start_move()
-	_level.player_move(move_logic._direction)
+	_level.player_start_move(move_logic._direction)
 	await move_logic.cant_roll()
 	move_logic.remove_pivot()
+	_level.player_end_move()
 	ActionSystem.player_end_move()
 
 ## Abort the current move and return false if there was no move
@@ -97,3 +103,7 @@ func abort_move() -> bool:
 	move_logic.abort()
 	is_moving = false
 	return true
+
+
+func laser_hit():
+	print("je suis hit !")

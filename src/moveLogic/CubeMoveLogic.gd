@@ -91,7 +91,6 @@ func _new_roll():
 
 
 func _slide():
-	var start_position = _object.global_position
 	var is_going_to_change_face_by_slide = floor_goal.will_change_face(_direction, _floor_direction)
 	var goal_position = floor_goal.get_end_slide(_direction, _floor_direction) - _floor_direction
 	if is_going_to_change_face_by_slide:
@@ -109,9 +108,10 @@ func _slide():
 
 
 func abort():
-	_tween.stop()
-	_tween.kill()
-	if not _pivot == null:
+	if _tween:
+		_tween.stop()
+		_tween.kill()
+	if _pivot:
 		remove_pivot()
 
 

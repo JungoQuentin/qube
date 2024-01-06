@@ -1,7 +1,7 @@
 extends StaticBody3D
 class_name Cube
 
-enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, LIVING, GATE }
+enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, LIVING, GATE, LASER }
 @export var cubeType: Type
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
@@ -14,7 +14,7 @@ var _touch_tween: Tween
 func _ready():
 	_mesh.size = Vector3.ONE * Colors.cube_scale
 	_collision_shape.shape.size = _mesh.size
-	_initial_color = Colors.get_initial_color(object_to_type(self))
+	_initial_color = Colors.get_initial_color(Cube.object_to_type(self))
 	_touched_color = Colors.darker(_initial_color)
 	_mesh_instance.set_surface_override_material(0, _mesh_instance.get_surface_override_material(0).duplicate(true))
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
@@ -43,7 +43,7 @@ func is_rejecting() -> bool:
 
 ## Check if is the kind that is on the floor
 func is_floor() -> bool:
-	return (object_to_type(self) in [Type.NORMAL, Type.END, Type.SWITCH, Type.SINGLE_USE, Type.HOLE, Type.BLOCKING, Type.ICE]) or \
+	return (Cube.object_to_type(self) in [Type.NORMAL, Type.END, Type.SWITCH, Type.SINGLE_USE, Type.HOLE, Type.BLOCKING, Type.ICE]) or \
 			(self is MovingCube and self.in_a_hole)
 
 ## Check if the touch tween exists, is_valid and is_running
@@ -60,8 +60,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.END
 	elif cube is SingleUseCube:
 		return Type.SINGLE_USE
-	elif cube is MovingCube:
-		return Type.MOVING
 	elif cube is IceCube:
 		return Type.ICE
 	elif cube is HoleCube:
@@ -72,4 +70,9 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.LIVING
 	elif cube is LevelGateCube:
 		return Type.GATE
+	elif cube is LaserCube:
+		return Type.LASER
+	# last because laser cube inherit from it
+	elif cube is MovingCube:
+		return Type.MOVING
 	return Type.NORMAL

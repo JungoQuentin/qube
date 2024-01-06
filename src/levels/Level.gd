@@ -2,18 +2,25 @@ class_name Level extends Node3D
 
 #region DECLARATION
 
+static var CAMERA_DISTANCE = 18.5
+static var CAMERA_FOV = 30.
+
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
 @export var is_level_gate:= false
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
-@onready var camera: MyCamera = preload("res://src/levels/env/Camera.tscn").instantiate()
+var camera:= FixedCamera.new()
+var natural_camera:= NaturalCamera.new()
+var sub_viewport_container = SubViewportContainer.new()
+var sub_viewport = SubViewport.new()
 @onready var env_ligth: Node3D = preload("res://src/levels/env/EnvLight.tscn").instantiate()
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
 var living_cubes: Array
+var laser_cubes: Array
 var end_cube: EndCube
 var max_plus: Vector3
 var max_minus: Vector3
@@ -24,20 +31,29 @@ var _stack_display_enable:= false
 
 func _ready():
 	add_child(in_game_menu)
-	add_child(camera)
 	add_child(env_ligth)
 	#_init_action_stack_display()
 	_get_max()
 	ActionSystem.start_level(self)
+	_init_camera()
 	if is_level_gate:
 		return
 	_init_map()
-	_update_can_win()
+	update_can_win()
 
+
+func _init_camera():
+	## init cameras
+	#add_child(sub_viewport_container)
+	#sub_viewport_container.add_child(sub_viewport)
+	#sub_viewport.add_child(camera)
+	add_child(camera)
+	add_child(natural_camera)
+	natural_camera.make_current()
 
 func abort_move():
 	living_cubes.map(func(c): c.abort_move())
-	await player.abort_move()
+	player.abort_move()
 
 ## init the map by getting all the special cubes
 func _init_map():
@@ -52,7 +68,8 @@ func _init_map():
 	living_cubes = map_cube_children.filter(func(cube): return cube is LivingCube)
 	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
-	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube)
+	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube) # will also take LaserCube 
+	laser_cubes = map_cube_children.filter(func(cube): return cube is LaserCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
 ## set max_plus and max_minus. This are vector3 that get the far away position from center, to get face
@@ -71,18 +88,24 @@ func _get_max():
 		max_minus.z = min(max_minus.z, pos.z)
 
 
-func a_switch_cube_change_state():
-	_update_can_win()
+#func a_switch_cube_change_state():
+	#_update_can_win()
 
 
-func player_move(direction: Vector3):
-	living_cubes.map(func(l_cube): l_cube.player_move(direction))
+func player_start_move(direction: Vector3):
+	living_cubes.map(func(c): c.player_move(direction))
+	laser_cubes.map(func(c): c.player_start_move())
+	update_can_win()
 
 
-func _update_can_win():
-	var all_switch_on = switch_cubes.all(func(cube): return cube.on)
-	var can_win = all_switch_on
-	end_cube.can_win = can_win
+func player_end_move():
+	laser_cubes.map(func(c): c.player_end_move())
+	update_can_win()
+
+
+func update_can_win():
+	if end_cube:
+		end_cube.can_win = single_use_cubes.all(func(cube): return cube.is_used)
 
 
 func object_current_face(object: Node3D) -> Vector3:

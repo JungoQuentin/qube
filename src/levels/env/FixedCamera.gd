@@ -28,10 +28,9 @@ func is_front_player() -> bool:
 
 
 func go_to_player():
-	if _level.natural_camera.current:
-		return
-	_level.natural_camera.transform = transform
-	_level.natural_camera.make_current()
+	if not _level.natural_camera.current:
+		_level.natural_camera.transform = transform
+		_level.natural_camera.make_current()
 	
 	if not is_front_player():
 		var player_face = _level.object_current_face(_level.player)

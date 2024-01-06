@@ -35,10 +35,10 @@ func _ready():
 	#_init_action_stack_display()
 	_get_max()
 	ActionSystem.start_level(self)
+	_init_camera()
 	if is_level_gate:
 		return
 	_init_map()
-	_init_camera()
 	update_can_win()
 
 
@@ -53,7 +53,7 @@ func _init_camera():
 
 func abort_move():
 	living_cubes.map(func(c): c.abort_move())
-	await player.abort_move()
+	player.abort_move()
 
 ## init the map by getting all the special cubes
 func _init_map():

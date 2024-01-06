@@ -20,6 +20,7 @@ func _ready():
 	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
 	await Utils.wait_while(func(): return _level.camera == null)
 	var floor_direction = _level.camera.basis * Vector3.FORWARD
+	await get_tree().process_frame
 	we_are_on_this_cube_now = Utils.get_raycast_collider(_level, global_position, floor_direction)
 
 

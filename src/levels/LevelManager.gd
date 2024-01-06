@@ -8,7 +8,7 @@ var completed_levels: Array
 func _ready():
 	await Save.loaded
 	if not Save.config.has_section("progression"):
-		completed_levels = levels.map(func(l): return false)
+		completed_levels = levels.map(func(_l): return false)
 		save()
 	else:
 		completed_levels = Save.config.get_value("progression", "completed_levels")

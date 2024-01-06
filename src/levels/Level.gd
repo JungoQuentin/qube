@@ -3,6 +3,7 @@ class_name Level extends Node3D
 #region DECLARATION
 
 static var CAMERA_DISTANCE = 18.5
+static var CAMERA_FOV = 30.
 
 enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
@@ -46,8 +47,9 @@ func _init_camera():
 	#add_child(sub_viewport_container)
 	#sub_viewport_container.add_child(sub_viewport)
 	#sub_viewport.add_child(camera)
-	add_child(natural_camera)
 	add_child(camera)
+	add_child(natural_camera)
+	natural_camera.make_current()
 
 func abort_move():
 	living_cubes.map(func(c): c.abort_move())

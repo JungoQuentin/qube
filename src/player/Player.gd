@@ -37,10 +37,7 @@ func _get_action_input():
 		input = joystick.get_string_direction()
 	if input.is_empty():
 		return
-	if not _level.natural_camera.current:
-		if _level.camera.is_moving or _level.natural_camera.locked:
-			return
-		_level.camera.go_to_player()
+	if not await _level.player_can_move_camera():
 		return
 	is_moving = true
 	var direction: Vector3 = {

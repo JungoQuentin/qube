@@ -28,22 +28,30 @@ func is_front_player() -> bool:
 
 
 func go_to_player():
-	if not _level.natural_camera.current:
-		_level.natural_camera.transform = transform
-		_level.natural_camera.make_current()
-	
-	if not is_front_player():
-		var player_face = _level.object_current_face(_level.player)
-		if Vector3.ZERO.is_equal_approx(global_position.normalized().cross(player_face)):
-			await _move(global_position.normalized().cross(last_face), true)
+	match _level.camera_mode:
+		Level.CameraMode.FIXED:
+			if not is_front_player():
+				var player_face = _level.object_current_face(_level.player)
+				if Vector3.ZERO.is_equal_approx(global_position.normalized().cross(player_face)):
+					await _move(global_position.normalized().cross(last_face))
+				await _move(global_position.normalized().cross(player_face))
+		Level.CameraMode.NATURAL:
+			if not _level.style_camera.current:
+				_level.style_camera.transform = transform
+				_level.style_camera.make_current()
+			
+			if not is_front_player():
+				var player_face = _level.object_current_face(_level.player)
+				if Vector3.ZERO.is_equal_approx(global_position.normalized().cross(player_face)):
+					await _move(global_position.normalized().cross(last_face), true)
+					is_moving = true
+					await _level.style_camera.transition_to(self)
+					is_moving = false
+				await _move(global_position.normalized().cross(player_face), true)
+			
 			is_moving = true
-			await _level.natural_camera.transition_to(self)
+			await _level.style_camera.transition_back()
 			is_moving = false
-		await _move(global_position.normalized().cross(player_face), true)
-	
-	is_moving = true
-	await _level.natural_camera.transition_back()
-	is_moving = false
 
 
 func player_move(direction: Vector3, floor_direction):
@@ -62,7 +70,7 @@ func _input_move(input: String):
 	
 	if not current:
 		is_moving = true
-		await _level.natural_camera.transition_to(self)
+		await _level.style_camera.transition_to(self)
 		is_moving = false
 		make_current()
 

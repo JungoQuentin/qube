@@ -6,13 +6,16 @@ static var CAMERA_DISTANCE = 18.5
 static var CAMERA_FOV = 30.
 
 enum { INGAME, PAUSE, MENU }
+enum CameraMode { NATURAL, FIXED }
 var game_state = INGAME
 @export var is_level_gate:= false
+@export var camera_mode:= CameraMode.NATURAL
+
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
 var camera:= FixedCamera.new()
-var natural_camera:= NaturalCamera.new()
+var style_camera = null
 var sub_viewport_container = SubViewportContainer.new()
 var sub_viewport = SubViewport.new()
 @onready var env_ligth: Node3D = preload("res://src/levels/env/EnvLight.tscn").instantiate()
@@ -48,8 +51,28 @@ func _init_camera():
 	#sub_viewport_container.add_child(sub_viewport)
 	#sub_viewport.add_child(camera)
 	add_child(camera)
-	add_child(natural_camera)
-	natural_camera.make_current()
+	camera.make_current()
+	match camera_mode:
+		CameraMode.FIXED:
+			pass
+		CameraMode.NATURAL:
+			style_camera = NaturalCamera.new()
+			add_child(style_camera)
+			style_camera.make_current()
+
+func player_can_move_camera() -> bool:
+	match camera_mode:
+		CameraMode.FIXED:
+			if not camera.is_front_player():
+				await camera.go_to_player()
+				return false
+		CameraMode.NATURAL:
+			if not style_camera.current:
+				if camera.is_moving or style_camera.locked:
+					return false
+				await camera.go_to_player()
+				return false
+	return true
 
 func abort_move():
 	living_cubes.map(func(c): c.abort_move())

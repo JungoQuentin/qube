@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b31gtgmjborqy"]
+[gd_scene load_steps=7 format=3 uid="uid://b31gtgmjborqy"]
 
 [ext_resource type="Script" path="res://src/levels/Level.gd" id="1_boick"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_h3anl"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://src/levels/cubeTypes/IceCube.gd" id="4_usmf3"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/blockingCube.gd" id="5_qqnqp"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/endCube.gd" id="6_xsyxf"]
-[ext_resource type="Script" path="res://src/levels/cubeTypes/holeCube.gd" id="7_o06tj"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_boick")
@@ -276,7 +275,7 @@ script = ExtResource("4_usmf3")
 
 [node name="@StaticBody3D@47839" parent="MapCube" instance=ExtResource("3_r3syk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
-script = ExtResource("7_o06tj")
+script = ExtResource("4_usmf3")
 
 [node name="@StaticBody3D@47840" parent="MapCube" instance=ExtResource("3_r3syk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -2)

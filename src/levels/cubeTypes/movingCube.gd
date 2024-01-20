@@ -21,17 +21,17 @@ func on_push(direction: Vector3, floor_direction: Vector3):
 	tween.tween_property(self, "position", position_goal, 0.02)
 	await tween.finished
 	
-	var the_next = _get_floor_goal(direction, floor_direction)
-	if the_next is MovingCube and the_next.can_push(floor_direction, -direction):
-		the_next.on_push(floor_direction, -direction)
-	elif floor_goal == null and current_floor is IceCube and can_push(floor_direction, -direction):
-		on_push(floor_direction, -direction)
+	#var the_next = _get_floor_goal(direction, floor_direction)
+	#if the_next is MovingCube and the_next.can_push(floor_direction, -direction):
+		#await the_next.on_push(floor_direction, -direction)
+	if floor_goal == null and current_floor is IceCube and can_push(floor_direction, -direction):
+		await on_push(floor_direction, -direction)
 	elif floor_goal is IceCube:
-		var neighbour = _get_neighbour(direction)
-		if neighbour is MovingCube and neighbour.can_push(direction, floor_direction):
-			neighbour.on_push(direction, floor_direction)
-		elif can_push(direction, floor_direction):
-			on_push(direction, floor_direction)
+		#var neighbour = _get_neighbour(direction)
+		#if first_push and neighbour is MovingCube and neighbour.can_push(direction, floor_direction):
+			#neighbour.on_push(direction, floor_direction)
+		if can_push(direction, floor_direction):
+			await on_push(direction, floor_direction)
 
 
 func _get_neighbour(direction: Vector3) -> Node3D:

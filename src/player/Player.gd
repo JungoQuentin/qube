@@ -49,12 +49,12 @@ func _roll():
 	
 	## if we are going to change face, check if we also push a moving cube
 	if move_logic.floor_neighbour is MovingCube and not move_logic.floor_neighbour.in_a_hole and move_logic.floor_neighbour.can_push(move_logic._floor_direction, -move_logic._direction):
-		move_logic.floor_neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
+		await move_logic.floor_neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
 	
 	## if our neighbour is a MovingCube, we try to push him
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	if neighbour is MovingCube and neighbour.can_push(move_logic._direction, move_logic._floor_direction):
-		neighbour.on_push(move_logic._direction, move_logic._floor_direction)
+		await neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 	
 	ActionSystem.player_start_move()
 	_level.player_start_move(move_logic._direction)

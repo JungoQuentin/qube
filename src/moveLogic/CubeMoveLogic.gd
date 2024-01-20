@@ -99,7 +99,7 @@ func _slide():
 	
 	var neighbour = Utils.get_raycast_collider(_level, _object.global_position, _direction)
 	if neighbour is MovingCube and neighbour.can_push(_direction, _floor_direction):
-		neighbour.on_push(_direction, _floor_direction)
+		await neighbour.on_push(_direction, _floor_direction)
 		
 	floor_goal = _get_floor_under_object()
 	if is_going_to_change_face_by_slide:

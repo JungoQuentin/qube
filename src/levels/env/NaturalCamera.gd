@@ -2,7 +2,6 @@ class_name NaturalCamera extends Camera3D
 
 @onready var _level: Level = get_tree().current_scene
 var is_moving = false
-var is_op:= false
 var locked:= false
 const DURATION = 0.3
 
@@ -56,4 +55,4 @@ func transition_back():
 
 
 func _global_pos_zenith_player() -> Vector3:
-	return _level.player.global_position.normalized() * Level.CAMERA_DISTANCE * (-1 if is_op else 1)
+	return _level.player.global_position.normalized() * Level.CAMERA_DISTANCE

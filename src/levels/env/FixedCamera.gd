@@ -1,7 +1,7 @@
 class_name FixedCamera extends Camera3D
 
 @onready var _level: Level = get_tree().current_scene
-var is_moving = false
+var _is_moving = false
 var last_face: Vector3
 const DURATION = 0.3
 
@@ -33,14 +33,14 @@ func go_to_player():
 				var player_face = _level.object_current_face(_level.player)
 				if Vector3.ZERO.is_equal_approx(global_position.normalized().cross(player_face)):
 					await _move(global_position.normalized().cross(last_face), true)
-					is_moving = true
+					_is_moving = true
 					await _level.style_camera.transition_to(self)
-					is_moving = false
+					_is_moving = false
 				await _move(global_position.normalized().cross(player_face), true)
 			
-			is_moving = true
+			_is_moving = true
 			await _level.style_camera.transition_back()
-			is_moving = false
+			_is_moving = false
 
 
 func player_move(direction: Vector3, floor_direction):
@@ -65,9 +65,9 @@ func handle_input(input: String):
 		await _move(axis, immediate)
 		
 		if not current:
-			is_moving = true
+			_is_moving = true
 			await _level.style_camera.transition_to(self)
-			is_moving = false
+			_is_moving = false
 			make_current()
 
 
@@ -77,7 +77,7 @@ func _move(axis: Vector3, immediate:= false):
 	if not axis.is_normalized():
 		printerr("axis should be normalized !", axis)
 		return
-	is_moving = true
+	_is_moving = true
 	var pivot = Node3D.new()
 	parent.add_child(pivot)
 	Utils.switch_parent(self, pivot, true)
@@ -91,4 +91,4 @@ func _move(axis: Vector3, immediate:= false):
 		await _tween.finished
 	Utils.switch_parent(self, parent, true)
 	pivot.free()
-	is_moving = false
+	_is_moving = false

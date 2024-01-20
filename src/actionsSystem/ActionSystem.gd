@@ -33,8 +33,6 @@ func _undo():
 
 
 func _redo():
-	if _level.player.is_moving or _level.camera.is_moving:
-		return
 	if current_state_index + 1 >= state_stack.size():
 		return
 	state_stack[current_state_index + 1].apply(_level)

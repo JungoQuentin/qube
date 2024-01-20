@@ -11,6 +11,7 @@ func on_push(direction: Vector3, floor_direction: Vector3):
 	var current_floor = _get_current_floor(floor_direction)
 	var position_goal:= position + direction
 	if floor_goal == null or floor_goal is HoleCube: # change face or hole
+		basis = basis.rotated(direction.cross(floor_direction), PI / 2)
 		position_goal += floor_direction
 	if floor_goal is HoleCube:
 		in_a_hole = true

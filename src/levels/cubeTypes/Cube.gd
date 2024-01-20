@@ -13,7 +13,7 @@ var _touch_tween: Tween
 
 func _ready():
 	_mesh.size = Vector3.ONE * Colors.cube_scale
-	_collision_shape.shape.size = _mesh.size
+	_collision_shape.shape.size = Vector3.ONE * Colors.cube_scale
 	_initial_color = Colors.get_initial_color(Cube.object_to_type(self))
 	_touched_color = Colors.darker(_initial_color)
 	_mesh_instance.set_surface_override_material(0, _mesh_instance.get_surface_override_material(0).duplicate(true))

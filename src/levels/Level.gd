@@ -83,9 +83,8 @@ func _init_map():
 	var map_cube_children = map_cube.get_children()
 	var end_cubes = map_cube_children.filter(func(cube): return cube is EndCube)
 	if end_cubes.size() != 1:
-		printerr("Il ne doit y avoir qu'un fin !")
 		OS.alert("Il ne doit y avoir qu'un fin !", "oups")
-		get_tree().quit()
+		Utils.crash(["Il ne doit y avoir qu'un fin !"])
 		return
 	end_cube = end_cubes[0]
 	living_cubes = map_cube_children.filter(func(cube): return cube is LivingCube)

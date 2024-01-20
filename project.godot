@@ -22,6 +22,10 @@ ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
 LevelManager="*res://src/levels/LevelManager.tscn"
 Save="*res://src/Save.gd"
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [editor]
 

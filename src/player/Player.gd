@@ -69,6 +69,11 @@ func _roll():
 	we_are_on_this_cube_now = move_logic.floor_goal
 	
 	move_logic.remove_pivot()
+	
+	## abort if the laser is touching us !
+	if _level.is_player_hit_by_laser():
+		# TODO this allow redo... (find a better way)
+		await ActionSystem._undo()
 
 
 func _cant_roll():

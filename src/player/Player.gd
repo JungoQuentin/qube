@@ -7,7 +7,7 @@ class_name Player
 @export var min_transparency: float = 0.3
 @export var speed: float = 0.2
 @onready var initial_transform:= global_transform
-var is_moving = false 
+var _is_moving = false 
 var we_are_on_this_cube_now: Cube = null
 var joystick: Joystick
 var move_logic: CubeMoveLogic
@@ -24,22 +24,8 @@ func _ready():
 	we_are_on_this_cube_now = Utils.get_raycast_collider(_level, global_position, floor_direction)
 
 
-func _process(_delta):
-	if is_moving or _level.camera.is_moving:
-		return
-	_get_action_input()
-
-
-func _get_action_input():
-	# TODO check if camera is not on the player
-	var input = Utils.is_one_action_pressed(["player_top", "player_bottom", "player_right", "player_left"])
-	if input.is_empty():
-		input = joystick.get_string_direction()
-	if input.is_empty():
-		return
-	if not await _level.player_can_move_camera():
-		return
-	is_moving = true
+func handle_input(input: String):
+	_is_moving = true
 	var direction: Vector3 = {
 		"player_bottom": Vector3.DOWN,
 		"player_right": Vector3.RIGHT,
@@ -54,7 +40,7 @@ func _get_action_input():
 		await _roll()
 	else:
 		await _cant_roll()
-	is_moving = false
+	_is_moving = false
 
 
 func _roll():
@@ -95,10 +81,10 @@ func _cant_roll():
 
 ## Abort the current move and return false if there was no move
 func abort_move() -> bool:
-	if not is_moving:
+	if not _is_moving:
 		return false
 	move_logic.abort()
-	is_moving = false
+	_is_moving = false
 	return true
 
 

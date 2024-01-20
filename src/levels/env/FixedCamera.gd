@@ -12,17 +12,6 @@ func _ready():
 	last_face = global_position.normalized()
 
 
-func _input(_event):
-	if is_moving or _level.player.is_moving:
-		return
-	var move_input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left"])
-	if not move_input.is_empty():
-		_input_move(move_input)
-	var rotate_input = Utils.is_one_action_pressed(["rotate_right", "rotate_left"])
-	if not rotate_input.is_empty():
-		_input_rotate(rotate_input)
-
-
 func is_front_player() -> bool:
 	return global_position.normalized().is_equal_approx(_level.object_current_face(_level.player))
 
@@ -58,29 +47,28 @@ func player_move(direction: Vector3, floor_direction):
 	await _move(direction.cross(floor_direction))
 
 
-func _input_move(input: String):
-	var axis = basis * {
-		"camera_bottom": Vector3.RIGHT,
-		"camera_right": Vector3.UP,
-		"camera_left": Vector3.DOWN,
-		"camera_top": Vector3.LEFT,
-	}[input]
-	var immediate = not current
-	await _move(axis, immediate)
-	
-	if not current:
-		is_moving = true
-		await _level.style_camera.transition_to(self)
-		is_moving = false
-		make_current()
-
-
-func _input_rotate(input: String):
-	var axis = basis * {
-		"rotate_left": Vector3.FORWARD,
-		"rotate_right": Vector3.BACK,
-	}[input]
-	await _move(axis)
+func handle_input(input: String):
+	if ["rotate_left", "rotate_right"].has(input):
+		var axis = basis * {
+			"rotate_left": Vector3.FORWARD,
+			"rotate_right": Vector3.BACK,
+		}[input]
+		await _move(axis)
+	else: 
+		var axis = basis * {
+			"camera_bottom": Vector3.RIGHT,
+			"camera_right": Vector3.UP,
+			"camera_left": Vector3.DOWN,
+			"camera_top": Vector3.LEFT,
+		}[input]
+		var immediate = not current
+		await _move(axis, immediate)
+		
+		if not current:
+			is_moving = true
+			await _level.style_camera.transition_to(self)
+			is_moving = false
+			make_current()
 
 
 func _move(axis: Vector3, immediate:= false):

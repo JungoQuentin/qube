@@ -1,7 +1,7 @@
 extends StaticBody3D
 class_name Cube
 
-enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, LIVING, GATE, LASER }
+enum Type { NORMAL, END, MOVING, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, GATE, LASER }
 @export var cubeType: Type
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
@@ -66,8 +66,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.HOLE
 	elif cube is SwitchCube:
 		return Type.SWITCH
-	elif cube is LivingCube:
-		return Type.LIVING
 	elif cube is LevelGateCube:
 		return Type.GATE
 	elif cube is LaserCube:

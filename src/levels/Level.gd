@@ -22,7 +22,6 @@ var sub_viewport = SubViewport.new()
 var switch_cubes: Array
 var single_use_cubes: Array
 var moving_cubes: Array
-var living_cubes: Array
 var laser_cubes: Array
 var end_cube: EndCube
 var max_plus: Vector3
@@ -75,7 +74,6 @@ func player_can_move_camera() -> bool:
 	return true
 
 func abort_move():
-	living_cubes.map(func(c): c.abort_move())
 	player.abort_move()
 
 ## init the map by getting all the special cubes
@@ -87,7 +85,6 @@ func _init_map():
 		Utils.crash(["Il ne doit y avoir qu'un fin !"])
 		return
 	end_cube = end_cubes[0]
-	living_cubes = map_cube_children.filter(func(cube): return cube is LivingCube)
 	switch_cubes = map_cube_children.filter(func(cube): return cube is SwitchCube)
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube) # will also take LaserCube 
@@ -115,7 +112,6 @@ func _get_max():
 
 
 func player_start_move(direction: Vector3):
-	living_cubes.map(func(c): c.player_move(direction))
 	laser_cubes.map(func(c): c.player_start_move())
 	update_can_win()
 

@@ -115,8 +115,6 @@ func can_roll() -> bool:
 		return false
 	if is_going_to_hole:
 		return false
-	if floor_goal is LivingCube:
-		return false
 	if floor_goal is BlockingCube:
 		return false
 	if floor_neighbour is MovingCube and not floor_neighbour.in_a_hole and not floor_neighbour.can_push(_floor_direction, -_direction):

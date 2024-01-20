@@ -52,9 +52,7 @@ func roll():
 	_start = _pivot.basis
 	_goal = _pivot.basis.rotated(axis, PI / 2 if not _is_going_to_change_face else -PI)
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
-	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
-	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...
-	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
+	_tween.tween_method(func(t): _pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
 	await _tween.finished
 	if is_going_to_slide and _is_going_to_change_face:
 		await _new_roll()
@@ -63,10 +61,7 @@ func roll():
 	return self
 
 ## Reset the pivot and rotator. Only for moving cubes and player
-# TODO rename remove
 func remove_pivot():
-	if not _object.is_moving: # modified elsewhere TODO
-		return
 	Utils.switch_parent(_object, _level, true)
 	_pivot.queue_free()
 

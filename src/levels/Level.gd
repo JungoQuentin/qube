@@ -28,6 +28,7 @@ var end_cube: EndCube
 var max_plus: Vector3
 var max_minus: Vector3
 var _stack_display_enable:= false
+var _locker_display_enable:= false
 
 #endregion
 
@@ -36,6 +37,7 @@ func _ready():
 	add_child(in_game_menu)
 	add_child(env_ligth)
 	#_init_action_stack_display()
+	_init_locker_display()
 	_get_max()
 	ActionSystem.start_level(self)
 	_init_camera()
@@ -43,6 +45,7 @@ func _ready():
 		return
 	_init_map()
 	update_can_win()
+	InputHandler._level = self
 
 
 func _init_camera():
@@ -60,17 +63,14 @@ func _init_camera():
 			add_child(style_camera)
 			style_camera.make_current()
 
+## 
 func player_can_move_camera() -> bool:
 	match camera_mode:
 		CameraMode.FIXED:
 			if not camera.is_front_player():
-				await camera.go_to_player()
 				return false
 		CameraMode.NATURAL:
 			if not style_camera.current:
-				if camera.is_moving or style_camera.locked:
-					return false
-				await camera.go_to_player()
 				return false
 	return true
 
@@ -83,9 +83,8 @@ func _init_map():
 	var map_cube_children = map_cube.get_children()
 	var end_cubes = map_cube_children.filter(func(cube): return cube is EndCube)
 	if end_cubes.size() != 1:
-		printerr("Il ne doit y avoir qu'un fin !")
 		OS.alert("Il ne doit y avoir qu'un fin !", "oups")
-		get_tree().quit()
+		Utils.crash(["Il ne doit y avoir qu'un fin !"])
 		return
 	end_cube = end_cubes[0]
 	living_cubes = map_cube_children.filter(func(cube): return cube is LivingCube)
@@ -173,5 +172,30 @@ func _add_state_to_stack_display(state: LevelState, index: int):
 	action_stack_display.add_child(new_label)
 	if index == ActionSystem.current_state_index:
 		new_label.text = new_label.text + " CURRENT "
+
+
+var locker_display: VBoxContainer
+## only for debug purpose
+func _init_locker_display():
+	_locker_display_enable = true
+	locker_display = VBoxContainer.new()
+	add_child(locker_display)
+
+func update_locker_display():
+	if not _locker_display_enable:
+		return
+	locker_display.get_children().map(func(child): child.queue_free())
+	var i = 0
+	for action in InputHandler._locker:
+		_add_locker_display(action, i)
+		i += 1
+
+func _add_locker_display(action: String, index: int):
+	if not _locker_display_enable:
+		return
+	var new_label: Label = Label.new()
+	new_label.text = action
+	locker_display.add_child(new_label)
+
 
 #endregion

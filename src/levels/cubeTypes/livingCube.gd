@@ -53,8 +53,7 @@ func _roll(direction: Vector3, floor_direction: Vector3):
 		if pattern == Pattern.ASYMETRIC:
 			await move_logic.cant_roll()
 			return
-		printerr("living cube, should not follow by going to other face")
-		get_tree().quit()
+		Utils.crash(["living cube, should not follow by going to other face"])
 		return
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	
@@ -63,8 +62,7 @@ func _roll(direction: Vector3, floor_direction: Vector3):
 		if is_going_to_change_face_by_slide:
 			if pattern == Pattern.ASYMETRIC:
 				return
-			printerr("living cube, should not follow by going to other face")
-			get_tree().quit()
+			Utils.crash(["living cube, should not follow by going to other face"])
 			return
 		var new_position = move_logic.floor_goal.get_end_slide(move_logic._direction, move_logic._floor_direction)
 		global_position = new_position - move_logic._floor_direction

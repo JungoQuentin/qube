@@ -96,6 +96,11 @@ func _slide():
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_property(_object, "global_position", goal_position, _object.speed)
 	await _tween.finished
+	
+	var neighbour = Utils.get_raycast_collider(_level, _object.global_position, _direction)
+	if neighbour is MovingCube and neighbour.can_push(_direction, _floor_direction):
+		neighbour.on_push(_direction, _floor_direction)
+		
 	floor_goal = _get_floor_under_object()
 	if is_going_to_change_face_by_slide:
 		await _new_roll()

@@ -78,10 +78,10 @@ func _roll():
 
 func _cant_roll():
 	ActionSystem.player_start_move()
-	_level.player_start_move(move_logic._direction)
+	#_level.player_start_move(move_logic._direction)
 	await move_logic.cant_roll()
 	move_logic.remove_pivot()
-	_level.player_end_move()
+	#_level.player_end_move()
 	ActionSystem.player_end_move()
 
 ## Abort the current move and return false if there was no move

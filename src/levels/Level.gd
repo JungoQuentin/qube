@@ -126,6 +126,10 @@ func update_can_win():
 		end_cube.can_win = single_use_cubes.all(func(cube): return cube.is_used)
 
 
+func is_player_hit_by_laser():
+	return laser_cubes.any(func(l: LaserCube): return l.is_collinding_with(player))
+
+
 func object_current_face(object: Node3D) -> Vector3:
 	if max_plus.x < object.global_position.x:
 		return Vector3.RIGHT

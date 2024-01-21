@@ -49,12 +49,12 @@ func _roll():
 	
 	## if we are going to change face, check if we also push a moving cube
 	if move_logic.floor_neighbour is MovingCube and not move_logic.floor_neighbour.in_a_hole and move_logic.floor_neighbour.can_push(move_logic._floor_direction, -move_logic._direction):
-		move_logic.floor_neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
+		await move_logic.floor_neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
 	
 	## if our neighbour is a MovingCube, we try to push him
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	if neighbour is MovingCube and neighbour.can_push(move_logic._direction, move_logic._floor_direction):
-		neighbour.on_push(move_logic._direction, move_logic._floor_direction)
+		await neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 	
 	ActionSystem.player_start_move()
 	_level.player_start_move(move_logic._direction)
@@ -69,14 +69,19 @@ func _roll():
 	we_are_on_this_cube_now = move_logic.floor_goal
 	
 	move_logic.remove_pivot()
+	
+	## abort if the laser is touching us !
+	if _level.is_player_hit_by_laser():
+		# TODO this allow redo... (find a better way)
+		await ActionSystem._undo()
 
 
 func _cant_roll():
 	ActionSystem.player_start_move()
-	_level.player_start_move(move_logic._direction)
+	#_level.player_start_move(move_logic._direction)
 	await move_logic.cant_roll()
 	move_logic.remove_pivot()
-	_level.player_end_move()
+	#_level.player_end_move()
 	ActionSystem.player_end_move()
 
 ## Abort the current move and return false if there was no move

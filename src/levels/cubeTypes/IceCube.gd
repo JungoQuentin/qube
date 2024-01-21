@@ -10,7 +10,7 @@ func get_end_slide(direction: Vector3, floor_direction: Vector3) -> Vector3:
 	if neighbour:
 		return global_position
 	var floor_goal = Utils.get_raycast_collider(_level, global_position + direction - floor_direction, floor_direction)
-	if floor_goal is MovingCube or floor_goal is BlockingCube:
+	if floor_goal is MovingCube or floor_goal is BlockingCube or (floor_goal is SingleUseCube and floor_goal.is_used):
 		return global_position
 	var next: Cube = Utils.get_raycast_collider(_level, global_position, direction)
 	if next == null: # on edge

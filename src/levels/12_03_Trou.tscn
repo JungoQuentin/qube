@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_tee2o"]
 [ext_resource type="PackedScene" uid="uid://crm7r27jrvees" path="res://src/levels/cubeTypes/Cube.tscn" id="3_oic8p"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/holeCube.gd" id="4_imdt3"]
-[ext_resource type="Script" path="res://src/levels/cubeTypes/movingCube.gd" id="6_mtl5i"]
+[ext_resource type="Script" path="res://src/levels/cubeTypes/SnowBall.gd" id="5_cw4ee"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/endCube.gd" id="7_184wt"]
 
 [node name="Level" type="Node3D"]
@@ -83,31 +83,31 @@ script = ExtResource("4_imdt3")
 
 [node name="_StaticBody3D_21102" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 1)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="_StaticBody3D_21105" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="_StaticBody3D_21106" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 1)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="_StaticBody3D_21103" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 2)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="_StaticBody3D_21107" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 1)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="_StaticBody3D_21108" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 2)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="_StaticBody3D_21104" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -1)
-script = ExtResource("6_mtl5i")
+script = ExtResource("5_cw4ee")
 
 [node name="@StaticBody3D@21103" parent="MapCube" instance=ExtResource("3_oic8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -1)

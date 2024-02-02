@@ -43,10 +43,10 @@ func _process(_delta):
 	## Player move
 	var player_input = Utils.is_one_action_pressed(["player_top", "player_bottom", "player_right", "player_left"])
 	if not player_input.is_empty():
-		if not await _level.player_can_move_camera():
-			_add_action(_level.camera)
-			await _level.camera.go_to_player()
-			_end_action(_level.camera)
+		if not _level.camera_controller.is_in_player_mode():
+			_add_action(_level.camera_controller)
+			await _level.camera_controller.player_want_to_move()
+			_end_action(_level.camera_controller)
 			return
 		_add_action(_level.player)
 		await _level.player.handle_input(player_input)
@@ -56,9 +56,10 @@ func _process(_delta):
 	## Camera move and rotate
 	var camera_input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not camera_input.is_empty():
-		_add_action(_level.camera)
-		await _level.camera.handle_input(camera_input)
-		_end_action(_level.camera)
+		_add_action(_level.camera_controller)
+		await _level.camera_controller.handle_input(camera_input)
+		_end_action(_level.camera_controller)
+		return
 	
 	## Meta (undo, redo, reset)
 	var undo_input: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
@@ -66,3 +67,4 @@ func _process(_delta):
 		_add_action(self)
 		await ActionSystem.handle_input(undo_input)
 		_end_action(self)
+		return

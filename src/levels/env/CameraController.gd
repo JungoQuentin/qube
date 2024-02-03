@@ -31,13 +31,15 @@ func _ready():
 	_level.add_child(_record_effect)
 	_view_state = ViewState.PLAYER
 
-
+var dbg = false
 func _init_camera():
 	## init cameras
-	#_level.add_child(sub_viewport_container)
-	#sub_viewport_container.add_child(sub_viewport)
-	#sub_viewport.add_child(_fixed_camera)
-	_level.add_child(_fixed_camera)
+	if dbg:
+		_level.add_child(sub_viewport_container)
+		sub_viewport_container.add_child(sub_viewport)
+		sub_viewport.add_child(_fixed_camera)
+	else:
+		_level.add_child(_fixed_camera)
 	match _camera_mode:
 		CameraMode.FIXED:
 			_fixed_camera.make_current()
@@ -59,6 +61,7 @@ func player_move(direction: Vector3, floor_direction):
 ## Switch the effect to ViewState.PLAYER 
 func _record_to_player():
 	print("record to player")
+	await Utils.sleep(0.3)
 	_view_state = ViewState.PLAYER
 	_fixed_camera.fov = CAMERA_FOV
 	_style_camera.fov = CAMERA_FOV
@@ -66,6 +69,7 @@ func _record_to_player():
 ## Switch the effect to ViewState.RECORD 
 func _player_to_record():
 	print("player to record")
+	await Utils.sleep(0.3)
 	_view_state = ViewState.RECORD
 	_fixed_camera.fov = CAMERA_FOV + RECORD_FOV_DEZOOM
 	_style_camera.fov = CAMERA_FOV + RECORD_FOV_DEZOOM
@@ -87,15 +91,8 @@ func player_want_to_move():
 		await _camera_to_player_face()
 	await _record_to_player()
 
-
-func _go_to_player():
-	var player_face = _level.object_current_face(_level.player)
-	if _view_state == ViewState.PLAYER:
-		return
-	_view_state = ViewState.PLAYER
-	await _camera_to_player_face()
-
 ## Turn the camera face to the player
+# TODO ca c de la merde, parfois il ne retourne pas au bon endroit...
 func _camera_to_player_face():
 	var player_face = _level.object_current_face(_level.player)
 	if _is_front_face(player_face):

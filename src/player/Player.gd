@@ -45,8 +45,7 @@ func handle_input(input: String):
 
 func _roll():
 	if move_logic._is_going_to_change_face:
-		# TODO logic elsewhere ?
-		_level.camera_controller.player_move(move_logic._direction, move_logic._floor_direction)
+		_level.camera_controller.player_change_face(move_logic._direction, move_logic._floor_direction)
 	
 	## if we are going to change face, check if we also push a moving cube
 	if move_logic.floor_neighbour is MovingCube and not move_logic.floor_neighbour.in_a_hole and move_logic.floor_neighbour.can_push(move_logic._floor_direction, -move_logic._direction):

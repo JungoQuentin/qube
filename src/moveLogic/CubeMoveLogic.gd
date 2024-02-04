@@ -91,7 +91,7 @@ func _slide():
 	if is_going_to_change_face_by_slide:
 		goal_position = floor_goal.get_end_slide(_direction, _floor_direction) + _direction - _floor_direction
 		# TODO wtf
-		await _level.camera_controller.player_move(_direction, _floor_direction)
+		await _level.camera_controller.player_change_face(_direction, _floor_direction)
 	remove_pivot()
 
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)

@@ -49,12 +49,12 @@ func _init_camera():
 			add_child(_style_camera)
 			_style_camera.make_current()
 
-
+##
 func get_camera_basis() -> Basis:
 	return _fixed_camera.global_basis
 
-## TODO quand le joueur change de face
-func player_move(direction: Vector3, floor_direction):
+## Called by player when changing face
+func player_change_face(direction: Vector3, floor_direction):
 	var immediate = _camera_mode == CameraMode.NATURAL
 	immediate = false
 	await _fixed_camera.move(direction.cross(floor_direction), immediate)

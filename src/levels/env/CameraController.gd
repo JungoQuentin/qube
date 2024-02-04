@@ -4,6 +4,7 @@ class_name CameraController
 static var CAMERA_DISTANCE = 18.5
 static var CAMERA_FOV = 30.
 static var RECORD_FOV_DEZOOM = 5.
+static var TIME_TO_SWITCH_VIEW_STATE = 0.3
 
 enum ViewState { PLAYER, RECORD }
 enum CameraMode { NATURAL, FIXED }
@@ -60,17 +61,19 @@ func player_move(direction: Vector3, floor_direction):
 
 ## Switch the effect to ViewState.PLAYER 
 func _record_to_player():
-	await Utils.sleep(0.1)
+	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(_fixed_camera, "fov", CAMERA_FOV, TIME_TO_SWITCH_VIEW_STATE)
+	tween.tween_property(_style_camera, "fov", CAMERA_FOV, TIME_TO_SWITCH_VIEW_STATE)
+	await tween.finished
 	_view_state = ViewState.PLAYER
-	_fixed_camera.fov = CAMERA_FOV
-	_style_camera.fov = CAMERA_FOV
 
 ## Switch the effect to ViewState.RECORD 
 func _player_to_record():
-	await Utils.sleep(0.1)
 	_view_state = ViewState.RECORD
-	_fixed_camera.fov = CAMERA_FOV + RECORD_FOV_DEZOOM
-	_style_camera.fov = CAMERA_FOV + RECORD_FOV_DEZOOM
+	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(_fixed_camera, "fov", CAMERA_FOV + RECORD_FOV_DEZOOM, TIME_TO_SWITCH_VIEW_STATE)
+	tween.tween_property(_style_camera, "fov", CAMERA_FOV + RECORD_FOV_DEZOOM, TIME_TO_SWITCH_VIEW_STATE)
+	await tween.finished
 
 ## To be called after undo / redo / reset
 func after_meta():

@@ -1,6 +1,5 @@
 class_name FixedCamera extends Camera3D
 
-@onready var _level: Level = get_tree().current_scene
 var _is_moving = false
 var last_face: Vector3
 const DURATION = 0.3

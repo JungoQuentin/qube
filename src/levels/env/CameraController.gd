@@ -19,8 +19,10 @@ var _camera_mode: CameraController.CameraMode
 var _fixed_camera:= FixedCamera.new()
 var _style_camera: Camera3D = _fixed_camera
 
+var dbg_cylinder = RayCast3D.new()
 var sub_viewport_container = SubViewportContainer.new()
 var sub_viewport = SubViewport.new()
+
 
 func _init(level: Level, camera_mode: CameraController.CameraMode):
 	_level = level
@@ -31,6 +33,12 @@ func _ready():
 	_init_camera()
 	_level.add_child(_record_effect)
 	_view_state = ViewState.PLAYER
+	_level.add_child(dbg_cylinder)
+
+func _process(_delta):
+	dbg_cylinder.target_position = _fixed_camera.position.normalized() * 10
+
+
 
 var dbg = false
 func _init_camera():
@@ -138,11 +146,8 @@ func handle_input(input: String):
 		var immediate = not _fixed_camera.current
 		await _fixed_camera.move(axis, immediate)
 		
-		# TODO when the natural camera is current
 		if not _fixed_camera.current:
-			_fixed_camera._is_moving = true
 			await _style_camera.transition_to(_fixed_camera)
-			_fixed_camera._is_moving = false
 			_fixed_camera.make_current()
 
 

@@ -2,7 +2,6 @@ extends Node
 
 var _locker: Array[String] = []
 var _level: Level
-var _stack_display_enable = true
 
 ##
 func is_locked() -> bool:
@@ -48,6 +47,13 @@ func _process(_delta):
 			await _level.camera_controller.player_want_to_move()
 			_end_action(_level.camera_controller)
 			return
+		
+		## security
+		var player_face = _level.object_current_face(_level.player)
+		if not _level.camera_controller._is_front_face(player_face):
+			#Utils.crash("gatcha !")
+			return
+		
 		_add_action(_level.player)
 		await _level.player.handle_input(player_input)
 		_end_action(_level.player)

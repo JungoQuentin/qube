@@ -73,7 +73,7 @@ func _get_max():
 		max_minus.z = min(max_minus.z, pos.z)
 
 
-func player_start_move(direction: Vector3):
+func player_start_move(_direction: Vector3):
 	laser_cubes.map(func(c): c.player_start_move())
 	update_can_win()
 
@@ -152,7 +152,7 @@ func update_locker_display():
 		_add_locker_display(action, i)
 		i += 1
 
-func _add_locker_display(action: String, index: int):
+func _add_locker_display(action: String, _index: int):
 	if not _locker_display_enable:
 		return
 	var new_label: Label = Label.new()

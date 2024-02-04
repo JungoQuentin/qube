@@ -59,6 +59,9 @@ func _roll():
 	ActionSystem.player_start_move()
 	_level.player_start_move(move_logic._direction)
 	await move_logic.roll()
+	if move_logic.floor_goal == null:
+		Utils.crash("floor_goal does not exist")
+		return
 	move_logic.floor_goal.on_touch()
 	_level.player_end_move()
 	ActionSystem.player_end_move()

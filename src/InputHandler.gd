@@ -60,7 +60,11 @@ func _process(_delta):
 		await _level.camera_controller.handle_input(camera_input)
 		_end_action(_level.camera_controller)
 		return
-	
+
+##
+func _input(_event):
+	if _level == null or is_locked():
+		return
 	## Meta (undo, redo, reset)
 	var undo_input: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
 	if not undo_input.is_empty():

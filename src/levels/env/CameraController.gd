@@ -78,7 +78,6 @@ func _player_to_record():
 ## To be called after undo / redo / reset
 func after_meta():
 	if _view_state == ViewState.RECORD:
-		Utils.crash(["NOT implemented"])
 		return
 	var player_face = _level.object_current_face(_level.player)
 	if _is_front_face(player_face):

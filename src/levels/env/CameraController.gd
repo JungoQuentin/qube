@@ -56,7 +56,7 @@ func get_camera_basis() -> Basis:
 func player_move(direction: Vector3, floor_direction):
 	var immediate = _camera_mode == CameraMode.NATURAL
 	immediate = false
-	await _fixed_camera._move(direction.cross(floor_direction), immediate)
+	await _fixed_camera.move(direction.cross(floor_direction), immediate)
 
 ## Switch the effect to ViewState.PLAYER 
 func _record_to_player():
@@ -92,7 +92,6 @@ func player_want_to_move():
 	await _record_to_player()
 
 ## Turn the camera face to the player
-# TODO ca c de la merde, parfois il ne retourne pas au bon endroit...
 func _camera_to_player_face():
 	var player_face = _level.object_current_face(_level.player)
 	if _is_front_face(player_face):
@@ -101,20 +100,18 @@ func _camera_to_player_face():
 	match _camera_mode:
 		CameraMode.FIXED:
 			if Vector3.ZERO.is_equal_approx(_fixed_camera.global_position.normalized().cross(player_face)):
-				await _fixed_camera._move(_fixed_camera.global_position.normalized().cross(_fixed_camera.last_face))
-			await _fixed_camera._move(_fixed_camera.global_position.normalized().cross(player_face))
+				await _fixed_camera.move(_fixed_camera.global_position.normalized().cross(_fixed_camera.last_face))
+			await _fixed_camera.move(_fixed_camera.global_position.normalized().cross(player_face))
 		CameraMode.NATURAL:
 			if not _style_camera.current:
 				_style_camera.transform = _fixed_camera.transform
 				_style_camera.make_current()
-			
 			if Vector3.ZERO.is_equal_approx(_fixed_camera.global_position.normalized().cross(player_face)):
-				await _fixed_camera._move(_fixed_camera.global_position.normalized().cross(_fixed_camera.last_face), true)
+				await _fixed_camera.move(_fixed_camera.global_position.normalized().cross(_fixed_camera.last_face), true)
 				_fixed_camera._is_moving = true
 				await _style_camera.transition_to(_fixed_camera)
 				_fixed_camera._is_moving = false
-			await _fixed_camera._move(_fixed_camera.global_position.normalized().cross(player_face), true)
-			
+			await _fixed_camera.move(_fixed_camera.global_position.normalized().cross(player_face), true)
 			_fixed_camera._is_moving = true
 			await _style_camera.transition_back()
 			_fixed_camera._is_moving = false
@@ -126,8 +123,7 @@ func handle_input(input: String):
 			"rotate_left": Vector3.FORWARD,
 			"rotate_right": Vector3.BACK,
 		}[input]
-		# TODO _move ?
-		await _fixed_camera._move(axis)
+		await _fixed_camera.rotate_(axis)
 	else:
 		if _view_state == ViewState.PLAYER:
 			await _player_to_record()
@@ -140,7 +136,7 @@ func handle_input(input: String):
 			"camera_top": Vector3.LEFT,
 		}[input]
 		var immediate = not _fixed_camera.current
-		await _fixed_camera._move(axis, immediate)
+		await _fixed_camera.move(axis, immediate)
 		
 		# TODO when the natural camera is current
 		if not _fixed_camera.current:

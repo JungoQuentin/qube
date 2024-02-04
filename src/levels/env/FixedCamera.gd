@@ -11,12 +11,20 @@ func _ready():
 	position.z = CameraController.CAMERA_DISTANCE
 	last_face = global_position.normalized()
 
+## Change the side camera is looking
+func move(axis: Vector3, immediate:= false):
+	last_face = global_position.normalized()
+	await _move(axis, immediate)
+
+## Rotate left or right
+func rotate_(axis: Vector3):
+	await _move(axis)
+
 
 func _move(axis: Vector3, immediate:= false):
 	var parent = get_parent()
-	last_face = global_position.normalized()
 	if not axis.is_normalized():
-		printerr("axis should be normalized !", axis)
+		Utils.crash(["axis should be normalized !", axis])
 		return
 	_is_moving = true
 	var pivot = Node3D.new()

@@ -60,16 +60,14 @@ func player_move(direction: Vector3, floor_direction):
 
 ## Switch the effect to ViewState.PLAYER 
 func _record_to_player():
-	print("record to player")
-	await Utils.sleep(0.3)
+	await Utils.sleep(0.1)
 	_view_state = ViewState.PLAYER
 	_fixed_camera.fov = CAMERA_FOV
 	_style_camera.fov = CAMERA_FOV
 
 ## Switch the effect to ViewState.RECORD 
 func _player_to_record():
-	print("player to record")
-	await Utils.sleep(0.3)
+	await Utils.sleep(0.1)
 	_view_state = ViewState.RECORD
 	_fixed_camera.fov = CAMERA_FOV + RECORD_FOV_DEZOOM
 	_style_camera.fov = CAMERA_FOV + RECORD_FOV_DEZOOM

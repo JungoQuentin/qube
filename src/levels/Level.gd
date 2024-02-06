@@ -28,6 +28,8 @@ func _ready():
 	add_child(camera_controller)
 	add_child(in_game_menu)
 	add_child(env_ligth)
+	_init_dbg()
+	#_init_player_current_face()
 	#_init_action_stack_display()
 	_init_locker_display()
 	_get_max()
@@ -109,13 +111,25 @@ func object_current_face(object: Node3D) -> Vector3:
 
 #region Debug
 
+func _process(delta):
+	label_current_face.text = "current:" + str(object_current_face(player)) + "\nmax:" + str(max_plus) + "\nmin:" + str(max_minus) + "\nplayer_pos" + str(player.global_position)
+
+var all_debug: HBoxContainer
+func _init_dbg():
+	all_debug = HBoxContainer.new()
+	add_child(all_debug)
+
+var label_current_face:= Label.new()
+func _init_player_current_face():
+	all_debug.add_child(label_current_face)
+
 var action_stack_display: VBoxContainer
 ## only for debug purpose
 ## will display the stack of the player actions (inputs)
 func _init_action_stack_display():
 	_stack_display_enable = true
 	action_stack_display = VBoxContainer.new()
-	add_child(action_stack_display)
+	all_debug.add_child(action_stack_display)
 
 func update_stack_display():
 	if not _stack_display_enable:
@@ -141,7 +155,7 @@ var locker_display: VBoxContainer
 func _init_locker_display():
 	_locker_display_enable = true
 	locker_display = VBoxContainer.new()
-	add_child(locker_display)
+	all_debug.add_child(locker_display)
 
 func update_locker_display():
 	if not _locker_display_enable:

@@ -1,5 +1,6 @@
 extends Node
 
+@export var entry_point: PackedScene
 var completed_levels: Array#[String]
 var _current_level_pack: PackedScene
 
@@ -14,10 +15,7 @@ func _ready():
 
 
 func goto_level_gate():
-	if not FileAccess.file_exists("res://src/levels/000_entry_point.tscn"):
-		Utils.crash("res://src/levels/000_entry_point.tscn n'existe pas !")
-		return
-	get_tree().change_scene_to_file("res://src/levels/000_entry_point.tscn")
+	get_tree().change_scene_to_packed(entry_point)
 
 
 func goto_level_by_packed(pack: PackedScene):

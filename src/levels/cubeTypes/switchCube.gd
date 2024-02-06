@@ -22,7 +22,6 @@ func _ready():
 func on_touch():
 	on = not on
 	_switch_animation_start()
-	_level.a_switch_cube_change_state()
 
 
 func _switch_animation_start():

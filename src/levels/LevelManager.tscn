@@ -1,20 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqys1tbgm63pn"]
+[gd_scene load_steps=2 format=3 uid="uid://cqys1tbgm63pn"]
 
 [ext_resource type="Script" path="res://src/levels/LevelManager.gd" id="1_2skkv"]
-[ext_resource type="PackedScene" uid="uid://dvrqbm03jnuqt" path="res://src/levels/01_2_Intro.tscn" id="2_ho4ph"]
-[ext_resource type="PackedScene" uid="uid://c0odmoxr8eh41" path="res://src/levels/01_7_Bloc.tscn" id="3_42xde"]
-[ext_resource type="PackedScene" uid="uid://b4aqgg3gq4wfd" path="res://src/levels/01_5_Laby.tscn" id="4_rka1e"]
-[ext_resource type="PackedScene" uid="uid://sb47bkjghw6t" path="res://src/levels/02_1_Trou.tscn" id="6_10gdv"]
-[ext_resource type="PackedScene" uid="uid://c56db3m15y3iv" path="res://src/levels/02_7_Trou.tscn" id="7_tfgml"]
-[ext_resource type="PackedScene" uid="uid://d3n5s4slu8f6" path="res://src/levels/01_9_Bloc.tscn" id="9_h7731"]
-[ext_resource type="PackedScene" uid="uid://jd25md7ekd15" path="res://src/levels/01_8_Bloc.tscn" id="10_k1e82"]
-[ext_resource type="PackedScene" uid="uid://d13dqn4d3ba00" path="res://src/levels/02_3_Trou.tscn" id="16_6vfks"]
-[ext_resource type="PackedScene" path="res://src/levels/320_Trou.tscn" id="17_h1vdw"]
-[ext_resource type="PackedScene" uid="uid://d2cytd4d3vaka" path="res://src/levels/02_5_Trou.tscn" id="18_okems"]
-[ext_resource type="PackedScene" path="res://src/levels/330_Glace.tscn" id="28_vghhe"]
-[ext_resource type="PackedScene" uid="uid://t2iff0ya32dv" path="res://src/levels/03_3_Glace.tscn" id="30_gkous"]
-[ext_resource type="PackedScene" uid="uid://ct6ascg0w608g" path="res://src/levels/03_6_Glace.tscn" id="33_efiu0"]
 
 [node name="LevelManager" type="Node"]
 script = ExtResource("1_2skkv")
-levels = Array[PackedScene]([ExtResource("2_ho4ph"), ExtResource("4_rka1e"), ExtResource("3_42xde"), ExtResource("9_h7731"), ExtResource("10_k1e82"), ExtResource("6_10gdv"), ExtResource("16_6vfks"), ExtResource("17_h1vdw"), ExtResource("18_okems"), ExtResource("7_tfgml"), ExtResource("28_vghhe"), ExtResource("30_gkous"), ExtResource("33_efiu0")])

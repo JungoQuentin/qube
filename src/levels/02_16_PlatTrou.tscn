@@ -9,7 +9,7 @@
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_uny5v")
-camera_mode = 1
+_camera_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_u70hm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 1)

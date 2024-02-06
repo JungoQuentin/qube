@@ -95,17 +95,17 @@ func is_player_hit_by_laser():
 
 ## Return the directional vector from the center to the face where the object is 
 func object_current_face(object: Node3D) -> Vector3:
-	if max_plus.x < object.global_position.x:
+	if max_plus.x < snappedf(object.global_position.x, 0.5):
 		return Vector3.RIGHT
-	if max_plus.y < object.global_position.y:
+	if max_plus.y < snappedf(object.global_position.y, 0.5):
 		return Vector3.UP
-	if max_plus.z < object.global_position.z:
+	if max_plus.z < snappedf(object.global_position.z, 0.5):
 		return Vector3.BACK
-	if max_minus.x > object.global_position.x:
+	if max_minus.x > snappedf(object.global_position.x, 0.5):
 		return Vector3.LEFT
-	if max_minus.y > object.global_position.y:
+	if max_minus.y > snappedf(object.global_position.y, 0.5):
 		return Vector3.DOWN
-	if max_minus.z > object.global_position.z:
+	if max_minus.z > snappedf(object.global_position.z, 0.5):
 		return Vector3.FORWARD
 	return Vector3.ZERO
 

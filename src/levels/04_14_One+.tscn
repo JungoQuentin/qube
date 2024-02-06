@@ -20,7 +20,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="name" parent="MapCube" instance=ExtResource("3_ecrnq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -2)
-script = ExtResource("4_3fh62")
+script = ExtResource("5_5vtce")
 
 [node name="@StaticBody3D@51311" parent="MapCube" instance=ExtResource("3_ecrnq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, -1)

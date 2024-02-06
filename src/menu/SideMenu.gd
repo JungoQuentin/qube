@@ -65,6 +65,8 @@ func toggle_settings(to:= not visible):
 
 
 func go_in_sub_menu(submenu_name: String):
+	if not find_child(submenu_name, false):
+		return # TODO
 	current_menu.hide()
 	current_menu = find_child(submenu_name, false)
 	current_menu.show()

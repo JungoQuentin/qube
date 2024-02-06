@@ -6,7 +6,8 @@ enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
 @export var is_level_gate:= false
 @export var _camera_mode:= CameraController.CameraMode.NATURAL
-@onready var camera_controller:= CameraController.new(self, _camera_mode)
+@export var _camera_distance:= 18.5
+@onready var camera_controller:= CameraController.new(self, _camera_mode, _camera_distance)
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()

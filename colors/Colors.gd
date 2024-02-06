@@ -30,10 +30,9 @@
 @export var end_cube_init_color = Color.DARK_GRAY
 @export var switch_cube_on_color = Color.YELLOW
 @export var switch_cube_off_color = Color.BLACK
-@export var moving_cube_init_color = Color.YELLOW
+@export var snow_ball_init_color = Color.WHITE
 @export var ice_cube_init_color = Color.LIGHT_SKY_BLUE
 @export var hole_cube_editor_color = Color.AZURE
-@export var living_init_color = Color.DARK_GREEN
 @export var gate_init_color = Color.DARK_CYAN
 @export var laser_cube_init_color = Color.LIGHT_CORAL
 @export_group("Others")
@@ -50,11 +49,10 @@ func get_initial_color(cubeType: Cube.Type) -> Color:
 		Cube.Type.BLOCKING: blocking_init_color,
 		Cube.Type.END: end_cube_init_color,
 		Cube.Type.SINGLE_USE: single_cube_init_color,
-		Cube.Type.MOVING: moving_cube_init_color,
+		Cube.Type.SNOW_BALL: snow_ball_init_color,
 		Cube.Type.ICE: ice_cube_init_color,
 		Cube.Type.HOLE: hole_cube_editor_color,
 		Cube.Type.SWITCH: switch_cube_on_color,
-		Cube.Type.LIVING: living_init_color,
 		Cube.Type.NORMAL: normal_init_color,
 		Cube.Type.GATE: gate_init_color,
 		Cube.Type.LASER: laser_cube_init_color,

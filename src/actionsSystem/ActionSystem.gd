@@ -13,11 +13,14 @@ func start_level(level: Level):
 	current_state_index = 0
 
 
-func _input(_event):
-	var action_str: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
-	if action_str.is_empty():
-		return
-	{ "undo": _undo, "redo": _redo, "reset": _reset_level }[action_str].call()
+func handle_input(input: String):
+	match input:
+		"undo":
+			await _undo()
+		"redo":
+			await _redo()
+		"reset":
+			await _reset_level()
 
 
 func _undo():
@@ -26,17 +29,15 @@ func _undo():
 		return
 	current_state_index -= 1
 	state_stack[current_state_index].apply(_level)
-	_level.camera.go_to_player()
+	await _level.camera_controller.after_meta()
 
 
 func _redo():
-	if _level.player.is_moving or _level.camera.is_moving:
-		return
 	if current_state_index + 1 >= state_stack.size():
 		return
 	state_stack[current_state_index + 1].apply(_level)
 	current_state_index += 1
-	_level.camera.go_to_player()
+	await _level.camera_controller.after_meta()
 
 
 func _reset_level():
@@ -47,7 +48,7 @@ func _reset_level():
 		return
 	_add_state(state_stack.front())
 	state_stack.front().apply(_level)
-	_level.camera.go_to_player()
+	await _level.camera_controller.after_meta()
 	current_state_index = state_stack.size() - 1
 	_remove_redo()
 	current_state_index = state_stack.size() - 1

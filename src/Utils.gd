@@ -57,3 +57,11 @@ func arr_to_dict(array: Array, predicate: Callable):
 	for el in array:
 		dict[el] = predicate.call(el)
 	return dict
+
+## 
+func crash(message = ""):
+	printerr(message)
+	for s in get_stack():
+		printerr(s)
+	printerr("=== quiting ===")
+	get_tree().quit()

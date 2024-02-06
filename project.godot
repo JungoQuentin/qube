@@ -23,6 +23,7 @@ Utils="*res://src/Utils.gd"
 LevelManager="*res://src/levels/LevelManager.tscn"
 Save="*res://src/Save.gd"
 SideMenu="*res://src/menu/SideMenu.tscn"
+InputHandler="*res://src/InputHandler.gd"
 
 [display]
 

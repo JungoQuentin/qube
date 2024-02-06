@@ -52,9 +52,7 @@ func roll():
 	_start = _pivot.basis
 	_goal = _pivot.basis.rotated(axis, PI / 2 if not _is_going_to_change_face else -PI)
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
-	# TODO check si le if marche dans le cas ou j'annule (est-ce que ca kill le tween)
-	# -> quand j'abort pendant, il faudrai plutot kill le tween en sois...
-	_tween.tween_method(func(t): if _object.is_moving:_pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
+	_tween.tween_method(func(t): _pivot.basis = _start.slerp(_goal, t), 0., 1., _object.speed if not _is_going_to_change_face else _object.speed * 2) 
 	await _tween.finished
 	if is_going_to_slide and _is_going_to_change_face:
 		await _new_roll()
@@ -63,10 +61,7 @@ func roll():
 	return self
 
 ## Reset the pivot and rotator. Only for moving cubes and player
-# TODO rename remove
 func remove_pivot():
-	if not _object.is_moving: # modified elsewhere TODO
-		return
 	Utils.switch_parent(_object, _level, true)
 	_pivot.queue_free()
 
@@ -91,17 +86,21 @@ func _new_roll():
 
 
 func _slide():
-	var start_position = _object.global_position
 	var is_going_to_change_face_by_slide = floor_goal.will_change_face(_direction, _floor_direction)
 	var goal_position = floor_goal.get_end_slide(_direction, _floor_direction) - _floor_direction
 	if is_going_to_change_face_by_slide:
 		goal_position = floor_goal.get_end_slide(_direction, _floor_direction) + _direction - _floor_direction
-		await _level.camera.player_move(_direction, _floor_direction)
+		await _level.camera_controller.player_change_face(_direction, _floor_direction)
 	remove_pivot()
 
 	_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_property(_object, "global_position", goal_position, _object.speed)
 	await _tween.finished
+	
+	var neighbour = Utils.get_raycast_collider(_level, _object.global_position, _direction)
+	if neighbour is MovingCube and neighbour.can_push(_direction, _floor_direction):
+		await neighbour.on_push(_direction, _floor_direction)
+		
 	floor_goal = _get_floor_under_object()
 	if is_going_to_change_face_by_slide:
 		await _new_roll()
@@ -109,9 +108,10 @@ func _slide():
 
 
 func abort():
-	_tween.stop()
-	_tween.kill()
-	if not _pivot == null:
+	if _tween:
+		_tween.stop()
+		_tween.kill()
+	if _pivot:
 		remove_pivot()
 
 
@@ -119,8 +119,6 @@ func can_roll() -> bool:
 	if floor_goal and floor_goal.is_rejecting():
 		return false
 	if is_going_to_hole:
-		return false
-	if floor_goal is LivingCube:
 		return false
 	if floor_goal is BlockingCube:
 		return false

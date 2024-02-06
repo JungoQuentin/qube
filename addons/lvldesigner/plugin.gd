@@ -33,7 +33,7 @@ func _init_dock():
 	var dimensions_input = _add_intut("3(x3x3)", create_dock, false)
 	_add_button("creer", create_dock, func(): create_map(dimensions_input.text))
 
-	_add_button("auto levels", _plugin_dock, _auto_fill_level_manager)
+	#_add_button("auto levels", _plugin_dock, _auto_fill_level_manager)
 
 
 func _update_cubes_color():

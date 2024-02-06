@@ -11,11 +11,10 @@ var _first_update:= false
 	Cube.Type.BLOCKING : BlockingCube,
 	Cube.Type.END : EndCube,
 	Cube.Type.SINGLE_USE: SingleUseCube,
-	Cube.Type.MOVING: MovingCube,
+	Cube.Type.SNOW_BALL: SnowBallCube,
 	Cube.Type.SWITCH: SwitchCube,
 	Cube.Type.ICE: IceCube,
 	Cube.Type.HOLE: HoleCube,
-	Cube.Type.LIVING: LivingCube,
 	Cube.Type.GATE: LevelGateCube,
 	Cube.Type.LASER: LaserCube,
 }

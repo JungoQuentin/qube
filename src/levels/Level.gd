@@ -35,11 +35,11 @@ func _ready():
 	_init_locker_display()
 	_get_max()
 	ActionSystem.start_level(self)
-	if is_level_gate:
-		return
+	InputHandler._level = self
+	#if is_level_gate:
+		#return
 	_init_map()
 	update_can_win()
-	InputHandler._level = self
 
 
 func abort_move():

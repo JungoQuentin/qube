@@ -1,42 +1,41 @@
 extends Node
 
-@export var levels: Array[PackedScene]
-var current_level_index:= 0
-var completed_levels: Array
+var completed_levels: Array#[String]
+var _current_level_pack: PackedScene
 
 
 func _ready():
 	await Save.loaded
 	if not Save.config.has_section("progression"):
-		completed_levels = levels.map(func(_l): return false)
+		completed_levels = []
 		save()
 	else:
 		completed_levels = Save.config.get_value("progression", "completed_levels")
-		current_level_index = Save.config.get_value("progression", "current_level_index")
 
 
 func goto_level_gate():
+	if not FileAccess.file_exists("res://src/levels/000_entry_point.tscn"):
+		Utils.crash("res://src/levels/000_entry_point.tscn n'existe pas !")
+		return
 	get_tree().change_scene_to_file("res://src/levels/000_entry_point.tscn")
 
 
-func goto_next_level():
-	goto_level_by_index(current_level_index + 1)
-
-
-func goto_level_by_index(index: int):
-	if levels.size() <= index:
-		return
-	get_tree().change_scene_to_packed(levels[index])
-	current_level_index = index
+func goto_level_by_packed(pack: PackedScene):
+	get_tree().change_scene_to_packed(pack)
+	_current_level_pack = pack
 
 
 func win():
-	completed_levels[current_level_index] = true
+	if not completed_levels.has(_current_level_pack.resource_path):
+		completed_levels.push_front(_current_level_pack.resource_path)
 	save()
 	goto_level_gate()
 
 
 func save():
 	Save.config.set_value("progression", "completed_levels", completed_levels)
-	Save.config.set_value("progression", "current_level_index", current_level_index)
 	Save.save()
+
+
+func is_level_finished(pack: PackedScene) -> bool:
+	return completed_levels.has(pack.resource_path)

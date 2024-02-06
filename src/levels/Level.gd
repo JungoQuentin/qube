@@ -2,22 +2,14 @@ class_name Level extends Node3D
 
 #region DECLARATION
 
-static var CAMERA_DISTANCE = 18.5
-static var CAMERA_FOV = 30.
-
 enum { INGAME, PAUSE, MENU }
-enum CameraMode { NATURAL, FIXED }
 var game_state = INGAME
 @export var is_level_gate:= false
-@export var camera_mode:= CameraMode.NATURAL
-
+@export var _camera_mode:= CameraController.CameraMode.NATURAL
+@onready var camera_controller:= CameraController.new(self, _camera_mode)
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
-var camera:= FixedCamera.new()
-var style_camera = null
-var sub_viewport_container = SubViewportContainer.new()
-var sub_viewport = SubViewport.new()
 @onready var env_ligth: Node3D = preload("res://src/levels/env/EnvLight.tscn").instantiate()
 var switch_cubes: Array
 var single_use_cubes: Array
@@ -33,45 +25,19 @@ var _locker_display_enable:= false
 
 
 func _ready():
+	add_child(camera_controller)
 	add_child(in_game_menu)
 	add_child(env_ligth)
 	#_init_action_stack_display()
 	_init_locker_display()
 	_get_max()
 	ActionSystem.start_level(self)
-	_init_camera()
 	if is_level_gate:
 		return
 	_init_map()
 	update_can_win()
 	InputHandler._level = self
 
-
-func _init_camera():
-	## init cameras
-	#add_child(sub_viewport_container)
-	#sub_viewport_container.add_child(sub_viewport)
-	#sub_viewport.add_child(camera)
-	add_child(camera)
-	camera.make_current()
-	match camera_mode:
-		CameraMode.FIXED:
-			pass
-		CameraMode.NATURAL:
-			style_camera = NaturalCamera.new()
-			add_child(style_camera)
-			style_camera.make_current()
-
-## 
-func player_can_move_camera() -> bool:
-	match camera_mode:
-		CameraMode.FIXED:
-			if not camera.is_front_player():
-				return false
-		CameraMode.NATURAL:
-			if not style_camera.current:
-				return false
-	return true
 
 func abort_move():
 	player.abort_move()
@@ -107,11 +73,7 @@ func _get_max():
 		max_minus.z = min(max_minus.z, pos.z)
 
 
-#func a_switch_cube_change_state():
-	#_update_can_win()
-
-
-func player_start_move(direction: Vector3):
+func player_start_move(_direction: Vector3):
 	laser_cubes.map(func(c): c.player_start_move())
 	update_can_win()
 
@@ -129,7 +91,7 @@ func update_can_win():
 func is_player_hit_by_laser():
 	return laser_cubes.any(func(l: LaserCube): return l.is_collinding_with(player))
 
-
+## Return the directional vector from the center to the face where the object is 
 func object_current_face(object: Node3D) -> Vector3:
 	if max_plus.x < object.global_position.x:
 		return Vector3.RIGHT
@@ -190,7 +152,7 @@ func update_locker_display():
 		_add_locker_display(action, i)
 		i += 1
 
-func _add_locker_display(action: String, index: int):
+func _add_locker_display(action: String, _index: int):
 	if not _locker_display_enable:
 		return
 	var new_label: Label = Label.new()

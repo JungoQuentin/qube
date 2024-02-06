@@ -6,15 +6,15 @@ const DURATION = 0.3
 
 
 func _ready():
-	fov = Level.CAMERA_FOV
-	position.z = Level.CAMERA_DISTANCE
+	fov = CameraController.CAMERA_FOV
+	position.z = CameraController.CAMERA_DISTANCE
 
 
 func _process(_delta):
 	if not _is_moving.is_empty() or not _level.player or not current:
 		return
 	global_position = _global_pos_zenith_player()
-	var camera_up = _level.camera.global_basis * Vector3.UP
+	var camera_up = _level.camera_controller.get_camera_basis() * Vector3.UP
 	look_at(Vector3.ZERO, camera_up)
 
 
@@ -49,7 +49,7 @@ func transition_back():
 	tween.tween_method(
 		func(t):
 			position = start_position.slerp(goal, t)
-			basis = start_basis.slerp(_level.camera.basis, t)
+			basis = start_basis.slerp(_level.camera_controller.get_camera_basis(), t)
 			look_at(Vector3.ZERO, basis * Vector3.UP)
 			,
 		0., 1., DURATION)
@@ -58,7 +58,7 @@ func transition_back():
 
 
 func _global_pos_zenith_player() -> Vector3:
-	return _level.player.global_position.normalized() * Level.CAMERA_DISTANCE
+	return _level.player.global_position.normalized() * CameraController.CAMERA_DISTANCE
 
 
 func _set_moving():

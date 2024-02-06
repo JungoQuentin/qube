@@ -59,7 +59,7 @@ func arr_to_dict(array: Array, predicate: Callable):
 	return dict
 
 ## 
-func crash(message: Array[String] = ["no message"]):
+func crash(message = ""):
 	printerr(message)
 	for s in get_stack():
 		printerr(s)

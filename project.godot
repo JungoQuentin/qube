@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="qube"
-run/main_scene="res://src/menu/MainMenu.tscn"
+run/main_scene="res://src/menu/Title.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,12 +22,15 @@ ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
 LevelManager="*res://src/levels/LevelManager.tscn"
 Save="*res://src/Save.gd"
+SideMenu="*res://src/menu/SideMenu.tscn"
 InputHandler="*res://src/InputHandler.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor]
 
@@ -37,6 +40,14 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "purple",
+"res://build/": "orange",
+"res://src/": "blue"
+}
+
 [filesystem]
 
 import/blender/enabled=false
@@ -45,6 +56,10 @@ import/blender/enabled=false
 
 config/itch_username=""
 config/itch_project_name=""
+
+[gui]
+
+theme/custom="res://src/menu/menu_theme.tres"
 
 [input]
 
@@ -144,6 +159,10 @@ camera_bottom={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets_/trads.fr.translation", "res://assets_/trads.en.translation")
 
 [rendering]
 

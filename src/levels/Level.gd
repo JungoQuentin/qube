@@ -6,10 +6,10 @@ enum { INGAME, PAUSE, MENU }
 var game_state = INGAME
 @export var is_level_gate:= false
 @export var _camera_mode:= CameraController.CameraMode.NATURAL
-@onready var camera_controller:= CameraController.new(self, _camera_mode)
+@export var _camera_distance:= 18.5
+@onready var camera_controller:= CameraController.new(self, _camera_mode, _camera_distance)
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
-@onready var in_game_menu: Control = preload("res://src/menu/InGameMenu.tscn").instantiate()
 @onready var env_ligth: Node3D = preload("res://src/levels/env/EnvLight.tscn").instantiate()
 var switch_cubes: Array
 var single_use_cubes: Array
@@ -26,17 +26,18 @@ var _locker_display_enable:= false
 
 func _ready():
 	add_child(camera_controller)
-	add_child(in_game_menu)
 	add_child(env_ligth)
+	_init_dbg()
+	#_init_player_current_face()
 	#_init_action_stack_display()
 	_init_locker_display()
 	_get_max()
 	ActionSystem.start_level(self)
-	if is_level_gate:
-		return
+	InputHandler._level = self
+	#if is_level_gate:
+		#return
 	_init_map()
 	update_can_win()
-	InputHandler._level = self
 
 
 func abort_move():
@@ -93,21 +94,33 @@ func is_player_hit_by_laser():
 
 ## Return the directional vector from the center to the face where the object is 
 func object_current_face(object: Node3D) -> Vector3:
-	if max_plus.x < object.global_position.x:
+	if max_plus.x < snappedf(object.global_position.x, 0.5):
 		return Vector3.RIGHT
-	if max_plus.y < object.global_position.y:
+	if max_plus.y < snappedf(object.global_position.y, 0.5):
 		return Vector3.UP
-	if max_plus.z < object.global_position.z:
+	if max_plus.z < snappedf(object.global_position.z, 0.5):
 		return Vector3.BACK
-	if max_minus.x > object.global_position.x:
+	if max_minus.x > snappedf(object.global_position.x, 0.5):
 		return Vector3.LEFT
-	if max_minus.y > object.global_position.y:
+	if max_minus.y > snappedf(object.global_position.y, 0.5):
 		return Vector3.DOWN
-	if max_minus.z > object.global_position.z:
+	if max_minus.z > snappedf(object.global_position.z, 0.5):
 		return Vector3.FORWARD
 	return Vector3.ZERO
 
 #region Debug
+
+func _process(delta):
+	label_current_face.text = "current:" + str(object_current_face(player)) + "\nmax:" + str(max_plus) + "\nmin:" + str(max_minus) + "\nplayer_pos" + str(player.global_position)
+
+var all_debug: HBoxContainer
+func _init_dbg():
+	all_debug = HBoxContainer.new()
+	add_child(all_debug)
+
+var label_current_face:= Label.new()
+func _init_player_current_face():
+	all_debug.add_child(label_current_face)
 
 var action_stack_display: VBoxContainer
 ## only for debug purpose
@@ -115,7 +128,7 @@ var action_stack_display: VBoxContainer
 func _init_action_stack_display():
 	_stack_display_enable = true
 	action_stack_display = VBoxContainer.new()
-	add_child(action_stack_display)
+	all_debug.add_child(action_stack_display)
 
 func update_stack_display():
 	if not _stack_display_enable:
@@ -141,7 +154,7 @@ var locker_display: VBoxContainer
 func _init_locker_display():
 	_locker_display_enable = true
 	locker_display = VBoxContainer.new()
-	add_child(locker_display)
+	all_debug.add_child(locker_display)
 
 func update_locker_display():
 	if not _locker_display_enable:

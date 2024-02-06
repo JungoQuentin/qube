@@ -1,8 +1,8 @@
 extends Cube 
 class_name LevelGateCube
 
-@export var gate_to_level_index: int
-@export var should_be_finished_level_index: int
+@export var destination: PackedScene
+@export var dependency: PackedScene
 var _cannot_go_color
 var _can_go_color
 
@@ -15,19 +15,19 @@ func _ready():
 
 
 func is_gate_open():
-	if should_be_finished_level_index < 0 or LevelManager.completed_levels.size() <= should_be_finished_level_index:
+	if dependency == null:
 		_update_color(true)
 		return true
-	var is_open = LevelManager.completed_levels[should_be_finished_level_index]
+	var is_open = LevelManager.is_level_finished(dependency)
 	_update_color(is_open)
 	return is_open
 
 
 func on_touch():
 	_touched_animation_start()
-
 	if is_gate_open():
-		LevelManager.goto_level_by_index(gate_to_level_index)
+		await Utils.sleep(0.1)
+		LevelManager.goto_level_by_packed(destination)
 
 
 func _update_color(is_open: bool):

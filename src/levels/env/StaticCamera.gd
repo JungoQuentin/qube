@@ -9,5 +9,5 @@ func _init(_side:= false):
 
 func _ready():
 	fov = 30.
-	global_position = Vector3.ONE.normalized() * Level.CAMERA_DISTANCE * (1 if side else -1)
+	global_position = Vector3.ONE.normalized() * CameraController.CAMERA_DISTANCE * (1 if side else -1)
 	look_at(Vector3.ZERO)

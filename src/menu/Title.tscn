@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://yfmldiewjebk"]
+
+[ext_resource type="Script" path="res://src/menu/Title.gd" id="1_8k2cc"]
+[ext_resource type="Theme" uid="uid://cpf3htl7plvcd" path="res://src/menu/menu_theme.tres" id="2_h2828"]
+
+[sub_resource type="Gradient" id="Gradient_6dboo"]
+colors = PackedColorArray(0.171039, 0.171039, 0.171039, 1, 0.323584, 0.323584, 0.323584, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2pi57"]
+gradient = SubResource("Gradient_6dboo")
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8k2cc")
+
+[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -33.0
+offset_right = 51.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_h2828")
+
+[node name="BeginButton" type="Button" parent="ButtonsVBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_h2828")
+text = "Commencer"
+
+[node name="LevelButton" type="Button" parent="ButtonsVBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_h2828")
+text = "Niveaux
+"
+
+[node name="SettingsButton" type="Button" parent="ButtonsVBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_h2828")
+text = "Reglages
+"
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_2pi57")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "qube"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreatedBy" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "GAME_CREATED_BY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicBy" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "SOUNDS_CREATED_BY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="enter" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[enter]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="esc" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[esc]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartGame" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "START_GAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MENU"
+horizontal_alignment = 1
+vertical_alignment = 1

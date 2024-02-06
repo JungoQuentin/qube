@@ -24,9 +24,10 @@ var sub_viewport_container = SubViewportContainer.new()
 var sub_viewport = SubViewport.new()
 
 
-func _init(level: Level, camera_mode: CameraController.CameraMode):
+func _init(level: Level, camera_mode: CameraController.CameraMode, camera_distance: float):
 	_level = level
 	_camera_mode = camera_mode
+	CAMERA_DISTANCE = camera_distance
 
 
 func _ready():

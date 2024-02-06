@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bka078y0cqg07"]
+[gd_scene load_steps=5 format=3 uid="uid://bka078y0cqg07"]
 
 [ext_resource type="Script" path="res://src/levels/Level.gd" id="1_3h3s5"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_rg802"]
 [ext_resource type="PackedScene" uid="uid://crm7r27jrvees" path="res://src/levels/cubeTypes/Cube.tscn" id="3_sc8xj"]
-[ext_resource type="Script" path="res://src/levels/cubeTypes/normalCube.gd" id="4_5owp3"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/endCube.gd" id="5_m2dea"]
 
 [node name="Level" type="Node3D"]
@@ -15,49 +14,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
 
 [node name="MapCube" type="Node3D" parent="."]
 
-[node name="name" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="name" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -1)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19885" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19885" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19886" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19886" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19887" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19887" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 script = ExtResource("5_m2dea")
 
-[node name="@StaticBody3D@19888" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19888" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -1)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19889" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19889" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19890" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19890" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19891" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
-script = ExtResource("4_5owp3")
+[node name="@StaticBody3D@19891" parent="MapCube" instance=ExtResource("3_sc8xj")]
 
-[node name="@StaticBody3D@19892" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19892" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -1)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19893" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19893" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19894" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19894" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-script = ExtResource("4_5owp3")
 
-[node name="@StaticBody3D@19895" type="StaticBody3D" parent="MapCube" instance=ExtResource("3_sc8xj")]
+[node name="@StaticBody3D@19895" parent="MapCube" instance=ExtResource("3_sc8xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-script = ExtResource("4_5owp3")

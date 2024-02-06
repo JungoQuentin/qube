@@ -12,6 +12,8 @@ material = SubResource("StandardMaterial3D_dcsgk")
 [sub_resource type="BoxShape3D" id="BoxShape3D_r6sgy"]
 
 [node name="Player" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_cfw77")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

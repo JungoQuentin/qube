@@ -277,7 +277,7 @@ script = ExtResource("4_hp1ph")
 
 [node name="@StaticBody3D@111580" parent="MapCube" instance=ExtResource("3_jdllj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 1)
-script = ExtResource("5_5lbsj")
+script = ExtResource("4_hp1ph")
 
 [node name="@StaticBody3D@111581" parent="MapCube" instance=ExtResource("3_jdllj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 2)

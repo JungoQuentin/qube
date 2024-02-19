@@ -109,6 +109,7 @@ script = ExtResource("5_uqa7r")
 
 [node name="@StaticBody3D@55601" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -2)
+script = ExtResource("5_uqa7r")
 
 [node name="@StaticBody3D@55602" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -2, -1)
@@ -164,6 +165,7 @@ script = ExtResource("5_murqo")
 
 [node name="@StaticBody3D@55617" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -2)
+script = ExtResource("5_uqa7r")
 
 [node name="@StaticBody3D@55618" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
@@ -194,13 +196,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="@StaticBody3D@55626" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+script = ExtResource("5_22ke3")
 
 [node name="@StaticBody3D@55627" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
 
 [node name="@StaticBody3D@55628" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
-script = ExtResource("5_22ke3")
 
 [node name="@StaticBody3D@55629" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
@@ -217,6 +219,7 @@ script = ExtResource("5_murqo")
 
 [node name="@StaticBody3D@55633" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -2)
+script = ExtResource("5_uqa7r")
 
 [node name="@StaticBody3D@55634" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -1)
@@ -276,7 +279,7 @@ script = ExtResource("6_ttmk6")
 laser_on = true
 
 [node name="_StaticBody3D_55632" parent="MapCube" instance=ExtResource("3_3ry7d")]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, -3, -2)
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, -3, 0)
 script = ExtResource("6_ttmk6")
 laser_on = true
 

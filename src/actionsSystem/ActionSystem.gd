@@ -58,8 +58,15 @@ func player_start_move():
 	current_state_index += 1
 	_remove_redo()
 
+func player_start_push():
+	current_state_index += 1
+	_remove_redo()
 
 func player_end_move():
+	_add_state(LevelState.from_level(_level))
+	current_state_index = state_stack.size() - 1
+
+func player_end_push():
 	_add_state(LevelState.from_level(_level))
 	current_state_index = state_stack.size() - 1
 

@@ -18,7 +18,7 @@ func on_push(direction: Vector3, floor_direction: Vector3):
 		floor_goal.fill()
 	
 	var tween = create_tween()
-	tween.tween_property(self, "position", position_goal, 0.02)
+	tween.tween_property(self, "position", position_goal, 0.09)
 	await tween.finished
 	
 	#var the_next = _get_floor_goal(direction, floor_direction)

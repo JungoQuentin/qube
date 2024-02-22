@@ -3,13 +3,16 @@ extends Node
 class Progression extends Savable:
 	var global_position_entry_point: Transform3D
 	var completed_levels: Array#[String]
+	var all_puzzle_unlocked: bool
 	
 	func _init(
 		_global_position_entry_point:= Transform3D.IDENTITY,
-		_completed_levels:= []
+		_completed_levels:= [],
+		_all_puzzle_unlocked:= false
 	):
 		global_position_entry_point = _global_position_entry_point
 		completed_levels = _completed_levels
+		all_puzzle_unlocked = _all_puzzle_unlocked
 
 ## Number of progession slots
 const N_PROGRESSION = 3
@@ -49,3 +52,7 @@ func win():
 
 func is_level_finished(pack: PackedScene) -> bool:
 	return progressions[Save.settings.save_file].completed_levels.has(pack.resource_path)
+
+
+func get_current_progression() -> Progression:
+	return progressions[Save.settings.save_file]

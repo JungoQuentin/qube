@@ -34,7 +34,9 @@ func _ready():
 				button.pressed.connect(func(): click(button.name))
 		)
 	)
-
+	
+	$Settings/UnlockAllPuzzles.text = "ABORT_UNLOCK_ALL_PUZZLES" if LevelManager.get_current_progression().all_puzzle_unlocked else "UNLOCK_ALL_PUZZLES"
+	
 	hide()
 	$Main.show()
 	current_menu = $Main
@@ -66,9 +68,17 @@ func click(button_name: String):
 		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"); toggle_settings(),
 		"Quit": func(): get_tree().quit(),
 		"Back": func(): go_to_parent_menu(),
-		"UnlockAllPuzzles": func(): Save.settings.all_puzzle_unlocked = true; Save.save(); go_to_parent_menu()
+		"UnlockAllPuzzles": toggle_unlock_all_puzzles
 	}[button_name].call()
 
+
+func toggle_unlock_all_puzzles():
+	var to = $Settings/UnlockAllPuzzles.text == "UNLOCK_ALL_PUZZLES"
+	$Settings/UnlockAllPuzzles.text = "ABORT_UNLOCK_ALL_PUZZLES" if to else "UNLOCK_ALL_PUZZLES"
+	LevelManager.get_current_progression().all_puzzle_unlocked = to
+	Save.save()
+	go_to_parent_menu()
+	
 
 func toggle_settings(to:= not visible):
 	visible = to

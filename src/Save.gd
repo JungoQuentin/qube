@@ -5,20 +5,18 @@ class Settings extends Savable:
 	var music_volume: int # 0 to 10
 	var sound_volume: int # 0 to 10
 	var locale: String # "fr", "en", ...
-	var all_puzzle_unlocked: bool
 	
 	func _init(
 		_save_file:= 0, 
 		_music_volume:= 8,
 		_sound_volume:= 8,
 		_locale:= "fr",
-		_all_puzzle_unlocked:= false
+
 	):
 		save_file = _save_file
 		music_volume = _music_volume
 		sound_volume = _sound_volume
 		locale = _locale
-		all_puzzle_unlocked = _all_puzzle_unlocked
 
 const SAVE_PATH = &"res://save.cfg"
 const SETTINGS_SECTION_NAME = &"settings"

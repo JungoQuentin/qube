@@ -18,7 +18,7 @@ func is_gate_open():
 	if dependency == null:
 		_update_color(true)
 		return true
-	var is_open = LevelManager.is_level_finished(dependency) or Save.settings.all_puzzle_unlocked
+	var is_open = LevelManager.is_level_finished(dependency) or LevelManager.get_current_progression().all_puzzle_unlocked
 	_update_color(is_open)
 	return is_open
 

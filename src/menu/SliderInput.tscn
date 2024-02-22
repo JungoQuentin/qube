@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/menu/SliderInput.gd" id="1_p5xg2"]
 
-[node name="SliderInput" type="HBoxContainer"]
+[node name="SliderInput" type="VBoxContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -19,9 +19,11 @@ script = ExtResource("1_p5xg2")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 theme_type_variation = &"SideLabelInput"
-text = "name"
 
 [node name="Slider" type="HSlider" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+min_value = 1.0
+max_value = 1.0
+value = 1.0

@@ -5,6 +5,7 @@ RESUME,Resume,Reprendre
 SETTINGS,Settings,Paramètres
 EXTRA,Extra,Extra
 SAVE_FILES,Save files,Fichiers de sauvegarde
+SAVE,Save,Sauvegarde
 QUIT,Quit,Quitter
 GAME_CREATED_BY,a game created by Benoit and Quentin Jungo,un jeu créé par Benoit et Quentin Jungo
 SOUNDS_CREATED_BY,sounds created by X,aux sons créés par X
@@ -15,6 +16,7 @@ MOVEMENT_SETTINGS,Movement settings,Paramètres de mouvement
 DISPLAY_SETTINGS,Display settings,Paramètres d’affichage
 CONTROLS,Controls,Contrôles 
 UNLOCK_ALL_PUZZLES,Unlock all puzzles,Débloquer tous les puzzles
+ABORT_UNLOCK_ALL_PUZZLES,Relock unlocked puzzles,Rebloquer tous les puzzles non débloqués
 fr,Français,Français
 en,English,English
 START_GAME,Start game,Commencer la partie

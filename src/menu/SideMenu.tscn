@@ -77,24 +77,6 @@ focus_mode = 1
 script = ExtResource("2_ee0ry")
 parent_menu = NodePath("../Main")
 
-[node name="Save1" type="Button" parent="SaveFiles"]
-layout_mode = 2
-theme_type_variation = &"SideButton"
-text = "SAVE 1"
-alignment = 0
-
-[node name="Save2" type="Button" parent="SaveFiles"]
-layout_mode = 2
-theme_type_variation = &"SideButton"
-text = "SAVE 2"
-alignment = 0
-
-[node name="Save3" type="Button" parent="SaveFiles"]
-layout_mode = 2
-theme_type_variation = &"SideButton"
-text = "SAVE 3"
-alignment = 0
-
 [node name="Settings" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
 anchors_preset = 6
 anchor_left = 1.0

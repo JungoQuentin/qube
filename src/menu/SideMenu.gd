@@ -15,6 +15,14 @@ func _ready():
 		new_button.text = lang
 		$Language.add_child(new_button)
 	)
+	
+	## Set SaveFiles
+	for i in range(LevelManager.N_PROGRESSION):
+		var button = template_button.duplicate()
+		button.name = "Save" + str(i)
+		$SaveFiles.add_child(button)
+		button.owner = $SaveFiles
+	set_current_save_file(Save.settings.save_file)
 
 	## Connect buttons
 	get_children().map(func(menu: Control):
@@ -49,9 +57,8 @@ func click(button_name: String):
 	
 	## change save file
 	if button_name.begins_with("Save"):
-		var index = int(button_name.substr(4, 4)) - 1
-		Save.settings.save_file = index
-		Save.save()
+		var index = int(button_name.replace("Save", ""))
+		set_current_save_file(index)
 		go_to_parent_menu()
 		return
 	
@@ -78,7 +85,19 @@ func toggle_unlock_all_puzzles():
 	LevelManager.get_current_progression().all_puzzle_unlocked = to
 	Save.save()
 	go_to_parent_menu()
-	
+
+
+func set_current_save_file(index: int):
+	Save.settings.save_file = index
+	Save.save()
+	for i in range(LevelManager.N_PROGRESSION):
+		var button_name = "Save" + str(i)
+		var button = $SaveFiles.find_child(button_name)
+		var text = ""
+		if i == index:
+			text = "> "
+		button.text = text + tr("SAVE") + " " + str(i) # TODO -> update when language changes
+
 
 func toggle_settings(to:= not visible):
 	visible = to

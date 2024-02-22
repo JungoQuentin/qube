@@ -11,7 +11,6 @@ class Settings extends Savable:
 		_music_volume:= 8,
 		_sound_volume:= 8,
 		_locale:= "fr",
-
 	):
 		save_file = _save_file
 		music_volume = _music_volume

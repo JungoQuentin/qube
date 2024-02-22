@@ -13,7 +13,6 @@ func _ready():
 		var new_button = template_button.duplicate()
 		new_button.name = lang
 		new_button.text = lang
-		new_button.pressed.connect(func(): click(new_button.name))
 		$Language.add_child(new_button)
 	)
 
@@ -45,14 +44,28 @@ func click(button_name: String):
 	if button_name in change_menu_buttons_name:
 		go_in_sub_menu(button_name)
 		return
+	
+	## change save file
+	if button_name.begins_with("Save"):
+		var index = int(button_name.substr(4, 4)) - 1
+		Save.settings.save_file = index
+		Save.save()
+		return
+	
+	## change language
 	if button_name in TranslationServer.get_loaded_locales():
 		TranslationServer.set_locale(button_name)
+		Save.settings.local = button_name
+		Save.save()
+		go_in_sub_menu("Settings")
+		# TODO grab focus to language
 		return
 	{
 		"Resume": func(): toggle_settings(),
 		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"); toggle_settings(),
 		"Quit": func(): get_tree().quit(),
 		"Back": func(): go_out_sub_menu(),
+		"UnlockAllPuzzles": func(): Utils.unimplemented()
 	}[button_name].call()
 
 
@@ -66,7 +79,8 @@ func toggle_settings(to:= not visible):
 
 func go_in_sub_menu(submenu_name: String):
 	if not find_child(submenu_name, false):
-		return # TODO
+		Utils.unimplemented(submenu_name)
+		return
 	current_menu.hide()
 	current_menu = find_child(submenu_name, false)
 	current_menu.show()

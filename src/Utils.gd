@@ -65,3 +65,7 @@ func crash(message = ""):
 		printerr(s)
 	printerr("=== quiting ===")
 	get_tree().quit()
+
+## Crash when a function is not implemented
+func unimplemented(message = ""):
+	crash("not implemented: " + message)

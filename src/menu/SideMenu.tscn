@@ -97,13 +97,13 @@ parent_menu = NodePath("../Main")
 layout_mode = 2
 setting_name = "music_volume"
 label = "MUSIC_VOLUME"
-max = 10
+_max = 10
 
 [node name="SoundVolume" parent="Settings" instance=ExtResource("3_qys5f")]
 layout_mode = 2
 setting_name = "sound_volume"
 label = "SOUND_VOLUME"
-max = 10
+_max = 10
 
 [node name="MovementSettings" type="Button" parent="Settings"]
 visible = false

@@ -120,7 +120,7 @@ func object_current_face(object: Node3D) -> Vector3:
 
 #region Debug
 
-func _process(delta):
+func _process(_delta):
 	label_current_face.text = "current:" + str(object_current_face(player)) + "\nmax:" + str(max_plus) + "\nmin:" + str(max_minus) + "\nplayer_pos" + str(player.global_position)
 
 var all_debug: HBoxContainer

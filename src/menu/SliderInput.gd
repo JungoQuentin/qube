@@ -7,12 +7,12 @@ class_name SliderInput
 	set(_label):
 		$Label.text = _label
 		label = _label
-@export_range(3, 20) var max: int
+@export_range(3, 20) var _max: int
 
 func _ready():
 	$Label.text = label
 	$Slider.min_value = 0
-	$Slider.max_value = max
+	$Slider.max_value = _max
 	$Slider.value = Save.settings.get(setting_name)
 	$Slider.value_changed.connect(set_value)
 	focus_entered.connect(func(): $Slider.grab_focus())

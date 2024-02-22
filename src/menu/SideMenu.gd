@@ -42,7 +42,7 @@ func _ready():
 
 func click(button_name: String):
 	if button_name in change_menu_buttons_name:
-		go_in_sub_menu(button_name)
+		go_to_sub_menu(button_name)
 		return
 	
 	## change save file
@@ -50,22 +50,23 @@ func click(button_name: String):
 		var index = int(button_name.substr(4, 4)) - 1
 		Save.settings.save_file = index
 		Save.save()
+		go_to_parent_menu()
 		return
 	
 	## change language
 	if button_name in TranslationServer.get_loaded_locales():
 		TranslationServer.set_locale(button_name)
-		Save.settings.local = button_name
+		Save.settings.locale = button_name
 		Save.save()
-		go_in_sub_menu("Settings")
-		# TODO grab focus to language
+		go_to_parent_menu()
 		return
+	
 	{
 		"Resume": func(): toggle_settings(),
 		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"); toggle_settings(),
 		"Quit": func(): get_tree().quit(),
-		"Back": func(): go_out_sub_menu(),
-		"UnlockAllPuzzles": func(): Utils.unimplemented()
+		"Back": func(): go_to_parent_menu(),
+		"UnlockAllPuzzles": func(): Save.settings.all_puzzle_unlocked = true; Save.save(); go_to_parent_menu()
 	}[button_name].call()
 
 
@@ -77,7 +78,7 @@ func toggle_settings(to:= not visible):
 		$Main/ReturneToTitle.disabled = get_tree().current_scene is Title
 
 
-func go_in_sub_menu(submenu_name: String):
+func go_to_sub_menu(submenu_name: String):
 	if not find_child(submenu_name, false):
 		Utils.unimplemented(submenu_name)
 		return
@@ -87,7 +88,7 @@ func go_in_sub_menu(submenu_name: String):
 	current_menu.get_child(0).grab_focus()
 
 
-func go_out_sub_menu():
+func go_to_parent_menu():
 	var last_menu_name = current_menu.name
 	current_menu.hide()
 	current_menu = current_menu.parent_menu
@@ -100,4 +101,4 @@ func _input(_event):
 		if not current_menu.parent_menu:
 			toggle_settings()
 		else:
-			go_out_sub_menu()
+			go_to_parent_menu()

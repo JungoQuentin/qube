@@ -1,17 +1,34 @@
 extends Node
 
+class Progression extends Savable:
+	var global_position_entry_point: Transform3D
+	var completed_levels: Array#[String]
+	
+	func _init(
+		_global_position_entry_point:= Transform3D.IDENTITY,
+		_completed_levels:= []
+	):
+		global_position_entry_point = _global_position_entry_point
+		completed_levels = _completed_levels
+
+## Number of progession slots
+const N_PROGRESSION = 3
+
 @export var entry_point: PackedScene
-var completed_levels: Array#[String]
+var progressions: Array[Progression] = []
 var _current_level_pack: PackedScene
 
 
 func _ready():
 	await Save.loaded
-	if not Save.config.has_section("progression"):
-		completed_levels = []
-		save()
-	else:
-		completed_levels = Save.config.get_value("progression", "completed_levels")
+	for i in range(N_PROGRESSION):
+		var progression = Progression.load_from_config_or_default(Save.config, get_progression_section_name(i), Progression.new())
+		progressions.push_back(progression)
+	Save.save()
+
+
+func get_progression_section_name(index: int) -> String:
+	return "progression_" + str(index)
 
 
 func goto_level_gate():
@@ -24,16 +41,11 @@ func goto_level_by_packed(pack: PackedScene):
 
 
 func win():
-	if not completed_levels.has(_current_level_pack.resource_path):
-		completed_levels.push_front(_current_level_pack.resource_path)
-	save()
+	if not progressions[Save.settings.save_file].completed_levels.has(_current_level_pack.resource_path):
+		progressions[Save.settings.save_file].completed_levels.push_front(_current_level_pack.resource_path)
+		Save.save()
 	goto_level_gate()
 
 
-func save():
-	Save.config.set_value("progression", "completed_levels", completed_levels)
-	Save.save()
-
-
 func is_level_finished(pack: PackedScene) -> bool:
-	return completed_levels.has(pack.resource_path)
+	return progressions[Save.settings.save_file].completed_levels.has(pack.resource_path)

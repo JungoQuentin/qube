@@ -1,5 +1,5 @@
 @tool
-extends HBoxContainer
+extends VBoxContainer
 class_name SliderInput
 
 @export var label: String:

@@ -50,7 +50,7 @@ func click(button_name: String):
 		return
 	{
 		"Resume": func(): toggle_settings(),
-		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"),
+		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"); toggle_settings(),
 		"Quit": func(): get_tree().quit(),
 		"Back": func(): go_out_sub_menu(),
 	}[button_name].call()

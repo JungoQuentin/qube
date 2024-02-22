@@ -42,6 +42,7 @@ text = "SETTINGS"
 alignment = 0
 
 [node name="Extra" type="Button" parent="Main"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"SideButton"
 text = "EXTRA"

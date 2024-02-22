@@ -38,7 +38,13 @@ func _ready():
 		#return
 	_init_map()
 	update_can_win()
-
+	
+	if is_level_gate:
+		if LevelManager.get_current_progression().global_position_entry_point.is_equal_approx(Transform3D.IDENTITY):
+			LevelManager.get_current_progression().global_position_entry_point = player.global_transform
+		else:
+			player.global_transform = LevelManager.get_current_progression().global_position_entry_point
+		camera_controller.player_want_to_move()
 
 func abort_move():
 	player.abort_move()
@@ -75,11 +81,15 @@ func _get_max():
 
 
 func player_start_move(_direction: Vector3):
+	if is_level_gate:
+		LevelManager.get_current_progression().global_position_entry_point = player.global_transform
+		Save.save()
 	laser_cubes.map(func(c): c.player_start_move())
 	update_can_win()
 
 
 func player_end_move():
+	# TODO should not be called after a scene change !
 	laser_cubes.map(func(c): c.player_end_move())
 	update_can_win()
 

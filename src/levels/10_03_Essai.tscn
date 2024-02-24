@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://omr76vc4bctk"]
+[gd_scene load_steps=9 format=3 uid="uid://omr76vc4bctk"]
 
 [ext_resource type="Script" path="res://src/levels/Level.gd" id="1_cfrus"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_xjht1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/levels/cubeTypes/blockingCube.gd" id="4_ppd6u"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/endCube.gd" id="5_c70su"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/LaserCube.gd" id="6_xsvid"]
+[ext_resource type="Script" path="res://src/levels/cubeTypes/SnowBall.gd" id="8_y6ss0"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_cfrus")
@@ -232,7 +233,7 @@ script = ExtResource("4_pekjh")
 cubeType = 6
 
 [node name="_StaticBody3D_92135" parent="MapCube" instance=ExtResource("3_4xvg4")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, 0, 0, -3)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -1, 0, -3)
 script = ExtResource("6_xsvid")
 laser_on = true
 
@@ -281,6 +282,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 2)
 
 [node name="@StaticBody3D@92143" parent="MapCube" instance=ExtResource("3_4xvg4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="_StaticBody3D_92143" parent="MapCube" instance=ExtResource("3_4xvg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
+script = ExtResource("8_y6ss0")
 
 [node name="@StaticBody3D@92144" parent="MapCube" instance=ExtResource("3_4xvg4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)

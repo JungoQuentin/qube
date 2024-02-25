@@ -16,7 +16,7 @@ func _ready():
 		$Language.add_child(new_button)
 	)
 	
-	## Set SaveFiles
+	## Set SaveFiles # TODO maybe in a sb spin ? / or check ?
 	for i in range(LevelManager.N_PROGRESSION):
 		var button = template_button.duplicate()
 		button.name = "Save" + str(i)
@@ -30,27 +30,42 @@ func _ready():
 			var back_button = Button.new()
 			back_button.text = "<"
 			back_button.name = "Back"
-			#back_button.theme = "SideButton"
 			back_button.theme_type_variation = "SideButton"
 			menu.add_child(back_button)
 		menu.hide()
 		if menu.get_child_count() == 0:
 			return
 		menu.get_child(0).focus_mode = Control.FOCUS_ALL
-		menu.get_children().map(func(button):
-			if button is Button: 
-				button.pressed.connect(func(): click(button.name))
+		menu.get_children(). \
+			filter(func(item): return item is Button and not item is SBBaseButton). \
+			map(func(button):
+				button.pressed.connect(func(): click_button(button.name))
+		)
+		menu.get_children(). \
+			filter(func(item): return item is SBCheckboxButton). \
+			map(func(button):
+				button.pressed.connect(func(): click_checkbox(button.name))
+		)
+		menu.get_children(). \
+			filter(func(item): return item is SBSpinButton). \
+			map(func(spin: SBSpinButton):
+				spin.item_selected.connect(func(index): change_spin(spin.name, index))
 		)
 	)
 	
-	$Settings/UnlockAllPuzzles.text = "ABORT_UNLOCK_ALL_PUZZLES" if LevelManager.get_current_progression().all_puzzle_unlocked else "UNLOCK_ALL_PUZZLES"
-	
+	update_ui_from_settings()
 	hide()
 	$Main.show()
 	current_menu = $Main
 
+func update_ui_from_settings():
+	# TODO in a sb checkbox
+	$Settings/UnlockAllPuzzles.text = "ABORT_UNLOCK_ALL_PUZZLES" if LevelManager.get_current_progression().all_puzzle_unlocked else "UNLOCK_ALL_PUZZLES"
+	($DisplaySettings/Fullscreen as SBCheckboxButton).set_checked(Save.settings.is_fullscreen)
+	($DisplaySettings/Msaa as SBSpinButton).select(Save.settings.msaa)
 
-func click(button_name: String):
+
+func click_button(button_name: String):
 	if button_name in change_menu_buttons_name:
 		go_to_sub_menu(button_name)
 		return
@@ -75,8 +90,29 @@ func click(button_name: String):
 		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"); toggle_settings(),
 		"Quit": func(): get_tree().quit(),
 		"Back": func(): go_to_parent_menu(),
-		"UnlockAllPuzzles": toggle_unlock_all_puzzles
+		"UnlockAllPuzzles": toggle_unlock_all_puzzles,
 	}[button_name].call()
+
+
+func click_checkbox(button_name: String):
+	{
+		"Fullscreen": func(): 
+			var is_fullscreen = $DisplaySettings/Fullscreen.get_checked()
+			Save.settings.is_fullscreen = is_fullscreen
+			Save.settings.apply(get_tree())
+			Save.save()
+			,
+	}[button_name].call()
+
+
+func change_spin(spin_name: String, index: int):
+	{
+		"Msaa": func():
+			Save.settings.msaa = index
+			Save.settings.apply(get_tree())
+			Save.save()
+			,
+	}[spin_name].call()
 
 
 func toggle_unlock_all_puzzles():

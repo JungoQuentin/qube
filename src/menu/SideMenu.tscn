@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcito8viafbmq"]
+[gd_scene load_steps=6 format=3 uid="uid://bcito8viafbmq"]
 
 [ext_resource type="Script" path="res://src/menu/SideMenu.gd" id="1_idulr"]
 [ext_resource type="Script" path="res://src/menu/VBoxMenu.gd" id="2_ee0ry"]
 [ext_resource type="PackedScene" uid="uid://b6tjdhrsecbdd" path="res://src/menu/SliderInput.tscn" id="3_qys5f"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_spin_button.gd" id="4_farih"]
+[ext_resource type="Script" path="res://addons/spin_button/src/controls/sb_checkbox_button.gd" id="4_gh0nu"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_idulr")
 
 [node name="Main" type="VBoxContainer" parent="."]
-visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -78,6 +79,7 @@ script = ExtResource("2_ee0ry")
 parent_menu = NodePath("../Main")
 
 [node name="Settings" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -113,7 +115,6 @@ text = "MOVEMENT_SETTINGS"
 alignment = 0
 
 [node name="DisplaySettings" type="Button" parent="Settings"]
-visible = false
 layout_mode = 2
 theme_type_variation = &"SideButton"
 text = "DISPLAY_SETTINGS"
@@ -179,10 +180,29 @@ script = ExtResource("2_ee0ry")
 parent_menu = NodePath("../Settings")
 
 [node name="Fullscreen" type="Button" parent="DisplaySettings"]
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "mov1"
-alignment = 0
+script = ExtResource("4_gh0nu")
+value_text = "FULLSCREEN"
+
+[node name="Msaa" type="Button" parent="DisplaySettings"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_type_variation = &"SideButton"
+script = ExtResource("4_farih")
+items = Array[String](["NO_MSAA", "MSAA 2X", "MSAA 4X", "MSAA 8X"])
+selected = 0
+item_count = 4
+
+[node name="Resolution" type="Button" parent="DisplaySettings"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_type_variation = &"SideButton"
+script = ExtResource("4_farih")
+items = Array[String](["1920x1080", "1600x900", "1280x720"])
+selected = 0
+item_count = 3
 
 [node name="Controls" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
 visible = false

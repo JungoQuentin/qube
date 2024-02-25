@@ -5,17 +5,30 @@ class Settings extends Savable:
 	var music_volume: int # 0 to 10
 	var sound_volume: int # 0 to 10
 	var locale: String # "fr", "en", ...
+	var is_fullscreen: bool
+	var msaa: Viewport.MSAA
 	
 	func _init(
 		_save_file:= 0, 
 		_music_volume:= 8,
 		_sound_volume:= 8,
 		_locale:= "fr",
+		_is_fullscreen:= true,
+		_msaa:= Viewport.MSAA_8X
 	):
 		save_file = _save_file
 		music_volume = _music_volume
 		sound_volume = _sound_volume
 		locale = _locale
+		is_fullscreen = _is_fullscreen
+		msaa = _msaa
+	
+	func apply(tree):
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if is_fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
+		if tree.current_scene is Level:
+			tree.current_scene.get_viewport().msaa_3d = msaa
+		# TODO everythings there
+		
 
 const SAVE_PATH = &"res://save.cfg"
 const SETTINGS_SECTION_NAME = &"settings"
@@ -34,6 +47,8 @@ func _ready():
 	settings = Settings.load_from_config_or_default(config, SETTINGS_SECTION_NAME, Settings.new())
 	save()
 	TranslationServer.set_locale(settings.locale)
+	# TODO this should be called elsewhere ?
+	settings.apply(get_tree())
 	loaded.emit()
 
 

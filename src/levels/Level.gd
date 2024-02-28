@@ -17,20 +17,23 @@ func _ready():
 		return
 	end_cube = end_cubes[0]
 	
+	end_cube.player_touch.connect(
+		func(can_win): 
+			if can_win:
+				# TODO check in a better way that all the async functions are done running (or killed)
+				#await input_handler.call_for_change_level()
+				await Utils.wait_while(func(): return player._is_moving)
+				#await Utils.wait_while(func(): return input_handler.is_locked())
+				LevelManager.win(get_tree())
+	)
+	single_use_cubes.map(
+		func(single_use_cube: SingleUseCube):
+			single_use_cube.get_used.connect(func(): update_can_win())
+	)
 	update_can_win()
 
 func abort_move():
 	player.abort_move()
-
-
-func player_start_move(_direction: Vector3):
-	super.player_end_move()
-	update_can_win()
-
-
-func player_end_move():
-	super.player_end_move()
-	update_can_win()
 
 
 func update_can_win():

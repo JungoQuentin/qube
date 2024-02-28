@@ -4,6 +4,7 @@ class_name EndCube
 
 var _cannot_win_color
 var _can_win_color
+signal player_touch(_can_win: bool)
 
 
 var can_win:= false:
@@ -20,15 +21,13 @@ func _ready():
 
 
 func on_touch():
-	await get_tree().process_frame
-	get_tree().current_scene.update_can_win()
-	_touched_animation_start()
-	print(can_win)
-	if can_win:
-		LevelManager.win(get_tree())
+	super.on_touch()
+	player_touch.emit(can_win)
 
 
 func _update_color():
+	if _touch_tween and _touch_tween.is_valid():
+		_touch_tween.kill()
 	_initial_color = _can_win_color if can_win else _cannot_win_color
 	_touched_color = Colors.darker(_initial_color)
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color

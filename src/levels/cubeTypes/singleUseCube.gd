@@ -3,10 +3,12 @@ class_name SingleUseCube
 
 var is_used:= false
 var _color_changed:= false
+signal get_used
 
 func on_leave():
 	super.on_leave()
 	is_used = true
+	get_used.emit()
 	_change_color_animation_start()
 
 

@@ -25,7 +25,7 @@ func on_touch():
 	_touched_animation_start()
 	print(can_win)
 	if can_win:
-		LevelManager.win()
+		LevelManager.win(get_tree())
 
 
 func _update_color():

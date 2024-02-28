@@ -17,7 +17,7 @@ func _ready():
 	)
 	
 	## Set SaveFiles
-	for i in range(LevelManager.N_PROGRESSION):
+	for i in range(Save.N_PROGRESSION):
 		var button = template_button.duplicate()
 		button.name = "Save" + str(i)
 		$SaveFiles.add_child(button)
@@ -90,7 +90,7 @@ func toggle_unlock_all_puzzles():
 func set_current_save_file(index: int):
 	Save.settings.save_file = index
 	Save.save()
-	for i in range(LevelManager.N_PROGRESSION):
+	for i in range(Save.N_PROGRESSION):
 		var button_name = "Save" + str(i)
 		var button = $SaveFiles.find_child(button_name)
 		var text = ""

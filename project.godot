@@ -17,10 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Colors="*res://colors/Colors.tscn"
 Utils="*res://src/Utils.gd"
-LevelManager="*res://src/levels/LevelManager.tscn"
-Save="*res://src/save_system/Save.gd"
+Colors="*res://colors/Colors.tscn"
 SideMenu="*res://src/menu/SideMenu.tscn"
 
 [display]

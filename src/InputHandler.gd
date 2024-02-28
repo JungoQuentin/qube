@@ -75,6 +75,6 @@ func _input(_event):
 	var undo_input: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
 	if not undo_input.is_empty():
 		_add_action(self)
-		await ActionSystem.handle_input(undo_input)
+		await _level.action_system.handle_input(undo_input)
 		_end_action(self)
 		return

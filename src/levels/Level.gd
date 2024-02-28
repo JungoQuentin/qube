@@ -18,6 +18,7 @@ var laser_cubes: Array
 var end_cube: EndCube
 var max_plus: Vector3
 var max_minus: Vector3
+var action_system: ActionSystem
 var _stack_display_enable:= false
 var _locker_display_enable:= false
 
@@ -32,7 +33,7 @@ func _ready():
 	#_init_action_stack_display()
 	_init_locker_display()
 	_get_max()
-	ActionSystem.start_level(self)
+	action_system = ActionSystem.new(self)
 	InputHandler._level = self
 	#if is_level_gate:
 		#return
@@ -145,7 +146,7 @@ func update_stack_display():
 		return
 	action_stack_display.get_children().map(func(child): child.queue_free())
 	var i = 0
-	for action in ActionSystem.state_stack:
+	for action in action_system.state_stack:
 		_add_state_to_stack_display(action, i)
 		i += 1
 
@@ -155,7 +156,7 @@ func _add_state_to_stack_display(state: LevelState, index: int):
 	var new_label: Label = Label.new()
 	new_label.text = str(state)
 	action_stack_display.add_child(new_label)
-	if index == ActionSystem.current_state_index:
+	if index == action_system.current_state_index:
 		new_label.text = new_label.text + " CURRENT "
 
 

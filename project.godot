@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Colors="*res://colors/Colors.tscn"
-ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
 LevelManager="*res://src/levels/LevelManager.tscn"
 Save="*res://src/Save.gd"

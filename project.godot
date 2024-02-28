@@ -21,7 +21,7 @@ Colors="*res://colors/Colors.tscn"
 ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
 LevelManager="*res://src/levels/LevelManager.tscn"
-Save="*res://src/Save.gd"
+Save="*res://src/save_system/Save.gd"
 SideMenu="*res://src/menu/SideMenu.tscn"
 InputHandler="*res://src/InputHandler.gd"
 

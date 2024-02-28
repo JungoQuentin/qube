@@ -9,7 +9,7 @@ class_name SwitchCube
 			update_color()
 var _on_color: Color = Colors.switch_cube_on_color
 var _off_color: Color = Colors.switch_cube_off_color
-@onready var _level: Level = get_tree().current_scene
+@onready var _level: BaseLevel = get_tree().current_scene
 
 
 func _ready():

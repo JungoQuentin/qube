@@ -6,7 +6,7 @@
 class_name InputHandler extends Node
 
 var _locker: Array[String] = []
-@onready var _level: Level = get_parent()
+@onready var _level: BaseLevel = get_parent()
 
 ##
 func is_locked() -> bool:

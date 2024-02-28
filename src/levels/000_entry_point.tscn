@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://ordqk1kwf0k0"]
+[gd_scene load_steps=14 format=3 uid="uid://ordqk1kwf0k0"]
 
-[ext_resource type="Script" path="res://src/levels/Level.gd" id="1_1hhfj"]
+[ext_resource type="Script" path="res://src/levels/LevelGate.gd" id="1_w86cv"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_glkq2"]
 [ext_resource type="PackedScene" uid="uid://crm7r27jrvees" path="res://src/levels/cubeTypes/Cube.tscn" id="3_l3bbo"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/blockingCube.gd" id="4_6aomp"]
@@ -13,13 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://dvrqbm03jnuqt" path="res://src/levels/01_2_Intro.tscn" id="10_4sasy"]
 [ext_resource type="PackedScene" uid="uid://dg4m28eyh7ova" path="res://src/levels/01_1_Intro.tscn" id="11_scv5l"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/LaserCube.gd" id="11_u34pd"]
-[ext_resource type="Script" path="res://src/levels/cubeTypes/endCube.gd" id="12_i24nf"]
 
 [node name="Level" type="Node3D"]
-script = ExtResource("1_1hhfj")
-is_level_gate = true
-_camera_mode = 1
-_camera_distance = 30.0
+script = ExtResource("1_w86cv")
 
 [node name="Player" parent="." instance=ExtResource("2_glkq2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
@@ -2210,8 +2206,6 @@ script = ExtResource("4_6aomp")
 
 [node name="_StaticBody3D_19638" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-script = ExtResource("12_i24nf")
-cubeType = 1
 
 [node name="_StaticBody3D_19639" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)

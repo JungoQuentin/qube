@@ -1,6 +1,6 @@
 class_name NaturalCamera extends Camera3D
 
-@onready var _level: Level = get_tree().current_scene
+@onready var _level: BaseLevel = get_tree().current_scene
 var _is_moving:= ""
 const DURATION = 0.3
 

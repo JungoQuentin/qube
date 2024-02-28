@@ -40,7 +40,7 @@ func apply(tree: SceneTree):
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if is_fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
 	#DisplayServer.window_set_size(resolution_to_vec2i(screen_resolution)) 
 	TranslationServer.set_locale(locale)
-	if tree.current_scene is Level:
+	if tree.current_scene is BaseLevel:
 		var viewport = tree.current_scene.get_viewport() 
 		viewport.msaa_3d = msaa
 		viewport.scaling_3d_scale = resolution_scale

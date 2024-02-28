@@ -1,12 +1,12 @@
 ## handles the undo/redo/reset system
 class_name ActionSystem
 
-var _level: Level
+var _level: BaseLevel
 var state_stack: Array[LevelState]
 var current_state_index: int = 0
 
 
-func _init(level: Level):
+func _init(level: BaseLevel):
 	_level = level
 	state_stack.push_back(LevelState.from_level(_level))
 

@@ -86,7 +86,7 @@ func _click_button(button_name: String):
 	
 	## change save file
 	if button_name.begins_with("Save"):
-		if get_tree().current_scene is Level:
+		if get_tree().current_scene is BaseLevel:
 			get_tree().change_scene_to_file("res://src/menu/Title.tscn")
 		var index = int(button_name.replace("Save", ""))
 		Save.settings.save_file = index

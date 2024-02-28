@@ -14,7 +14,7 @@ var _view_state: ViewState:
 	set(new_state):
 		_record_effect.visible = new_state == ViewState.RECORD
 		_view_state = new_state
-var _level: Level
+var _level: BaseLevel
 var _camera_mode: CameraController.CameraMode
 var _fixed_camera:= FixedCamera.new()
 var _style_camera: Camera3D = _fixed_camera
@@ -24,7 +24,7 @@ var sub_viewport_container = SubViewportContainer.new()
 var sub_viewport = SubViewport.new()
 
 
-func _init(level: Level, camera_mode: CameraController.CameraMode, camera_distance: float):
+func _init(level: BaseLevel, camera_mode: CameraController.CameraMode, camera_distance: float):
 	_level = level
 	_camera_mode = camera_mode
 	CAMERA_DISTANCE = camera_distance

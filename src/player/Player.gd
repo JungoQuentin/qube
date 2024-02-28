@@ -2,7 +2,7 @@ extends StaticBody3D
 class_name Player
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var _level: Level = get_parent()
+@onready var _level: BaseLevel = get_parent()
 @export var max_transparency: float = 1
 @export var min_transparency: float = 0.3
 @export var speed: float = 0.2

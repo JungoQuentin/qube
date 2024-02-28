@@ -11,8 +11,11 @@ func properties():
 
 
 func save_to_config(config: ConfigFile, section_name: String):
-	for prop in properties() :
-		config.set_value(section_name, prop, self.get(prop))
+	for prop_name in properties():
+		var prop = self.get(prop_name)
+		#if prop is Savable:
+			#prop.save_to_config(config, section_name + "_" + prop_name)
+		config.set_value(section_name, prop_name, prop)
 
 ## Try to load ever properties from the config
 static func load_from_config_or_default(config: ConfigFile, section_name: String, default: Savable) -> Savable:

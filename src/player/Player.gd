@@ -48,7 +48,6 @@ func _roll():
 	if move_logic.floor_neighbour is MovingCube \
 		and not move_logic.floor_neighbour.in_a_hole \
 		and move_logic.floor_neighbour.can_push(move_logic._floor_direction, -move_logic._direction):
-		await _cant_roll()
 		_level.action_system.player_start_push()
 		await move_logic.floor_neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
 		_level.action_system.player_end_push()
@@ -57,7 +56,6 @@ func _roll():
 	## if our neighbour is a MovingCube, we try to push him
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position, move_logic._direction)
 	if neighbour is MovingCube and neighbour.can_push(move_logic._direction, move_logic._floor_direction):
-		await _cant_roll()
 		_level.action_system.player_start_push()
 		await neighbour.on_push(move_logic._direction, move_logic._floor_direction)
 		_level.action_system.player_end_push()

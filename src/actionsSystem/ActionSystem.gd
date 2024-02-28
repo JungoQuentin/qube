@@ -1,5 +1,5 @@
 ## handles the undo/redo/reset system
-class_name ActionSystem extends Node
+class_name ActionSystem
 
 var _level: Level
 var state_stack: Array[LevelState]

@@ -21,3 +21,5 @@ fr,Français,Français
 en,English,English
 START_GAME,Start game,Commencer la partie
 MENU,Menu,Menu
+FULLSCREEN,Fullscreen,Plein ecran
+NO_MSAA,No antialiasing,Pas d'antialiasing

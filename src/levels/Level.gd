@@ -40,6 +40,8 @@ func _ready():
 	_init_map()
 	update_can_win()
 	
+	Save.settings.apply(get_tree())
+	
 	if is_level_gate:
 		if LevelManager.get_current_progression().global_position_entry_point.is_equal_approx(Transform3D.IDENTITY):
 			LevelManager.get_current_progression().global_position_entry_point = player.global_transform

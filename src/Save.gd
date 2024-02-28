@@ -1,20 +1,40 @@
 extends Node
 
+# When the screen changes size, we need to update the 3D
+# viewport quality setting. If we don't do this, the viewport will take
+# the size from the main viewport.
+static var viewport_start_size := Vector2(
+	ProjectSettings.get_setting(&"display/window/size/viewport_width"),
+	ProjectSettings.get_setting(&"display/window/size/viewport_height")
+)
+
 class Settings extends Savable:
+	enum UIScale {
+		SMALLER,
+		SMALL,
+		MEDIUM,
+		LARGE,
+		LARGER,
+	}
+	
 	var save_file: int # 0, 1, 2
 	var music_volume: int # 0 to 10
 	var sound_volume: int # 0 to 10
 	var locale: String # "fr", "en", ...
 	var is_fullscreen: bool
 	var msaa: Viewport.MSAA
+	var ui_scale: UIScale
+	var resolution_scale: float
 	
 	func _init(
 		_save_file:= 0, 
 		_music_volume:= 8,
 		_sound_volume:= 8,
 		_locale:= "fr",
-		_is_fullscreen:= true,
-		_msaa:= Viewport.MSAA_8X
+		_is_fullscreen:= false,
+		_msaa:= Viewport.MSAA_DISABLED, # TODO Viewport.MSAA_8X,
+		_ui_scale:= UIScale.MEDIUM,
+		_resolution_scale:= 0.8, # TODO 1.0,
 	):
 		save_file = _save_file
 		music_volume = _music_volume
@@ -22,16 +42,38 @@ class Settings extends Savable:
 		locale = _locale
 		is_fullscreen = _is_fullscreen
 		msaa = _msaa
+
+		ui_scale = _ui_scale
+		resolution_scale = _resolution_scale
 	
-	func apply(tree):
+	func apply(tree: SceneTree):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if is_fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
+		#DisplayServer.window_set_size(resolution_to_vec2i(screen_resolution)) 
+
 		if tree.current_scene is Level:
-			tree.current_scene.get_viewport().msaa_3d = msaa
+			var viewport = tree.current_scene.get_viewport() 
+			viewport.msaa_3d = msaa
+			viewport.scaling_3d_scale = resolution_scale
+			#tree.root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
+		
+		var new_size = Save.viewport_start_size * {
+			# TODO test different scale (try ingame)
+			UIScale.SMALLER: 1.5,
+			UIScale.SMALL: 1.25,
+			UIScale.MEDIUM: 1.0,
+			UIScale.LARGE: 0.75,
+			UIScale.LARGER: 0.5,
+		}[ui_scale]
+		tree.root.set_content_scale_size(new_size)
+
+
+
 		# TODO everythings there
 		
 
 const SAVE_PATH = &"res://save.cfg"
 const SETTINGS_SECTION_NAME = &"settings"
+var available_languages = Array(TranslationServer.get_loaded_locales())
 #const SAVE_PATH = &"user://save.cfg"
 var config = ConfigFile.new()
 var settings: Settings

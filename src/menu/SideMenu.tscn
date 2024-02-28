@@ -99,13 +99,13 @@ parent_menu = NodePath("../Main")
 layout_mode = 2
 setting_name = "music_volume"
 label = "MUSIC_VOLUME"
-_max = 10
+_max = 10.0
 
 [node name="SoundVolume" parent="Settings" instance=ExtResource("3_qys5f")]
 layout_mode = 2
 setting_name = "sound_volume"
 label = "SOUND_VOLUME"
-_max = 10
+_max = 10.0
 
 [node name="MovementSettings" type="Button" parent="Settings"]
 visible = false
@@ -134,10 +134,11 @@ text = "LANGUAGE"
 alignment = 0
 
 [node name="UnlockAllPuzzles" type="Button" parent="Settings"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme_type_variation = &"SideButton"
-text = "UNLOCK_ALL_PUZZLES"
-alignment = 0
+script = ExtResource("4_gh0nu")
+value_text = "UNLOCK_ALL_PUZZLES"
 
 [node name="MovementSettings" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
 visible = false
@@ -180,7 +181,7 @@ script = ExtResource("2_ee0ry")
 parent_menu = NodePath("../Settings")
 
 [node name="Fullscreen" type="Button" parent="DisplaySettings"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme_type_variation = &"SideButton"
 script = ExtResource("4_gh0nu")
@@ -195,7 +196,17 @@ items = Array[String](["NO_MSAA", "MSAA 2X", "MSAA 4X", "MSAA 8X"])
 selected = 0
 item_count = 4
 
+[node name="UIScale" type="Button" parent="DisplaySettings"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_type_variation = &"SideButton"
+script = ExtResource("4_farih")
+items = Array[String](["Smaller", "Small", "Medium", "Large", "Larger"])
+selected = 0
+item_count = 5
+
 [node name="Resolution" type="Button" parent="DisplaySettings"]
+visible = false
 custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 theme_type_variation = &"SideButton"
@@ -203,6 +214,81 @@ script = ExtResource("4_farih")
 items = Array[String](["1920x1080", "1600x900", "1280x720"])
 selected = 0
 item_count = 3
+
+[node name="ResolutionScale" parent="DisplaySettings" instance=ExtResource("3_qys5f")]
+layout_mode = 2
+setting_name = "resolution_scale"
+step = 0.1
+label = "RESOLUTION_SCALE"
+_max = 1.0
+
+[node name="Adjustments" type="GridContainer" parent="DisplaySettings"]
+layout_mode = 2
+columns = 2
+
+[node name="BrightnessLabel" type="Label" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Brightness:"
+
+[node name="BrightnessSlider" type="HSlider" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.5
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="ContrastLabel" type="Label" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Contrast:"
+
+[node name="ContrastSlider" type="HSlider" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.5
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="SaturationLabel" type="Label" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Saturation:"
+
+[node name="SaturationSlider" type="HSlider" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.01
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="VsyncLabel" type="Label" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "V-Sync:"
+
+[node name="VsyncOptionButton" type="OptionButton" parent="DisplaySettings/Adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+item_count = 3
+selected = 0
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "Adaptive"
+popup/item_1/id = 1
+popup/item_2/text = "Enabled"
+popup/item_2/id = 2
 
 [node name="Controls" type="VBoxContainer" parent="." node_paths=PackedStringArray("parent_menu")]
 visible = false

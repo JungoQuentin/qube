@@ -1,30 +1,29 @@
 extends CanvasLayer
 
 var current_menu: VBoxMenu
-const change_menu_buttons_name = ["Settings", "Extra", "SaveFiles", "MovementSettings", "DisplaySettings", "Controls", "Language"]
+const CHANGE_MENU_BUTTONS_NAME = ["Settings", "Extra", "SaveFiles", "MovementSettings", "DisplaySettings", "Controls", "Language"]
+
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	var template_button = $Main/Quit
 	
 	## Set Language
-	var template_button = $Main/Quit
-	var languages = Array(TranslationServer.get_loaded_locales())
-	languages.map(func(lang: String):
+	Save.available_languages.map(func(lang: String):
 		var new_button = template_button.duplicate()
 		new_button.name = lang
 		new_button.text = lang
 		$Language.add_child(new_button)
 	)
 	
-	## Set SaveFiles # TODO maybe in a sb spin ? / or check ?
+	## Set SaveFiles
 	for i in range(LevelManager.N_PROGRESSION):
 		var button = template_button.duplicate()
 		button.name = "Save" + str(i)
 		$SaveFiles.add_child(button)
 		button.owner = $SaveFiles
-	set_current_save_file(Save.settings.save_file)
 
-	## Connect buttons
+	## Connect
 	get_children().map(func(menu: Control):
 		if menu != $Main:
 			var back_button = Button.new()
@@ -39,42 +38,61 @@ func _ready():
 		menu.get_children(). \
 			filter(func(item): return item is Button and not item is SBBaseButton). \
 			map(func(button):
-				button.pressed.connect(func(): click_button(button.name))
+				button.pressed.connect(func(): _click_button(button.name))
 		)
 		menu.get_children(). \
 			filter(func(item): return item is SBCheckboxButton). \
 			map(func(button):
-				button.pressed.connect(func(): click_checkbox(button.name))
+				button.pressed.connect(func(): _click_checkbox(button.name))
 		)
 		menu.get_children(). \
 			filter(func(item): return item is SBSpinButton). \
 			map(func(spin: SBSpinButton):
-				spin.item_selected.connect(func(index): change_spin(spin.name, index))
+				spin.item_selected.connect(func(index): _change_spin(spin.name, index))
+		)		
+		menu.get_children(). \
+			filter(func(item): return item is SliderInput). \
+			map(func(slider: SliderInput):
+				slider.value_changed.connect(func(value): _change_slider(value, slider.setting_name))
 		)
 	)
 	
-	update_ui_from_settings()
+	_update_ui_from_settings()
 	hide()
 	$Main.show()
 	current_menu = $Main
 
-func update_ui_from_settings():
-	# TODO in a sb checkbox
-	$Settings/UnlockAllPuzzles.text = "ABORT_UNLOCK_ALL_PUZZLES" if LevelManager.get_current_progression().all_puzzle_unlocked else "UNLOCK_ALL_PUZZLES"
-	($DisplaySettings/Fullscreen as SBCheckboxButton).set_checked(Save.settings.is_fullscreen)
-	($DisplaySettings/Msaa as SBSpinButton).select(Save.settings.msaa)
 
+func _input(_event):
+	if Input.is_action_just_pressed("settings"):
+		if not current_menu.parent_menu:
+			_toggle_settings()
+		else:
+			_go_to_parent_menu()
 
-func click_button(button_name: String):
-	if button_name in change_menu_buttons_name:
-		go_to_sub_menu(button_name)
+#region Changes handlers
+
+func _click_button(button_name: String):
+	## go to submenu
+	if button_name in CHANGE_MENU_BUTTONS_NAME:
+		if not find_child(button_name, false):
+			Utils.unimplemented(button_name)
+			return
+		current_menu.hide()
+		current_menu = find_child(button_name, false)
+		current_menu.show()
+		current_menu.get_child(0).grab_focus()
 		return
 	
 	## change save file
 	if button_name.begins_with("Save"):
+		if get_tree().current_scene is Level:
+			get_tree().change_scene_to_file("res://src/menu/Title.tscn")
 		var index = int(button_name.replace("Save", ""))
-		set_current_save_file(index)
-		go_to_parent_menu()
+		Save.settings.save_file = index
+		Save.save()
+		_go_to_parent_menu()
+		_update_ui_from_settings()
 		return
 	
 	## change language
@@ -82,60 +100,61 @@ func click_button(button_name: String):
 		TranslationServer.set_locale(button_name)
 		Save.settings.locale = button_name
 		Save.save()
-		go_to_parent_menu()
+		_go_to_parent_menu()
+		_update_ui_from_settings()
 		return
 	
 	{
-		"Resume": func(): toggle_settings(),
-		"ReturneToTitle": func(): get_tree().change_scene_to_file("res://src/menu/Title.tscn"); toggle_settings(),
+		"Resume": _toggle_settings,
+		"ReturneToTitle": func(): 
+			get_tree().change_scene_to_file("res://src/menu/Title.tscn")
+			_toggle_settings()
+			,
 		"Quit": func(): get_tree().quit(),
-		"Back": func(): go_to_parent_menu(),
-		"UnlockAllPuzzles": toggle_unlock_all_puzzles,
+		"Back": _go_to_parent_menu,
 	}[button_name].call()
 
 
-func click_checkbox(button_name: String):
+func _click_checkbox(button_name: String):
 	{
 		"Fullscreen": func(): 
-			var is_fullscreen = $DisplaySettings/Fullscreen.get_checked()
-			Save.settings.is_fullscreen = is_fullscreen
-			Save.settings.apply(get_tree())
+			Save.settings.is_fullscreen = $DisplaySettings/Fullscreen.get_checked()
+			,
+		"UnlockAllPuzzles": func():
+			LevelManager.get_current_progression().all_puzzle_unlocked = ($Settings/UnlockAllPuzzles as SBCheckboxButton).get_checked()
 			Save.save()
+			_go_to_parent_menu()
 			,
 	}[button_name].call()
+	Save.settings.apply(get_tree())
+	Save.save()
 
 
-func change_spin(spin_name: String, index: int):
+func _change_spin(spin_name: String, index: int):
 	{
 		"Msaa": func():
-			Save.settings.msaa = index
-			Save.settings.apply(get_tree())
-			Save.save()
-			,
+			Save.settings.msaa = index,
+		"Resolution": func():
+			Save.settings.screen_resolution = index,
+		"UIScale": func():
+			Save.settings.ui_scale = index
 	}[spin_name].call()
-
-
-func toggle_unlock_all_puzzles():
-	var to = $Settings/UnlockAllPuzzles.text == "UNLOCK_ALL_PUZZLES"
-	$Settings/UnlockAllPuzzles.text = "ABORT_UNLOCK_ALL_PUZZLES" if to else "UNLOCK_ALL_PUZZLES"
-	LevelManager.get_current_progression().all_puzzle_unlocked = to
+	Save.settings.apply(get_tree())
 	Save.save()
-	go_to_parent_menu()
 
 
-func set_current_save_file(index: int):
-	Save.settings.save_file = index
-	Save.save()
-	for i in range(LevelManager.N_PROGRESSION):
-		var button_name = "Save" + str(i)
-		var button = $SaveFiles.find_child(button_name)
-		var text = ""
-		if i == index:
-			text = "> "
-		button.text = text + tr("SAVE") + " " + str(i) # TODO -> update when language changes
+func _change_slider(new_value, setting_name:= ""):
+	if not setting_name.is_empty():
+		Save.settings.set(setting_name, new_value)
+		Save.settings.apply(get_tree())
+		Save.save()
+	else:
+		Utils.unimplemented()
 
+#endregion
 
-func toggle_settings(to:= not visible):
+#region UI updates
+func _toggle_settings(to:= not visible):
 	visible = to
 	get_tree().paused = visible
 	if visible:
@@ -143,17 +162,7 @@ func toggle_settings(to:= not visible):
 		$Main/ReturneToTitle.disabled = get_tree().current_scene is Title
 
 
-func go_to_sub_menu(submenu_name: String):
-	if not find_child(submenu_name, false):
-		Utils.unimplemented(submenu_name)
-		return
-	current_menu.hide()
-	current_menu = find_child(submenu_name, false)
-	current_menu.show()
-	current_menu.get_child(0).grab_focus()
-
-
-func go_to_parent_menu():
+func _go_to_parent_menu():
 	var last_menu_name = current_menu.name
 	current_menu.hide()
 	current_menu = current_menu.parent_menu
@@ -161,9 +170,17 @@ func go_to_parent_menu():
 	current_menu.find_child(last_menu_name).grab_focus()
 
 
-func _input(_event):
-	if Input.is_action_just_pressed("settings"):
-		if not current_menu.parent_menu:
-			toggle_settings()
-		else:
-			go_to_parent_menu()
+func _update_ui_from_settings():
+	($DisplaySettings/UIScale as SBSpinButton).select(Save.settings.ui_scale)
+	($DisplaySettings/Fullscreen as SBCheckboxButton).set_checked(Save.settings.is_fullscreen)
+	($DisplaySettings/Msaa as SBSpinButton).select(Save.settings.msaa)
+	($Settings/UnlockAllPuzzles as SBCheckboxButton).set_checked(LevelManager.get_current_progression().all_puzzle_unlocked)
+	## Save file
+	for i in range(LevelManager.N_PROGRESSION):
+		var button = $SaveFiles.find_child("Save" + str(i))
+		var text = ""
+		if i == Save.settings.save_file:
+			text = "> "
+		button.text = text + tr("SAVE") + " " + str(i)
+
+#endregion

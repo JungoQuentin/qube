@@ -39,7 +39,7 @@ func _ready():
 	_init_map()
 	update_can_win()
 	
-	get_viewport().msaa_3d = Save.settings.msaa
+	Save.settings.apply(get_tree())
 	
 	if is_level_gate:
 		if LevelManager.get_current_progression().global_position_entry_point.is_equal_approx(Transform3D.IDENTITY):

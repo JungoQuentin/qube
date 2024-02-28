@@ -3,6 +3,7 @@ class_name Level extends BaseLevel
 @export var _camera_mode:= CameraController.CameraMode.NATURAL
 @export var _camera_distance:= 18.5
 var end_cube: EndCube
+var can_win: bool = false
 
 
 func _ready():
@@ -18,7 +19,7 @@ func _ready():
 	end_cube = end_cubes[0]
 	
 	end_cube.player_touch.connect(
-		func(can_win): 
+		func(): 
 			if can_win:
 				# TODO check in a better way that all the async functions are done running (or killed)
 				#await input_handler.call_for_change_level()
@@ -32,9 +33,11 @@ func _ready():
 	)
 	update_can_win()
 
+
 func abort_move():
 	player.abort_move()
 
 
 func update_can_win():
-	end_cube.can_win = single_use_cubes.all(func(cube): return cube.is_used)
+	can_win = single_use_cubes.all(func(cube): return cube.is_used)
+	end_cube.update_color(can_win)

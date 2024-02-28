@@ -17,7 +17,7 @@ func _ready():
 	)
 	
 	## Set SaveFiles
-	for i in range(LevelManager.N_PROGRESSION):
+	for i in range(Save.N_PROGRESSION):
 		var button = template_button.duplicate()
 		button.name = "Save" + str(i)
 		$SaveFiles.add_child(button)

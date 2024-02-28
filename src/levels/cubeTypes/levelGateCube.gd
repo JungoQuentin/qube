@@ -27,7 +27,7 @@ func on_touch():
 	_touched_animation_start()
 	if is_gate_open():
 		await Utils.sleep(0.1)
-		LevelManager.goto_level_by_packed(destination)
+		LevelManager.goto_level_by_packed(destination, get_tree())
 
 
 func _update_color(is_open: bool):

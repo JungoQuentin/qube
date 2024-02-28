@@ -1,7 +1,12 @@
-extends Node
+# TODO this is not a real solution, but a hacky patch
+# if the player input should be blocked when there is a move else where (camera or movingcube)
+# there should be another mecanisme to avoid problems
+# maybe I want to move the camera when the player is already moving !
+ 
+class_name InputHandler extends Node
 
 var _locker: Array[String] = []
-var _level: Level
+@onready var _level: Level = get_parent()
 
 ##
 func is_locked() -> bool:
@@ -33,8 +38,6 @@ func _end_action(node: Node) -> bool:
 
 ##
 func _process(_delta):
-	if _level == null:
-		return
 	_level.update_locker_display()
 	if is_locked():
 		return
@@ -69,12 +72,12 @@ func _process(_delta):
 
 ##
 func _input(_event):
-	if _level == null or is_locked():
+	if is_locked():
 		return
 	## Meta (undo, redo, reset)
 	var undo_input: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
 	if not undo_input.is_empty():
 		_add_action(self)
-		await ActionSystem.handle_input(undo_input)
+		await _level.action_system.handle_input(undo_input)
 		_end_action(self)
 		return

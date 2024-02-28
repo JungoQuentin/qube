@@ -2,8 +2,6 @@ class_name Level extends Node3D
 
 #region DECLARATION
 
-enum { INGAME, PAUSE, MENU }
-var game_state = INGAME
 @export var is_level_gate:= false
 @export var _camera_mode:= CameraController.CameraMode.NATURAL
 @export var _camera_distance:= 18.5
@@ -18,6 +16,8 @@ var laser_cubes: Array
 var end_cube: EndCube
 var max_plus: Vector3
 var max_minus: Vector3
+var action_system: ActionSystem
+var input_handler: InputHandler
 var _stack_display_enable:= false
 var _locker_display_enable:= false
 
@@ -32,8 +32,9 @@ func _ready():
 	#_init_action_stack_display()
 	_init_locker_display()
 	_get_max()
-	ActionSystem.start_level(self)
-	InputHandler._level = self
+	action_system = ActionSystem.new(self)
+	input_handler = InputHandler.new()
+	add_child(input_handler)
 	#if is_level_gate:
 		#return
 	_init_map()
@@ -147,7 +148,7 @@ func update_stack_display():
 		return
 	action_stack_display.get_children().map(func(child): child.queue_free())
 	var i = 0
-	for action in ActionSystem.state_stack:
+	for action in action_system.state_stack:
 		_add_state_to_stack_display(action, i)
 		i += 1
 
@@ -157,7 +158,7 @@ func _add_state_to_stack_display(state: LevelState, index: int):
 	var new_label: Label = Label.new()
 	new_label.text = str(state)
 	action_stack_display.add_child(new_label)
-	if index == ActionSystem.current_state_index:
+	if index == action_system.current_state_index:
 		new_label.text = new_label.text + " CURRENT "
 
 
@@ -173,7 +174,7 @@ func update_locker_display():
 		return
 	locker_display.get_children().map(func(child): child.queue_free())
 	var i = 0
-	for action in InputHandler._locker:
+	for action in input_handler._locker:
 		_add_locker_display(action, i)
 		i += 1
 

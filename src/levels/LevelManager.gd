@@ -1,58 +1,29 @@
-extends Node
-
-class Progression extends Savable:
-	var global_position_entry_point: Transform3D
-	var completed_levels: Array#[String]
-	var all_puzzle_unlocked: bool
-	
-	func _init(
-		_global_position_entry_point:= Transform3D.IDENTITY,
-		_completed_levels:= [],
-		_all_puzzle_unlocked:= false
-	):
-		global_position_entry_point = _global_position_entry_point
-		completed_levels = _completed_levels
-		all_puzzle_unlocked = _all_puzzle_unlocked
-
-## Number of progession slots
-const N_PROGRESSION = 3
-
-@export var entry_point: PackedScene
-var progressions: Array[Progression] = []
-var _current_level_pack: PackedScene
+class_name LevelManager
 
 
-func _ready():
-	await Save.loaded
-	for i in range(N_PROGRESSION):
-		var progression = Progression.load_from_config_or_default(Save.config, get_progression_section_name(i), Progression.new())
-		progressions.push_back(progression)
-	Save.save()
+static var entry_point: PackedScene = load("res://src/levels/000_entry_point.tscn")
+static var _current_level_pack: PackedScene
 
 
-func get_progression_section_name(index: int) -> String:
-	return "progression_" + str(index)
+static func goto_level_gate(tree: SceneTree):
+	tree.change_scene_to_packed(entry_point)
 
 
-func goto_level_gate():
-	get_tree().change_scene_to_packed(entry_point)
-
-
-func goto_level_by_packed(pack: PackedScene):
-	get_tree().change_scene_to_packed(pack)
+static func goto_level_by_packed(pack: PackedScene, tree: SceneTree):
+	tree.change_scene_to_packed(pack)
 	_current_level_pack = pack
 
 
-func win():
-	if not progressions[Save.settings.save_file].completed_levels.has(_current_level_pack.resource_path):
-		progressions[Save.settings.save_file].completed_levels.push_front(_current_level_pack.resource_path)
+static func win(tree: SceneTree):
+	if not Save.progressions[Save.settings.save_file].completed_levels.has(_current_level_pack.resource_path):
+		Save.progressions[Save.settings.save_file].completed_levels.push_front(_current_level_pack.resource_path)
 		Save.save()
-	goto_level_gate()
+	goto_level_gate(tree)
 
 
-func is_level_finished(pack: PackedScene) -> bool:
-	return progressions[Save.settings.save_file].completed_levels.has(pack.resource_path)
+static func is_level_finished(pack: PackedScene) -> bool:
+	return Save.progressions[Save.settings.save_file].completed_levels.has(pack.resource_path)
 
 
-func get_current_progression() -> Progression:
-	return progressions[Save.settings.save_file]
+static func get_current_progression() -> Progression:
+	return Save.progressions[Save.settings.save_file]

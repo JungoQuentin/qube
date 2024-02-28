@@ -133,11 +133,9 @@ func _click_checkbox(button_name: String):
 func _change_spin(spin_name: String, index: int):
 	{
 		"Msaa": func():
-			Save.settings.msaa = index,
-		"Resolution": func():
-			Save.settings.screen_resolution = index,
+			Save.settings.msaa = index as Viewport.MSAA,
 		"UIScale": func():
-			Save.settings.ui_scale = index
+			Save.settings.ui_scale = index as Settings.UIScale
 	}[spin_name].call()
 	Save.settings.apply(get_tree())
 	Save.save()
@@ -176,7 +174,7 @@ func _update_ui_from_settings():
 	($DisplaySettings/Msaa as SBSpinButton).select(Save.settings.msaa)
 	($Settings/UnlockAllPuzzles as SBCheckboxButton).set_checked(LevelManager.get_current_progression().all_puzzle_unlocked)
 	## Save file
-	for i in range(LevelManager.N_PROGRESSION):
+	for i in range(Save.N_PROGRESSION):
 		var button = $SaveFiles.find_child("Save" + str(i))
 		var text = ""
 		if i == Save.settings.save_file:

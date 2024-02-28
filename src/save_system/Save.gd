@@ -8,6 +8,14 @@ const N_PROGRESSION = 3
 static var config = ConfigFile.new()
 static var settings: Settings
 static var progressions: Array[Progression] = []
+static var available_languages = Array(TranslationServer.get_loaded_locales())
+## When the screen changes size, we need to update the 3D
+## viewport quality setting. If we don't do this, the viewport will take
+## the size from the main viewport.
+static var viewport_start_size := Vector2(
+	ProjectSettings.get_setting(&"display/window/size/viewport_width"),
+	ProjectSettings.get_setting(&"display/window/size/viewport_height")
+)
 
 static func _static_init():
 	## Init save file

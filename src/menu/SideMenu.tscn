@@ -205,16 +205,6 @@ items = Array[String](["Smaller", "Small", "Medium", "Large", "Larger"])
 selected = 0
 item_count = 5
 
-[node name="Resolution" type="Button" parent="DisplaySettings"]
-visible = false
-custom_minimum_size = Vector2(0, 54)
-layout_mode = 2
-theme_type_variation = &"SideButton"
-script = ExtResource("4_farih")
-items = Array[String](["1920x1080", "1600x900", "1280x720"])
-selected = 0
-item_count = 3
-
 [node name="ResolutionScale" parent="DisplaySettings" instance=ExtResource("3_qys5f")]
 layout_mode = 2
 setting_name = "resolution_scale"

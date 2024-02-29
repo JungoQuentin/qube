@@ -58,13 +58,6 @@ func _get_max():
 func abort_move():
 	player.abort_move()
 
-# TODO should be the callbacks of a signal !
-func player_start_move(_direction: Vector3):
-	laser_cubes.map(func(c): c.player_start_move())
-func player_end_move():
-	# TODO should not be called after a scene change ! -> signal
-	laser_cubes.map(func(c): c.player_end_move())
-
 
 func is_player_hit_by_laser():
 	return laser_cubes.any(func(l: LaserCube): return l.is_collinding_with(player))

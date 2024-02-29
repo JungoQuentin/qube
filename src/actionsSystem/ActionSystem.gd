@@ -9,6 +9,8 @@ var current_state_index: int = 0
 func _init(level: BaseLevel):
 	_level = level
 	state_stack.push_back(LevelState.from_level(_level))
+	level.player.start_move.connect(_on_player_start_move)
+	level.player.end_move.connect(_on_player_end_move)
 
 
 func handle_input(input: String):
@@ -55,7 +57,7 @@ func _reset_level():
 	current_state_index = state_stack.size() - 1
 
 
-func player_start_move():
+func _on_player_start_move():
 	current_state_index += 1
 	_remove_redo()
 
@@ -63,7 +65,7 @@ func player_start_push():
 	current_state_index += 1
 	_remove_redo()
 
-func player_end_move():
+func _on_player_end_move():
 	_add_state(LevelState.from_level(_level))
 	current_state_index = state_stack.size() - 1
 

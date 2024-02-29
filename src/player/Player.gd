@@ -11,6 +11,8 @@ var _is_moving = false
 var we_are_on_this_cube_now: Cube = null
 var joystick: Joystick
 var move_logic: CubeMoveLogic
+signal start_move
+signal end_move
 
 
 func _ready():
@@ -40,6 +42,7 @@ func handle_input(input: String):
 		await _roll()
 	else:
 		await _cant_roll()
+	# TODO check if in a hole / hit by a laser
 	_is_moving = false
 
 
@@ -48,6 +51,10 @@ func _roll():
 	if move_logic.floor_neighbour is MovingCube \
 		and not move_logic.floor_neighbour.in_a_hole \
 		and move_logic.floor_neighbour.can_push(move_logic._floor_direction, -move_logic._direction):
+		
+		# TODO a ce moment, je n'await pas, je lance un add a InputHandler
+		# voir si je creer pas des signaux dans player.handle_input 
+		# comme ca je peut creer des callback dans InputHandler
 		_level.action_system.player_start_push()
 		await move_logic.floor_neighbour.on_push(move_logic._floor_direction, -move_logic._direction)
 		_level.action_system.player_end_push()
@@ -65,15 +72,13 @@ func _roll():
 	if move_logic._is_going_to_change_face:
 		_level.camera_controller.player_change_face(move_logic._direction, move_logic._floor_direction)
 	
-	_level.action_system.player_start_move()
-	_level.player_start_move(move_logic._direction)
+	start_move.emit()
 	await move_logic.roll()
 	if move_logic.floor_goal == null:
 		Utils.crash("floor_goal does not exist")
 		return
 	move_logic.floor_goal.on_touch()
-	_level.player_end_move()
-	_level.action_system.player_end_move()
+	end_move.emit()
 	
 	## leave old floor and set new
 	if we_are_on_this_cube_now != null and we_are_on_this_cube_now != move_logic.floor_goal:
@@ -81,20 +86,13 @@ func _roll():
 	we_are_on_this_cube_now = move_logic.floor_goal
 	
 	move_logic.remove_pivot()
-	
-	## abort if the laser is touching us !
-	if _level.is_player_hit_by_laser():
-		# TODO this allow redo... (find a better way)
-		await _level.action_system._undo()
 
 
 func _cant_roll():
-	_level.action_system.player_start_move()
-	#_level.player_start_move(move_logic._direction)
+	start_move.emit()
 	await move_logic.cant_roll()
 	move_logic.remove_pivot()
-	#_level.player_end_move()
-	_level.action_system.player_end_move()
+	end_move.emit()
 
 ## Abort the current move and return false if there was no move
 func abort_move() -> bool:

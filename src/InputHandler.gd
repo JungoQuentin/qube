@@ -18,8 +18,6 @@ func _create_action_name(node: Node) -> String:
 
 ##
 func _add_action(node: Node) -> bool:
-	if is_locked():
-		return false
 	var action_name = _create_action_name(node)
 	if _action_stack.has(action_name):
 		Utils.crash(["You cannot add the same action !"])

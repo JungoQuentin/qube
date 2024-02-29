@@ -3,7 +3,7 @@ class_name IceCube
 
 @onready var _level = get_tree().current_scene
 
-
+# TODO is this fucked up ??
 ## Return the position of the next "non-sliding" block
 func get_end_slide(direction: Vector3, floor_direction: Vector3) -> Vector3:
 	var neighbour: Cube = Utils.get_raycast_collider(_level, global_position - floor_direction, direction)

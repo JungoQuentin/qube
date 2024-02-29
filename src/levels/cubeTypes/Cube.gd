@@ -54,6 +54,8 @@ func _touch_tween_running() -> bool:
 static func object_to_type(cube: Cube) -> Type:
 	if cube is NormalCube:
 		return Type.NORMAL
+	elif cube is LevelGateCube:
+		return Type.GATE
 	elif cube is BlockingCube:
 		return Type.BLOCKING
 	elif cube is EndCube:
@@ -66,8 +68,6 @@ static func object_to_type(cube: Cube) -> Type:
 		return Type.HOLE
 	elif cube is SwitchCube:
 		return Type.SWITCH
-	elif cube is LevelGateCube:
-		return Type.GATE
 	elif cube is LaserCube:
 		return Type.LASER
 	elif cube is SnowBallCube:

@@ -47,6 +47,7 @@ func _ready():
 func get_initial_color(cubeType: Cube.Type) -> Color:
 	return {
 		Cube.Type.BLOCKING: blocking_init_color,
+		Cube.Type.GATE: gate_init_color,
 		Cube.Type.END: end_cube_init_color,
 		Cube.Type.SINGLE_USE: single_cube_init_color,
 		Cube.Type.SNOW_BALL: snow_ball_init_color,
@@ -54,7 +55,6 @@ func get_initial_color(cubeType: Cube.Type) -> Color:
 		Cube.Type.HOLE: hole_cube_editor_color,
 		Cube.Type.SWITCH: switch_cube_on_color,
 		Cube.Type.NORMAL: normal_init_color,
-		Cube.Type.GATE: gate_init_color,
 		Cube.Type.LASER: laser_cube_init_color,
 	}[cubeType]
 

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3 uid="uid://cuv6ught1gjdm"]
+
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_7ro4u"]
+
+[resource]
+script = ExtResource("1_7ro4u")
+palette_name = "power"
+player_color = Color(0.0980392, 0.403922, 0.454902, 1)
+player_fade = false
+inner_light_color = Color(1, 0.858824, 0.729412, 1)
+background_color = Color(0.211765, 0.203922, 0.196078, 1)
+inner_light_fade = true
+fade_from = 0.5
+fade_to = 2.0
+fade_speed = 2.0
+normal_init_color = Color(0.941176, 0.580392, 0.121569, 1)
+blocking_init_color = Color(0.564706, 0.631373, 0.615686, 1)
+single_cube_init_color = Color(0.741176, 0.878431, 0.996078, 1)
+end_cube_init_color = Color(0.0980392, 0.403922, 0.454902, 1)
+switch_cube_on_color = Color(1, 1, 0, 1)
+switch_cube_off_color = Color(0, 0, 0, 1)
+snow_ball_init_color = Color(1, 1, 1, 1)
+ice_cube_init_color = Color(0.529412, 0.807843, 0.980392, 0.635294)
+hole_cube_editor_color = Color(0.945098, 1, 1, 0.560784)
+gate_init_color = Color(0, 0.545098, 0.545098, 1)
+laser_cube_init_color = Color(0.941176, 0.501961, 0.501961, 1)
+cube_scale = 0.97

@@ -1,5 +1,10 @@
-[Colors]
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3]
 
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_7ro4u"]
+
+[resource]
+script = ExtResource("1_7ro4u")
+palette_name = "lolipop"
 player_color=Color(0.635294, 0.823529, 1, 1)
 player_fade=false
 inner_light_color=Color(0.803922, 0.705882, 0.858824, 1)

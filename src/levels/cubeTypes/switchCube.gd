@@ -7,8 +7,8 @@ class_name SwitchCube
 		on = _on
 		if Engine.is_editor_hint(): 
 			update_color()
-var _on_color: Color = Colors.switch_cube_on_color
-var _off_color: Color = Colors.switch_cube_off_color
+var _on_color: Color = Colors._color_set.switch_cube_on_color
+var _off_color: Color = Colors._color_set.switch_cube_off_color
 @onready var _level: BaseLevel = get_tree().current_scene
 
 

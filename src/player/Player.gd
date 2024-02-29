@@ -19,7 +19,7 @@ func _ready():
 	joystick = load("res://src/joystick/joystick.tscn").instantiate()
 	add_child(joystick)
 	_level.player = self
-	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors.player_color
+	mesh_instance.mesh.surface_get_material(0).albedo_color = Colors._color_set.player_color
 	await Utils.wait_while(func(): return _level.camera_controller == null)
 	var floor_direction = _level.camera_controller.get_camera_basis() * Vector3.FORWARD
 	await get_tree().process_frame

@@ -12,12 +12,16 @@ var _touch_tween: Tween
 
 
 func _ready():
-	_mesh.size = Vector3.ONE * Colors.cube_scale
-	_collision_shape.shape.size = Vector3.ONE * Colors.cube_scale
-	_initial_color = Colors.get_initial_color(Cube.object_to_type(self)) # TODO colors as a ressource
-	_touched_color = Colors.darker(_initial_color)
+	_mesh.size = Vector3.ONE * Colors._color_set.cube_scale
+	_collision_shape.shape.size = Vector3.ONE * Colors._color_set.cube_scale
+	_set_colors()
 	_mesh_instance.set_surface_override_material(0, _mesh_instance.get_surface_override_material(0).duplicate(true))
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
+
+
+func _set_colors():
+	_initial_color = Colors.get_initial_color(Cube.object_to_type(self))
+	_touched_color = ColorSet.darker(_initial_color)
 
 ## Called when the player, or a movingCube touch the cube (take the toucher as _cube: Node3D)
 func on_touch():

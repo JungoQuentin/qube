@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Utils="*res://src/Utils.gd"
-Colors="*res://colors/Colors.tscn"
+Colors="*res://colors/Colors.gd"
 SideMenu="*res://src/menu/SideMenu.tscn"
 
 [display]

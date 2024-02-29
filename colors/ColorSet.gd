@@ -1,5 +1,8 @@
+@tool
 extends Resource
 class_name ColorSet
+
+const CURRENT_COLOR_SET = "res://colors/color_set_power.tres"
 
 @export_category("Palette")
 @export var palette_name = "default"
@@ -48,3 +51,7 @@ func get_initial_color(cubeType: Cube.Type) -> Color:
 		Cube.Type.NORMAL: normal_init_color,
 		Cube.Type.LASER: laser_cube_init_color,
 	}[cubeType]
+
+
+static func static_get_initial_color(cubeType: Cube.Type, res: ColorSet) -> Color:
+	return res.get_initial_color(cubeType)

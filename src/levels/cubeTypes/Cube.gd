@@ -6,21 +6,22 @@ enum Type { NORMAL, END, SNOW_BALL, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, GAT
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
 @onready var _mesh: Mesh = _mesh_instance.mesh
+@onready var _color_set: ColorSet = get_tree().current_scene.color_set
 var _initial_color: Color
 var _touched_color: Color
 var _touch_tween: Tween
 
 
 func _ready():
-	_mesh.size = Vector3.ONE * Colors._color_set.cube_scale
-	_collision_shape.shape.size = Vector3.ONE * Colors._color_set.cube_scale
+	_mesh.size = Vector3.ONE * _color_set.cube_scale
+	_collision_shape.shape.size = Vector3.ONE * _color_set.cube_scale
 	_set_colors()
 	_mesh_instance.set_surface_override_material(0, _mesh_instance.get_surface_override_material(0).duplicate(true))
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
 
 
 func _set_colors():
-	_initial_color = Colors.get_initial_color(Cube.object_to_type(self))
+	_initial_color = _color_set.get_initial_color(Cube.object_to_type(self))
 	_touched_color = ColorSet.darker(_initial_color)
 
 ## Called when the player, or a movingCube touch the cube (take the toucher as _cube: Node3D)

@@ -8,17 +8,20 @@ var input_handler:= InputHandler.new()
 var camera_controller: CameraController
 var switch_cubes: Array
 var single_use_cubes: Array
+static var color_set: ColorSet
 var moving_cubes: Array
 var laser_cubes: Array
 var max_plus: Vector3
 var max_minus: Vector3
+
+static func _static_init():
+	color_set = load(ColorSet.CURRENT_COLOR_SET)
 
 
 func _ready():
 	add_child(camera_controller)
 	add_child(env_ligth)
 	add_child(input_handler)
-	action_system
 	_get_max()
 	_init_map()
 	Save.settings.apply(get_tree())

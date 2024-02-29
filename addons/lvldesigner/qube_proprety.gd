@@ -6,6 +6,7 @@ var _updating = false
 var _vbox = VBoxContainer.new()
 var _current_key: String
 var _first_update:= false
+var _color_set: ColorSet = preload(ColorSet.CURRENT_COLOR_SET)
 @onready var cube_preload: Dictionary = {
 	Cube.Type.NORMAL : NormalCube,
 	Cube.Type.BLOCKING : BlockingCube,
@@ -61,7 +62,7 @@ func _update_color(object: Object):
 		return
 	var mesh_instance: MeshInstance3D = object.find_child("MeshInstance3D")
 	mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
-	mesh_instance.get_surface_override_material(0).albedo_color = Colors.get_initial_color(Cube.object_to_type(object))
+	mesh_instance.get_surface_override_material(0).albedo_color = _color_set.get_initial_color(Cube.object_to_type(object))
 	if object is SwitchCube:
 		object.update_color()
 

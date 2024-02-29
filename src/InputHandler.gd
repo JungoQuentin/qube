@@ -5,12 +5,12 @@
  
 class_name InputHandler extends Node
 
-var _locker: Array[String] = []
+var _action_stack: Array[String] = []
 @onready var _level: BaseLevel = get_parent()
 
 ##
 func is_locked() -> bool:
-	return not _locker.is_empty()
+	return not _action_stack.is_empty()
 
 ##
 func _create_action_name(node: Node) -> String:
@@ -21,19 +21,19 @@ func _add_action(node: Node) -> bool:
 	if is_locked():
 		return false
 	var action_name = _create_action_name(node)
-	if _locker.has(action_name):
+	if _action_stack.has(action_name):
 		Utils.crash(["You cannot add the same action !"])
 		return false
-	_locker.push_back(action_name)
+	_action_stack.push_back(action_name)
 	return true
 
 ##
 func _end_action(node: Node) -> bool:
 	var action_name = _create_action_name(node)
-	if not _locker.has(action_name):
+	if not _action_stack.has(action_name):
 		Utils.crash(["You cannot end unexisting action !"])
 		return false
-	_locker.remove_at(_locker.find(action_name))
+	_action_stack.remove_at(_action_stack.find(action_name))
 	return true
 
 ##

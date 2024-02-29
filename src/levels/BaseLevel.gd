@@ -142,7 +142,7 @@ func update_locker_display():
 		return
 	_locker_display.get_children().map(func(child): child.queue_free())
 	var i = 0
-	for action in input_handler._locker:
+	for action in input_handler._action_stack:
 		_add_locker_display(action, i)
 		i += 1
 

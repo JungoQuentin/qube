@@ -44,7 +44,7 @@ func _reset_level():
 	if _level is LevelGate:
 		Utils.unimplemented("reset dans le level gate")
 		return
-	_level.get_tree().reload_current_scene()
+	_level.get_tree().reload_current_scene() # TODO create a (little) error
 	return # TODO this is the nice way, where you can undo a reset
 	await _level.abort_move()
 	if current_state_index == 0:

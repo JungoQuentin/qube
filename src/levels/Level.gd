@@ -23,6 +23,7 @@ func _ready():
 			if can_win:
 				# TODO check in a better way that all the async functions are done running (or killed)
 				#await input_handler.call_for_change_level()
+				input_handler._add_action(self)
 				await Utils.wait_while(func(): return player._is_moving)
 				#await Utils.wait_while(func(): return input_handler.is_locked())
 				LevelManager.win(get_tree())

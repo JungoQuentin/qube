@@ -10,8 +10,8 @@
 [ext_resource type="Script" path="res://src/levels/cubeTypes/SnowBall.gd" id="8_j6qie"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/singleUseCube.gd" id="9_w2mpc"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/IceCube.gd" id="10_0nruc"]
-[ext_resource type="PackedScene" uid="uid://dvrqbm03jnuqt" path="res://src/levels/01_2_Intro.tscn" id="10_4sasy"]
-[ext_resource type="PackedScene" uid="uid://dg4m28eyh7ova" path="res://src/levels/01_1_Intro.tscn" id="11_scv5l"]
+[ext_resource type="PackedScene" uid="uid://dvrqbm03jnuqt" path="res://src/levels/01_2_(Intro).tscn" id="10_4sasy"]
+[ext_resource type="PackedScene" uid="uid://dg4m28eyh7ova" path="res://src/levels/01_1_(Intro).tscn" id="11_scv5l"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/LaserCube.gd" id="11_u34pd"]
 [ext_resource type="Script" path="res://src/levels/cubeTypes/endCube.gd" id="12_i24nf"]
 

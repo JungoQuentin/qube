@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://b67u0xirtdswa"]
+
+[ext_resource type="Script" path="res://src/level/env/EnvLight.gd" id="1_526yc"]
+
+[sub_resource type="Environment" id="Environment_qevnp"]
+background_mode = 1
+background_color = Color(0.498039, 0.490196, 0.478431, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+glow_intensity = 3.52
+glow_bloom = 0.21
+fog_density = 0.188
+volumetric_fog_emission = Color(0.576471, 0.576471, 0.576471, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+
+[node name="EnvLightCam" type="Node3D"]
+script = ExtResource("1_526yc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qevnp")
+
+[node name="lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8.64508, 2.44128e-07)
+visible = false
+light_energy = 20.0
+spot_range = 8.81203
+spot_angle = 30.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.52623, 4.66584, 1.11731)
+visible = false
+light_energy = 7.549
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+omni_range = 6.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71989, 3.88308, 2.00784)
+visible = false
+light_energy = 1.3
+omni_range = 5.70428
+
+[node name="inner" type="OmniLight3D" parent="lights"]
+light_color = Color(0.968627, 0.752941, 1, 1)
+omni_range = 15.0

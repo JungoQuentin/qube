@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6wlglyapvjmr"]
+
+[ext_resource type="Script" path="res://src/level/Level.gd" id="1_sphhj"]
+[ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_vajbw"]
+[ext_resource type="PackedScene" uid="uid://crm7r27jrvees" path="res://src/level/cubeTypes/Cube.tscn" id="3_6adtn"]
+[ext_resource type="Script" path="res://src/level/cubeTypes/endCube.gd" id="4_xelmq"]
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_sphhj")
+
+[node name="Player" parent="." instance=ExtResource("2_vajbw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 1.5)
+
+[node name="MapCube" type="Node3D" parent="."]
+
+[node name="name" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -0.5)
+
+[node name="@StaticBody3D@20634" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 0.5)
+
+[node name="@StaticBody3D@20635" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
+script = ExtResource("4_xelmq")
+
+[node name="@StaticBody3D@20636" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0.5)
+
+[node name="@StaticBody3D@20637" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0.5)
+
+[node name="@StaticBody3D@20638" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -0.5)
+
+[node name="@StaticBody3D@20639" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+
+[node name="@StaticBody3D@20640" parent="MapCube" instance=ExtResource("3_6adtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -0.5)

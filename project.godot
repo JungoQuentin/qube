@@ -41,7 +41,8 @@ enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg", "res://addons/s
 folder_colors={
 "res://addons/": "purple",
 "res://build/": "orange",
-"res://src/": "blue"
+"res://src/": "blue",
+"res://src/level/levels/": "pink"
 }
 
 [filesystem]

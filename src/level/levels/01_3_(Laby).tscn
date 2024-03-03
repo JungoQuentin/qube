@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://wvlaq6sl40h5"]
+
+[ext_resource type="Script" path="res://src/level/Level.gd" id="1_7tyaa"]
+[ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_prvc3"]
+[ext_resource type="PackedScene" uid="uid://crm7r27jrvees" path="res://src/level/cubeTypes/Cube.tscn" id="3_jfqhs"]
+[ext_resource type="Script" path="res://src/level/cubeTypes/blockingCube.gd" id="4_jywut"]
+[ext_resource type="Script" path="res://src/level/cubeTypes/endCube.gd" id="6_d214o"]
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_7tyaa")
+
+[node name="Player" parent="." instance=ExtResource("2_prvc3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="MapCube" type="Node3D" parent="."]
+
+[node name="name" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20100" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20101" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20102" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20103" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+script = ExtResource("6_d214o")
+
+[node name="@StaticBody3D@20104" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20105" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20106" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+
+[node name="@StaticBody3D@20107" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20108" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -1)
+
+[node name="@StaticBody3D@20109" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="@StaticBody3D@20110" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+
+[node name="@StaticBody3D@20111" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="@StaticBody3D@20112" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="@StaticBody3D@20113" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+
+[node name="@StaticBody3D@20114" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="@StaticBody3D@20115" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20116" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20117" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0)
+
+[node name="@StaticBody3D@20118" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20119" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="@StaticBody3D@20120" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="@StaticBody3D@20121" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="@StaticBody3D@20122" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
+script = ExtResource("4_jywut")
+
+[node name="@StaticBody3D@20123" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+
+[node name="@StaticBody3D@20124" parent="MapCube" instance=ExtResource("3_jfqhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
+script = ExtResource("4_jywut")

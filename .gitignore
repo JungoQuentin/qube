@@ -4,3 +4,4 @@ build/
 .idea/
 save.cfg
 **trads.*.translation
+addons/spin_button/example

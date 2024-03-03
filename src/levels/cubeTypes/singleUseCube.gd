@@ -3,10 +3,12 @@ class_name SingleUseCube
 
 var is_used:= false
 var _color_changed:= false
+signal get_used
 
 func on_leave():
 	super.on_leave()
 	is_used = true
+	get_used.emit()
 	_change_color_animation_start()
 
 
@@ -19,8 +21,8 @@ func on_touch():
 func _change_color_animation_start():
 	if _touch_tween_running():
 		_touch_tween.kill()
-	_initial_color = Colors.blocking_init_color
-	_touched_color = Colors.darker(_initial_color)
+	_initial_color = _color_set.blocking_init_color
+	_touched_color = ColorSet.darker(_initial_color)
 	var _material = _mesh_instance.get_surface_override_material(0)
 	_touch_tween = create_tween()
 	if _touch_tween == null:
@@ -32,8 +34,8 @@ func _change_color_animation_start():
 func update_color():
 	if _touch_tween_running(): 
 		_touch_tween.kill()
-	_initial_color = Colors.blocking_init_color if is_used else Colors.single_cube_init_color
-	_touched_color = Colors.darker(_initial_color)
+	_initial_color = _color_set.blocking_init_color if is_used else _color_set.single_cube_init_color
+	_touched_color = ColorSet.darker(_initial_color)
 	_mesh_instance.get_surface_override_material(0).albedo_color = _initial_color
 
 

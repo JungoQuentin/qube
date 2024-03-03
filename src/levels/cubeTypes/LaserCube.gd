@@ -12,11 +12,11 @@ const LASER_HEIGHT = 20
 			if not laser_on and on:
 				activate()
 			else:
-				if tween != null and tween.is_valid():
-					tween.kill()
+				if _tween != null and _tween.is_valid():
+					_tween.kill()
 		laser_on = on
-var just_changed:= false
-var tween: Tween
+var _just_changed:= false
+var _tween: Tween
 
 
 func _ready():
@@ -25,6 +25,8 @@ func _ready():
 	laser.position.y = 0.5
 	laser_on = laser_on
 	laser.enabled = true
+	(get_tree().current_scene as BaseLevel).player.start_move.connect(_on_player_start_move)
+	(get_tree().current_scene as BaseLevel).player.end_move.connect(_on_player_end_move)
 
 
 func activate():
@@ -50,21 +52,21 @@ func activate():
 	var goal_position = Vector3.UP * goal_height / 2.
 	
 	var time = goal_height / 20.
-	tween = create_tween().set_parallel()
-	tween.tween_property(laser.cylinder, "height", goal_height, time)
-	tween.tween_property(laser.cylinder, "position", goal_position, time)
-	await tween.finished
+	_tween = create_tween().set_parallel()
+	_tween.tween_property(laser.cylinder, "height", goal_height, time)
+	_tween.tween_property(laser.cylinder, "position", goal_position, time)
+	await _tween.finished
 
 
-func player_start_move():
+func _on_player_start_move():
 	if laser_on:
 		laser_on = false
-		just_changed = true
+		_just_changed = true
 
 
-func player_end_move():
-	if just_changed:
-		just_changed = false
+func _on_player_end_move():
+	if _just_changed:
+		_just_changed = false
 		return
 	if not laser_on:
 		laser_on = true

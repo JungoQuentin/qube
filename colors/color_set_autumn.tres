@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3 uid="uid://bbwn583f52gqh"]
+
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_7ro4u"]
+
+[resource]
+script = ExtResource("1_7ro4u")
+palette_name = "autumn"
+player_color = Color(0.384314, 0.196078, 0.188235, 1)
+player_fade = false
+inner_light_color = Color(1, 0.882353, 0.658824, 1)
+background_color = Color(0.278431, 0.176471, 0.188235, 1)
+inner_light_fade = true
+fade_from = 0.5
+fade_to = 2.0
+fade_speed = 2.0
+normal_init_color = Color(1, 0.882353, 0.658824, 1)
+blocking_init_color = Color(0.447059, 0.239216, 0.27451, 1)
+single_cube_init_color = Color(0.886275, 0.427451, 0.360784, 1)
+end_cube_init_color = Color(0.788235, 0.796078, 0.639216, 1)
+switch_cube_on_color = Color(1, 1, 0, 1)
+switch_cube_off_color = Color(0, 0, 0, 1)
+snow_ball_init_color = Color(1, 1, 1, 1)
+ice_cube_init_color = Color(0.529412, 0.807843, 0.980392, 1)
+hole_cube_editor_color = Color(0.941176, 1, 1, 1)
+gate_init_color = Color(0, 0.545098, 0.545098, 1)
+laser_cube_init_color = Color(0.941176, 0.501961, 0.501961, 1)
+cube_scale = 0.97

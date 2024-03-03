@@ -1,11 +1,16 @@
-extends Node
+# TODO this is not a real solution, but a hacky patch
+# if the player input should be blocked when there is a move else where (camera or movingcube)
+# there should be another mecanisme to avoid problems
+# maybe I want to move the camera when the player is already moving !
+ 
+class_name InputHandler extends Node
 
-var _locker: Array[String] = []
-var _level: Level
+var _action_stack: Array[String] = []
+@onready var _level: BaseLevel = get_parent()
 
 ##
 func is_locked() -> bool:
-	return not _locker.is_empty()
+	return not _action_stack.is_empty()
 
 ##
 func _create_action_name(node: Node) -> String:
@@ -13,28 +18,24 @@ func _create_action_name(node: Node) -> String:
 
 ##
 func _add_action(node: Node) -> bool:
-	if is_locked():
-		return false
 	var action_name = _create_action_name(node)
-	if _locker.has(action_name):
+	if _action_stack.has(action_name):
 		Utils.crash(["You cannot add the same action !"])
 		return false
-	_locker.push_back(action_name)
+	_action_stack.push_back(action_name)
 	return true
 
 ##
 func _end_action(node: Node) -> bool:
 	var action_name = _create_action_name(node)
-	if not _locker.has(action_name):
+	if not _action_stack.has(action_name):
 		Utils.crash(["You cannot end unexisting action !"])
 		return false
-	_locker.remove_at(_locker.find(action_name))
+	_action_stack.remove_at(_action_stack.find(action_name))
 	return true
 
 ##
 func _process(_delta):
-	if _level == null:
-		return
 	_level.update_locker_display()
 	if is_locked():
 		return
@@ -69,12 +70,12 @@ func _process(_delta):
 
 ##
 func _input(_event):
-	if _level == null or is_locked():
+	if is_locked():
 		return
 	## Meta (undo, redo, reset)
 	var undo_input: String = Utils.is_one_action_pressed(["undo", "redo", "reset"])
 	if not undo_input.is_empty():
 		_add_action(self)
-		await ActionSystem.handle_input(undo_input)
+		await _level.action_system.handle_input(undo_input)
 		_end_action(self)
 		return

@@ -4,6 +4,7 @@ class_name MovingCube
 @onready var _level = get_tree().current_scene
 ## if the cube as fall in a hole
 var in_a_hole:= false
+const TIME_TO_BE_PUSHED = 0.1
 
 
 func on_push(direction: Vector3, floor_direction: Vector3):
@@ -18,7 +19,7 @@ func on_push(direction: Vector3, floor_direction: Vector3):
 		floor_goal.fill()
 	
 	var tween = create_tween()
-	tween.tween_property(self, "position", position_goal, 0.09)
+	tween.tween_property(self, "position", position_goal, TIME_TO_BE_PUSHED)
 	await tween.finished
 	
 	#var the_next = _get_floor_goal(direction, floor_direction)

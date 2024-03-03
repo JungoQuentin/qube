@@ -1,16 +1,16 @@
-## AutoLoad that handles the undo/redo/reset system
-extends Node
+## handles the undo/redo/reset system
+class_name ActionSystem
 
-var _level: Level
+var _level: BaseLevel
 var state_stack: Array[LevelState]
 var current_state_index: int = 0
 
 
-func start_level(level: Level):
+func _init(level: BaseLevel):
 	_level = level
-	state_stack.clear()
 	state_stack.push_back(LevelState.from_level(_level))
-	current_state_index = 0
+	level.player.start_move.connect(_on_player_start_move)
+	level.player.end_move.connect(_on_player_end_move)
 
 
 func handle_input(input: String):
@@ -41,7 +41,10 @@ func _redo():
 
 
 func _reset_level():
-	get_tree().reload_current_scene()
+	if _level is LevelGate:
+		Utils.unimplemented("reset dans le level gate")
+		return
+	_level.get_tree().reload_current_scene() # TODO create a (little) error
 	return # TODO this is the nice way, where you can undo a reset
 	await _level.abort_move()
 	if current_state_index == 0:
@@ -54,7 +57,7 @@ func _reset_level():
 	current_state_index = state_stack.size() - 1
 
 
-func player_start_move():
+func _on_player_start_move():
 	current_state_index += 1
 	_remove_redo()
 
@@ -62,7 +65,7 @@ func player_start_push():
 	current_state_index += 1
 	_remove_redo()
 
-func player_end_move():
+func _on_player_end_move():
 	_add_state(LevelState.from_level(_level))
 	current_state_index = state_stack.size() - 1
 

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_7ro4u"]
+
+[resource]
+script = ExtResource("1_7ro4u")
+palette_name = "flash"
+player_color=Color(0.976471, 0.486275, 0.878431, 1)
+player_fade=false
+inner_light_color=Color(0.8, 0.92549, 1, 1)
+background_color=Color(0.607843, 0.529412, 1, 1)
+inner_light_fade=true
+fade_from=1.0
+fade_to=3.0
+fade_speed=2.5
+normal_init_color=Color(1, 0.509804, 0.690196, 1)
+blocking_init_color=Color(1, 0.639216, 0.505882, 1)
+single_cube_init_color=Color(1, 0.807843, 0.396078, 1)
+start_cube_init_color=Color(0.976471, 0.486275, 0.878431, 1)
+end_cube_init_color=Color(0.976471, 0.486275, 0.878431, 1)
+switch_cube_on_color=Color(0.976471, 0.972549, 0.443137, 1)
+switch_cube_off_color=Color(0.823529, 0.811765, 0.0588235, 1)
+moving_cube_init_color=Color(0.607843, 0.529412, 1, 1)
+cube_scale=0.97

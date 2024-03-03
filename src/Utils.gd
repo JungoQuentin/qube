@@ -10,7 +10,7 @@ func wait_while(condition: Callable, timeout=5, frequency=0.01) -> bool:
 	return true
 
 ## Returns the first collider found by a raycast
-func get_raycast_collider(parent, _position: Vector3, _target_position: Vector3) -> Node:
+func get_raycast_collider(parent: Node3D, _position: Vector3, _target_position: Vector3) -> Node:
 	var new_raycast = RayCast3D.new()
 	parent.add_child(new_raycast)
 	new_raycast.exclude_parent = true

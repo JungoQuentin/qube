@@ -9,6 +9,7 @@ var _level_file_regex = RegEx.create_from_string("(?<digit>[0-9]+)(_*)(?<name>\\
 @onready var normalCubePreload = preload("res://src/levels/cubeTypes/Cube.tscn");
 const LEVEL_PATH = &"res://src/levels"
 const LEVEL_MANAGER_PATH = &"res://src/levels/LevelManager.tscn"
+var _color_set: ColorSet = preload(ColorSet.CURRENT_COLOR_SET)
 
 func _enter_tree():
 	editorPlugin = QubeEditorInspectorPlugin.new()
@@ -45,7 +46,7 @@ func _update_cubes_color():
 		return
 	for cube in map_cube.get_children():
 		var mesh_instance: MeshInstance3D = cube.find_child("MeshInstance3D")
-		var initial_color = Colors.get_initial_color(Cube.object_to_type(cube))
+		var initial_color = _color_set.get_initial_color(Cube.object_to_type(cube))
 		mesh_instance.set_surface_override_material(0, mesh_instance.get_surface_override_material(0).duplicate(true))
 		mesh_instance.get_surface_override_material(0).albedo_color = initial_color
 		if cube is SwitchCube:

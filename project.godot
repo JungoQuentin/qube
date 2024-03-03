@@ -13,17 +13,13 @@ config_version=5
 config/name="qube"
 run/main_scene="res://src/menu/Title.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
+boot_splash/bg_color=Color(0.4, 0.72549, 1, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
-Colors="*res://colors/Colors.tscn"
-ActionSystem="*res://src/actionsSystem/ActionSystem.gd"
 Utils="*res://src/Utils.gd"
-LevelManager="*res://src/levels/LevelManager.tscn"
-Save="*res://src/Save.gd"
 SideMenu="*res://src/menu/SideMenu.tscn"
-InputHandler="*res://src/InputHandler.gd"
 
 [display]
 
@@ -38,7 +34,7 @@ movie_writer/movie_file="/home/qjungo/Games/BCube/new.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg")
+enabled=PackedStringArray("res://addons/lvldesigner/plugin.cfg", "res://addons/spin_button/plugin.cfg")
 
 [file_customization]
 

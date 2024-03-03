@@ -1,7 +1,7 @@
 class_name LevelManager
 
 
-static var entry_point: PackedScene = load("res://src/levels/000_entry_point.tscn")
+static var entry_point: PackedScene = load("res://src/level/000_entry_point.tscn")
 static var _current_level_pack: PackedScene
 
 

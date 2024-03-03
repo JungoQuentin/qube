@@ -4,7 +4,7 @@ class_name LaserCube
 
 const LASER_HEIGHT = 20
 
-@onready var laser: Laser = preload("res://src/levels/cubeTypes/Laser.tscn").instantiate()
+@onready var laser: Laser = preload("res://src/level/cubeTypes/Laser.tscn").instantiate()
 @export var laser_on:= true:
 	set(on):
 		if laser != null:

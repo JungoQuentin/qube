@@ -2,7 +2,7 @@ class_name BaseLevel extends Node3D
 
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
-@onready var env_ligth: Node3D = preload("res://src/levels/env/EnvLight.tscn").instantiate()
+@onready var env_ligth: Node3D = preload("res://src/level/env/EnvLight.tscn").instantiate()
 @onready var action_system:= ActionSystem.new(self)
 var input_handler:= InputHandler.new()
 var camera_controller: CameraController

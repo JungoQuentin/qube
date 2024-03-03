@@ -6,9 +6,9 @@ var _plugin_dock: VBoxContainer
 var dimension:= Vector3i.ONE * 3
 var editorPlugin: QubeEditorInspectorPlugin
 var _level_file_regex = RegEx.create_from_string("(?<digit>[0-9]+)(_*)(?<name>\\w*)\\.tscn")
-@onready var normalCubePreload = preload("res://src/levels/cubeTypes/Cube.tscn");
-const LEVEL_PATH = &"res://src/levels"
-const LEVEL_MANAGER_PATH = &"res://src/levels/LevelManager.tscn"
+@onready var normalCubePreload = preload("res://src/level/cubeTypes/Cube.tscn");
+const LEVEL_PATH = &"res://src/level"
+const LEVEL_MANAGER_PATH = &"res://src/level/LevelManager.tscn"
 var _color_set: ColorSet = preload(ColorSet.CURRENT_COLOR_SET)
 
 func _enter_tree():

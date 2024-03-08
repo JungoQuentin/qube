@@ -22,6 +22,8 @@ func _on_player_start_move():
 	Save.save()
 
 func _on_player_touch_level_gate_cube(cube: LevelGateCube):
+	if cube.destination == null:
+		return
 	print("go in level animation !") # TODO
 	input_handler._add_action(self)
 	await Utils.sleep(1.)

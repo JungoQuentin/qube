@@ -6,7 +6,7 @@ enum Type { NORMAL, END, SNOW_BALL, SINGLE_USE, BLOCKING, SWITCH, ICE, HOLE, GAT
 @onready var _collision_shape: CollisionShape3D = self.find_child("CollisionShape3D")
 @onready var _mesh_instance: MeshInstance3D = self.find_child("MeshInstance3D")
 @onready var _mesh: Mesh = _mesh_instance.mesh
-@onready var _color_set: ColorSet = get_tree().current_scene.color_set
+var _color_set: ColorSet = BaseLevel.color_set
 var _initial_color: Color
 var _touched_color: Color
 var _touch_tween: Tween

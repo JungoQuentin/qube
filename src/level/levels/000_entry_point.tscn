@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://xuqfnkigy4pj" path="res://src/level/levels/02_12_Trou.tscn" id="23_ppr03"]
 [ext_resource type="PackedScene" uid="uid://c56db3m15y3iv" path="res://src/level/levels/02_8_Trou.tscn" id="24_6ytrx"]
 [ext_resource type="PackedScene" uid="uid://dghhoyy0c4ctj" path="res://src/level/levels/02_13_Trou.tscn" id="25_76hpn"]
+[ext_resource type="PackedScene" uid="uid://b4aqgg3gq4wfd" path="res://src/level/levels/01_4_Laby.tscn" id="33_f32y2"]
 [ext_resource type="PackedScene" uid="uid://dmj8512ujgcx1" path="res://src/level/levels/03_1_Glace.tscn" id="37_b3dlm"]
 [ext_resource type="PackedScene" uid="uid://jcseft7h6ph2" path="res://src/level/levels/03_2_Glace.tscn" id="37_t5toj"]
 [ext_resource type="PackedScene" uid="uid://dus6ldfc5834r" path="res://src/level/levels/03_7_Glace+.tscn" id="39_gj5rg"]
@@ -1016,7 +1017,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -5)
 [node name="@StaticBody3D@19592" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, 5)
 script = ExtResource("6_0gunp")
-destination = ExtResource("11_t34nv")
+destination = ExtResource("33_f32y2")
 dependency = ExtResource("11_t34nv")
 
 [node name="@StaticBody3D@19604" parent="MapCube" instance=ExtResource("3_l3bbo")]

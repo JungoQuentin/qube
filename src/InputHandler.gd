@@ -14,6 +14,9 @@ func is_locked() -> bool:
 
 ##
 func _create_action_name(node: Node) -> String:
+	var stack = get_stack()
+	if stack.size() < 2:
+		return node.name
 	return node.name + "_" + get_stack()[2]["source"] + "_" + get_stack()[2]["function"]
 
 ##

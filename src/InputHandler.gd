@@ -61,6 +61,8 @@ func _process(_delta):
 		return
 
 	## Camera move and rotate
+	if get_tree().current_scene is LevelGate:
+		return
 	var camera_input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not camera_input.is_empty():
 		_add_action(_level.camera_controller)

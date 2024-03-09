@@ -1,7 +1,7 @@
 class_name Savable
 
 ## Base properties we don't want to save
-const BASE_REFC_PROPS = [&"RefCounted", &"script", &"Built-in script", &"Savable.gd"]
+const BASE_REFC_PROPS = [&"RefCounted", &"script", &"Built-in script"]
 
 
 func properties():
@@ -16,9 +16,8 @@ func save_to_config(config: ConfigFile, section_name: String):
 		var prop = self.get(prop_name)
 		if prop is Savable:
 			prop = prop.to_bytes_dict()
-		#if prop is Savable:
-			#prop.save_to_config(config, section_name + "_" + prop_name)
 		config.set_value(section_name, prop_name, prop)
+
 
 func to_bytes_dict():
 	var result = {}
@@ -32,7 +31,6 @@ static func from_bytes_dict_or_default(dict: Dictionary, default: Savable):
 		default.set(prop_name, bytes_to_var(dict[prop_name]))
 	return default
 	
-
 ## Try to load ever properties from the config
 static func load_from_config_or_default(config: ConfigFile, section_name: String, default: Savable) -> Savable:
 	for prop_name in default.properties():

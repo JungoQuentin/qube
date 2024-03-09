@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3 uid="uid://bg5lcoo8siwsu"]
+
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_7ro4u"]
+
+[resource]
+script = ExtResource("1_7ro4u")
+palette_name = "blue bird"
+player_color = Color(1, 1, 0.301961, 1)
+player_fade = false
+inner_light_color = Color(1, 1, 1, 1)
+background_color = Color(0.537255, 0.211765, 0.701961, 1)
+inner_light_fade = false
+fade_from = 0.5
+fade_to = 2.0
+fade_speed = 2.0
+normal_init_color = Color(0.941176, 0.827451, 1, 1)
+blocking_init_color = Color(1, 0.301961, 1, 1)
+single_cube_init_color = Color(0, 0.576471, 0.87451, 1)
+end_cube_init_color = Color(0.662745, 0.870588, 0.976471, 1)
+switch_cube_on_color = Color(1, 1, 0, 1)
+switch_cube_off_color = Color(0, 0, 0, 1)
+snow_ball_init_color = Color(1, 1, 1, 1)
+ice_cube_init_color = Color(0.529412, 0.807843, 0.980392, 0.686275)
+hole_cube_editor_color = Color(0.941176, 1, 1, 1)
+gate_init_color = Color(0.662745, 0.870588, 0.976471, 1)
+gate_won_color = Color(0.835294, 0.937255, 0.988235, 1)
+laser_cube_init_color = Color(0.941176, 0.501961, 0.501961, 1)
+cube_scale = 0.98

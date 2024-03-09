@@ -25,4 +25,4 @@ hole_cube_editor_color = Color(0.945098, 1, 1, 0.560784)
 gate_init_color = Color(0, 0.545098, 0.545098, 1)
 gate_won_color = Color(0, 0.745098, 0.745098, 1)
 laser_cube_init_color = Color(0.941176, 0.501961, 0.501961, 1)
-cube_scale = 0.97
+cube_scale = 0.98

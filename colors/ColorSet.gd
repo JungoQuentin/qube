@@ -2,7 +2,7 @@
 extends Resource
 class_name ColorSet
 
-const CURRENT_COLOR_SET = "res://colors/color_set_power.tres"
+const CURRENT_COLOR_SET = "res://colors/color_set_Grey+.tres"
 
 @export_category("Palette")
 @export var palette_name = "default"

@@ -3,6 +3,13 @@ class_name IceCube
 
 @onready var _level = get_tree().current_scene
 
+func _ready():
+	_mesh_instance.set_surface_override_material(0, load("res://src/level/cubeTypes/IceCubeMaterial.tres"))
+	super._ready()
+	_mesh = _mesh.duplicate()
+	_mesh_instance.mesh = _mesh
+	_mesh.size = Vector3.ONE
+
 # TODO is this fucked up ??
 ## Return the position of the next "non-sliding" block
 func get_end_slide(direction: Vector3, floor_direction: Vector3) -> Vector3:

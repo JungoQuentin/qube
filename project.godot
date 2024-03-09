@@ -165,5 +165,4 @@ locale/translations=PackedStringArray("res://assets_/trads.fr.translation", "res
 [rendering]
 
 occlusion_culling/bvh_build_quality=0
-renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

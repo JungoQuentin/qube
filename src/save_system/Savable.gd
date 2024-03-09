@@ -7,6 +7,7 @@ const BASE_REFC_PROPS = [&"RefCounted", &"script", &"Built-in script", &"Savable
 func properties():
 	return get_property_list() \
 		.filter(func(prop): return not prop["name"] in BASE_REFC_PROPS) \
+		.filter(func(prop): return not ".gd" in prop["name"]) \
 		.map(func(prop): return prop["name"])
 
 

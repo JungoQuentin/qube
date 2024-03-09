@@ -20,6 +20,7 @@ static var viewport_start_size := Vector2(
 static func _static_init():
 	## Init save file
 	if not FileAccess.file_exists(SAVE_PATH):
+		settings = Settings.new()
 		save()
 	if config.load(SAVE_PATH) != OK:
 		Utils.crash("problem loading the config file !")
@@ -32,7 +33,6 @@ static func _static_init():
 	settings = Settings.load_from_config_or_default(config, SETTINGS_SECTION_NAME, Settings.new())
 	save()
 	TranslationServer.set_locale(settings.locale)
-
 
 
 static func save():

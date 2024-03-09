@@ -1,25 +1,23 @@
 class_name LevelGate extends BaseLevel
 
+const INITIAL_USER_POSITION = Vector3(0, 0, 6)
 var level_gate_cubes: Array
+
 
 func _ready():
 	camera_controller = CameraController.new(self, CameraController.CameraMode.FIXED, 30)
 	super._ready()
-	if LevelManager.get_current_progression().global_position_entry_point.is_equal_approx(Transform3D.IDENTITY):
-		LevelManager.get_current_progression().global_position_entry_point = player.global_transform
-	else:
-		player.global_transform = LevelManager.get_current_progression().global_position_entry_point
+	LevelManager.get_current_progression().entry_point_state.apply(self, true)
 	camera_controller.player_want_to_move()
 	player.start_move.connect(_on_player_start_move)
 	level_gate_cubes = map_cube.get_children().filter(func(cube): return cube is LevelGateCube)
 	level_gate_cubes.map(func(cube: LevelGateCube): cube.player_touch.connect(func(): _on_player_touch_level_gate_cube(cube)))
 
 
-
 func _on_player_start_move():
-	# TODO round this up ?
-	LevelManager.get_current_progression().global_position_entry_point = player.global_transform
+	LevelManager.get_current_progression().entry_point_state = LevelState.from_level(self, true)
 	Save.save()
+
 
 func _on_player_touch_level_gate_cube(cube: LevelGateCube):
 	if cube.destination == null:

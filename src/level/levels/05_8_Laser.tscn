@@ -196,13 +196,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="@StaticBody3D@55626" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
-script = ExtResource("5_22ke3")
 
 [node name="@StaticBody3D@55627" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
 
 [node name="@StaticBody3D@55628" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
+script = ExtResource("5_22ke3")
 
 [node name="@StaticBody3D@55629" parent="MapCube" instance=ExtResource("3_3ry7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)

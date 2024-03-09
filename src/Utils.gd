@@ -65,6 +65,8 @@ func crash(message = ""):
 	for s in get_stack():
 		printerr(s)
 	printerr("=== quiting ===")
+	if not OS.has_feature("debug"):
+		OS.alert(message)
 	get_tree().quit()
 
 ## Crash when a function is not implemented

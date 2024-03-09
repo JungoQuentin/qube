@@ -29,10 +29,14 @@ func _ready():
 	Save.settings.apply(get_tree())
 	
 	## dbg
-	_init_dbg()
-	#_init_player_current_face()
-	#_init_action_stack_display()
-	_init_locker_display()
+	if OS.has_feature("debug"):
+		_init_dbg()
+		#_init_player_current_face()
+		#_init_action_stack_display()
+		_init_locker_display()
+	if OS.has_feature("early_access"):
+		_init_dbg()
+		_init_level_name()
 
 
 ## init the map by getting all the special cubes
@@ -151,6 +155,15 @@ func _add_locker_display(action: String, _index: int):
 	var new_label: Label = Label.new()
 	new_label.text = action
 	_locker_display.add_child(new_label)
+
+func _init_level_name():
+	var label = Label.new()
+	var n = get_tree().current_scene.scene_file_path
+	n = n.split("/")
+	n = n[n.size() - 1]
+	n = n.replace(".tscn", "")
+	label.text = n
+	_all_debug.add_child(label)
 
 
 #endregion

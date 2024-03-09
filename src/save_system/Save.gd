@@ -1,10 +1,9 @@
 class_name Save
 
-const SAVE_PATH = &"res://save.cfg"
 const SETTINGS_SECTION_NAME = &"settings"
 ## Number of progession slots
 const N_PROGRESSION = 3
-#const SAVE_PATH = &"user://save.cfg"
+static var SAVE_PATH = &"res://save.cfg" if OS.has_feature("debug") else &"user://save.cfg"
 static var config = ConfigFile.new()
 static var settings: Settings
 static var progressions: Array[Progression] = []

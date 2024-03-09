@@ -29,6 +29,7 @@ const CURRENT_COLOR_SET = "res://colors/color_set_power.tres"
 @export var ice_cube_init_color = Color.LIGHT_SKY_BLUE
 @export var hole_cube_editor_color = Color.AZURE
 @export var gate_init_color = Color.DARK_CYAN
+@export var gate_won_color = Color.AQUAMARINE
 @export var laser_cube_init_color = Color.LIGHT_CORAL
 @export_group("Others")
 @export_range(0, 1) var cube_scale: float = 0.965

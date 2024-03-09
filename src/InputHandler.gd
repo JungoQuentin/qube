@@ -14,6 +14,9 @@ func is_locked() -> bool:
 
 ##
 func _create_action_name(node: Node) -> String:
+	var stack = get_stack()
+	if stack.size() < 2:
+		return node.name
 	return node.name + "_" + get_stack()[2]["source"] + "_" + get_stack()[2]["function"]
 
 ##
@@ -61,6 +64,8 @@ func _process(_delta):
 		return
 
 	## Camera move and rotate
+	if get_tree().current_scene is LevelGate:
+		return
 	var camera_input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not camera_input.is_empty():
 		_add_action(_level.camera_controller)

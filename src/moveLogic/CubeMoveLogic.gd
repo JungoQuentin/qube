@@ -133,4 +133,4 @@ func can_roll() -> bool:
 
 func cant_roll():
 	print("cant roll anim !")
-	await Utils.sleep(0.5)
+	await Utils.sleep(0.01)

@@ -1,18 +1,20 @@
 class_name BaseLevel extends Node3D
 
+static var color_set: ColorSet
 @onready var player: Player = $Player
 @onready var map_cube: Node3D = $MapCube
 @onready var env_ligth: Node3D = preload("res://src/level/env/EnvLight.tscn").instantiate()
 @onready var action_system:= ActionSystem.new(self)
 var input_handler:= InputHandler.new()
 var camera_controller: CameraController
-var switch_cubes: Array
-var single_use_cubes: Array
-static var color_set: ColorSet
-var moving_cubes: Array
-var laser_cubes: Array
 var max_plus: Vector3
 var max_minus: Vector3
+var switch_cubes: Array
+var single_use_cubes: Array
+var moving_cubes: Array
+var laser_cubes: Array
+var hole_cubes: Array
+
 
 static func _static_init():
 	color_set = load(ColorSet.CURRENT_COLOR_SET)
@@ -27,10 +29,14 @@ func _ready():
 	Save.settings.apply(get_tree())
 	
 	## dbg
-	_init_dbg()
-	#_init_player_current_face()
-	#_init_action_stack_display()
-	_init_locker_display()
+	if OS.has_feature("debug"):
+		_init_dbg()
+		#_init_player_current_face()
+		#_init_action_stack_display()
+		_init_locker_display()
+	if OS.has_feature("early_access"):
+		_init_dbg()
+		_init_level_name()
 
 
 ## init the map by getting all the special cubes
@@ -40,6 +46,7 @@ func _init_map():
 	single_use_cubes = map_cube_children.filter(func(cube): return cube is SingleUseCube)
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube) # will also take LaserCube 
 	laser_cubes = map_cube_children.filter(func(cube): return cube is LaserCube)
+	hole_cubes = map_cube_children.filter(func(cube): return cube is HoleCube)
 	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene()))
 
 ## set max_plus and max_minus. This are vector3 that get the far away position from center, to get face
@@ -148,6 +155,15 @@ func _add_locker_display(action: String, _index: int):
 	var new_label: Label = Label.new()
 	new_label.text = action
 	_locker_display.add_child(new_label)
+
+func _init_level_name():
+	var label = Label.new()
+	var n = get_tree().current_scene.scene_file_path
+	n = n.split("/")
+	n = n[n.size() - 1]
+	n = n.replace(".tscn", "")
+	label.text = n
+	_all_debug.add_child(label)
 
 
 #endregion

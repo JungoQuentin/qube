@@ -52,10 +52,11 @@ func run_after_sleep(seconds: float, callback: Callable):
 	callback.call()
 
 ## from an array, create a dictionary where the key is the element of the array and the value, what you did with the predicate
-func arr_to_dict(array: Array, predicate: Callable):
+func arr_to_dict(array: Array, predicate_value: Callable, predicate_key: Callable = func(k): return k):
 	var dict = {}
 	for el in array:
-		dict[el] = predicate.call(el)
+		var key = predicate_key.call(el)
+		dict[key] = predicate_value.call(el)
 	return dict
 
 ## 
@@ -64,6 +65,8 @@ func crash(message = ""):
 	for s in get_stack():
 		printerr(s)
 	printerr("=== quiting ===")
+	if not OS.has_feature("debug"):
+		OS.alert(message)
 	get_tree().quit()
 
 ## Crash when a function is not implemented

@@ -6,9 +6,9 @@
 script = ExtResource("1_7ro4u")
 palette_name = "grey"
 player_color = Color(0, 0.705882, 0.847059, 1)
-player_fade = false
+player_scale = 0.95
 inner_light_color = Color(1, 1, 1, 1)
-background_color = Color(0.521569, 0.45098, 0.454902, 1)
+background_color = Color(0.521569, 0.521569, 0.521569, 1)
 inner_light_fade = false
 fade_from = 0.5
 fade_to = 2.0

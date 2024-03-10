@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3 uid="uid://pn5f1331s5ch"]
+
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_ie2lg"]
+
+[resource]
+script = ExtResource("1_ie2lg")
+palette_name = "grey"
+player_color = Color(0, 0.654902, 0.882353, 1)
+player_scale = 0.95
+inner_light_color = Color(1, 1, 1, 1)
+background_color = Color(0.027451, 0.309804, 0.341176, 1)
+inner_light_fade = false
+fade_from = 0.5
+fade_to = 2.0
+fade_speed = 2.0
+normal_init_color = Color(0.619608, 0.807843, 0.603922, 1)
+blocking_init_color = Color(0.454902, 0.647059, 0.498039, 1)
+single_cube_init_color = Color(0.662745, 0.662745, 0.662745, 1)
+end_cube_init_color = Color(0, 0.654902, 0.882353, 1)
+switch_cube_on_color = Color(1, 1, 0, 1)
+switch_cube_off_color = Color(0, 0, 0, 1)
+snow_ball_init_color = Color(1, 1, 1, 1)
+ice_cube_init_color = Color(0.529412, 0.807843, 0.980392, 1)
+hole_cube_editor_color = Color(0.941176, 1, 1, 1)
+gate_init_color = Color(0, 0.654902, 0.882353, 1)
+gate_won_color = Color(0, 0.654902, 0.882353, 1)
+laser_cube_init_color = Color(0.941176, 0.501961, 0.501961, 1)
+cube_scale = 0.98

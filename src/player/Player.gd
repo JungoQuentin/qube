@@ -20,6 +20,7 @@ func _ready():
 	add_child(joystick)
 	_level.player = self
 	mesh_instance.mesh.surface_get_material(0).albedo_color = _level.color_set.player_color
+	mesh_instance.mesh.size = Vector3.ONE * BaseLevel.color_set.player_scale
 	await Utils.wait_while(func(): return _level.camera_controller == null)
 	var floor_direction = _level.camera_controller.get_camera_basis() * Vector3.FORWARD
 	await get_tree().process_frame

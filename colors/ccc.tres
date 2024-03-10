@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ColorSet" load_steps=2 format=3 uid="uid://dieb7v323rfkw"]
+
+[ext_resource type="Script" path="res://colors/ColorSet.gd" id="1_3ac1g"]
+
+[resource]
+script = ExtResource("1_3ac1g")
+background_color = Color(0.427451, 0.407843, 0.458824, 1)
+saturation = 1.0
+inner_light_fade = true
+inner_light_color = Color(1, 1, 1, 1)
+fade_from = 0.5
+fade_to = 2.0
+fade_speed = 2.0
+cube_scale = 0.98
+player_scale = 0.95
+player_color = Color(0.898039, 0.596078, 0.607843, 1)
+end_cube_init_color = Color(1, 0.705882, 0.635294, 1)
+gate_init_color = Color(1, 0.705882, 0.635294, 1)
+gate_won_color = Color(1, 0.705882, 0.635294, 1)
+normal_init_color = Color(0.909804, 0.909804, 0.909804, 1)
+blocking_init_color = Color(0.67451, 0.67451, 0.67451, 1)
+single_cube_init_color = Color(0.529412, 0.807843, 0.980392, 1)
+snow_ball_init_color = Color(1, 1, 1, 1)
+ice_cube_init_color = Color(0.529412, 0.807843, 0.980392, 0.698039)
+laser_cube_init_color = Color(0.709804, 0.513726, 0.552941, 1)
+hole_cube_editor_color = Color(0.941176, 1, 1, 1)
+switch_cube_on_color = Color(1, 1, 0, 1)
+switch_cube_off_color = Color(0, 0, 0, 1)

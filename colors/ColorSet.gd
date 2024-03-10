@@ -2,38 +2,37 @@
 extends Resource
 class_name ColorSet
 
-const CURRENT_COLOR_SET = "res://colors/color_set_Grey+.tres"
+const CURRENT_COLOR_SET = "res://colors/ccc.tres"
 
-@export_category("Palette")
-@export var palette_name = "default"
-@export_subgroup("Control")
-@export_group("Colors")
-@export_subgroup("Player")
-@export var player_color = Color.WHITE
-@export var player_fade = false
-@export_subgroup("Environment")
-@export var inner_light_color = Color.WHITE
+
+@export_group("Environment")
 @export var background_color = Color.BLACK
+@export_range(0., 3.) var saturation = 1.0
+@export_subgroup("InnerLight")
 @export var inner_light_fade = false 
+@export var inner_light_color = Color.WHITE
 @export_range(0., 5.) var fade_from = 0.5
 @export_range(1., 10.) var fade_to = 2.
 @export_range(0.5, 10.) var fade_speed = 2.
-@export_subgroup("Cubes")
+@export_group("Scale")
+@export_range(0, 1) var cube_scale: float = 0.965
+@export_range(0, 1) var player_scale: float = 1
+@export_group("Player")
+@export var player_color = Color.WHITE
+@export var end_cube_init_color = Color.DARK_GRAY
+@export var gate_init_color = Color.DARK_CYAN
+@export var gate_won_color = Color.AQUAMARINE
+@export_group("Cubes")
 @export var normal_init_color = Color.REBECCA_PURPLE
 @export var blocking_init_color = Color.DARK_GRAY
 @export var single_cube_init_color = Color.DARK_GRAY
-@export var end_cube_init_color = Color.DARK_GRAY
-@export var switch_cube_on_color = Color.YELLOW
-@export var switch_cube_off_color = Color.BLACK
 @export var snow_ball_init_color = Color.WHITE
 @export var ice_cube_init_color = Color.LIGHT_SKY_BLUE
-@export var hole_cube_editor_color = Color.AZURE
-@export var gate_init_color = Color.DARK_CYAN
-@export var gate_won_color = Color.AQUAMARINE
 @export var laser_cube_init_color = Color.LIGHT_CORAL
-@export_group("Others")
-@export_range(0, 1) var cube_scale: float = 0.965
-
+@export_group(".")
+@export var hole_cube_editor_color = Color.AZURE
+@export var switch_cube_on_color = Color.YELLOW
+@export var switch_cube_off_color = Color.BLACK
 
 static func darker(_color: Color, _dark_factor: float=0.8, _saturation_factor: float=2):
 	return Color.from_hsv(_color.h, _color.s * _saturation_factor, _color.v * _dark_factor)

@@ -2,9 +2,13 @@ extends Node3D
 
 @onready var _level:= get_tree().current_scene
 @onready var _color_set = _level.color_set
+@onready var world_env: WorldEnvironment = $WorldEnvironment
 
 func _ready():
-	$WorldEnvironment.environment.background_color = _color_set.background_color
+	world_env.environment.background_color = _color_set.background_color
+	world_env.environment.adjustment_enabled = true
+	world_env.environment.adjustment_saturation = _color_set.saturation
+	
 	if _color_set.inner_light_fade:
 		$lights/inner.light_color = _color_set.inner_light_color
 		_start_inner_light_animation()

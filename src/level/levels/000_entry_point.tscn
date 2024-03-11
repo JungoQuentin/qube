@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ordqk1kwf0k0"]
+[gd_scene load_steps=64 format=3 uid="uid://ordqk1kwf0k0"]
 
 [ext_resource type="Script" path="res://src/level/LevelGate.gd" id="1_w86cv"]
 [ext_resource type="PackedScene" uid="uid://34cx6hfldymv" path="res://src/player/player.tscn" id="2_glkq2"]
@@ -35,24 +35,24 @@
 [ext_resource type="PackedScene" uid="uid://di1i68p22pp0x" path="res://src/level/levels/02_11_Trou.tscn" id="22_plimo"]
 [ext_resource type="PackedScene" uid="uid://xuqfnkigy4pj" path="res://src/level/levels/02_12_Trou.tscn" id="23_ppr03"]
 [ext_resource type="PackedScene" uid="uid://dghhoyy0c4ctj" path="res://src/level/levels/02_13_Trou.tscn" id="25_76hpn"]
-[ext_resource type="PackedScene" uid="uid://bgl3stbsy33d8" path="res://src/level/levels/04_7_One.tscn" id="26_n8g51"]
-[ext_resource type="PackedScene" uid="uid://by1s5bst7x0kw" path="res://src/level/levels/04_6_One.tscn" id="29_n8wht"]
-[ext_resource type="PackedScene" uid="uid://pmk57gxrnd1l" path="res://src/level/levels/04_5_One.tscn" id="33_1kv4q"]
+[ext_resource type="PackedScene" uid="uid://bgl3stbsy33d8" path="res://src/level/levels/04_7_One+.tscn" id="26_n8g51"]
+[ext_resource type="PackedScene" uid="uid://by1s5bst7x0kw" path="res://src/level/levels/04_6_One+.tscn" id="29_n8wht"]
+[ext_resource type="PackedScene" uid="uid://pmk57gxrnd1l" path="res://src/level/levels/04_5_One+.tscn" id="33_1kv4q"]
 [ext_resource type="PackedScene" uid="uid://dxtg8ugpm85ir" path="res://src/level/levels/04_1_One.tscn" id="36_jxt1y"]
 [ext_resource type="PackedScene" uid="uid://dmj8512ujgcx1" path="res://src/level/levels/03_1_Glace.tscn" id="37_b3dlm"]
 [ext_resource type="PackedScene" uid="uid://jcseft7h6ph2" path="res://src/level/levels/03_2_Glace.tscn" id="37_t5toj"]
 [ext_resource type="PackedScene" uid="uid://dyndrjykpfxi6" path="res://src/level/levels/04_13_One+.tscn" id="38_ol0hg"]
 [ext_resource type="PackedScene" uid="uid://dus6ldfc5834r" path="res://src/level/levels/03_7_Glace+.tscn" id="39_gj5rg"]
-[ext_resource type="PackedScene" uid="uid://coqcy24xxfx3b" path="res://src/level/levels/04_4_One.tscn" id="39_w5qvv"]
+[ext_resource type="PackedScene" uid="uid://coqcy24xxfx3b" path="res://src/level/levels/04_4_One+.tscn" id="39_w5qvv"]
 [ext_resource type="PackedScene" uid="uid://b31gtgmjborqy" path="res://src/level/levels/03_4_Glace.tscn" id="40_q2q0r"]
-[ext_resource type="PackedScene" uid="uid://cfe3k17qg7vhu" path="res://src/level/levels/04_3_One.tscn" id="41_dix2l"]
+[ext_resource type="PackedScene" uid="uid://cfe3k17qg7vhu" path="res://src/level/levels/04_3_One+.tscn" id="41_dix2l"]
 [ext_resource type="PackedScene" uid="uid://t2iff0ya32dv" path="res://src/level/levels/03_3_Glace.tscn" id="41_ieicu"]
 [ext_resource type="PackedScene" uid="uid://biyypl8askt68" path="res://src/level/levels/03_8_Glace+.tscn" id="42_63uxc"]
 [ext_resource type="PackedScene" uid="uid://dxcp2le8lny5y" path="res://src/level/levels/04_15_One+.tscn" id="42_tph58"]
 [ext_resource type="PackedScene" uid="uid://djf5done1iyqc" path="res://src/level/levels/03_10_Glace+AVérif.tscn" id="43_83piq"]
 [ext_resource type="PackedScene" uid="uid://bensyvll423yi" path="res://src/level/levels/04_14_One+.tscn" id="43_sivkx"]
 [ext_resource type="PackedScene" uid="uid://bqh5gqchd7xx0" path="res://src/level/levels/03_9_Glace+.tscn" id="44_t32dq"]
-[ext_resource type="PackedScene" uid="uid://d2gits7gmrrt5" path="res://src/level/levels/04_2_One.tscn" id="45_4im1h"]
+[ext_resource type="PackedScene" uid="uid://d2gits7gmrrt5" path="res://src/level/levels/04_2_One+.tscn" id="45_4im1h"]
 [ext_resource type="PackedScene" uid="uid://ct6ascg0w608g" path="res://src/level/levels/03_6_Glace.tscn" id="45_nqpxp"]
 [ext_resource type="PackedScene" uid="uid://cjki4tsrcd7wq" path="res://src/level/levels/03_18_PlatGlace+.tscn" id="46_gvoj5"]
 [ext_resource type="PackedScene" uid="uid://cr5ilqwag3vx5" path="res://src/level/levels/03_5_Glace.tscn" id="46_uiqkh"]
@@ -62,6 +62,7 @@
 [ext_resource type="PackedScene" uid="uid://bd4bt8h4c0dma" path="res://src/level/levels/03_13_Glace+.tscn" id="51_x34v7"]
 [ext_resource type="PackedScene" uid="uid://bpe6b1eektqqh" path="res://src/level/levels/03_15_Glace+.tscn" id="52_gy6x8"]
 [ext_resource type="PackedScene" uid="uid://bua4eea42bjmy" path="res://src/level/levels/03_14_Glace+.tscn" id="53_4jl8s"]
+[ext_resource type="PackedScene" uid="uid://vxxxrwvioo22" path="res://src/level/levels/05_8_Laser.tscn" id="58_r2fpd"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_w86cv")
@@ -378,8 +379,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
 
 [node name="@StaticBody3D@19388" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
-script = ExtResource("5_odgwg")
-on = true
+script = ExtResource("6_0gunp")
+destination = null
+dependency = ExtResource("10_icv2r")
 
 [node name="@StaticBody3D@19389" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, -5)
@@ -1073,8 +1075,9 @@ script = ExtResource("10_0nruc")
 
 [node name="@StaticBody3D@19614" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 5)
-script = ExtResource("5_odgwg")
-on = true
+script = ExtResource("6_0gunp")
+destination = null
+dependency = null
 
 [node name="@StaticBody3D@19615" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, -5)
@@ -2099,8 +2102,9 @@ cubeType = 4
 
 [node name="_StaticBody3D_19438" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 0)
-script = ExtResource("5_odgwg")
-on = true
+script = ExtResource("6_0gunp")
+destination = null
+dependency = ExtResource("8_0fa6n")
 
 [node name="_StaticBody3D_19439" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 1)
@@ -2320,8 +2324,9 @@ cubeType = 4
 
 [node name="_StaticBody3D_19633" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
-script = ExtResource("5_odgwg")
-on = true
+script = ExtResource("6_0gunp")
+destination = null
+dependency = ExtResource("49_pbybt")
 
 [node name="_StaticBody3D_19634" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -4)
@@ -2342,8 +2347,6 @@ dependency = ExtResource("49_pbybt")
 
 [node name="_StaticBody3D_19638" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-script = ExtResource("5_odgwg")
-on = true
 
 [node name="_StaticBody3D_19639" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
@@ -2363,8 +2366,9 @@ script = ExtResource("10_0nruc")
 
 [node name="_StaticBody3D_19643" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
-script = ExtResource("5_odgwg")
-on = true
+script = ExtResource("6_0gunp")
+destination = null
+dependency = ExtResource("58_r2fpd")
 
 [node name="_StaticBody3D_19673" parent="MapCube" instance=ExtResource("3_l3bbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -5)

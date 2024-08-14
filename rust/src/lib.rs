@@ -1,3 +1,5 @@
+mod level_manager;
+
 use godot::prelude::*;
 
 struct QubeRs;

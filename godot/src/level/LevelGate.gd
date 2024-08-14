@@ -25,4 +25,4 @@ func _on_player_touch_level_gate_cube(cube: LevelGateCube):
 	print("go in level animation !") # TODO
 	input_handler._add_action(self)
 	await Utils.sleep(1.)
-	LevelManager.goto_level_by_packed(cube.destination, get_tree())
+	get_tree().change_scene_to_packed(cube.destination)

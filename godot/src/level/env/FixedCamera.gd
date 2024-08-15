@@ -23,7 +23,7 @@ func rotate_(axis: Vector3):
 func _move(axis: Vector3, immediate:= false):
 	var parent = get_parent()
 	if not axis.is_normalized():
-		Utils.crash(["axis should be normalized !", axis])
+		UtilsRS.crash(["axis should be normalized !", axis])
 		return
 	_is_moving = true
 	var pivot = Node3D.new()

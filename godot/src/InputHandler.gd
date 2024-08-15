@@ -23,7 +23,7 @@ func _create_action_name(node: Node) -> String:
 func _add_action(node: Node) -> bool:
 	var action_name = _create_action_name(node)
 	if _action_stack.has(action_name):
-		Utils.crash(["You cannot add the same action !"])
+		UtilsRS.crash(["You cannot add the same action !"])
 		return false
 	_action_stack.push_back(action_name)
 	return true
@@ -32,7 +32,7 @@ func _add_action(node: Node) -> bool:
 func _end_action(node: Node) -> bool:
 	var action_name = _create_action_name(node)
 	if not _action_stack.has(action_name):
-		Utils.crash(["You cannot end unexisting action !"])
+		UtilsRS.crash(["You cannot end unexisting action !"])
 		return false
 	_action_stack.remove_at(_action_stack.find(action_name))
 	return true
@@ -55,7 +55,7 @@ func _process(_delta):
 		## security
 		var player_face = _level.object_current_face(_level.player)
 		if not _level.camera_controller._is_front_face(player_face):
-			#Utils.crash("gatcha !")
+			#UtilsRS.crash(["gatcha !"])
 			return
 		
 		_add_action(_level.player)

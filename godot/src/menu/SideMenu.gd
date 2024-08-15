@@ -76,7 +76,7 @@ func _click_button(button_name: String):
 	## go to submenu
 	if button_name in CHANGE_MENU_BUTTONS_NAME:
 		if not find_child(button_name, false):
-			Utils.unimplemented(button_name)
+			UtilsRS.unimplemented(button_name)
 			return
 		current_menu.hide()
 		current_menu = find_child(button_name, false)
@@ -147,7 +147,7 @@ func _change_slider(new_value, setting_name:= ""):
 		Save.settings.apply(get_tree())
 		Save.save()
 	else:
-		Utils.unimplemented()
+		UtilsRS.unimplemented(null)
 
 #endregion
 

@@ -1,4 +1,7 @@
-use godot::prelude::*;
+use godot::{
+    classes::{Engine, Os},
+    prelude::*,
+};
 
 #[derive(GodotClass)]
 #[class(base=Node)]
@@ -16,6 +19,21 @@ impl INode for UtilsRS {
 macro_rules! can_cast {
     ($node:expr, $ty:ty) => {
         $node.clone().try_cast::<$ty>().is_ok()
+    };
+}
+
+macro_rules! is_godot_dbg {
+    () => {
+        Os::singleton().has_feature("debug".to_godot())
+    };
+}
+
+macro_rules! get_tree {
+    () => {
+        Engine::singleton()
+            .get_main_loop()
+            .expect("get_tree!() - no main_loop")
+            .cast::<SceneTree>()
     };
 }
 
@@ -57,5 +75,28 @@ impl UtilsRS {
                 new_parent.add_child(node);
             }
         }
+    }
+
+    #[func]
+    fn crash(messages: Vec<Variant>) {
+        godot_error!("{:?}", messages);
+        godot_error!("=== quiting ===");
+        // TODO add stack tree
+        if is_godot_dbg!() {
+            Os::singleton().alert(
+                messages
+                    .into_iter()
+                    .map(|m| m.to_string())
+                    .collect::<Vec<String>>()
+                    .join(" ")
+                    .to_godot(),
+            );
+        }
+        get_tree!().quit();
+    }
+
+    #[func]
+    fn unimplemented(message: Variant) {
+        Self::crash(vec!["unimplemented".to_variant(), message]);
     }
 }

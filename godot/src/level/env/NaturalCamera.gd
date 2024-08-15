@@ -22,7 +22,7 @@ func _process(_delta):
 ## Called by the fixed camera
 func transition_to(goal_camera: Camera3D):
 	if not _is_moving.is_empty():
-		Utils.crash(["Already moving", _is_moving])
+		UtilsRS.crash(["Already moving", _is_moving])
 	_set_moving()
 	var tween = create_tween()
 	var start_basis = basis
@@ -40,7 +40,7 @@ func transition_to(goal_camera: Camera3D):
 
 func transition_back():
 	if not _is_moving.is_empty():
-		Utils.crash(["Already moving", _is_moving])
+		UtilsRS.crash(["Already moving", _is_moving])
 	_set_moving()
 	var goal = _global_pos_zenith_player()
 	var tween = create_tween()

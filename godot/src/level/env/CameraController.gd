@@ -104,7 +104,7 @@ func player_want_to_move():
 func _camera_to_player_face():
 	var player_face = _level.object_current_face(_level.player)
 	if _is_front_face(player_face):
-		Utils.crash(["Logic error: already front the player"])
+		UtilsRS.crash(["Logic error: already front the player"])
 		return
 	match _camera_mode:
 		CameraMode.FIXED:

@@ -75,7 +75,7 @@ func _roll():
 	start_move.emit()
 	await move_logic.roll()
 	if move_logic.floor_goal == null:
-		Utils.crash("floor_goal does not exist")
+		UtilsRS.crash(["floor_goal does not exist"])
 		return
 	move_logic.floor_goal.on_touch()
 	end_move.emit()

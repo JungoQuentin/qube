@@ -14,7 +14,7 @@ func _ready():
 	var end_cubes = map_cube.get_children().filter(func(cube): return cube is EndCube)
 	if end_cubes.size() != 1:
 		OS.alert("Il ne doit y avoir qu'un fin !", "oups")
-		Utils.crash(["Il ne doit y avoir qu'un fin !"])
+		UtilsRS.crash(["Il ne doit y avoir qu'un fin !"])
 		return
 	end_cube = end_cubes[0]
 	

@@ -62,7 +62,7 @@ func roll():
 
 ## Reset the pivot and rotator. Only for moving cubes and player
 func remove_pivot():
-	Utils.switch_parent(_object, _level, true)
+	UtilsRS.switch_parent_keep_global_transform(_object, _level)
 	_pivot.queue_free()
 
 
@@ -75,7 +75,7 @@ func _transfert_in_pivot():
 	_level.add_child(_pivot)
 	_pivot.global_position = _object.global_position
 	_pivot.position += _direction / 2 + _floor_direction / 2
-	Utils.switch_parent(_object, _pivot, true)
+	UtilsRS.switch_parent_keep_global_transform(_object, _pivot)
 
 
 func _new_roll():

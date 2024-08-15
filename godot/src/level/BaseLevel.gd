@@ -47,7 +47,7 @@ func _init_map():
 	moving_cubes = map_cube_children.filter(func(cube): return cube is MovingCube) # will also take LaserCube 
 	laser_cubes = map_cube_children.filter(func(cube): return cube is LaserCube)
 	hole_cubes = map_cube_children.filter(func(cube): return cube is HoleCube)
-	moving_cubes.map(func(cube): Utils.switch_parent(cube, get_tree().get_current_scene(), false))
+	moving_cubes.map(func(cube): UtilsRS.switch_parent(cube, get_tree().get_current_scene()))
 
 ## set max_plus and max_minus. This are vector3 that get the far away position from center, to get face
 func _get_max():

@@ -22,18 +22,6 @@ func get_raycast_collider(parent: Node3D, _position: Vector3, _target_position: 
 	new_raycast.queue_free()
 	return collider
 
-## Change the parent of a node and keep the global transform if keep_global is true
-func switch_parent(node: Node, new_parent, keep_global: bool):
-	if not node.is_inside_tree():
-		return
-	var g = node.global_transform
-	var old_parent = node.get_parent()
-	old_parent.remove_child(node)
-	new_parent.add_child(node)
-	if keep_global:
-		node.global_transform = g
-	return old_parent
-
 ## Returns the first pressed action in the array. If none is pressed, returns an empty string
 func is_one_action_pressed(actions: Array[String]) -> String:
 	for action in actions:

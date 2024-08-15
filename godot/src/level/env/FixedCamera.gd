@@ -28,7 +28,7 @@ func _move(axis: Vector3, immediate:= false):
 	_is_moving = true
 	var pivot = Node3D.new()
 	parent.add_child(pivot)
-	Utils.switch_parent(self, pivot, true)
+	UtilsRS.switch_parent_keep_global_transform(self, pivot)
 	var original_basis = pivot.basis
 	var goal_basis = pivot.basis.rotated(axis, PI / 2)
 	if immediate:
@@ -37,6 +37,6 @@ func _move(axis: Vector3, immediate:= false):
 		var _tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 		_tween.tween_method(func(t): pivot.basis = original_basis.slerp(goal_basis, t), 0., 1., DURATION)
 		await _tween.finished
-	Utils.switch_parent(self, parent, true)
+	UtilsRS.switch_parent_keep_global_transform(self, parent)
 	pivot.free()
 	_is_moving = false

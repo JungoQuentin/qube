@@ -46,17 +46,3 @@ func arr_to_dict(array: Array, predicate_value: Callable, predicate_key: Callabl
 		var key = predicate_key.call(el)
 		dict[key] = predicate_value.call(el)
 	return dict
-
-## 
-func crash(message = ""):
-	printerr(message)
-	for s in get_stack():
-		printerr(s)
-	printerr("=== quiting ===")
-	if not OS.has_feature("debug"):
-		OS.alert(message)
-	get_tree().quit()
-
-## Crash when a function is not implemented
-func unimplemented(message = ""):
-	crash("not implemented: " + message)

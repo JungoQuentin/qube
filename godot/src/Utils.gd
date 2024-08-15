@@ -23,7 +23,7 @@ func get_raycast_collider(parent: Node3D, _position: Vector3, _target_position: 
 	return collider
 
 ## Change the parent of a node and keep the global transform if keep_global is true
-func switch_parent(node: Node, new_parent, keep_global=false):
+func switch_parent(node: Node, new_parent, keep_global: bool):
 	if not node.is_inside_tree():
 		return
 	var g = node.global_transform

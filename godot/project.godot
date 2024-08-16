@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Utils="*res://src/Utils.gd"
 SideMenu="*res://src/menu/SideMenu.tscn"
 
 [display]

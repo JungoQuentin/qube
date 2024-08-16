@@ -9,7 +9,7 @@ var hole_cubes_state: Dictionary
 var moving_cubes_in_a_hole: Dictionary
 
 
-static func from_level(level: BaseLevel, for_save:= false):
+static func from_level(level: BaseLevel, for_save: bool):
 	return LevelState.new(
 		level.player.global_transform,
 		Utils.arr_to_dict(level.moving_cubes, func(c): return c.global_transform, func(k): return k.name if for_save else k),

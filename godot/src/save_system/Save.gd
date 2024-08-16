@@ -21,24 +21,24 @@ static func _static_init():
 	if not FileAccess.file_exists(SAVE_PATH):
 		settings = Settings.new()
 		save()
-	if config.load(SAVE_PATH) != OK:
-		Utils.crash("problem loading the config file !")
+	if Save.config.load(SAVE_PATH) != OK:
+		UtilsRS.crash(["problem loading the config file !"])
 		return
 	
 	## Load progressions and settings
 	for i in range(N_PROGRESSION):
 		var progression = Progression.load_from_config_or_default(Save.config, _get_progression_section_name(i), Progression.new())
 		progressions.push_back(progression)
-	settings = Settings.load_from_config_or_default(config, SETTINGS_SECTION_NAME, Settings.new())
+	settings = Settings.load_from_config_or_default(Save.config, SETTINGS_SECTION_NAME, Settings.new())
 	save()
 	TranslationServer.set_locale(settings.locale)
 
 
 static func save():
-	settings.save_to_config(config, SETTINGS_SECTION_NAME)
+	settings.save_to_config(Save.config, SETTINGS_SECTION_NAME)
 	for i in range(progressions.size()):
-		progressions[i].save_to_config(config, _get_progression_section_name(i))
-	config.save(SAVE_PATH)
+		progressions[i].save_to_config(Save.config, _get_progression_section_name(i))
+	Save.config.save(SAVE_PATH)
 
 
 static func _get_progression_section_name(index: int) -> String:

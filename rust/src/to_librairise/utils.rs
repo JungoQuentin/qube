@@ -22,6 +22,15 @@ macro_rules! can_cast {
     };
 }
 
+macro_rules! internal_switch_parent_keep_global_transform {
+    ($node:expr, $new_parent:expr, $ty:ty) => {
+        let mut node_d: Gd<$ty> = $node.clone().cast();
+        let global_transform = node_d.get_global_transform();
+        UtilsRS::switch_parent($node, $new_parent);
+        node_d.set_global_transform(global_transform);
+    };
+}
+
 macro_rules! is_godot_dbg {
     () => {
         Os::singleton().has_feature("debug".to_godot())
@@ -43,15 +52,9 @@ impl UtilsRS {
     #[func]
     fn switch_parent_keep_global_transform(node: Gd<Node>, new_parent: Gd<Node>) {
         if can_cast!(node, Node2D) {
-            let mut node2d: Gd<Node2D> = node.clone().cast();
-            let global_transform = node2d.get_global_transform();
-            UtilsRS::switch_parent(node, new_parent);
-            node2d.set_global_transform(global_transform);
+            internal_switch_parent_keep_global_transform!(node, new_parent, Node2D);
         } else if can_cast!(node, Node3D) {
-            let mut node3d: Gd<Node3D> = node.clone().cast();
-            let global_transform = node3d.get_global_transform();
-            UtilsRS::switch_parent(node, new_parent);
-            node3d.set_global_transform(global_transform);
+            internal_switch_parent_keep_global_transform!(node, new_parent, Node3D);
         } else {
             godot_warn!("Utils::switch_parent_keep_global_transform - node as no transform");
             UtilsRS::switch_parent(node, new_parent);

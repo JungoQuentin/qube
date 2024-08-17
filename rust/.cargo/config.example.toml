@@ -1,0 +1,3 @@
+[env]
+GODOT4_BIN = { value = "/usr/local/bin/godot", force = true }
+LLVM_PATH = { value = "/Library/Developer/CommandLineTools/usr/bin/clang", force = true }

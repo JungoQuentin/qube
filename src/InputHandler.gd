@@ -58,8 +58,11 @@ func _process(_delta):
 		await _level.player.handle_input(player_input)
 		_end_action(_level.player)
 		return
-
+	
+	
 	## Camera move and rotate
+	if _level.is_level_gate:
+		return
 	var camera_input = Utils.is_one_action_pressed(["camera_top", "camera_bottom", "camera_right", "camera_left", "rotate_right", "rotate_left"])
 	if not camera_input.is_empty():
 		_add_action(_level.camera_controller)

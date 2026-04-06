@@ -10,6 +10,7 @@
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_s0dva")
+_camera_distance = 12.0
 
 [node name="Player" parent="." instance=ExtResource("2_382q4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
